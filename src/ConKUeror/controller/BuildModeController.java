@@ -1,4 +1,4 @@
-package controller;
+package src.ConKUeror.controller;
 
 public class BuildModeController {
     
