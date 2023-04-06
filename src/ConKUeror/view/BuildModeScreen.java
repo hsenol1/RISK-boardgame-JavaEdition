@@ -2,6 +2,7 @@ package src.ConKUeror.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class BuildModeScreen extends JFrame {
     
@@ -12,9 +13,11 @@ public class BuildModeScreen extends JFrame {
     private JComboBox<Integer> playerNumberBox;
     private JComboBox<Integer> botNumberBox;
 
-    private Integer[] numbers = {1, 2, 3, 4, 5, 6};
+    private Integer[] numbers1 = {2, 3, 4, 5, 6};
+    private Integer[] numbers2 = {1, 2, 3, 4, 5};
 
     public BuildModeScreen() {
+
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -23,11 +26,11 @@ public class BuildModeScreen extends JFrame {
 
         setTitle("Building Mode");
 
-        playerNumberLabel = new JLabel("Number of players:");
+        playerNumberLabel = new JLabel("Number of total players:");
         botNumberLabel = new JLabel("Number of bots among the players:");
 
-        playerNumberBox = new JComboBox<>(numbers);
-        botNumberBox = new JComboBox<>(numbers);
+        playerNumberBox = new JComboBox<>(numbers1);
+        botNumberBox = new JComboBox<>(numbers2);
 
         confirmButton = new JButton("Confirm");
         helpButton = new JButton("Help");
@@ -39,6 +42,12 @@ public class BuildModeScreen extends JFrame {
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.insets = new Insets(10, 10, 10, 10);
+
+        Font font = new Font("Arial", Font.PLAIN, 14);
+        playerNumberLabel.setFont(font);
+        botNumberLabel.setFont(font);
+        playerNumberBox.setFont(font);
+        botNumberBox.setFont(font);
 
         buildModePanel.add(playerNumberLabel, gbc);
 
@@ -66,8 +75,58 @@ public class BuildModeScreen extends JFrame {
 
         setSize(400, 200);
         setLocationRelativeTo(null); 
+        this.setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    public int getPlayerNumberComboboxValue() {
+
+        String str = playerNumberBox.getSelectedItem().toString();
+
+        return Integer.parseInt(str);
+
+
+    }
+
+    public int getBotNumberComboboxValue() {
+
+        String str = botNumberBox.getSelectedItem().toString();
+
+        return Integer.parseInt(str);
+
+
+    }
+
+    public String openPanelForPlayerDetail(int i) {
+        System.out.println(i);
+        JTextField textField = new JTextField();
+
+        Object[] message = {
+
+            String.format("Enter player %d name:", i), textField 
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Name Entry", JOptionPane.OK_CANCEL_OPTION);
+      
+        return textField.getText();
+
+    }
+
+   
+
+
+
+
+    public void addConfirmButtonListener(ActionListener confirmButtonListener) {
+
+        confirmButton.addActionListener(confirmButtonListener);
+        
+    }
+    public void addHelpButtonListener(ActionListener helpButtonListener) {
+
+        helpButton.addActionListener(helpButtonListener);
+        
     }
 
   
