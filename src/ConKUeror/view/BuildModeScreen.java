@@ -1,10 +1,18 @@
 package src.ConKUeror.view;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.event.*;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class BuildModeScreen extends JFrame {
+
+    private BufferedImage worldMap;
+    private int width, height;
     
     private JPanel buildModePanel;
     private JLabel playerNumberLabel, botNumberLabel;
@@ -129,6 +137,85 @@ public class BuildModeScreen extends JFrame {
         
     }
 
-  
+    public static class ResponsiveImage extends Frame implements MouseListener {
+        private BufferedImage img;
+        private int width, height;
+
+        public ResponsiveImage(String filename) {
+            super("ConKUeror");
+            try {
+                img = ImageIO.read(new File(filename));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            width = img.getWidth();
+            height = img.getHeight();
+            setSize(width, height);
+            addMouseListener(this);
+            setVisible(true);
+            addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    dispose();
+                    System.exit(0);
+                }
+            });
+        }
+
+        public void paint(Graphics g) {
+            g.drawImage(img, 0, 0, null);
+        }
+        public void mouseMoved(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                int pixel = img.getRGB(x, y);
+                int alpha = (pixel >> 24) & 0xff;
+                int red = (pixel >> 16) & 0xff;
+                int green = (pixel >> 8) & 0xff;
+                int blue = (pixel) & 0xff;
+                if (alpha != 0) {
+                    highlightSameColorPixels(x, y, red, green, blue);
+                }
+            }
+
+            private void highlightSameColorPixels(int x, int y, int red, int green, int blue) {
+                int pixel = img.getRGB(x, y);
+                int alpha = (pixel >> 24) & 0xff;
+                if (alpha == 0) {
+                    return;
+                }
+                int currentRed = (pixel >> 16) & 0xff;
+                int currentGreen = (pixel >> 8) & 0xff;
+                int currentBlue = (pixel) & 0xff;
+                if (currentRed == red && currentGreen == green && currentBlue == blue) {
+                    img.setRGB(x, y, new Color(153, 50, 204, alpha).getRGB());
+                    highlightSameColorPixels(x + 1, y, red, green, blue);
+                    highlightSameColorPixels(x - 1, y, red, green, blue);
+                    highlightSameColorPixels(x, y + 1, red, green, blue);
+                    highlightSameColorPixels(x, y - 1, red, green, blue);
+                }
+            }
+
+
+
+        public void mouseClicked(MouseEvent e) {
+            int x = e.getX();
+            int y = e.getY();
+            int pixel = img.getRGB(x, y);
+            int red = (pixel >> 16) & 0xff;
+            int green = (pixel >> 8) & 0xff;
+            int blue = (pixel) & 0xff;
+            if (!(red == 63 && green == 72 && blue == 204)) {
+                System.out.println("You clicked on a responsive pixel!");
+                // Do whatever you want to do when a responsive pixel is clicked
+            }
+        }
+
+        public void mouseEntered(MouseEvent e) {}
+        public void mouseExited(MouseEvent e) {}
+        public void mousePressed(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {}
+            }
+
+    
 }
 

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import src.ConKUeror.model.BuildMode;
 import src.ConKUeror.model.Player;
 import src.ConKUeror.view.BuildModeScreen;
+import src.ConKUeror.view.BuildModeScreen.ResponsiveImage;
 
 public class BuildModeController {
     
@@ -20,6 +21,7 @@ private BuildModeScreen buildModeScreen;
 
         this.buildMode = bMode;
         this.buildModeScreen = bModeScreen;
+        
 
 
 
@@ -68,6 +70,10 @@ private BuildModeScreen buildModeScreen;
                     System.out.println(player.getName());
                 }
                 
+            }
+
+            if (index == 0) {
+                ResponsiveImage startMode = new ResponsiveImage("src\\images\\worldMap.png");
             }
             
 		
