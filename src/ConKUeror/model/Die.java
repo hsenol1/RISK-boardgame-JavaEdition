@@ -28,16 +28,19 @@ public class Die {
         return random.nextInt(1,7);
     }
 
-    public ArrayList<Integer> rollForAttack(int n)
-    {
-        ArrayList<Integer> rollResults = new ArrayList<Integer>();
+    public boolean rollForAttack(int army1, int army2) {
+        while (army1 > 0 && army2 > 0) {
+            int roll1 = rollDie();
+            int roll2 = rollDie();
 
-        for (int i = 0; i<n; i++)
-        {
-            rollResults.add(rollDie());
+            if (roll1 > roll2) {
+                army2--;
+            } else {
+                army1--;
+            }
         }
-        return rollResults;
+
+        return army2 == 0;
     }
-   
     
 }
