@@ -13,8 +13,14 @@ public void deleteCards(Card c[]) {
         p.getCards().remove(c1);
         
     }
-
-
-
 }
+
+    public void insertArmies(Army a[]) {
+
+        for (Army a1: a) {
+        
+        p.getArmies().add(a1);
+        
+        }
+    }
 }
