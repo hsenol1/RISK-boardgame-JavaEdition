@@ -73,7 +73,7 @@ private BuildModeScreen buildModeScreen;
             }
 
             else if (index == 0) {
-                ResponsiveImage startMode = new ResponsiveImage("src\\images\\worldMap.png");
+                ResponsiveImage startMode = new ResponsiveImage("src/images/worldMap.png");
             }
             
 		
