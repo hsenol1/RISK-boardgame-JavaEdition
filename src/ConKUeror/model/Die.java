@@ -8,6 +8,7 @@ public class Die {
     private static Die dieInstance = null;
 
     private Random random;
+    private int faceValue;
 
     private Die()
     {
@@ -23,24 +24,16 @@ public class Die {
         return dieInstance;
     }
 
-    public int rollDie()
+    public void rollDie()
     {
-        return random.nextInt(1,7);
+        faceValue =  random.nextInt(1,7);
     }
 
-    public boolean rollForAttack(int army1, int army2) {
-        while (army1 > 0 && army2 > 0) {
-            int roll1 = rollDie();
-            int roll2 = rollDie();
+    public int getFaceValue() {
 
-            if (roll1 > roll2) {
-                army2--;
-            } else {
-                army1--;
-            }
-        }
-
-        return army2 == 0;
+        return faceValue;
     }
+
+    
     
 }
