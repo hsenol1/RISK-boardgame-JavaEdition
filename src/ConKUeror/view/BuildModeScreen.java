@@ -25,7 +25,63 @@ public class BuildModeScreen extends JFrame {
     private Integer[] numbers2 = {1, 2, 3, 4, 5};
 
     public BuildModeScreen() {
+            initGUI();
+        
+    }
 
+
+   
+
+        public int getPlayerNumberComboboxValue() {
+
+        String str = playerNumberBox.getSelectedItem().toString();
+
+        return Integer.parseInt(str);
+
+
+    }
+
+
+    public int getBotNumberComboboxValue() {
+
+        String str = botNumberBox.getSelectedItem().toString();
+
+        return Integer.parseInt(str);
+
+
+    }
+
+    public String openPanelForPlayerDetail(int i) {
+        System.out.println(i);
+        JTextField textField = new JTextField();
+
+        Object[] message = {
+
+            String.format("Enter player %d name:", i), textField 
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Name Entry", JOptionPane.OK_CANCEL_OPTION);
+      
+        return textField.getText();
+
+    }
+
+   
+
+
+
+
+    public void addConfirmButtonListener(ActionListener confirmButtonListener) {
+
+        confirmButton.addActionListener(confirmButtonListener);
+        
+    }
+    public void addHelpButtonListener(ActionListener helpButtonListener) {
+
+        helpButton.addActionListener(helpButtonListener);
+        
+    }
+    public void initGUI() {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -80,61 +136,11 @@ public class BuildModeScreen extends JFrame {
         buildModePanel.add(buttonPanel, gbc);
 
         add(buildModePanel);
-
         setSize(400, 200);
         setLocationRelativeTo(null); 
         this.setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-    }
-
-    public int getPlayerNumberComboboxValue() {
-
-        String str = playerNumberBox.getSelectedItem().toString();
-
-        return Integer.parseInt(str);
-
-
-    }
-
-    public int getBotNumberComboboxValue() {
-
-        String str = botNumberBox.getSelectedItem().toString();
-
-        return Integer.parseInt(str);
-
-
-    }
-
-    public String openPanelForPlayerDetail(int i) {
-        System.out.println(i);
-        JTextField textField = new JTextField();
-
-        Object[] message = {
-
-            String.format("Enter player %d name:", i), textField 
-        };
-
-        int option = JOptionPane.showConfirmDialog(null, message, "Name Entry", JOptionPane.OK_CANCEL_OPTION);
-      
-        return textField.getText();
-
-    }
-
-   
-
-
-
-
-    public void addConfirmButtonListener(ActionListener confirmButtonListener) {
-
-        confirmButton.addActionListener(confirmButtonListener);
-        
-    }
-    public void addHelpButtonListener(ActionListener helpButtonListener) {
-
-        helpButton.addActionListener(helpButtonListener);
-        
     }
 
     public static class ResponsiveImage extends Frame implements MouseListener {
