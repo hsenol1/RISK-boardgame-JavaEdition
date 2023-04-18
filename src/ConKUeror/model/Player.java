@@ -10,9 +10,8 @@ public class Player {
         private List<Territory> territories;
         private List<Card> cards;
 
-        public Player(String name, List<Card> cards) {
+        public Player(String name) {
             this.name = name;
-            this.cards = cards;
 
         }
 
@@ -25,6 +24,8 @@ public class Player {
 
             return this.cards;
         }
+
+        
 
         
         
