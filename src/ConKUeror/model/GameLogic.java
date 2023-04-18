@@ -1,5 +1,8 @@
 package src.ConKUeror.model;
 
+import src.ConKUeror.model.Board.Card;
+import src.ConKUeror.model.Player.PlayerInventory;
+
 public class GameLogic {
 
     private PlayerInventory p;

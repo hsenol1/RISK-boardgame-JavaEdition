@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 
 import src.ConKUeror.model.BuildMode;
-import src.ConKUeror.model.Player;
 
 
 public class BuildHandler {
@@ -31,8 +30,18 @@ private BuildMode buildMode;
 
 	}
 
-	public void enterName(String name) {
-		buildMode.initalizePlayer(name);
+	public void enterNameForRealPlayers(String name) {
+		buildMode.initalizePlayer(name,"Real Player");
+	}
+
+
+	public void initalizeBots(int botPlayerCount) {
+		
+		for (int i = 1; i <= botPlayerCount; i++) {
+			String name = "Computer " + i;
+			buildMode.initalizePlayer(name, "Computer Player");
+		}
+
 	}
 
 	public void openPlayerSelection() {

@@ -1,4 +1,4 @@
-package src.ConKUeror.model;
+package src.ConKUeror.model.Board;
 
 import java.util.ArrayList;
 import java.util.Random;

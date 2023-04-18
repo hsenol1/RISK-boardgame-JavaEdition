@@ -76,17 +76,11 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
     
               //  ResponsiveImage startMode = new ResponsiveImage("src/images/worldMap.png");
             
-            
-		
-
+    
 		}
-
-
 
     }
 
-
-   
 
      public int getPlayerNumberComboboxValue() {
 
@@ -116,7 +110,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
             String.format(msg), textField 
         };
         int option = JOptionPane.showConfirmDialog(null, message, "Name Entry", JOptionPane.OK_CANCEL_OPTION);
-        buildHandler.enterName(textField.getText());
+        buildHandler.enterNameForRealPlayers(textField.getText());
 
     }
 

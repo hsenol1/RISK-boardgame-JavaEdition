@@ -4,32 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.ConKUeror.controller.BuildModeListener;
+import src.ConKUeror.model.Player.Player;
+import src.ConKUeror.model.Player.PlayerFactory;
 
 public class BuildMode {
 
 private List<Player> players = new ArrayList<Player>();
 private List<BuildModeListener> listeners = new ArrayList<>();
 private int humanPlayerCount;
+public static int botPlayerCount;
 private int index;
+PlayerFactory playerFactory;
 
+
+public BuildMode() {
+
+    playerFactory = PlayerFactory.getInstance();
+}
 
 public List<Player> getPlayers() {
     return this.players;
 }
 
 
-public void initalizePlayer(String name) {
-    
-    Player player = PlayerFactory.createPlayer(name);
-    players.add(player);
+public void initalizePlayer(String name,String type) {
 
+    Player player = playerFactory.createPlayer(type, name);
+    players.add(player);
 
 }
 
 public Boolean validatePlayerNums(int totalPlayerNumber, int botPlayerNumber) {
 
     if(botPlayerNumber<totalPlayerNumber) {
-        
+
+        botPlayerCount =botPlayerNumber;
         humanPlayerCount = totalPlayerNumber- botPlayerNumber;   
         index = humanPlayerCount;
 
@@ -40,7 +49,6 @@ public Boolean validatePlayerNums(int totalPlayerNumber, int botPlayerNumber) {
     } 
     return false;
 
-
     }
 
     
@@ -49,15 +57,9 @@ public Boolean validatePlayerNums(int totalPlayerNumber, int botPlayerNumber) {
 
         while(index !=0) {
             index--;
-
             String message =  String.format("Enter player %d name:", (humanPlayerCount-index));
-            publishBoardEvent(message);
-
-            
-           
-            
+            publishBoardEvent(message);             
         }
-
     }
 
 
@@ -69,9 +71,6 @@ public void addBuildModeListener(BuildModeListener lis) {
 
 //publishPropertyEvent(name, value)
 //method for publisher
-
-
-//bu methoda modelim değişince view ın ne yapmasını istediğimi yazıcam
 private void publishBoardEvent(String message) {
     for(BuildModeListener l: listeners){
         l.onBoardEvent(message);
