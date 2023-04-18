@@ -1,4 +1,4 @@
-package src.ConKUeror.model;
+package src.ConKUeror.model.Board;
 
 public class DiceRoller {
 

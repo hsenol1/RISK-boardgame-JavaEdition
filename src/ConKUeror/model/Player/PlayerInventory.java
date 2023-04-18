@@ -1,4 +1,7 @@
-package src.ConKUeror.model;
+package src.ConKUeror.model.Player;
+
+import src.ConKUeror.model.Army;
+import src.ConKUeror.model.Board.Card;
 
 public class PlayerInventory {
 

@@ -1,8 +1,10 @@
-package src.ConKUeror.model;
+package src.ConKUeror.model.Board;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import src.ConKUeror.model.Army;
 
 public class Territory {
     
