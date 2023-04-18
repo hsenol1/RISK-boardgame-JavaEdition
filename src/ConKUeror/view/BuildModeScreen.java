@@ -6,10 +6,13 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
 
-public class BuildModeScreen extends JFrame {
+import src.ConKUeror.controller.BuildHandler;
+import src.ConKUeror.controller.BuildModeListener;
+
+import java.awt.*;
+
+public class BuildModeScreen extends JFrame implements BuildModeListener{
 
     private BufferedImage worldMap;
     private int width, height;
@@ -24,8 +27,104 @@ public class BuildModeScreen extends JFrame {
     private Integer[] numbers1 = {2, 3, 4, 5, 6};
     private Integer[] numbers2 = {1, 2, 3, 4, 5};
 
-    public BuildModeScreen() {
+    private BuildHandler buildHandler;
 
+    public BuildModeScreen(BuildHandler buildHandler) {
+
+            this.buildHandler = buildHandler;
+            initGUI();
+            addBoardFrameAsListener();
+            confirmButton.addActionListener(new ConfirmButtonHandler());
+        
+    }
+
+    @Override
+    public void onBoardEvent(String msg) {
+        // TODO Auto-generated method stub   
+
+        openPanelForPlayerDetail(msg);
+
+
+    }
+
+
+    private void addBoardFrameAsListener() {
+        buildHandler.registerAsListener(this);
+    }
+
+
+    private class ConfirmButtonHandler implements ActionListener{
+
+      
+        int count = 0;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+            // I want the initalization of the player number at the first click. 
+            // By doing this I restrict the possible changes about numbers after the first click.
+
+            if (count == 0) {
+                int totalPlayerNumber=  getPlayerNumberComboboxValue();
+                int botPlayerNumber = getBotNumberComboboxValue();
+                if(!buildHandler.validateNumbersAndOpenPlayerMenu(totalPlayerNumber, botPlayerNumber)) {
+                    count--;
+                }
+            } 
+            count++;
+            
+    
+              //  ResponsiveImage startMode = new ResponsiveImage("src/images/worldMap.png");
+            
+            
+		
+
+		}
+
+
+
+    }
+
+
+   
+
+     public int getPlayerNumberComboboxValue() {
+
+        String str = playerNumberBox.getSelectedItem().toString();
+
+        return Integer.parseInt(str);
+
+
+    }
+
+
+    public int getBotNumberComboboxValue() {
+
+        String str = botNumberBox.getSelectedItem().toString();
+
+        return Integer.parseInt(str);
+
+
+    }
+
+
+    public void openPanelForPlayerDetail(String msg) {
+
+        JTextField textField = new JTextField();
+        Object[] message = {
+
+            String.format(msg), textField 
+        };
+        int option = JOptionPane.showConfirmDialog(null, message, "Name Entry", JOptionPane.OK_CANCEL_OPTION);
+        buildHandler.enterName(textField.getText());
+
+    }
+
+
+
+  
+   
+    public void initGUI() {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -80,61 +179,11 @@ public class BuildModeScreen extends JFrame {
         buildModePanel.add(buttonPanel, gbc);
 
         add(buildModePanel);
-
         setSize(400, 200);
         setLocationRelativeTo(null); 
         this.setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-    }
-
-    public int getPlayerNumberComboboxValue() {
-
-        String str = playerNumberBox.getSelectedItem().toString();
-
-        return Integer.parseInt(str);
-
-
-    }
-
-    public int getBotNumberComboboxValue() {
-
-        String str = botNumberBox.getSelectedItem().toString();
-
-        return Integer.parseInt(str);
-
-
-    }
-
-    public String openPanelForPlayerDetail(int i) {
-        System.out.println(i);
-        JTextField textField = new JTextField();
-
-        Object[] message = {
-
-            String.format("Enter player %d name:", i), textField 
-        };
-
-        int option = JOptionPane.showConfirmDialog(null, message, "Name Entry", JOptionPane.OK_CANCEL_OPTION);
-      
-        return textField.getText();
-
-    }
-
-   
-
-
-
-
-    public void addConfirmButtonListener(ActionListener confirmButtonListener) {
-
-        confirmButton.addActionListener(confirmButtonListener);
-        
-    }
-    public void addHelpButtonListener(ActionListener helpButtonListener) {
-
-        helpButton.addActionListener(helpButtonListener);
-        
     }
 
     public static class ResponsiveImage extends Frame implements MouseListener {
@@ -215,6 +264,11 @@ public class BuildModeScreen extends JFrame {
         public void mousePressed(MouseEvent e) {}
         public void mouseReleased(MouseEvent e) {}
             }
+
+
+
+
+   
 
     
 }

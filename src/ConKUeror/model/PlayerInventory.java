@@ -19,7 +19,7 @@ public void deleteCards(Card c[]) {
 
         for (Army a1: a) {
         
-        p.getArmies().add(a1);
+        //p.getArmies().add(a1);
         
         }
     }
