@@ -19,6 +19,9 @@ public class Map extends JFrame{
     MapHandler mapHandler;
     public BufferedImage image;
     JPanel mapPanel;
+    String armyNum =String.valueOf(0);
+
+    
 
 
 public Map(MapHandler _mapHandler) throws IOException {
@@ -58,7 +61,7 @@ mapPanel.setLayout(null); // switch to null layout manager
 
 public void initButtons() {
 
-    JButton button1 = new JButton();
+    JButton button1 = new JButton(armyNum);
 button1.setBounds(69, 102, 40, 40); // set the button's location and size
 button1.addActionListener(new ActionListener() {
     @Override
@@ -67,7 +70,7 @@ button1.addActionListener(new ActionListener() {
     }
 });
 
-JButton button2 = new JButton();
+JButton button2 = new JButton(armyNum);
 button2.setBounds(171, 102, 40, 40); // set the button's location and size
 button2.addActionListener(new ActionListener() {
     @Override
@@ -76,7 +79,7 @@ button2.addActionListener(new ActionListener() {
     }
 });
 
-JButton button3 = new JButton();
+JButton button3 = new JButton(armyNum);
 button3.setBounds(368, 60, 40, 40); // set the button's location and size
 button3.addActionListener(new ActionListener() {
     @Override
@@ -85,7 +88,7 @@ button3.addActionListener(new ActionListener() {
     }
 });
 
-JButton button4 = new JButton();
+JButton button4 = new JButton(armyNum);
 button4.setBounds(155, 164, 40, 40); // set the button's location and size
 button4.addActionListener(new ActionListener() {
     @Override
@@ -94,7 +97,7 @@ button4.addActionListener(new ActionListener() {
     }
 });
 
-JButton button5 = new JButton();
+JButton button5 = new JButton(armyNum);
 button5.setBounds(232, 182, 40, 40); // set the button's location and size
 button5.addActionListener(new ActionListener() {
     @Override
@@ -103,7 +106,7 @@ button5.addActionListener(new ActionListener() {
     }
 });
 
-JButton button6 = new JButton();
+JButton button6 = new JButton(armyNum);
 button6.setBounds(303, 175, 40, 40); // set the button's location and size
 button6.addActionListener(new ActionListener() {
     @Override
@@ -112,7 +115,7 @@ button6.addActionListener(new ActionListener() {
     }
 });
 
-JButton button7 = new JButton();
+JButton button7 = new JButton(armyNum);
 button7.setBounds(162, 236, 40, 40); // set the button's location and size
 button7.addActionListener(new ActionListener() {
     @Override
@@ -121,7 +124,7 @@ button7.addActionListener(new ActionListener() {
     }
 });
 
-JButton button8 = new JButton();
+JButton button8 = new JButton(armyNum);
 button8.setBounds(249, 271, 40, 40); // set the button's location and size
 button8.addActionListener(new ActionListener() {
     @Override
@@ -130,7 +133,7 @@ button8.addActionListener(new ActionListener() {
     }
 });
 
-JButton button9 = new JButton();
+JButton button9 = new JButton(armyNum);
 button9.setBounds(178, 342, 40, 40); // set the button's location and size
 button9.addActionListener(new ActionListener() {
     @Override
@@ -139,7 +142,7 @@ button9.addActionListener(new ActionListener() {
     }
 });
 
-JButton button10 = new JButton();
+JButton button10 = new JButton(armyNum);
 button10.setBounds(246, 402, 40, 40); // set the button's location and size
 button10.addActionListener(new ActionListener() {
     @Override
@@ -148,7 +151,7 @@ button10.addActionListener(new ActionListener() {
     }
 });
 
-JButton button11 = new JButton();
+JButton button11 = new JButton(armyNum);
 button11.setBounds(264, 505, 40, 40); // set the button's location
 button11.addActionListener(new ActionListener() {
     @Override
@@ -157,7 +160,7 @@ button11.addActionListener(new ActionListener() {
     }
 });
 
-JButton button12 = new JButton();
+JButton button12 = new JButton(armyNum);
 button12.setBounds(343, 478, 40, 40); // set the button's location
 button12.addActionListener(new ActionListener() {
     @Override
@@ -165,7 +168,7 @@ button12.addActionListener(new ActionListener() {
         // handle button click event
     }
 });
-JButton button13 = new JButton();
+JButton button13 = new JButton(armyNum);
 button13.setBounds(266, 597, 40, 40); // set the button's location
 button13.addActionListener(new ActionListener() {
     @Override
@@ -174,7 +177,7 @@ button13.addActionListener(new ActionListener() {
     }
 });
 
-JButton button14 = new JButton();
+JButton button14 = new JButton(armyNum);
 button14.setBounds(439, 228, 40, 40); // set the button's location
 button14.addActionListener(new ActionListener() {
     @Override
@@ -182,7 +185,7 @@ button14.addActionListener(new ActionListener() {
         // handle button click event
     }
 });
-JButton button15 = new JButton();
+JButton button15 = new JButton(armyNum);
 button15.setBounds(463, 141, 40, 40); // set the button's location
 button15.addActionListener(new ActionListener() {
     @Override
@@ -191,7 +194,7 @@ button15.addActionListener(new ActionListener() {
     }
 });
 
-JButton button16 = new JButton();
+JButton button16 = new JButton(armyNum);
 button16.setBounds(532, 151, 40, 40); // set the button's location
 button16.addActionListener(new ActionListener() {
     @Override
@@ -199,7 +202,7 @@ button16.addActionListener(new ActionListener() {
         // handle button click event
     }
 });
-JButton button17 = new JButton();
+JButton button17 = new JButton(armyNum);
 button17.setBounds(643, 199, 40, 40); // set the button's location
 button17.addActionListener(new ActionListener() {
     @Override
@@ -208,14 +211,14 @@ button17.addActionListener(new ActionListener() {
     }
 });
 
-JButton button18 = new JButton();
+JButton button18 = new JButton(armyNum);
 button18.setBounds(545, 236, 40, 40); // set the button's location
 button18.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button19 = new JButton();
+});JButton button19 = new JButton(armyNum);
 button19.setBounds(455, 341, 40, 40); // set the button's location
 button19.addActionListener(new ActionListener() {
     @Override
@@ -224,14 +227,14 @@ button19.addActionListener(new ActionListener() {
     }
 });
 
-JButton button20 = new JButton();
+JButton button20 = new JButton(armyNum);
 button20.setBounds(564, 304, 40, 40); // set the button's location
 button20.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button21 = new JButton();
+});JButton button21 = new JButton(armyNum);
 button21.setBounds(501, 453, 40, 40); // set the button's location
 button21.addActionListener(new ActionListener() {
     @Override
@@ -240,14 +243,14 @@ button21.addActionListener(new ActionListener() {
     }
 });
 
-JButton button22 = new JButton();
+JButton button22 = new JButton(armyNum);
 button22.setBounds(585, 416, 40, 40); // set the button's location
 button22.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button23 = new JButton();
+});JButton button23 = new JButton(armyNum);
 button23.setBounds(643, 495, 40, 40); // set the button's location
 button23.addActionListener(new ActionListener() {
     @Override
@@ -256,14 +259,14 @@ button23.addActionListener(new ActionListener() {
     }
 });
 
-JButton button24 = new JButton();
+JButton button24 = new JButton(armyNum);
 button24.setBounds(583, 542, 40, 40); // set the button's location
 button24.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button25 = new JButton();
+});JButton button25 = new JButton(armyNum);
 button25.setBounds(594, 638, 40, 40); // set the button's location
 button25.addActionListener(new ActionListener() {
     @Override
@@ -272,14 +275,14 @@ button25.addActionListener(new ActionListener() {
     }
 });
 
-JButton button26 = new JButton();
+JButton button26 = new JButton(armyNum);
 button26.setBounds(692, 641, 40, 40); // set the button's location
 button26.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button27 = new JButton();
+});JButton button27 = new JButton(armyNum);
 button27.setBounds(666, 372, 40, 40); // set the button's location
 button27.addActionListener(new ActionListener() {
     @Override
@@ -288,14 +291,14 @@ button27.addActionListener(new ActionListener() {
     }
 });
 
-JButton button28 = new JButton();
+JButton button28 = new JButton(armyNum);
 button28.setBounds(733, 257, 40, 40); // set the button's location
 button28.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button29 = new JButton();
+});JButton button29 = new JButton(armyNum);
 button29.setBounds(751, 170, 40, 40); // set the button's location
 button29.addActionListener(new ActionListener() {
     @Override
@@ -304,14 +307,14 @@ button29.addActionListener(new ActionListener() {
     }
 });
 
-JButton button30 = new JButton();
+JButton button30 = new JButton(armyNum);
 button30.setBounds(813, 127, 40, 40); // set the button's location
 button30.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button31 = new JButton();
+});JButton button31 = new JButton(armyNum);
 button31.setBounds(896, 85, 40, 40); // set the button's location
 button31.addActionListener(new ActionListener() {
     @Override
@@ -320,14 +323,14 @@ button31.addActionListener(new ActionListener() {
     }
 });
 
-JButton button32 = new JButton();
+JButton button32 = new JButton(armyNum);
 button32.setBounds(978, 93, 40, 40); // set the button's location
 button32.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button33 = new JButton();
+});JButton button33 = new JButton(armyNum);
 button33.setBounds(880, 178, 40, 40); // set the button's location
 button33.addActionListener(new ActionListener() {
     @Override
@@ -336,14 +339,14 @@ button33.addActionListener(new ActionListener() {
     }
 });
 
-JButton button34 = new JButton();
+JButton button34 = new JButton(armyNum);
 button34.setBounds(893, 248, 40, 40); // set the button's location
 button34.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button35 = new JButton();
+});JButton button35 = new JButton(armyNum);
 button35.setBounds(1000, 260, 40, 40); // set the button's location
 button35.addActionListener(new ActionListener() {
     @Override
@@ -352,14 +355,14 @@ button35.addActionListener(new ActionListener() {
     }
 });
 
-JButton button36 = new JButton();
+JButton button36 = new JButton(armyNum);
 button36.setBounds(861, 321, 40, 40); // set the button's location
 button36.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button37 = new JButton();
+});JButton button37 = new JButton(armyNum);
 button37.setBounds(791, 373, 40, 40); // set the button's location
 button37.addActionListener(new ActionListener() {
     @Override
@@ -368,14 +371,14 @@ button37.addActionListener(new ActionListener() {
     }
 });
 
-JButton button38 = new JButton();
+JButton button38 = new JButton(armyNum);
 button38.setBounds(888, 415 , 40, 40); // set the button's location
 button38.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button39 = new JButton();
+});JButton button39 = new JButton(armyNum);
 button39.setBounds(906, 545, 40, 40); // set the button's location
 button39.addActionListener(new ActionListener() {
     @Override
@@ -384,14 +387,14 @@ button39.addActionListener(new ActionListener() {
     }
 });
 
-JButton button40 = new JButton();
+JButton button40 = new JButton(armyNum);
 button40.setBounds(999, 502, 40, 40); // set the button's location
 button40.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button41 = new JButton();
+});JButton button41 = new JButton(armyNum);
 button41.setBounds(948, 641, 40, 40); // set the button's location
 button41.addActionListener(new ActionListener() {
     @Override
@@ -400,7 +403,7 @@ button41.addActionListener(new ActionListener() {
     }
 });
 
-JButton button42 = new JButton();
+JButton button42 = new JButton(armyNum);
 button42.setBounds(1041, 616, 40, 40); // set the button's location
 button42.addActionListener(new ActionListener() {
     @Override
@@ -424,7 +427,7 @@ button44.addActionListener(new ActionListener() {
         // handle button click event
     }
 });JButton button45 = new JButton("Roll");
-button45.setBounds(76, 530, 60, 60); // set the button's location
+button45.setBounds(76, 530, 80, 80); // set the button's location
 button45.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -433,8 +436,16 @@ button45.addActionListener(new ActionListener() {
 });
 
 JButton button46 = new JButton("Next");
-button46.setBounds(77, 644, 60, 60); // set the button's location
+button46.setBounds(76, 644, 80, 80); // set the button's location
 button46.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // handle button click event
+    }
+});
+JButton button47 = new JButton("Execute");
+button47.setBounds(76, 416, 80, 80); // set the button's location
+button47.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
@@ -492,6 +503,7 @@ mapPanel.add(button43);
 mapPanel.add(button44);
 mapPanel.add(button45);
 mapPanel.add(button46);
+mapPanel.add(button47);
 
 
 
