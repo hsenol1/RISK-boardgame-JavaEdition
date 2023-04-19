@@ -464,6 +464,7 @@ mapPanel.add(button3);
 mapPanel.add(button4);
 mapPanel.add(button5);
 mapPanel.add(button6);
+mapPanel.add(button7);
 mapPanel.add(button8);
 mapPanel.add(button9);
 mapPanel.add(button10);
