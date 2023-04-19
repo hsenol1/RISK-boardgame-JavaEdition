@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import javax.swing.*;
@@ -90,7 +92,12 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
                 //System.out.println("Game can start");
                 buildHandler.initalizeBots(getBotNumberComboboxValue());
                 buildHandler.initializeGame();
-                Map map = new Map( buildHandler.giveMapHandler() );
+                try {
+                    Map map = new Map( buildHandler.giveMapHandler() );
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
 
             }
 
