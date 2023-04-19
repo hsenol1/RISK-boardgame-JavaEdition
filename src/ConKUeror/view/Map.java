@@ -21,6 +21,7 @@ public class Map extends JFrame{
     JPanel mapPanel;
     String armyNum =String.valueOf(0);
     Boolean disable = false;
+    int disable_Num = 0;
 
     
 
@@ -31,6 +32,11 @@ public Map(MapHandler _mapHandler) throws IOException {
     
     initGUI();
 }
+
+public void occupyTerritory() {
+    
+}
+
 
 public void initGUI() throws IOException {
 
@@ -116,6 +122,9 @@ button5.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button5.setVisible(false);
+        }
     }
 });
 
@@ -125,6 +134,9 @@ button6.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button6.setVisible(false);
+        }
     }
 });
 
@@ -134,6 +146,9 @@ button7.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button7.setVisible(false);
+        }
     }
 });
 
@@ -143,6 +158,9 @@ button8.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button8.setVisible(false);
+        }
     }
 });
 
@@ -152,6 +170,9 @@ button9.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button9.setVisible(false);
+        }
     }
 });
 
@@ -161,6 +182,9 @@ button10.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button10.setVisible(false);
+        }
     }
 });
 
@@ -170,6 +194,9 @@ button11.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button11.setVisible(false);
+        }
     }
 });
 
@@ -179,6 +206,9 @@ button12.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button12.setVisible(false);
+        }
     }
 });
 JButton button13 = new JButton(armyNum);
@@ -187,6 +217,9 @@ button13.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button13.setVisible(false);
+        }
     }
 });
 
@@ -196,6 +229,9 @@ button14.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button14.setVisible(false);
+        }
     }
 });
 JButton button15 = new JButton(armyNum);
@@ -204,6 +240,9 @@ button15.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button15.setVisible(false);
+        }
     }
 });
 
@@ -213,6 +252,9 @@ button16.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button16.setVisible(false);
+        }
     }
 });
 JButton button17 = new JButton(armyNum);
@@ -221,6 +263,9 @@ button17.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button17.setVisible(false);
+        }
     }
 });
 
@@ -230,6 +275,9 @@ button18.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button18.setVisible(false);
+        }
     }
 });JButton button19 = new JButton(armyNum);
 button19.setBounds(455, 341, 40, 40); // set the button's location
@@ -237,6 +285,9 @@ button19.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button19.setVisible(false);
+        }
     }
 });
 
@@ -246,6 +297,9 @@ button20.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button20.setVisible(false);
+        }
     }
 });JButton button21 = new JButton(armyNum);
 button21.setBounds(501, 453, 40, 40); // set the button's location
@@ -253,6 +307,9 @@ button21.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button21.setVisible(false);
+        }
     }
 });
 
@@ -262,6 +319,9 @@ button22.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button22.setVisible(false);
+        }
     }
 });JButton button23 = new JButton(armyNum);
 button23.setBounds(643, 495, 40, 40); // set the button's location
@@ -269,6 +329,9 @@ button23.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button23.setVisible(false);
+        }
     }
 });
 
@@ -279,6 +342,9 @@ button24.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button24.setVisible(false);
+        }
     }
 });JButton button25 = new JButton(armyNum);
 button25.setBounds(594, 638, 40, 40); // set the button's location
@@ -286,6 +352,9 @@ button25.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button25.setVisible(false);
+        }
     }
 });
 
@@ -295,6 +364,9 @@ button26.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button26.setVisible(false);
+        }
     }
 });JButton button27 = new JButton(armyNum);
 button27.setBounds(666, 372, 40, 40); // set the button's location
@@ -302,6 +374,9 @@ button27.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button27.setVisible(false);
+        }
     }
 });
 
@@ -311,6 +386,9 @@ button28.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button28.setVisible(false);
+        }
     }
 });JButton button29 = new JButton(armyNum);
 button29.setBounds(751, 170, 40, 40); // set the button's location
@@ -318,6 +396,9 @@ button29.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button29.setVisible(false);
+        }
     }
 });
 
@@ -327,6 +408,9 @@ button30.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button30.setVisible(false);
+        }
     }
 });JButton button31 = new JButton(armyNum);
 button31.setBounds(896, 85, 40, 40); // set the button's location
@@ -334,6 +418,9 @@ button31.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button31.setVisible(false);
+        }
     }
 });
 
@@ -343,6 +430,9 @@ button32.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button32.setVisible(false);
+        }
     }
 });JButton button33 = new JButton(armyNum);
 button33.setBounds(880, 178, 40, 40); // set the button's location
@@ -350,6 +440,9 @@ button33.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button33.setVisible(false);
+        }
     }
 });
 
@@ -359,6 +452,9 @@ button34.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button34.setVisible(false);
+        }
     }
 });JButton button35 = new JButton(armyNum);
 button35.setBounds(1000, 260, 40, 40); // set the button's location
@@ -366,6 +462,9 @@ button35.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button35.setVisible(false);
+        }
     }
 });
 
@@ -375,6 +474,9 @@ button36.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button36.setVisible(false);
+        }
     }
 });JButton button37 = new JButton(armyNum);
 button37.setBounds(791, 373, 40, 40); // set the button's location
@@ -382,6 +484,9 @@ button37.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button37.setVisible(false);
+        }
     }
 });
 
@@ -391,6 +496,9 @@ button38.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button38.setVisible(false);
+        }
     }
 });JButton button39 = new JButton(armyNum);
 button39.setBounds(906, 545, 40, 40); // set the button's location
@@ -398,6 +506,9 @@ button39.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button39.setVisible(false);
+        }
     }
 });
 
@@ -407,8 +518,11 @@ button40.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button40.setVisible(false);
+        }
     }
-});JButton button41 = new JButton("33");
+});JButton button41 = new JButton(armyNum);
 button41.setBounds(948, 641, 40, 40); // set the button's location
 button41.addActionListener(new ActionListener() {
     @Override
@@ -420,7 +534,7 @@ button41.addActionListener(new ActionListener() {
     }
 });
 
-JButton button42 = new JButton("44");
+JButton button42 = new JButton(armyNum);
 button42.setBounds(1041, 616, 40, 40); // set the button's location
 button42.addActionListener(new ActionListener() {
     @Override
@@ -436,9 +550,7 @@ button43.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
-        if (disable) {
-            button43.setVisible(false);
-        }
+        
     }
 });
 
@@ -480,8 +592,8 @@ button47.addActionListener(new ActionListener() {
     }
 });
 
-JButton button48 = new JButton("11");
-button48.setBounds(354,332,80,40); // set the button's location and size
+JButton button48 = new JButton("Disable");
+button48.setBounds(354,332,80,80); // set the button's location and size
 button48.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -490,8 +602,8 @@ button48.addActionListener(new ActionListener() {
     }
 });
 
-JButton button49 = new JButton("22");
-button49.setBounds(838,592,80,40); // set the button's location and size
+JButton button49 = new JButton("D.Done!");
+button49.setBounds(838,592,80,80); // set the button's location and size
 button49.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
