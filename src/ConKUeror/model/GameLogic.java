@@ -1,9 +1,19 @@
 package src.ConKUeror.model;
 
+import src.ConKUeror.model.Board.Board;
 import src.ConKUeror.model.Board.Card;
 import src.ConKUeror.model.Player.PlayerInventory;
 
 public class GameLogic {
+
+  Board board;
+
+    public GameLogic(Board board) {
+
+      this.board = board;
+
+      
+    }
 
     private PlayerInventory p;
     

@@ -11,12 +11,21 @@ public class Main {
 
 public static void main(String[] args) {
 
- BuildMode buildMode = new BuildMode();
+ BuildMode buildMode = new BuildMode(); // model never takes parameters
+
+ // controllerın içine modeli atıyoruz
  BuildHandler buildHandler= new BuildHandler(buildMode);
 
+
+ //view ın içine controller atıyoruz
  BuildModeScreen buildModeScreen = new BuildModeScreen(buildHandler);
 
 
+
+
+// view -> controller -> model
+
+//observer design pattern
 }
 }
 

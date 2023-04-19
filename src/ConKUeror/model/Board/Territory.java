@@ -8,11 +8,14 @@ import src.ConKUeror.model.Army;
 
 public class Territory {
     
-    private String name;
+   // private String name;
+    private int id;
     private List<Array> armies;
 
-    public Territory(String name) {
-        this.name = name;
+    public Territory(int _id) {
+         //this.name = name;
+
+        this.id = _id;
         this.armies = new ArrayList<>();
     }
 
