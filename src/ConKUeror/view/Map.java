@@ -68,6 +68,9 @@ button1.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button1.setVisible(false);
+        }
     }
 });
 
@@ -77,6 +80,9 @@ button2.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button2.setVisible(false);
+        }
     }
 });
 
@@ -86,6 +92,9 @@ button3.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button3.setVisible(false);
+        }
     }
 });
 
@@ -95,6 +104,9 @@ button4.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button4.setVisible(false);
+        }
     }
 });
 
@@ -424,6 +436,9 @@ button43.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button43.setVisible(false);
+        }
     }
 });
 
