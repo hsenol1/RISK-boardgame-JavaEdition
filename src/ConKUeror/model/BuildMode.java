@@ -15,10 +15,10 @@ private int humanPlayerCount;
 public static int botPlayerCount;
 private int index;
 PlayerFactory playerFactory;
+private boolean canStart = false;
 
 
 public BuildMode() {
-
     playerFactory = PlayerFactory.getInstance();
 }
 
@@ -63,14 +63,22 @@ public Boolean validatePlayerNums(int totalPlayerNumber, int botPlayerNumber) {
     }
 
 
-//addPropertyListener( PropertyListener lis ) 
-//method for publisher
+    public void setStart() {
+          canStart = true;
+
+    }
+
+    public Boolean getStartStatus() {
+        return canStart; 
+    }
+
+    
+
 public void addBuildModeListener(BuildModeListener lis) {
     listeners.add(lis);
 }
 
-//publishPropertyEvent(name, value)
-//method for publisher
+
 private void publishBoardEvent(String message) {
     for(BuildModeListener l: listeners){
         l.onBoardEvent(message);

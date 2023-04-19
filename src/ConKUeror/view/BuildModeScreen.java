@@ -20,6 +20,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
     private JPanel buildModePanel;
     private JLabel playerNumberLabel, botNumberLabel;
     private JButton confirmButton;
+    private JButton startButton;
     private JButton helpButton;
     private JComboBox<Integer> playerNumberBox;
     private JComboBox<Integer> botNumberBox;
@@ -35,6 +36,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
             initGUI();
             addBoardFrameAsListener();
             confirmButton.addActionListener(new ConfirmButtonHandler());
+            startButton.addActionListener(new StartButtonHandler());
         
     }
 
@@ -65,7 +67,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
             // By doing this I restrict the possible changes about numbers after the first click.
 
             if (count == 0) {
-                int totalPlayerNumber=  getPlayerNumberComboboxValue();
+                int totalPlayerNumber = getPlayerNumberComboboxValue();
                 int botPlayerNumber = getBotNumberComboboxValue();
                 if(!buildHandler.validateNumbersAndOpenPlayerMenu(totalPlayerNumber, botPlayerNumber)) {
                     count--;
@@ -73,19 +75,34 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
             } 
             count++;
             
-    
-              //  ResponsiveImage startMode = new ResponsiveImage("src/images/worldMap.png");
-            
+          
     
 		}
 
     }
+    private class StartButtonHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO Auto-generated method stub
+            if (buildHandler.checkStartStatus()) {
+                dispose();
+                //System.out.println("Game can start");
+                buildHandler.initalizeBots(getBotNumberComboboxValue());
+                buildHandler.initializeGame();
+                Map map = new Map( buildHandler.giveMapHandler() );
+
+            }
+
+        }
+        
+    }
+
 
 
      public int getPlayerNumberComboboxValue() {
 
         String str = playerNumberBox.getSelectedItem().toString();
-
         return Integer.parseInt(str);
 
 
@@ -95,9 +112,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
     public int getBotNumberComboboxValue() {
 
         String str = botNumberBox.getSelectedItem().toString();
-
         return Integer.parseInt(str);
-
 
     }
 
@@ -111,7 +126,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
         };
         int option = JOptionPane.showConfirmDialog(null, message, "Name Entry", JOptionPane.OK_CANCEL_OPTION);
         buildHandler.enterNameForRealPlayers(textField.getText());
-
+        buildHandler.setStartStatus();
     }
 
 
@@ -135,6 +150,8 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
 
         confirmButton = new JButton("Confirm");
         helpButton = new JButton("Help");
+        startButton = new JButton("Start");
+
 
         buildModePanel = new JPanel(new GridBagLayout());
 
@@ -162,13 +179,15 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
         gbc.gridx++;
         buildModePanel.add(botNumberBox, gbc);
 
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 10, 10));
         buttonPanel.add(confirmButton);
         buttonPanel.add(helpButton);
+        buttonPanel.add(startButton);
+
 
         gbc.gridx = 0;
         gbc.gridy++;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.CENTER;
         buildModePanel.add(buttonPanel, gbc);
 
@@ -180,88 +199,10 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
         setVisible(true);
     }
 
-    public static class ResponsiveImage extends Frame implements MouseListener {
-        private BufferedImage img;
-        private int width, height;
-
-        public ResponsiveImage(String filename) {
-            super("ConKUeror");
-            try {
-                img = ImageIO.read(new File(filename));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            width = img.getWidth();
-            height = img.getHeight();
-            setSize(width, height);
-            addMouseListener(this);
-            setVisible(true);
-            addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent e) {
-                    dispose();
-                    System.exit(0);
-                }
-            });
-        }
-
-        public void paint(Graphics g) {
-            g.drawImage(img, 0, 0, null);
-        }
-        public void mouseMoved(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
-                int pixel = img.getRGB(x, y);
-                int alpha = (pixel >> 24) & 0xff;
-                int red = (pixel >> 16) & 0xff;
-                int green = (pixel >> 8) & 0xff;
-                int blue = (pixel) & 0xff;
-                if (alpha != 0) {
-                    highlightSameColorPixels(x, y, red, green, blue);
-                }
-            }
-
-            private void highlightSameColorPixels(int x, int y, int red, int green, int blue) {
-                int pixel = img.getRGB(x, y);
-                int alpha = (pixel >> 24) & 0xff;
-                if (alpha == 0) {
-                    return;
-                }
-                int currentRed = (pixel >> 16) & 0xff;
-                int currentGreen = (pixel >> 8) & 0xff;
-                int currentBlue = (pixel) & 0xff;
-                if (currentRed == red && currentGreen == green && currentBlue == blue) {
-                    img.setRGB(x, y, new Color(153, 50, 204, alpha).getRGB());
-                    highlightSameColorPixels(x + 1, y, red, green, blue);
-                    highlightSameColorPixels(x - 1, y, red, green, blue);
-                    highlightSameColorPixels(x, y + 1, red, green, blue);
-                    highlightSameColorPixels(x, y - 1, red, green, blue);
-                }
-            }
+ 
 
 
-
-        public void mouseClicked(MouseEvent e) {
-            int x = e.getX();
-            int y = e.getY();
-            int pixel = img.getRGB(x, y);
-            int red = (pixel >> 16) & 0xff;
-            int green = (pixel >> 8) & 0xff;
-            int blue = (pixel) & 0xff;
-            if (!(red == 63 && green == 72 && blue == 204)) {
-                System.out.println("You clicked on a responsive pixel!");
-                // Do whatever you want to do when a responsive pixel is clicked
-            }
-        }
-
-        public void mouseEntered(MouseEvent e) {}
-        public void mouseExited(MouseEvent e) {}
-        public void mousePressed(MouseEvent e) {}
-        public void mouseReleased(MouseEvent e) {}
-            }
-
-
-
-
+  
    
 
     
