@@ -11,12 +11,14 @@ public class Territory {
    // private String name;
     private int id;
     private List<Array> armies;
+    private boolean isFree;
 
     public Territory(int _id) {
          //this.name = name;
 
         this.id = _id;
         this.armies = new ArrayList<>();
+        this.isFree = true;
     }
 
     public void addArmy(Army army) {
@@ -26,4 +28,6 @@ public class Territory {
     public void removeArmy(Army army) {
         // TODO: Implement army removal logic
     }
+
+    
 }
