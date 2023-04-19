@@ -20,6 +20,7 @@ public class Map extends JFrame{
     public BufferedImage image;
     JPanel mapPanel;
     String armyNum =String.valueOf(0);
+    Boolean disable = false;
 
     
 
@@ -45,7 +46,7 @@ public void initGUI() throws IOException {
         }
     };
     mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
-mapPanel.setLayout(null); // switch to null layout manager
+    mapPanel.setLayout(null); // switch to null layout manager
 
     
     add(mapPanel);
@@ -261,6 +262,7 @@ button23.addActionListener(new ActionListener() {
 
 JButton button24 = new JButton(armyNum);
 button24.setBounds(583, 542, 40, 40); // set the button's location
+
 button24.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -394,21 +396,27 @@ button40.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent e) {
         // handle button click event
     }
-});JButton button41 = new JButton(armyNum);
+});JButton button41 = new JButton("33");
 button41.setBounds(948, 641, 40, 40); // set the button's location
 button41.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button41.setVisible(false);
+        }
     }
 });
 
-JButton button42 = new JButton(armyNum);
+JButton button42 = new JButton("44");
 button42.setBounds(1041, 616, 40, 40); // set the button's location
 button42.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         // handle button click event
+        if (disable) {
+            button42.setVisible(false);
+        }
     }
 });JButton button43 = new JButton("P");
 button43.setBounds(19, 15, 40, 40); // set the button's location
@@ -443,12 +451,38 @@ button46.addActionListener(new ActionListener() {
         // handle button click event
     }
 });
+
+
+
 JButton button47 = new JButton("Execute");
 button47.setBounds(76, 416, 80, 80); // set the button's location
+
 button47.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
+       
         // handle button click event
+    }
+});
+
+JButton button48 = new JButton("11");
+button48.setBounds(354,332,80,40); // set the button's location and size
+button48.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // handle button click event
+        disable = true;
+    }
+});
+
+JButton button49 = new JButton("22");
+button49.setBounds(838,592,80,40); // set the button's location and size
+button49.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // handle button click event
+        disable = false;
+        button48.setVisible(false);
     }
 });
 
@@ -505,6 +539,9 @@ mapPanel.add(button44);
 mapPanel.add(button45);
 mapPanel.add(button46);
 mapPanel.add(button47);
+mapPanel.add(button48);
+mapPanel.add(button49);
+
 
 
 
