@@ -15,6 +15,12 @@ public class GameLogic {
       
     }
 
+
+    public Board getBoard() {
+
+      return board;
+    }
+
     private PlayerInventory p;
     
     public void tradeCardArmy(Card c[], Army a[]) {

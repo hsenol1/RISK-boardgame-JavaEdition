@@ -1,5 +1,7 @@
 package src.ConKUeror.model.Board;
 
+import java.util.*;
+
 public class Board {
     
 private Continent ASIA;
@@ -9,6 +11,8 @@ private Continent AFRICA;
 private Continent EUROPE;
 private Continent AUSTRALIA;
 
+ private ArrayList<Territory> boardTerritories = new ArrayList<Territory>();
+
 
     public  Board() {
         initAllTerritoriesAndContinents();
@@ -16,16 +20,23 @@ private Continent AUSTRALIA;
     }
 
 
+    public Territory getTerritoryWithIndex(int i) {
+
+        return boardTerritories.get(i);
+    }
+
+
 
 
     public void initAllTerritoriesAndContinents() {
 
+
          
         NORTH_AMERICA = new Continent("North America");
-
         for(int i = 0 ; i< 9 ; i++) {
             Territory territory = new Territory(i);
             NORTH_AMERICA.addTerritoryToContinent(territory);
+            boardTerritories.add(territory);
 
         }
         SOUTH_AMERICA= new Continent("South America");
@@ -33,7 +44,7 @@ private Continent AUSTRALIA;
 
             Territory territory = new Territory(i);
             SOUTH_AMERICA.addTerritoryToContinent(territory);
-
+            boardTerritories.add(territory);
 
         }
         EUROPE= new Continent("Europe");
@@ -41,6 +52,7 @@ private Continent AUSTRALIA;
 
             Territory territory = new Territory(i);
             EUROPE.addTerritoryToContinent(territory);
+            boardTerritories.add(territory);
 
 
         }
@@ -49,6 +61,7 @@ private Continent AUSTRALIA;
 
             Territory territory = new Territory(i);
             AFRICA.addTerritoryToContinent(territory);
+            boardTerritories.add(territory);
 
 
         }
@@ -58,6 +71,7 @@ private Continent AUSTRALIA;
 
             Territory territory = new Territory(i);
             ASIA.addTerritoryToContinent(territory);
+            boardTerritories.add(territory);
 
 
         }
@@ -67,6 +81,7 @@ private Continent AUSTRALIA;
 
             Territory territory = new Territory(i);
             AUSTRALIA.addTerritoryToContinent(territory);
+            boardTerritories.add(territory);
 
 
         }

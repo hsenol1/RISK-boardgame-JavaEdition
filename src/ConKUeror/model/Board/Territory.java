@@ -21,6 +21,10 @@ public class Territory {
         this.isFree = true;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void addArmy(Army army) {
         // TODO: Implement army addition logic
     }

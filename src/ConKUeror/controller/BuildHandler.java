@@ -72,7 +72,13 @@ private GameLogic gamelogic;
 			return mapHandler;
 
 	}
- 
+
+	public ButtonHandler giveButtonHandler() {
+
+		ButtonHandler buttonHandler = new ButtonHandler(buildMode,gamelogic);
+		return buttonHandler;
+
+}
 	
 
 
