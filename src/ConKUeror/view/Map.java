@@ -13,7 +13,7 @@ public Map(MapHandler _mapHandler) {
     this.mapHandler = _mapHandler;
     setVisible(true);
 
-    
+    //comment
 }
 
 
