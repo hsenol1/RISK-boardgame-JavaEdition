@@ -1,4 +1,5 @@
-/* 
+package src.ConKUeror.view;
+
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,12 +7,43 @@ import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
-import javax.swing.JButton; */
+import javax.swing.JButton; 
 // will be used to increase the graphics level. now it is not necessary
 
 
-/* 
+
 public class MyButton extends JButton {
+
+    private int x;
+    private int y;
+    private int id;
+
+
+    public MyButton(int x, int y,int id ) {
+        super();
+           this.id = id;
+           this.x= x;
+           this.y = y; 
+
+
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+
+    }
+
+
+
+    /* *
 
     public MyButton(String text) {
         super(text);
@@ -50,5 +82,6 @@ public class MyButton extends JButton {
         Shape shape = new Ellipse2D.Float(0, 0, getWidth(), getHeight());
         return shape.contains(x, y);
     }
+
+    */
 }
-*/

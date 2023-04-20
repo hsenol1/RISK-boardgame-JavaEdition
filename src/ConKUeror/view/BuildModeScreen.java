@@ -93,7 +93,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
                 buildHandler.initalizeBots(getBotNumberComboboxValue());
                 buildHandler.initializeGame();
                 try {
-                    Map map = new Map( buildHandler.giveMapHandler() );
+                    Map map = new Map( buildHandler.giveMapHandler() , buildHandler.giveButtonHandler());
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
