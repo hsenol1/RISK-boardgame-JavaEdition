@@ -21,7 +21,12 @@ public class StartHandler {
      //    startMode
     }
 
+    public String enterMessageString() {
 
+	
+        return startMode.getInitialMessage();
+
+    }
 
 
 }

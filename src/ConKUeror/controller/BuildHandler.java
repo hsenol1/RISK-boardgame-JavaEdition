@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import src.ConKUeror.model.BuildMode;
 import src.ConKUeror.model.GameLogic;
+import src.ConKUeror.model.StartMode;
 import src.ConKUeror.model.Board.Board;
 
 
@@ -15,6 +16,7 @@ public class BuildHandler {
 private BuildMode buildMode;
 private Board board;
 private GameLogic gamelogic;
+private StartMode sMode;
 
     public BuildHandler(BuildMode bMode) {
         this.buildMode = bMode;
@@ -62,6 +64,7 @@ private GameLogic gamelogic;
 	public void initializeGame() {
 		 board = new Board();
 		 gamelogic = new GameLogic(board);
+		 sMode = new StartMode();
     }
 
 
@@ -78,8 +81,16 @@ private GameLogic gamelogic;
 		ButtonHandler buttonHandler = new ButtonHandler(buildMode,gamelogic);
 		return buttonHandler;
 
+
 }
-	
+
+public StartHandler giveStartHandler() {
+
+			StartHandler startHandler = new StartHandler(sMode);
+			return startHandler;
+}
+
+
 
 
 
