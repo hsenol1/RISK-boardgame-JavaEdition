@@ -32,6 +32,7 @@ public class GameLogic {
     ATTACK,
     FORTIFY
   }
+
   private GameState currentState = GameState.BUILD;
 
     public GameLogic(Board board) {
@@ -58,28 +59,30 @@ public class GameLogic {
     public void execute(Territory t) {
 
       switch(currentState) {
+
         case BUILD:
         this.inputTerritory = t;
         board.takeTerritoryForRemoval(inputTerritory);
-        System.out.println("BUILD MODE İS ACTIVE. TERRITORY ID İS : ");
-        System.out.println(t.getId());
+        break;
 
-       // publishBoardEvent();
-         break;
         case START:
         this.inputTerritory = t;
           break;
+
         case CARD:
-          System.out.println("High level");
+          System.out.println("Card");
           break;
+
           case DEPLOY:
-          System.out.println("Low level");
+          System.out.println("Deploy");
           break;
+
         case ATTACK:
-           System.out.println("Medium level");
+           System.out.println("Attack");
           break;
+
         case FORTIFY:
-          System.out.println("High level");
+          System.out.println("Fortify");
           break;
       }
 
