@@ -22,6 +22,12 @@ private Territory territory;
 
     }
 
+    public ArrayList<Territory> getTerritoryList() {
+
+        return boardTerritories;
+
+    }
+
 
     public Territory getTerritoryWithIndex(int i) {
 

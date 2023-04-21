@@ -2,6 +2,7 @@ package src.ConKUeror.controller;
 
 import src.ConKUeror.model.BuildMode;
 import src.ConKUeror.model.GameLogic;
+import src.ConKUeror.model.Board.Board;
 import src.ConKUeror.model.Board.Territory;
 import src.ConKUeror.model.GameLogic.GameState;
 import src.ConKUeror.view.MyButton;
@@ -34,9 +35,19 @@ public class ButtonHandler{
     }
 
     public void executeButton() {
+        getBoard().removeTerritoryFromBoardList();
        gMode.publishBoardEvent(selectedButton);;
 
     } 
+        //just for test
+
+	public Board getBoard() {
+        return  gMode.getBoard();
+	}
+
+	public BuildMode getBuildMode() {
+		return bMode;
+	}
 
 
 

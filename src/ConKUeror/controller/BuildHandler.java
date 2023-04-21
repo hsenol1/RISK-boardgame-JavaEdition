@@ -67,6 +67,9 @@ private StartMode sMode;
 		 sMode = new StartMode();
     }
 
+	
+
+
 
 	public MapHandler giveMapHandler() {
 

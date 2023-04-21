@@ -17,6 +17,8 @@ import src.ConKUeror.controller.ButtonHandler;
 import src.ConKUeror.controller.MapHandler;
 import src.ConKUeror.controller.MapListener;
 import src.ConKUeror.controller.StartHandler;
+import src.ConKUeror.model.Board.Territory;
+import src.ConKUeror.model.Player.Player;
 
 public class Map extends JFrame implements MapListener{
 
@@ -221,7 +223,27 @@ private class NextButtonHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        
+
+        
+         System.out.println("Territory List after removal");
+
+        for (Territory t :   buttonHandler.getBoard().getTerritoryList())
+         {
+            if(t !=null) {
+                System.out.println(t.getId());
+
+            }
+        }
+
+        System.out.println("Player list");
+
+        for (Player p :    buttonHandler.getBuildMode().getPlayers())
+
+         {
+            System.out.println(p.getName());
+        }
+
     }
     
 }
