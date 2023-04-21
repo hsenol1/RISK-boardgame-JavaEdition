@@ -75,6 +75,19 @@ public void fillCoordinates() {
     coordinates.add(new Coordinate(948, 641));
     coordinates.add(new Coordinate(1041, 616));
 
+    //pause-resume
+    coordinates.add(new Coordinate(10 , 19));
+    //help
+    coordinates.add(new Coordinate(160, 19));
+    //roll
+    coordinates.add(new Coordinate(50,400));
+    //execute
+    coordinates.add(new Coordinate(50,500 ));
+    //next
+    coordinates.add(new Coordinate(50, 600));
+
+
+
 
 }
 
@@ -142,6 +155,8 @@ private void publishBoardEvent(String message) {
     }
        
 }
+
+
 
 
 

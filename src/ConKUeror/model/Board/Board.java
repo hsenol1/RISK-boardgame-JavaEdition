@@ -11,6 +11,9 @@ private Continent AFRICA;
 private Continent EUROPE;
 private Continent AUSTRALIA;
 
+private Territory territory;
+
+
  private ArrayList<Territory> boardTerritories = new ArrayList<Territory>();
 
 
@@ -25,6 +28,17 @@ private Continent AUSTRALIA;
         return boardTerritories.get(i);
     }
 
+    public void takeTerritoryForRemoval(Territory _territory) {
+        this.territory = _territory;
+
+    }
+
+
+    public void removeTerritoryFromBoardList() {
+        int indexToRemove  = territory.getId();
+        boardTerritories.set(indexToRemove, null);
+
+    }
 
 
 
