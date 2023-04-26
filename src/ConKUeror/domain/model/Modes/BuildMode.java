@@ -101,8 +101,13 @@ public ArrayList<Coordinate> getCoordinateList() {
 public void initalizePlayer(String name,String type) {
 
     Player player = playerFactory.createPlayer(type, name);
-    players.add(player);
+    if (player != null) {
+        players.add(player);
+    }
 
+    else {
+        index += 1;
+    }
 }
 
 public int getPlayerCount() {

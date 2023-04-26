@@ -1,6 +1,9 @@
 package src.ConKUeror.domain.model.Player;
 
 
+import java.util.List;
+import java.util.ArrayList;
+
 import src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerAttack;
 import src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerDeploy;
 import src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerFortify;
@@ -14,6 +17,8 @@ public class PlayerFactory {
 
     private static PlayerFactory instance;
     private PlayerFactory() {};
+    private List<String> playerNames = new ArrayList<String>();
+
 
     public static PlayerFactory getInstance() {
         if(instance==null) {
@@ -25,7 +30,7 @@ public class PlayerFactory {
 
     public Player createPlayer(String type,String name) {
         
-        Player player;
+        Player player=null;
 
         if (name == null) {
             throw new IllegalArgumentException("Player name cannot be null");
@@ -38,7 +43,10 @@ public class PlayerFactory {
            RealPlayerAttack ab =new RealPlayerAttack();
            RealPlayerFortify fb =new RealPlayerFortify();
 
-         player = new Player(name,db,ab,fb,inv);
+           if (searchName(name) && (name.length() != 0)) {
+            player = new Player(name,db,ab,fb,inv);
+            playerNames.add(name);
+           }
 
        }
 
@@ -61,5 +69,16 @@ public class PlayerFactory {
         
         
     }
+
+    public boolean searchName(String playerName) {
+        for (int i = 0; i < playerNames.size(); i++) {
+            if (playerName.equals(playerNames.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
 
 }
