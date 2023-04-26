@@ -10,7 +10,7 @@ import src.ConKUeror.model.Player.PlayerFactory;
 
 public class BuildMode {
 
-private ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
+private List<Coordinate> coordinates = new ArrayList<Coordinate>();
 private List<Player> players = new ArrayList<Player>();
 private List<BuildModeListener> listeners = new ArrayList<>();
 private int humanPlayerCount;
@@ -91,7 +91,7 @@ public void fillCoordinates() {
 
 }
 
-public ArrayList<Coordinate> getCoordinateList() {
+public List<Coordinate> getCoordinateList() {
     return coordinates;
 }
 
@@ -99,7 +99,14 @@ public ArrayList<Coordinate> getCoordinateList() {
 public void initalizePlayer(String name,String type) {
 
     Player player = playerFactory.createPlayer(type, name);
-    players.add(player);
+    if (player != null) {
+        players.add(player);
+    }
+
+    else {
+        index += 1;
+    }
+    
 
 }
 

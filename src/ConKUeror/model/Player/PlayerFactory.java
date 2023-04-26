@@ -1,6 +1,9 @@
 package src.ConKUeror.model.Player;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import src.ConKUeror.model.Player.Strategies.ComputerPlayer.ComputerPlayerAttack;
 import src.ConKUeror.model.Player.Strategies.ComputerPlayer.ComputerPlayerDeploy;
 import src.ConKUeror.model.Player.Strategies.ComputerPlayer.ComputerPlayerFortify;
@@ -14,6 +17,7 @@ public class PlayerFactory {
 
     private static PlayerFactory instance;
     private PlayerFactory() {};
+    private List<String> playerNames = new ArrayList<String>();
 
     public static PlayerFactory getInstance() {
         if(instance==null) {
@@ -25,7 +29,7 @@ public class PlayerFactory {
 
     public Player createPlayer(String type,String name) {
         
-        Player player;
+        Player player = null;
 
         if (name == null) {
             throw new IllegalArgumentException("Player name cannot be null");
@@ -37,7 +41,11 @@ public class PlayerFactory {
            RealPlayerAttack ab =new RealPlayerAttack();
            RealPlayerFortify fb =new RealPlayerFortify();
 
-         player = new Player(name,db,ab,fb);
+           if (searchName(name) && (name.length() != 0)) {
+            player = new Player(name,db,ab,fb);
+            playerNames.add(name);
+           }
+         
 
        }
 
@@ -47,7 +55,7 @@ public class PlayerFactory {
             ComputerPlayerAttack ab = new ComputerPlayerAttack();
             ComputerPlayerFortify fb = new ComputerPlayerFortify();
 
-            player = new Player(name, db, ab, fb);
+            player = new Player(name + " BOT", db, ab, fb);
 
        }
 
@@ -58,6 +66,16 @@ public class PlayerFactory {
        return player;
         
         
+    }
+
+    public boolean searchName(String playerName) {
+        for (int i = 0; i < playerNames.size(); i++) {
+            if (playerName.equals(playerNames.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
