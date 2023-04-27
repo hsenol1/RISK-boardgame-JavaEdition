@@ -47,6 +47,7 @@ public class PlayerFactory {
             player = new Player(name,db,ab,fb,inv);
             playerNames.add(name);
            }
+//commit
 
        }
 
