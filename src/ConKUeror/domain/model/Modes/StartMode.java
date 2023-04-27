@@ -1,15 +1,20 @@
 package src.ConKUeror.domain.model.Modes;
 
+import java.util.List;
+
 import src.ConKUeror.domain.model.Player.Player;
 
 public class StartMode {
     private int playerCount;
     private BuildMode buildMode;
+    private static List<Player> orderedPlayerList;
     
     public StartMode(BuildMode buildMode) {
 
         this.buildMode=buildMode;
         this.playerCount = buildMode.getPlayerCount();
+        setGameOrder();
+        setOrderedList();
         setInitialInfantries();
     }
 
@@ -47,6 +52,26 @@ public class StartMode {
     
         return message;
     
+    }
+
+    public void setGameOrder() {
+
+    //set the order array according to dice rolls
+    }
+
+
+    public void setOrderedList() {
+
+        //arrange orderedPlayerList according to order array 
+
+        orderedPlayerList = buildMode.getPlayers();
+
+
+    }
+
+    public static List<Player> getOrderedPlayerList() {
+
+        return orderedPlayerList;
     }
 
 

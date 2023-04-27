@@ -67,7 +67,7 @@ private StartMode sMode;
 		 
 		 sMode = new StartMode(buildMode);
 
-		 gamelogic = new GameLogic(board);
+		 gamelogic = new GameLogic(board,sMode);
     }
 
 	

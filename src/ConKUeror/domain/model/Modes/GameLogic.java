@@ -9,6 +9,7 @@ import src.ConKUeror.domain.enums.GameMode;
 import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Card;
 import src.ConKUeror.domain.model.Board.Territory;
+import src.ConKUeror.domain.model.Player.Player;
 import src.ConKUeror.domain.model.Player.PlayerInventory;
 
 
@@ -20,18 +21,28 @@ public class GameLogic {
   private ArrayList<Territory> inputTerritories = new ArrayList<Territory>();
   
   private List<MapListener> listeners = new ArrayList<>();
-
+  private static List<Player> orderedPlayerList;
 
 
   public Boolean selectedButton;
 
   public GameMode gameMode = GameMode.BUILD;
+  public static StartMode startMod;
 
 
-    public GameLogic(Board board) {
+    public GameLogic(Board board,StartMode sMode) {
+
+      this.startMod = sMode;
       this.board = board;
     }
 
+    /* 
+    public static List<Player> getPlayerList() {
+
+      orderedPlayerList = startMod.;
+      return orderedPlayerList;
+
+    } */
 
     
     public Board getBoard() {

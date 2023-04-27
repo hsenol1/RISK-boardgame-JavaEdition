@@ -1,6 +1,5 @@
 package src.ConKUeror.UI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -49,11 +48,17 @@ public MapView(MapHandler _mapHandler, ButtonHandler _buttonHandler,StartHandler
     this.mapHandler = _mapHandler;
     this.buttonHandler = _buttonHandler;
     this.startHandler = _startHandler;
+
     
+
     initGUI();
+
+
     String openingMessage = startHandler.enterMessageString();
     DialogBox box = new DialogBox(openingMessage,"Select territories" );
     addMapFrameAsListener();
+   
+
 
     pauseAndResumeButton.addActionListener(new PauseButtonHandler());
     helpButton.addActionListener(new HelpButtonHandler());
@@ -67,6 +72,7 @@ public MapView(MapHandler _mapHandler, ButtonHandler _buttonHandler,StartHandler
 public void occupyTerritory() {
     
 }
+
 public void addMapFrameAsListener() {
     mapHandler.registerAsListener(this);
 
@@ -89,15 +95,23 @@ public void initGUI() throws IOException {
             g.drawImage(backgroundImage, 0, 0, null); // draw the image
         }
     };
-    mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+    mapPanel.setOpaque(false);
+ 
+    //mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+    mapPanel.setBounds(0,0,image.getWidth(),image.getHeight());
     mapPanel.setLayout(null); // switch to null layout manager
 
     
     add(mapPanel);
     setResizable(false);
+
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    pack();
-    setLocationRelativeTo(null); // Center the frame on the screen
+    setLocationRelativeTo(null); 
+    setLayout(null);
+
+    
+    PlayerPanel playerPanel = new PlayerPanel(buttonHandler);
+    mapPanel.add(playerPanel);
 
     setVisible(true);
     createTerritoryButtons();
@@ -166,8 +180,6 @@ public void createFunctionalityButtons() {
 @Override
 public void onBoardEvent(TerritoryButton button) {
     // TODO Auto-generated method stub
-
-    button.setBackground(Color.RED); // set the background color to red
 
     System.out.println("Remove executed");
     button.setVisible(false); // set the visibility of the button to false
