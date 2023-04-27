@@ -1,24 +1,29 @@
 package src.ConKUeror.domain.model.Board;
+import src.ConKUeror.domain.model.Player.*;
 
 public class ArmyCard extends Card {
-    private int additionalArmies;
-    private int armyPower;
-    public ArmyCard(String name, int additionalArmies) {
+    public enum ArmyType {
+        INFANTRY, CAVALRY, ARTILLERY
+    }
+
+    private ArmyType type;
+
+    public ArmyCard(String name, ArmyType type) {
         super(name);
-        this.additionalArmies = additionalArmies;
+        this.type = type;
     }
 
-    public int getAdditionalArmies() {
-        return additionalArmies;
+    public ArmyType getType() {
+        return type;
     }
 
-    public void setAdditionalArmies(int additionalArmies) {
-        this.additionalArmies = additionalArmies;
+    public void setType(ArmyType type) {
+        this.type = type;
     }
 
     @Override
-    public void use() {
-        
+    public void use(Player player) {
+       
     }
 
 }

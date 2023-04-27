@@ -1,4 +1,5 @@
 package src.ConKUeror.domain.model.Board;
+import src.ConKUeror.domain.model.Player.*;
 
 public class TerritoryCard extends Card {
     
@@ -6,10 +7,9 @@ public class TerritoryCard extends Card {
     private String territory;
     private int bonusArmies;
 
-    public TerritoryCard(String name, String territory, int bonusArmies) {
+    public TerritoryCard(String name, String territory) {
         super(name);
         this.territory = territory;
-        this.bonusArmies = bonusArmies;
     }
 
     public String getTerritory() {
@@ -20,16 +20,9 @@ public class TerritoryCard extends Card {
         this.territory = territory;
     }
 
-    public int getBonusArmies() {
-        return bonusArmies;
-    }
-
-    public void setBonusArmies(int bonusArmies) {
-        this.bonusArmies = bonusArmies;
-    }
-
+   
     @Override
-    public void use() {
+    public void use(Player player) {
         
     }
 

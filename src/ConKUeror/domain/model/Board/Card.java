@@ -1,4 +1,5 @@
 package src.ConKUeror.domain.model.Board;
+import src.ConKUeror.domain.model.Player.*;
 
 
 
@@ -18,7 +19,7 @@ public abstract class Card {
         this.name = name;
     }
 
-    public abstract void use();
+    public abstract void use(Player player);
 
 
 
