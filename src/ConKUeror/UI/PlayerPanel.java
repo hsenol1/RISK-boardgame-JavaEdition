@@ -63,10 +63,9 @@ public class PlayerPanel extends JPanel{
             JPanel playerInfoPanel = new JPanel();
 
         playerInfoPanel.setBorder(BorderFactory.createCompoundBorder(blackBorder, padding));
-        playerInfoPanel.setBackground(Color.lightGray);
+        playerInfoPanel.setBackground(Color.WHITE);
         JLabel playerNameLabel = new JLabel(p.getName() + ":");
         String army = Integer.toString(p.getInventory().getTotalArmy());
-        System.out.println(army);
         JLabel armyCountLabel = new JLabel(army);
         Font labelFont = new Font("Arial", Font.PLAIN, 12);
         playerNameLabel.setFont(labelFont);

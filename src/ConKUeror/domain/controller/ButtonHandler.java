@@ -1,5 +1,6 @@
 package src.ConKUeror.domain.controller;
 
+import src.ConKUeror.UI.MapView;
 import src.ConKUeror.UI.TerritoryButton;
 import src.ConKUeror.domain.enums.GameMode;
 import src.ConKUeror.domain.model.Board.Board;
@@ -24,7 +25,8 @@ public class ButtonHandler{
 
           Territory t = gMode.getBoard().getTerritoryWithIndex(id);  
           System.out.println(t.getId());     
-          gMode.execute(t,GameMode.BUILD);
+          //gMode.execute(t,GameMode.BUILD);
+          gMode.execute(t,GameMode.CONNECTION);
 
     }
 
@@ -35,7 +37,7 @@ public class ButtonHandler{
     }
 
     public void executeButton() {
-        getBoard().removeTerritoryFromBoardList();
+        getBoard().removeTerritory();
        gMode.publishBoardEvent(selectedButton);;
 
     } 
@@ -63,6 +65,11 @@ public class ButtonHandler{
 
     }
 
+    public void registerAsListener(MapView mapView) {
+        gMode.addTerritoryButtonListener(mapView);
+
+
+    }
 
 
     

@@ -28,6 +28,10 @@ public class TerritoryButton extends JButton {
 
     }
 
+    public void changeColor() {
+        setBackground(Color.GREEN);
+    }
+
     public int getID() {
         return id;
     }

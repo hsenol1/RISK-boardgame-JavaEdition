@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.ConKUeror.domain.controller.BuildModeListener;
+import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Coordinate;
 import src.ConKUeror.domain.model.Player.Player;
 import src.ConKUeror.domain.model.Player.PlayerFactory;
@@ -34,49 +35,48 @@ public List<Player> getPlayers() {
 
 public  void fillCoordinates() {
 
-    coordinates.add(new Coordinate(69, 103));
-    coordinates.add(new Coordinate(171, 102));
-    coordinates.add(new Coordinate(368, 60));
-    coordinates.add(new Coordinate(155, 164));
-    coordinates.add(new Coordinate(232, 182));
-    coordinates.add(new Coordinate(303, 175));
-    coordinates.add(new Coordinate(162, 236));
-    coordinates.add(new Coordinate(249, 271));
-    coordinates.add(new Coordinate(178, 342));
-    coordinates.add(new Coordinate(246, 402));
-    coordinates.add(new Coordinate(264, 505));
-    coordinates.add(new Coordinate(343, 478));
-    coordinates.add(new Coordinate(266, 597));
-    coordinates.add(new Coordinate(439, 228));
-    coordinates.add(new Coordinate(463, 141));
-    coordinates.add(new Coordinate(532, 151));
-    coordinates.add(new Coordinate(643, 199));
-    coordinates.add(new Coordinate(545, 236));
-    coordinates.add(new Coordinate(455, 341));
-    coordinates.add(new Coordinate(564, 304));
-    coordinates.add(new Coordinate(501, 453));
-    coordinates.add(new Coordinate(585, 416));
-    coordinates.add(new Coordinate(634, 495));
-    coordinates.add(new Coordinate(583, 542));
-    coordinates.add(new Coordinate(594, 638));
-    coordinates.add(new Coordinate(692, 641));
-    coordinates.add(new Coordinate(666, 372));
-    coordinates.add(new Coordinate(733, 257));
-    coordinates.add(new Coordinate(751, 170));
-    coordinates.add(new Coordinate(813, 127));
-    coordinates.add(new Coordinate(896, 85));
-    coordinates.add(new Coordinate(978, 93));
-    coordinates.add(new Coordinate(880, 178));
-    coordinates.add(new Coordinate(893, 248));
-    coordinates.add(new Coordinate(1000, 260));
-    coordinates.add(new Coordinate(861, 321));
-    coordinates.add(new Coordinate(791, 373));
-    coordinates.add(new Coordinate(888, 415));
-    coordinates.add(new Coordinate(906, 545));
-    coordinates.add(new Coordinate(999, 502));
-    coordinates.add(new Coordinate(948, 641));
-    coordinates.add(new Coordinate(1041, 616));
-
+coordinates.add(new Coordinate(68, 108));
+coordinates.add(new Coordinate(154, 101));
+coordinates.add(new Coordinate(371, 64));
+coordinates.add(new Coordinate(300, 176));
+coordinates.add(new Coordinate(229, 179));
+coordinates.add(new Coordinate(150, 161));
+coordinates.add(new Coordinate(158, 245));
+coordinates.add(new Coordinate(236, 268));
+coordinates.add(new Coordinate(172, 345));
+coordinates.add(new Coordinate(244, 403));
+coordinates.add(new Coordinate(242, 498));
+coordinates.add(new Coordinate(272, 584));
+coordinates.add(new Coordinate(346, 476));
+coordinates.add(new Coordinate(499, 464));
+coordinates.add(new Coordinate(590, 544));
+coordinates.add(new Coordinate(591, 642));
+coordinates.add(new Coordinate(692, 647));
+coordinates.add(new Coordinate(629, 483));
+coordinates.add(new Coordinate(582, 416));
+coordinates.add(new Coordinate(662, 363));
+coordinates.add(new Coordinate(561, 307));
+coordinates.add(new Coordinate(468, 310));
+coordinates.add(new Coordinate(455, 229));
+coordinates.add(new Coordinate(469, 128));
+coordinates.add(new Coordinate(536, 144));
+coordinates.add(new Coordinate(543, 238));
+coordinates.add(new Coordinate(648, 180));
+coordinates.add(new Coordinate(750, 168));
+coordinates.add(new Coordinate(733, 268));
+coordinates.add(new Coordinate(789, 377));
+coordinates.add(new Coordinate(865, 317));
+coordinates.add(new Coordinate(1001, 253));
+coordinates.add(new Coordinate(897, 239));
+coordinates.add(new Coordinate(879, 172));
+coordinates.add(new Coordinate(806, 117));
+coordinates.add(new Coordinate(885, 85));
+coordinates.add(new Coordinate(974, 99));
+coordinates.add(new Coordinate(882, 413));
+coordinates.add(new Coordinate(905, 524));
+coordinates.add(new Coordinate(998, 501));
+coordinates.add(new Coordinate(1023, 602));
+coordinates.add(new Coordinate(947, 640));
     //pause-resume
     coordinates.add(new Coordinate(10 , 19));
     //help
@@ -93,8 +93,85 @@ public  void fillCoordinates() {
 
 }
 
+public void initalizeConnections() {
+
+    
+    for(int i = 0; i<37; i++) {
+        addConnection(i,i+1);
+
+    }
+
+    for(int i = 38; i<41; i++ ) {
+        addConnection(i,i+1);
+
+    }
+
+    addConnection(0,36);
+    addConnection(0,5);
+    addConnection(5,1);
+    addConnection(1,4);
+    addConnection(2,4);
+    addConnection(3,7);
+    addConnection(4,7);
+    addConnection(4,6);
+    addConnection(6,8);
+    addConnection(9,12);
+    addConnection(10,12);
+    addConnection(2,23);
+    addConnection(22,25);
+    addConnection(22,24);
+
+    addConnection(21,25);
+    addConnection(21,13);
+    addConnection(20,13);
+    addConnection(25,20);
+    addConnection(24,26);
+    addConnection(20,26);
+
+    addConnection(20,18);
+    addConnection(13,18);
+    addConnection(13,17);
+    addConnection(14,17);
+    addConnection(15,17);
+    addConnection(17,19);
+    addConnection(19,26);
+    addConnection(26,28);
+    addConnection(28,19);
+    addConnection(19,29);
+    addConnection(29,37);
+    addConnection(28,30);
+    addConnection(27,30);
+    addConnection(34,30);
+    addConnection(34,32);
+    addConnection(27,34);
+    addConnection(35,33);
+    addConnection(36,32);
+    addConnection(32,30);
+
+
+    addConnection(30,37);
+    addConnection(36,31);
+    addConnection(38,41);
+    addConnection(41,40);
+
+
+    
+    
+
+
+
+
+
+}
+
 public ArrayList<Coordinate> getCoordinateList() {
     return coordinates;
+}
+
+
+public void addConnection(int x, int y) {
+    Board.getTerritoryWithIndex(x).addConnection(Board.getTerritoryWithIndex(y));
+
 }
 
 

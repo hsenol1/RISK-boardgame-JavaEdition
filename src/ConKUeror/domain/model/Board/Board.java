@@ -1,6 +1,10 @@
 package src.ConKUeror.domain.model.Board;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class Board {
     
@@ -14,35 +18,36 @@ private Continent AUSTRALIA;
 private Territory territory;
 
 
- private ArrayList<Territory> boardTerritories = new ArrayList<Territory>();
+ //private ArrayList<Territory> boardTerritories2 = new ArrayList<Territory>();
 
+ private static Map<Integer, Territory> territories= new HashMap<>();
 
     public  Board() {
         initAllTerritoriesAndContinents();
 
     }
+    public static Map<Integer, Territory> getTerritories() {
 
-    public ArrayList<Territory> getTerritoryList() {
-
-        return boardTerritories;
+        return territories;
 
     }
 
 
-    public Territory getTerritoryWithIndex(int i) {
+    public static Territory getTerritoryWithIndex(int i) {
 
-        return boardTerritories.get(i);
+        return territories.get(i);
     }
 
-    public void takeTerritoryForRemoval(Territory _territory) {
+    public  void takeTerritoryForRemoval(Territory _territory) {
         this.territory = _territory;
 
     }
 
 
-    public void removeTerritoryFromBoardList() {
+    public void removeTerritory() {
         int indexToRemove  = territory.getId();
-        boardTerritories.set(indexToRemove, null);
+        territories.remove(indexToRemove);
+        //add additional method if you want to reverse deleletion
 
     }
 
@@ -56,7 +61,7 @@ private Territory territory;
         for(int i = 0 ; i< 9 ; i++) {
             Territory territory = new Territory(i);
             NORTH_AMERICA.addTerritoryToContinent(territory);
-            boardTerritories.add(territory);
+            territories.put(i, territory);
 
         }
         SOUTH_AMERICA= new Continent("South America");
@@ -64,34 +69,45 @@ private Territory territory;
 
             Territory territory = new Territory(i);
             SOUTH_AMERICA.addTerritoryToContinent(territory);
-            boardTerritories.add(territory);
+            territories.put(i, territory);
 
         }
-        EUROPE= new Continent("Europe");
-        for(int i= 13; i<20; i++ ) {
 
-            Territory territory = new Territory(i);
-            EUROPE.addTerritoryToContinent(territory);
-            boardTerritories.add(territory);
-
-
-        }
+        //europe 7
+        //afrika da 6 fark
+        //asia 12 
         AFRICA= new Continent("Africa");
-        for(int i= 20; i<26; i++ ) {
+
+        for(int i= 13; i<19; i++ ) {
 
             Territory territory = new Territory(i);
             AFRICA.addTerritoryToContinent(territory);
-            boardTerritories.add(territory);
+            territories.put(i, territory);
+
+
+        }
+        EUROPE= new Continent("Europe");
+        for(int i= 20; i<27; i++ ) {
+
+            Territory territory = new Territory(i);
+            EUROPE.addTerritoryToContinent(territory);
+            territories.put(i, territory);
 
 
         }
 
         ASIA= new Continent("Asia");
-        for(int i= 26; i<38; i++ ) {
+        for(int i= 27; i<38; i++ ) {
+
+            if(i == 27) {
+                Territory territory = new Territory(19);
+                ASIA.addTerritoryToContinent(territory);
+                territories.put(19, territory); 
+            }
 
             Territory territory = new Territory(i);
             ASIA.addTerritoryToContinent(territory);
-            boardTerritories.add(territory);
+            territories.put(i, territory);
 
 
         }
@@ -101,7 +117,7 @@ private Territory territory;
 
             Territory territory = new Territory(i);
             AUSTRALIA.addTerritoryToContinent(territory);
-            boardTerritories.add(territory);
+            territories.put(i, territory);
 
 
         }
