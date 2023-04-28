@@ -6,6 +6,6 @@ public enum GameMode {
     CARD,
     DEPLOY,
     ATTACK,
-    FORTIFY
+    FORTIFY, CONNECTION
     
 }

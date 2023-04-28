@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -16,10 +17,14 @@ import src.ConKUeror.domain.controller.ButtonHandler;
 import src.ConKUeror.domain.controller.MapHandler;
 import src.ConKUeror.domain.controller.MapListener;
 import src.ConKUeror.domain.controller.StartHandler;
+import src.ConKUeror.domain.controller.TerritoryButtonListener;
 import src.ConKUeror.domain.model.Board.Territory;
-import src.ConKUeror.domain.model.Player.Player;
 
-public class MapView extends JFrame implements MapListener{
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class MapView extends JFrame implements MapListener , TerritoryButtonListener{
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
@@ -32,6 +37,8 @@ public class MapView extends JFrame implements MapListener{
     JButton executeButton;
     JButton nextButton; 
     TerritoryButton selectedButton;
+    List<TerritoryButton> territoryButtonsList = new ArrayList<TerritoryButton>();
+    Boolean selected = false;
 
 
     public BufferedImage image;
@@ -57,7 +64,7 @@ public MapView(MapHandler _mapHandler, ButtonHandler _buttonHandler,StartHandler
     String openingMessage = startHandler.enterMessageString();
     DialogBox box = new DialogBox(openingMessage,"Select territories" );
     addMapFrameAsListener();
-   
+    addMapFrameAsListenertoListenTerrittoryButtonInteraction();
 
 
     pauseAndResumeButton.addActionListener(new PauseButtonHandler());
@@ -75,6 +82,11 @@ public void occupyTerritory() {
 
 public void addMapFrameAsListener() {
     mapHandler.registerAsListener(this);
+
+}
+
+public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
+    buttonHandler.registerAsListener(this);
 
 }
 
@@ -130,13 +142,22 @@ public void createTerritoryButtons() {
         TerritoryButton button = new TerritoryButton(x,y,i);
         button.setBounds(x, y, 40, 40);
         button.setPreferredSize(new Dimension(40, 40)); 
+        territoryButtonsList.add(button);
         button.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
+                 /*if(!selected) {
+                    buttonHandler.matchButtonWithTerritory(button.getID());
+                    selected = flip(selected);
+                 } */{
+
+                 }
                 buttonHandler.matchButtonWithTerritory(button.getID());
-                buttonHandler.checkButtonforRemoval(button) ;
+
+
+                //buttonHandler.checkButtonforRemoval(button) ;
 
                 
                 
@@ -152,6 +173,18 @@ public void createTerritoryButtons() {
 
 }
 
+public Boolean flip(Boolean b) {
+    if (b) {
+        return false;
+
+    } else {
+        return true;
+    }
+    
+    
+
+
+} 
 
 public void createFunctionalityButtons() {
 
@@ -185,6 +218,33 @@ public void onBoardEvent(TerritoryButton button) {
     button.setVisible(false); // set the visibility of the button to false
     revalidate(); // revalidate the frame to update the layout
     repaint();}
+
+    @Override
+    public void getButtonList(List<Integer> neigborIdsList) {
+        // TODO Auto-generated method stub
+    
+        System.out.println("Map View classına kadar gelen bir connection methodu var");
+
+        for (int i = 0; i < neigborIdsList.size(); i++) {
+            territoryButtonsList.get(neigborIdsList.get(i)).changeColor();
+
+        };
+        revalidate(); // revalidate the frame to update the layout
+        repaint();
+            // buttonHandler.getButton( neigborIdsList.get(i), f)
+            // Printing and display the elements in ArrayList
+            // System.out.print(numbers.get(i) + " ");       
+
+
+       // button.setVisible(false); // set the visibility of the button to false
+        //revalidate(); // revalidate the frame to update the layout
+        //repaint();
+    
+    
+    }
+
+
+    
 
 private class PauseButtonHandler implements ActionListener {
 
@@ -236,26 +296,38 @@ private class NextButtonHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         
-
+        //TESTING
         
          System.out.println("Territory List after removal");
+         Map<Integer, Territory> territoryMap  =buttonHandler.getBoard().getTerritories();
+        int counter = 0;
+         
 
-        for (Territory t :   buttonHandler.getBoard().getTerritoryList())
-         {
-            if(t !=null) {
-                System.out.println(t.getId());
+         for (Map.Entry<Integer, Territory> entry : territoryMap.entrySet()) {
+            Integer id = entry.getKey();
+            Territory territory = entry.getValue();
+           // System.out.println("Key=" + id + ", Value=" + territory.getId());
+            Map<Integer,Territory> adjList = entry.getValue().getAdjacencyList() ;
 
-            }
+              System.out.println("This is the " +counter+". territory");
+            System.out.println(adjList);
+            counter++;
+
         }
+
+     
+        
 
         System.out.println("Player list");
 
+        /* 
         for (Player p :    buttonHandler.getBuildMode().getPlayers())
 
          {
             System.out.println(p.getName());
             System.out.println(p.getInventory().getTotalArmy());
         }
+        */
 
     }
     

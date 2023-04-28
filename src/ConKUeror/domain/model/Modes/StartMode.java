@@ -43,7 +43,7 @@ public class StartMode {
 
     }
   
-
+//viewa taşı,teknik olarak view la alakalı bir fonksiyon
     public String getInitialMessage() {
 
         String message = "You can select the territories that you don't want to be in the game! \n "+

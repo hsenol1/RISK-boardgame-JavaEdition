@@ -64,6 +64,7 @@ private StartMode sMode;
 	//burada da controllerda logic kullanıyorum. Bu olabilir mi bilmiyorum bunu da sorarım da şu anlık işler kod olması için yapıyorum
 	public void initializeGame() {
 		 board = new Board();
+		 buildMode.initalizeConnections();
 		 
 		 sMode = new StartMode(buildMode);
 

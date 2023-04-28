@@ -1,10 +1,12 @@
 package src.ConKUeror.domain.model.Modes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 
 import src.ConKUeror.UI.TerritoryButton;
 import src.ConKUeror.domain.controller.MapListener;
+import src.ConKUeror.domain.controller.TerritoryButtonListener;
 import src.ConKUeror.domain.enums.GameMode;
 import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Card;
@@ -21,6 +23,7 @@ public class GameLogic {
   private ArrayList<Territory> inputTerritories = new ArrayList<Territory>();
   
   private List<MapListener> listeners = new ArrayList<>();
+  private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
   private static List<Player> orderedPlayerList;
 
 
@@ -52,6 +55,17 @@ public class GameLogic {
     public void addMapListener(MapListener lis) {
       listeners.add(lis);
   }
+
+  public void addTerritoryButtonListener(TerritoryButtonListener lis) {
+    territoryButtonListeners.add(lis);
+  }
+
+  public void giveNeighborIdsOfSelectedTerritoryButton(List<Integer> neigborIdsList ) {
+    for(TerritoryButtonListener l: territoryButtonListeners) {
+      l.getButtonList(neigborIdsList);
+    }
+
+  }
   
   
   public void publishBoardEvent(TerritoryButton button) {
@@ -70,6 +84,18 @@ public class GameLogic {
         case BUILD:
         this.inputTerritory = t;
         board.takeTerritoryForRemoval(inputTerritory);
+        break;
+
+        case CONNECTION:
+        
+        this.inputTerritory=t;
+        Map<Integer,Territory>  adjList = t.getAdjacencyList();
+        List<Integer> neighborIds = new ArrayList<Integer>(); 
+        for (Map.Entry<Integer, Territory> set : adjList.entrySet()) {
+          int territoryId =set.getKey();
+          neighborIds.add(territoryId);          
+        }
+        giveNeighborIdsOfSelectedTerritoryButton(neighborIds);
         break;
 
         case START:
