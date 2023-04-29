@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
@@ -31,14 +33,15 @@ public class MapView extends JFrame implements MapListener , TerritoryButtonList
     StartHandler startHandler;
 
     JButton pauseAndResumeButton;
-    JButton helpButton; 
+    JButton helpButton;
 
-    JButton rollButton; 
+    JButton rollButton;
     JButton executeButton;
-    JButton nextButton; 
+    JButton nextButton;
     TerritoryButton selectedButton;
     List<TerritoryButton> territoryButtonsList = new ArrayList<TerritoryButton>();
     Boolean selected = false;
+    List<TerritoryButton> buttonHistory = new ArrayList<TerritoryButton>();
 
 
     public BufferedImage image;
@@ -47,7 +50,7 @@ public class MapView extends JFrame implements MapListener , TerritoryButtonList
     Boolean disable = false;
     int disable_Num = 0;
 
-    
+
 
 
 public MapView(MapHandler _mapHandler, ButtonHandler _buttonHandler,StartHandler _startHandler) throws IOException {
@@ -56,7 +59,7 @@ public MapView(MapHandler _mapHandler, ButtonHandler _buttonHandler,StartHandler
     this.buttonHandler = _buttonHandler;
     this.startHandler = _startHandler;
 
-    
+
 
     initGUI();
 
@@ -77,7 +80,7 @@ public MapView(MapHandler _mapHandler, ButtonHandler _buttonHandler,StartHandler
 }
 
 public void occupyTerritory() {
-    
+
 }
 
 public void addMapFrameAsListener() {
@@ -100,7 +103,7 @@ public void initGUI() throws IOException {
     setSize(image.getWidth(), image.getHeight());
     mapPanel = new JPanel() {
         BufferedImage backgroundImage = image;
-        
+
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -108,20 +111,20 @@ public void initGUI() throws IOException {
         }
     };
     mapPanel.setOpaque(false);
- 
+
     //mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
     mapPanel.setBounds(0,0,image.getWidth(),image.getHeight());
     mapPanel.setLayout(null); // switch to null layout manager
 
-    
+
     add(mapPanel);
     setResizable(false);
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLocationRelativeTo(null); 
+    setLocationRelativeTo(null);
     setLayout(null);
 
-    
+
     PlayerPanel playerPanel = new PlayerPanel(buttonHandler);
     mapPanel.add(playerPanel);
 
@@ -129,7 +132,7 @@ public void initGUI() throws IOException {
     createTerritoryButtons();
     createFunctionalityButtons();
 
-} 
+}
 
 
 public void createTerritoryButtons() {
@@ -141,28 +144,40 @@ public void createTerritoryButtons() {
 
         TerritoryButton button = new TerritoryButton(x,y,i);
         button.setBounds(x, y, 40, 40);
-        button.setPreferredSize(new Dimension(40, 40)); 
+        button.setPreferredSize(new Dimension(40, 40));
         territoryButtonsList.add(button);
-        button.addActionListener(new ActionListener() {
+        button.addMouseListener(new MouseAdapter() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                if(e.getButton()== MouseEvent.BUTTON1) {
+                    buttonHandler.matchButtonWithTerritory(button.getID());
+
+                }
+                else if (e.getButton() == MouseEvent.BUTTON3) {
+
+                    for (TerritoryButton b: buttonHistory) {
+                        b.resetColor();
+                    }
+                    buttonHistory.clear();
+
+                }
+
+
                 // TODO Auto-generated method stub
                  /*if(!selected) {
                     buttonHandler.matchButtonWithTerritory(button.getID());
                     selected = flip(selected);
-                 } */{
-
-                 }
-                buttonHandler.matchButtonWithTerritory(button.getID());
+                 } */
+                //buttonHandler.matchButtonWithTerritory(button.getID());
 
 
                 //buttonHandler.checkButtonforRemoval(button) ;
 
-                
-                
+
+
             }
-            
+
         });
         mapPanel.setLayout(null); // switch to null layout manager
         mapPanel.add(button);
@@ -180,11 +195,11 @@ public Boolean flip(Boolean b) {
     } else {
         return true;
     }
-    
-    
 
 
-} 
+
+
+}
 
 public void createFunctionalityButtons() {
 
@@ -207,7 +222,7 @@ public void createFunctionalityButtons() {
         mapPanel.add(nextButton);
 
 
-    
+
 }
 
 @Override
@@ -222,29 +237,25 @@ public void onBoardEvent(TerritoryButton button) {
     @Override
     public void getButtonList(List<Integer> neigborIdsList) {
         // TODO Auto-generated method stub
-    
-        System.out.println("Map View classına kadar gelen bir connection methodu var");
+
+        //System.out.println("Map View classına kadar gelen bir connection methodu var");
 
         for (int i = 0; i < neigborIdsList.size(); i++) {
-            territoryButtonsList.get(neigborIdsList.get(i)).changeColor();
+            TerritoryButton button = territoryButtonsList.get(neigborIdsList.get(i));
+            button.changeColor();
+            buttonHistory.add(button);
 
         };
-        revalidate(); // revalidate the frame to update the layout
+
+        revalidate();
         repaint();
-            // buttonHandler.getButton( neigborIdsList.get(i), f)
-            // Printing and display the elements in ArrayList
-            // System.out.print(numbers.get(i) + " ");       
 
 
-       // button.setVisible(false); // set the visibility of the button to false
-        //revalidate(); // revalidate the frame to update the layout
-        //repaint();
-    
-    
+
     }
 
 
-    
+
 
 private class PauseButtonHandler implements ActionListener {
 
@@ -255,7 +266,7 @@ private class PauseButtonHandler implements ActionListener {
     }
 
 
-    
+
 }
 
 private class HelpButtonHandler implements ActionListener {
@@ -265,7 +276,7 @@ private class HelpButtonHandler implements ActionListener {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
-    
+
 }
 
 private class RollButtonHandler implements ActionListener {
@@ -275,7 +286,7 @@ private class RollButtonHandler implements ActionListener {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
-    
+
 }
 
 private class ExecuteButtonHandler implements ActionListener {
@@ -283,11 +294,11 @@ private class ExecuteButtonHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        
+
         buttonHandler.executeButton();
 
     }
-    
+
 }
 
 private class NextButtonHandler implements ActionListener {
@@ -295,13 +306,13 @@ private class NextButtonHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        
+
         //TESTING
-        
+
          System.out.println("Territory List after removal");
          Map<Integer, Territory> territoryMap  =buttonHandler.getBoard().getTerritories();
         int counter = 0;
-         
+
 
          for (Map.Entry<Integer, Territory> entry : territoryMap.entrySet()) {
             Integer id = entry.getKey();
@@ -315,12 +326,12 @@ private class NextButtonHandler implements ActionListener {
 
         }
 
-     
-        
+
+
 
         System.out.println("Player list");
 
-        /* 
+        /*
         for (Player p :    buttonHandler.getBuildMode().getPlayers())
 
          {
@@ -330,7 +341,7 @@ private class NextButtonHandler implements ActionListener {
         */
 
     }
-    
+
 }
 
 

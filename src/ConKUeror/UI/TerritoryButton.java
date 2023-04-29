@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
-import javax.swing.JButton; 
+import javax.swing.JButton;
 // will be used to increase the graphics level. now it is not necessary
 
 
@@ -17,19 +17,26 @@ public class TerritoryButton extends JButton {
     private int x;
     private int y;
     private int id;
+    private Color defaultColor;
 
 
     public TerritoryButton(int x, int y,int id ) {
         super();
            this.id = id;
            this.x= x;
-           this.y = y; 
+           this.y = y;
+           this.defaultColor = getBackground();
 
 
     }
 
     public void changeColor() {
         setBackground(Color.GREEN);
+    }
+
+    public void resetColor() {
+        setBackground(defaultColor);
+
     }
 
     public int getID() {

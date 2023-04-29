@@ -10,7 +10,7 @@ import src.ConKUeror.domain.model.Modes.StartMode;
 
 
 public class BuildHandler {
-    
+
 private Boolean firstConfirm = true;
 private BuildMode buildMode;
 private Board board;
@@ -27,7 +27,7 @@ private StartMode sMode;
 	}
 
 	public void validateNumbers(int totalNum, int botNum ) {
-		
+
 			Boolean isValid = buildMode.validatePlayerNums(totalNum, botNum);
 			if(isValid && firstConfirm) {
 				buildMode.openPlayerInputPanel();
@@ -36,14 +36,14 @@ private StartMode sMode;
 
 	}
 
-	
+
 	public void enterNameForRealPlayers(String name) {
 		buildMode.initalizePlayer(name,"Real Player");
 	}
 
 
 	public void initalizeBots(int botPlayerCount) {
-		
+
 		for (int i = 1; i <= botPlayerCount; i++) {
 			String name = "Computer " + i;
 			buildMode.initalizePlayer(name, "Computer Player");
@@ -59,19 +59,19 @@ private StartMode sMode;
 		buildMode.setStart();
 	}
 
-	
+
 
 	//burada da controllerda logic kullanıyorum. Bu olabilir mi bilmiyorum bunu da sorarım da şu anlık işler kod olması için yapıyorum
 	public void initializeGame() {
 		 board = new Board();
 		 buildMode.initalizeConnections();
-		 
+
 		 sMode = new StartMode(buildMode);
 
 		 gamelogic = new GameLogic(board,sMode);
     }
 
-	
+
 
 
 
