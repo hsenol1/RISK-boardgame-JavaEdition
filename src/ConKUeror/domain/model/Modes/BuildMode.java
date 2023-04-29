@@ -95,8 +95,8 @@
 
     public void initalizeConnections() {
 
-        
-        for(int i = 0; i<37; i++) {
+
+        for(int i = 0; i<36; i++) {
             addConnection(i,i+1);
 
         }
@@ -149,10 +149,14 @@
         addConnection(36,31);
         addConnection(38,41);
         addConnection(41,40);
+        addConnection(38,37);
+        addConnection(33,36);
 
 
-        
-        
+
+
+
+
 
 
 
@@ -189,27 +193,27 @@
     }
 
     public Boolean validatePlayerNums(int totalPlayerNumber, int botPlayerNumber) {
-        
+
         this.TOTAL_PLAYER_COUNT=totalPlayerNumber;
 
         if(botPlayerNumber<totalPlayerNumber) {
             botPlayerCount =botPlayerNumber;
-            humanPlayerCount = totalPlayerNumber- botPlayerNumber;   
+            humanPlayerCount = totalPlayerNumber- botPlayerNumber;
             index = humanPlayerCount;
             return true;
 
-        } 
+        }
         return false;
 
         }
 
-        
+
         public void openPlayerInputPanel() {
 
             while(index !=0) {
                 index--;
                 String message =  String.format("Enter player %d name:", (humanPlayerCount-index));
-                publishBoardEvent(message);             
+                publishBoardEvent(message);
             }
         }
 
@@ -220,10 +224,10 @@
         }
 
         public static Boolean getStartStatus() {
-            return canStart; 
+            return canStart;
         }
 
-        
+
 
     public void addBuildModeListener(BuildModeListener lis) {
         listeners.add(lis);
@@ -235,7 +239,7 @@
             l.onBoardEvent(message);
 
         }
-        
+
     }
 
 
