@@ -17,14 +17,14 @@ public class ButtonHandler{
     public ButtonHandler(BuildMode bMode, GameLogic gMode) {
             this.bMode = bMode;
             this.gMode = gMode;
-      
+
     }
 
 
     public void matchButtonWithTerritory(int id) {
 
-          Territory t = gMode.getBoard().getTerritoryWithIndex(id);  
-          System.out.println(t.getId());     
+          Territory t = gMode.getBoard().getTerritoryWithIndex(id);
+          System.out.println(t.getId());
           //gMode.execute(t,GameMode.BUILD);
           gMode.execute(t,GameMode.CONNECTION);
 
@@ -40,7 +40,7 @@ public class ButtonHandler{
         getBoard().removeTerritory();
        gMode.publishBoardEvent(selectedButton);;
 
-    } 
+    }
         //just for test
 
 	public Board getBoard() {
@@ -72,5 +72,5 @@ public class ButtonHandler{
     }
 
 
-    
+
 }

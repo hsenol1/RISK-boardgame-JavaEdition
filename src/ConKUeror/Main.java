@@ -1,6 +1,5 @@
 package src.ConKUeror;
 
-import javax.swing.JFrame;
 
 import src.ConKUeror.UI.BuildModeScreen;
 import src.ConKUeror.domain.controller.BuildHandler;
@@ -11,7 +10,7 @@ public class Main {
 
 public static void main(String[] args) {
 
- BuildMode buildMode = new BuildMode(); 
+ BuildMode buildMode = new BuildMode();
 
 
  // controllerın içine modeli atıyoruz
