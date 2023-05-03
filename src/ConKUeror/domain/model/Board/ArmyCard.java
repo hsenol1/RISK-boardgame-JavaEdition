@@ -1,6 +1,6 @@
 package src.ConKUeror.domain.model.Board;
 import src.ConKUeror.domain.model.Player.*;
-
+import src.ConKUeror.domain.model.Player.PlayerInventory;
 public class ArmyCard extends Card {
     public enum ArmyType {
         INFANTRY, CAVALRY, ARTILLERY
@@ -23,7 +23,10 @@ public class ArmyCard extends Card {
 
     @Override
     public void use(Player player) {
-       
+        if (player.inv.canTradeCards()) {
+            int additionalArmies = player.inv.tradeCardsAndGetAdditionalArmies();
+            player.inv.addArmies(additionalArmies);
+        }
     }
 
 }

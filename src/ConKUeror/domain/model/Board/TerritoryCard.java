@@ -23,7 +23,10 @@ public class TerritoryCard extends Card {
    
     @Override
     public void use(Player player) {
-        
+        Continent continent = Board.getContinentByTerritory(territory);
+        for (String territoryName : continent.getTerritoryNames()) {
+            Board.setTerritoryOwner(territoryName, player);
+        }
     }
 
 
