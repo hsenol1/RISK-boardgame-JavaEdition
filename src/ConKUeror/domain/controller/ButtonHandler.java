@@ -1,12 +1,15 @@
 package src.ConKUeror.domain.controller;
 
 import src.ConKUeror.UI.MapView;
+import src.ConKUeror.UI.PlayerPanel;
 import src.ConKUeror.UI.TerritoryButton;
 import src.ConKUeror.domain.enums.GameMode;
 import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Territory;
 import src.ConKUeror.domain.model.Modes.BuildMode;
 import src.ConKUeror.domain.model.Modes.GameLogic;
+import src.ConKUeror.domain.model.Board.Die;
+import src.ConKUeror.domain.model.Board.DiceRoller;
 
 public class ButtonHandler{
 
@@ -38,8 +41,14 @@ public class ButtonHandler{
 
     public void executeButton() {
         getBoard().removeTerritory();
-       gMode.publishBoardEvent(selectedButton);;
+        gMode.publishBoardEvent(selectedButton);;
 
+    }
+
+    public void rollButton() {
+        
+        gMode.roll();
+        
     }
         //just for test
 
@@ -67,9 +76,15 @@ public class ButtonHandler{
 
     public void registerAsListener(MapView mapView) {
         gMode.addTerritoryButtonListener(mapView);
-
+        gMode.addRollDieListener(mapView);
 
     }
+
+    
+
+    
+
+
 
 
 

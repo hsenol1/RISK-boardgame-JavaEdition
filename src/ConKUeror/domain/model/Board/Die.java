@@ -1,7 +1,11 @@
 package src.ConKUeror.domain.model.Board;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+
+import src.ConKUeror.domain.model.Player.Player;
+import src.ConKUeror.domain.model.Player.PlayerExpert;
 
 public class Die {
 
@@ -9,10 +13,14 @@ public class Die {
 
     private Random random;
     private int faceValue;
+    private int indexValue;
+    private int customValue;
+   
 
     private Die()
     {
         this.random = new Random();
+     
     }
 
     public static Die getDieInstance()
@@ -33,6 +41,23 @@ public class Die {
 
         return faceValue;
     }
+
+
+   public void customRollDie(int i) {
+        customValue = random.nextInt(0,i);
+   }
+
+   public int getCustomValue(int i) {
+        customRollDie(i);
+        return customValue;
+   }
+
+
+
+
+ 
+
+    
 
     
     

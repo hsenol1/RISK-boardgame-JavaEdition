@@ -6,10 +6,13 @@ import java.util.ArrayList;
 
 import src.ConKUeror.UI.TerritoryButton;
 import src.ConKUeror.domain.controller.MapListener;
+import src.ConKUeror.domain.controller.RollDieListener;
 import src.ConKUeror.domain.controller.TerritoryButtonListener;
 import src.ConKUeror.domain.enums.GameMode;
 import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Card;
+import src.ConKUeror.domain.model.Board.DiceRoller;
+import src.ConKUeror.domain.model.Board.Die;
 import src.ConKUeror.domain.model.Board.Territory;
 import src.ConKUeror.domain.model.Player.Player;
 import src.ConKUeror.domain.model.Player.PlayerInventory;
@@ -24,7 +27,9 @@ public class GameLogic {
   
   private List<MapListener> listeners = new ArrayList<>();
   private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
+  private List<RollDieListener> rollListeners = new ArrayList<>();
   private static List<Player> orderedPlayerList;
+  DiceRoller diceRoller = new DiceRoller();
 
 
   public Boolean selectedButton;
@@ -60,6 +65,12 @@ public class GameLogic {
     territoryButtonListeners.add(lis);
   }
 
+  public void addRollDieListener(RollDieListener rdlis) {
+    rollListeners.add(rdlis);
+  }
+
+
+
   public void giveNeighborIdsOfSelectedTerritoryButton(List<Integer> neigborIdsList ) {
     for(TerritoryButtonListener l: territoryButtonListeners) {
       l.getButtonList(neigborIdsList);
@@ -74,6 +85,12 @@ public class GameLogic {
   
       }
          
+  }
+
+  public void giveFirstPlayer(String playerName) {
+    for (RollDieListener l: rollListeners) {
+        l.getRollEvent(playerName);
+    }
   }
 
 
@@ -119,6 +136,13 @@ public class GameLogic {
           break;
       }
 
+
+    }
+
+
+    public void roll() {
+        Player player = diceRoller.getFirstPlayer();
+        giveFirstPlayer(player.getName());
 
     }
 
