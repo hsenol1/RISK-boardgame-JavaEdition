@@ -29,6 +29,10 @@ public class Continent {
         return false;
     }
 
+    public List<Territory> getTerritories() {
+        return territories;
+    }
+
  
     public void addTerritoryToContinent(Territory territtory) {
         territories.add(territtory);

@@ -18,12 +18,16 @@ private Army army;
 private List<ArmyCard> armyCards;
 private List<Territory> ownedTerritories;
 private int armies;
-
+private List<TerritoryCard> territoryCards;
+private List<ChanceCard> chanceCards;
    public PlayerInventory() {
         this.army = new Army();
         this.armyCards = new ArrayList<>();
         this.ownedTerritories = new ArrayList<>();
         this.armies = 0;
+    }
+    public List<TerritoryCard> getTerritoryCards() {
+        return territoryCards;
     }
     public boolean canTradeCards() {
         // Check if the player has a valid set of 3 cards to trade
