@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -12,15 +13,17 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import src.ConKUeror.domain.controller.ButtonHandler;
+import src.ConKUeror.domain.controller.RollDieListener;
 import src.ConKUeror.domain.model.Modes.StartMode;
 import src.ConKUeror.domain.model.Player.Player;
 
-public class PlayerPanel extends JPanel{
+public class PlayerPanel extends JPanel implements RollDieListener{
 
     private ButtonHandler buttonHandler;
 
     private int playerCount;
     private List<Player> orderedPlayers;
+    private List<JPanel> playerInfoPanels;
 
     Border blackBorder;
     Border padding;
@@ -30,7 +33,7 @@ public class PlayerPanel extends JPanel{
 
     public PlayerPanel(ButtonHandler buttonHandler) {
         this.buttonHandler = buttonHandler;
-
+        playerInfoPanels = new ArrayList<>();
         playerCount = StartMode.getOrderedPlayerList().size();
         setLayout(new GridLayout(1, playerCount));
         orderedPlayers=StartMode.getOrderedPlayerList();
@@ -70,7 +73,7 @@ public class PlayerPanel extends JPanel{
         Font labelFont = new Font("Arial", Font.PLAIN, 12);
         playerNameLabel.setFont(labelFont);
         armyCountLabel.setFont(labelFont);
-
+        
         
         playerInfoPanel.add(playerNameLabel);
         playerInfoPanel.add(armyCountLabel);
@@ -79,6 +82,7 @@ public class PlayerPanel extends JPanel{
         playerInfoPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
     
         add(playerInfoPanel);
+        playerInfoPanels.add(playerInfoPanel);
         
     
     }
@@ -91,6 +95,12 @@ public class PlayerPanel extends JPanel{
 
 
 
+    }
+
+    @Override
+    public void getRollEvent(String message) {
+        // TODO Auto-generated method stub
+        System.out.println(message);
     } 
 
 

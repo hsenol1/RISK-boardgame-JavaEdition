@@ -7,29 +7,33 @@
     import src.ConKUeror.domain.model.Board.Board;
     import src.ConKUeror.domain.model.Board.Coordinate;
     import src.ConKUeror.domain.model.Player.Player;
-    import src.ConKUeror.domain.model.Player.PlayerFactory;
+import src.ConKUeror.domain.model.Player.PlayerExpert;
+import src.ConKUeror.domain.model.Player.PlayerFactory;
 
     public class BuildMode {
 
     private ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
-    private List<Player> players = new ArrayList<Player>();
+    // private List<Player> players = new ArrayList<Player>();
     private List<BuildModeListener> listeners = new ArrayList<>();
     private int TOTAL_PLAYER_COUNT;
     private int humanPlayerCount;
     public static int botPlayerCount;
     private int index;
     PlayerFactory playerFactory;
+    PlayerExpert playerExpert;
     private static boolean canStart = false;
 
 
 
     public BuildMode() {
         playerFactory = PlayerFactory.getInstance();
+        playerExpert = PlayerExpert.getPlayerExpert();
         fillCoordinates();
     }
 
     public List<Player> getPlayers() {
-        return this.players;
+       //  return this.players;
+       return playerExpert.getPlayersList();
     }
 
 
@@ -179,7 +183,8 @@
 
         Player player = playerFactory.createPlayer(type, name);
         if (player != null) {
-            players.add(player);
+            playerExpert.addPlayersList(player);
+            // players.add(player);
         }
 
         else {
