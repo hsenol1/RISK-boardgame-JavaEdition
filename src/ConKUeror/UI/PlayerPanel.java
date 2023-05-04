@@ -17,7 +17,7 @@ import src.ConKUeror.domain.controller.RollDieListener;
 import src.ConKUeror.domain.model.Modes.StartMode;
 import src.ConKUeror.domain.model.Player.Player;
 
-public class PlayerPanel extends JPanel implements RollDieListener{
+public class PlayerPanel extends JPanel{
 
     private ButtonHandler buttonHandler;
 
@@ -37,6 +37,7 @@ public class PlayerPanel extends JPanel implements RollDieListener{
         playerCount = StartMode.getOrderedPlayerList().size();
         setLayout(new GridLayout(1, playerCount));
         orderedPlayers=StartMode.getOrderedPlayerList();
+        
 
         setUI();
         setPlayerInfos();
@@ -97,11 +98,31 @@ public class PlayerPanel extends JPanel implements RollDieListener{
 
     }
 
-    @Override
-    public void getRollEvent(String message) {
-        // TODO Auto-generated method stub
-        System.out.println(message);
-    } 
+
+
+    public void clearPlayerInfos() {
+        // Remove old player info panels from UI
+          // Remove old player info panels from UI
+        for (JPanel playerInfoPanel : playerInfoPanels) {
+            remove(playerInfoPanel);
+        }
+
+        // Clear the playerInfoPanels list
+        playerInfoPanels.clear();
+
+        // Add updated player info panels to the UI
+        setUI();
+        setOrderedPlayers();
+        setPlayerInfos();
+
+        // Notify the UI to update its layout and repaint
+        revalidate();
+        repaint();
+    }
+
+    public void setOrderedPlayers() {
+        orderedPlayers = StartMode.getOrderedPlayerList();
+    }
 
 
 

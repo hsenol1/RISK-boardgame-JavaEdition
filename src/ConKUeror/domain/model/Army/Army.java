@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.model;
+package src.ConKUeror.domain.model.Army;
 
 public class Army {
 
