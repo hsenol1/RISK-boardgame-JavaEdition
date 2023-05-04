@@ -33,7 +33,7 @@ public class MapView extends JFrame implements MapListener , TerritoryButtonList
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
     StartHandler startHandler;
-
+    PlayerPanel playerPanel;
     JButton pauseAndResumeButton;
     JButton helpButton;
 
@@ -127,7 +127,7 @@ public void initGUI() throws IOException {
     setLayout(null);
 
 
-    PlayerPanel playerPanel = new PlayerPanel(buttonHandler);
+    playerPanel = new PlayerPanel(buttonHandler);
     mapPanel.add(playerPanel);
 
     setVisible(true);
@@ -135,6 +135,8 @@ public void initGUI() throws IOException {
     createFunctionalityButtons();
 
 }
+
+
 
 
 public void createTerritoryButtons() {
@@ -356,6 +358,19 @@ public void getRollEvent(String message) {
     // TODO Auto-generated method stub
     JOptionPane.showMessageDialog(MapView.this, message);
     
+    updatePlayerPanel();
+ 
+    
+}
+
+public void updatePlayerPanel() {
+   
+    playerPanel.clearPlayerInfos();
+    
+  
+    
+    mapPanel.revalidate();
+    mapPanel.repaint();
 }
 
 

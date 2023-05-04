@@ -1,6 +1,6 @@
 package src.ConKUeror.domain.model.Player;
 
-import src.ConKUeror.domain.model.Army;
+import src.ConKUeror.domain.model.Army.Army;
 
 import src.ConKUeror.domain.model.Board.Card;
 

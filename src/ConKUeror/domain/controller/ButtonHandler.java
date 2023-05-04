@@ -60,6 +60,8 @@ public class ButtonHandler{
 		return bMode;
 	}
 
+    
+
 
 
 
@@ -77,6 +79,7 @@ public class ButtonHandler{
     public void registerAsListener(MapView mapView) {
         gMode.addTerritoryButtonListener(mapView);
         gMode.addRollDieListener(mapView);
+        
 
     }
 

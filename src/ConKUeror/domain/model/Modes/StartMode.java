@@ -1,5 +1,6 @@
 package src.ConKUeror.domain.model.Modes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import src.ConKUeror.domain.model.Player.Player;
@@ -72,6 +73,22 @@ public class StartMode {
     public static List<Player> getOrderedPlayerList() {
 
         return orderedPlayerList;
+    }
+
+    public void setOrderedAfterRoll(Player player) {
+        int index = orderedPlayerList.indexOf(player);
+
+        List<Player> orderList = new ArrayList<Player>();
+
+        for (int i = 0; i < orderedPlayerList.size(); i++) {
+            orderList.add(orderedPlayerList.get((index - i + orderedPlayerList.size() ) % orderedPlayerList.size()));
+        }
+
+
+        orderedPlayerList = orderList;
+    
+
+
     }
 
 

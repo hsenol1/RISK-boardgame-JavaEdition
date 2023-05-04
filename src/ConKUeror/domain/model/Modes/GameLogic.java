@@ -143,6 +143,7 @@ public class GameLogic {
     public void roll() {
         Player player = diceRoller.getFirstPlayer();
         giveFirstPlayer(player.getName());
+        startMod.setOrderedAfterRoll(player);
 
     }
 
