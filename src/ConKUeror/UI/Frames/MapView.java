@@ -19,9 +19,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
+import src.ConKUeror.UI.HelpScreen.HelpScreen;
 import src.ConKUeror.UI.Panels.InfoPanel;
 import src.ConKUeror.UI.Panels.PlayerInteractionPanel;
 import src.ConKUeror.UI.Panels.PlayerPanel;
+import src.ConKUeror.UI.PauseScreen.PauseScreen;
 import src.ConKUeror.domain.controller.ButtonHandler;
 import src.ConKUeror.domain.controller.GameHandler;
 import src.ConKUeror.domain.controller.HandlerFactory;
@@ -62,6 +64,7 @@ public class MapView extends JFrame implements MapListener , TerritoryButtonList
     Boolean disable = false;
     int disable_Num = 0;
 
+    JFrame frame;
 
 
 
@@ -71,7 +74,7 @@ public MapView() throws IOException {
     this.mapHandler = controller.giveMapHandler();
     this.buttonHandler = controller.giveButtonHandler();
     this.gameHandler = controller.giveGameHandler();
-
+     frame = this;
 
 
     initGUI();
@@ -83,9 +86,10 @@ public MapView() throws IOException {
     addMapFrameAsListenertoListenTerrittoryButtonInteraction();
 
 
-   /*
+
     pauseAndResumeButton.addActionListener(new PauseButtonHandler());
     helpButton.addActionListener(new HelpButtonHandler());
+    /*
     rollButton.addActionListener(new RollButtonHandler());
     executeButton.addActionListener(new ExecuteButtonHandler());
     nextButton.addActionListener(new NextButtonHandler());
@@ -97,6 +101,8 @@ public MapView() throws IOException {
 public void occupyTerritory() {
 
 }
+
+
 
 public void addMapFrameAsListener() {
     mapHandler.registerAsListener(this);
@@ -159,7 +165,7 @@ public void initGUI() throws IOException {
 
     setVisible(true);
     createTerritoryButtons();
-   //createFunctionalityButtons();
+   createFunctionalityButtons();
 
 }
 
@@ -238,19 +244,20 @@ public void createFunctionalityButtons() {
         pauseAndResumeButton.setBounds(buttonHandler.getXFromList(42), buttonHandler.getYFromList(42), 130, 40);
         helpButton = new JButton("Help");
         helpButton.setBounds(buttonHandler.getXFromList(43), buttonHandler.getYFromList(43), 80, 40);
-        rollButton = new JButton("Roll");
+/*
+       rollButton = new JButton("Roll");
         rollButton.setBounds(buttonHandler.getXFromList(44), buttonHandler.getYFromList(44), 80, 80);
         executeButton = new JButton("Remove");
         executeButton.setBounds(buttonHandler.getXFromList(45), buttonHandler.getYFromList(45), 80, 80);
         nextButton = new JButton("Next");
         nextButton.setBounds(buttonHandler.getXFromList(46), buttonHandler.getYFromList(46), 80, 80);
         mapPanel.setLayout(null); // switch to null layout manager
-
+*/
         mapPanel.add(pauseAndResumeButton);
         mapPanel.add(helpButton);
-        mapPanel.add(rollButton);
-        mapPanel.add(executeButton);
-        mapPanel.add(nextButton);
+       // mapPanel.add(rollButton);
+        //mapPanel.add(executeButton);
+        //mapPanel.add(nextButton);
 
 
 
@@ -304,28 +311,31 @@ public void onBoardEvent(TerritoryButton button) {
 
 
 
-/*
+
 private class PauseButtonHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        PauseScreen pauseScreen = new PauseScreen(frame);
+        pauseScreen.setVisible(true);
     }
 
 
 
 }
+
 
 private class HelpButtonHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        new HelpScreen();
     }
 
 }
+/*
 
 private class RollButtonHandler implements ActionListener {
 
