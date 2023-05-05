@@ -13,11 +13,13 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import src.ConKUeror.domain.controller.ButtonHandler;
 import src.ConKUeror.domain.controller.MapHandler;
 import src.ConKUeror.domain.controller.MapListener;
+import src.ConKUeror.domain.controller.RollDieListener;
 import src.ConKUeror.domain.controller.StartHandler;
 import src.ConKUeror.domain.controller.TerritoryButtonListener;
 import src.ConKUeror.domain.model.Board.Territory;
@@ -26,12 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener , TerritoryButtonListener{
+public class MapView extends JFrame implements MapListener , TerritoryButtonListener, RollDieListener{
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
     StartHandler startHandler;
-
+    PlayerPanel playerPanel;
     JButton pauseAndResumeButton;
     JButton helpButton;
 
@@ -125,7 +127,7 @@ public void initGUI() throws IOException {
     setLayout(null);
 
 
-    PlayerPanel playerPanel = new PlayerPanel(buttonHandler);
+    playerPanel = new PlayerPanel(buttonHandler);
     mapPanel.add(playerPanel);
 
     setVisible(true);
@@ -133,6 +135,8 @@ public void initGUI() throws IOException {
     createFunctionalityButtons();
 
 }
+
+
 
 
 public void createTerritoryButtons() {
@@ -232,7 +236,10 @@ public void onBoardEvent(TerritoryButton button) {
     System.out.println("Remove executed");
     button.setVisible(false); // set the visibility of the button to false
     revalidate(); // revalidate the frame to update the layout
-    repaint();}
+    repaint();
+
+
+}
 
     @Override
     public void getButtonList(List<Integer> neigborIdsList) {
@@ -262,7 +269,7 @@ private class PauseButtonHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        buttonHandler.rollButton();
     }
 
 
@@ -284,7 +291,9 @@ private class RollButtonHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        buttonHandler.rollButton();
+        
+
     }
 
 }
@@ -308,10 +317,10 @@ private class NextButtonHandler implements ActionListener {
         // TODO Auto-generated method stub
 
         //TESTING
-
+        
          System.out.println("Territory List after removal");
          Map<Integer, Territory> territoryMap  =buttonHandler.getBoard().getTerritories();
-        int counter = 0;
+         int counter = 0;    
 
 
          for (Map.Entry<Integer, Territory> entry : territoryMap.entrySet()) {
@@ -342,6 +351,26 @@ private class NextButtonHandler implements ActionListener {
 
     }
 
+}
+
+@Override
+public void getRollEvent(String message) {
+    // TODO Auto-generated method stub
+    JOptionPane.showMessageDialog(MapView.this, message);
+    
+    updatePlayerPanel();
+ 
+    
+}
+
+public void updatePlayerPanel() {
+   
+    playerPanel.clearPlayerInfos();
+    
+  
+    
+    mapPanel.revalidate();
+    mapPanel.repaint();
 }
 
 

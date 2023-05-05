@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import src.ConKUeror.UI.HelpScreen.HelpScreen;
 import src.ConKUeror.domain.controller.BuildHandler;
 import src.ConKUeror.domain.controller.BuildModeListener;
 import src.ConKUeror.domain.model.Modes.BuildMode;
@@ -39,7 +40,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
             addBoardFrameAsListener();
             confirmButton.addActionListener(new ConfirmButtonHandler());
             startButton.addActionListener(new StartButtonHandler());
-        
+            helpButton.addActionListener(new HelpButtonHandler());
     }
 
     @Override
@@ -68,6 +69,23 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
 		}
 
     }
+
+
+    private class HelpButtonHandler implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+
+                new HelpScreen();
+           
+    
+		}
+
+    }
+
+
+
     private class StartButtonHandler implements ActionListener {
 
         @Override

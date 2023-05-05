@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import src.ConKUeror.domain.controller.ButtonHandler;
+import src.ConKUeror.domain.controller.RollDieListener;
 import src.ConKUeror.domain.model.Modes.StartMode;
 import src.ConKUeror.domain.model.Player.Player;
 
@@ -21,6 +23,7 @@ public class PlayerPanel extends JPanel{
 
     private int playerCount;
     private List<Player> orderedPlayers;
+    private List<JPanel> playerInfoPanels;
 
     Border blackBorder;
     Border padding;
@@ -30,10 +33,11 @@ public class PlayerPanel extends JPanel{
 
     public PlayerPanel(ButtonHandler buttonHandler) {
         this.buttonHandler = buttonHandler;
-
+        playerInfoPanels = new ArrayList<>();
         playerCount = StartMode.getOrderedPlayerList().size();
         setLayout(new GridLayout(1, playerCount));
         orderedPlayers=StartMode.getOrderedPlayerList();
+        
 
         setUI();
         setPlayerInfos();
@@ -70,7 +74,7 @@ public class PlayerPanel extends JPanel{
         Font labelFont = new Font("Arial", Font.PLAIN, 12);
         playerNameLabel.setFont(labelFont);
         armyCountLabel.setFont(labelFont);
-
+        
         
         playerInfoPanel.add(playerNameLabel);
         playerInfoPanel.add(armyCountLabel);
@@ -79,6 +83,7 @@ public class PlayerPanel extends JPanel{
         playerInfoPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
     
         add(playerInfoPanel);
+        playerInfoPanels.add(playerInfoPanel);
         
     
     }
@@ -91,7 +96,33 @@ public class PlayerPanel extends JPanel{
 
 
 
-    } 
+    }
+
+
+
+    public void clearPlayerInfos() {
+        // Remove old player info panels from UI
+          // Remove old player info panels from UI
+        for (JPanel playerInfoPanel : playerInfoPanels) {
+            remove(playerInfoPanel);
+        }
+
+        // Clear the playerInfoPanels list
+        playerInfoPanels.clear();
+
+        // Add updated player info panels to the UI
+        setUI();
+        setOrderedPlayers();
+        setPlayerInfos();
+
+        // Notify the UI to update its layout and repaint
+        revalidate();
+        repaint();
+    }
+
+    public void setOrderedPlayers() {
+        orderedPlayers = StartMode.getOrderedPlayerList();
+    }
 
 
 
