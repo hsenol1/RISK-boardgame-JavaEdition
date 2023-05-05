@@ -44,7 +44,7 @@ public class CardsScreen extends JFrame {
             // TODO: handle exception
         }
      
-        textAreaPlus.setForeground(Color.white);
+       // textAreaPlus.setForeground(Color.white);
 
         gameMapFrame.add(textAreaPlus); // size the frame to fit the label
 

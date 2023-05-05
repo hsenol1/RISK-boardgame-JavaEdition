@@ -45,6 +45,7 @@ public class HelpScreen extends JFrame {
      
 
 
+       // textAreaPlus.setForeground(Color.white);
         introductionFrame.add(textAreaPlus, BorderLayout.CENTER); // Add the text area to the frame
         introductionFrame.add(buttonPanel, BorderLayout.SOUTH); // Add the button panel to the frame
 
