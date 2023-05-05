@@ -86,7 +86,6 @@ public class StartMode {
 
     public void setOrderedAfterRoll(Player player) {
         int index = orderedPlayerList.indexOf(player);
-
         List<Player> orderList = new ArrayList<Player>();
 
         for (int i = 0; i < orderedPlayerList.size(); i++) {
@@ -95,9 +94,6 @@ public class StartMode {
 
 
         orderedPlayerList = orderList;
-    
-
-
     }
 
 

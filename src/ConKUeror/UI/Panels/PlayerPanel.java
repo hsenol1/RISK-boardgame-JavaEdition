@@ -99,25 +99,27 @@ public class PlayerPanel extends JPanel{
     public void clearPlayerInfos() {
         // Remove old player info panels from UI
           // Remove old player info panels from UI
+        
         for (JPanel playerInfoPanel : playerInfoPanels) {
             remove(playerInfoPanel);
         }
 
-        // Clear the playerInfoPanels list
         playerInfoPanels.clear();
 
-        // Add updated player info panels to the UI
-        setUI();
         setOrderedPlayers();
+        System.out.println("Before for loop, after setOrderedPlayers()");
+        for (Player p : orderedPlayers) {
+            System.out.println("The name is: " + p.getName());
+        }
+        System.out.println("After for loop.");
         setPlayerInfos();
 
-        // Notify the UI to update its layout and repaint
         revalidate();
         repaint();
     }
 
     public void setOrderedPlayers() {
-        orderedPlayers = StartMode.getOrderedPlayerList();
+        this.orderedPlayers = StartMode.getOrderedPlayerList();
     }
 
 

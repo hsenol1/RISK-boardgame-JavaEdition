@@ -4,6 +4,7 @@ import java.util.Map;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
 import src.ConKUeror.UI.Frames.MapView;
+import src.ConKUeror.UI.Panels.PlayerInteractionPanel;
 import src.ConKUeror.domain.enums.GameMode;
 import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Territory;
@@ -34,8 +35,12 @@ public class ButtonHandler{
     public void matchButtonWithTerritory(int id) {
 
           Territory t = gMode.getBoard().getTerritoryWithIndex(id);
-          //System.out.println(t.getId());
-          gMode.prepareButton(t,GameMode.BUILD);
+          System.out.println(t.getId());
+          System.out.println(gMode.getGameMode());
+
+
+
+          gMode.prepareButton(t,gMode.getGameMode());
 
     }
 
@@ -89,8 +94,18 @@ public class ButtonHandler{
 		return bMode;
 	}
 
+    public void nextPhase() {
+        gMode.increasePhaseIndex();
+        gMode.moveToOtherPhase();
+
+    }
 
 
+
+
+    public int getPhaseIndex() {
+        return gMode.getGamePhaseAsIndex();
+    }
 
 
 
@@ -110,6 +125,10 @@ public class ButtonHandler{
         gMode.addRollDieListener(mapView);
 
 
+    }
+
+    public void registerNextAsListener(PlayerInteractionPanel pPanel) {
+        gMode.addNButtonListener(pPanel);
     }
 
 
