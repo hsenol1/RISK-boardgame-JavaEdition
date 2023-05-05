@@ -1,3 +1,5 @@
+package src.ConKUeror.UI.HelpScreen;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -27,8 +29,13 @@ public class MapScreen extends JFrame {
 
         textAreaPlus.setFont(new Font("Times New Roman",Font.PLAIN,20));
         
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("gameMap.jpg"));
-        textAreaPlus.setImage(icon);
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("gameMap.jpg"));
+            textAreaPlus.setImage(icon);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+  
         textAreaPlus.setForeground(Color.white);
 
         gameMapFrame.add(textAreaPlus); // size the frame to fit the label

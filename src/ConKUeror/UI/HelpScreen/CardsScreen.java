@@ -1,3 +1,5 @@
+package src.ConKUeror.UI.HelpScreen;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -33,8 +35,15 @@ public class CardsScreen extends JFrame {
         textAreaPlus.setAlignmentX(Component.CENTER_ALIGNMENT); // Center-align the text
         textAreaPlus.setAlignmentY(Component.CENTER_ALIGNMENT);
         
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("card.jpg"));
-        textAreaPlus.setImage(icon);
+
+
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("card.jpg"));
+            textAreaPlus.setImage(icon);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+     
         textAreaPlus.setForeground(Color.white);
 
         gameMapFrame.add(textAreaPlus); // size the frame to fit the label

@@ -1,3 +1,5 @@
+package src.ConKUeror.UI.HelpScreen;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -46,9 +48,16 @@ public class ChanceCardScreen extends JFrame {
 + "“World Event”: Roll a die. On a 1-2, all players receive three extra armies. On a 3-4, all players lose three armies. On a 5-6, all players exchange one territory they control with another player \n of their choice.");
 
         textAreaPlus.setFont(new Font("Times New Roman",Font.PLAIN,20));
+
+
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("armies.jpg"));
+            textAreaPlus.setImage(icon);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("armies.jpg"));
-        textAreaPlus.setImage(icon);
+      
         textAreaPlus.setForeground(Color.white);
 
         gameMapFrame.add(textAreaPlus); // size the frame to fit the label
