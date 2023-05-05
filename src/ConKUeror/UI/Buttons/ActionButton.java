@@ -41,11 +41,11 @@ public class ActionButton extends JButton implements ActionListener{
                     buttonHandler.addConnection();
                         break;
                     case 1:
-                    buttonHandler.removeButton();
+                        buttonHandler.removeButton();
 
                         break;
                     case 2:
-                       // buttonHandler.nextPhase();
+                        buttonHandler.nextPhase();
                         break;
 
                 }
@@ -54,6 +54,9 @@ public class ActionButton extends JButton implements ActionListener{
                 switch (id[1]) {
                     case 0:
                         // Code to execute if the first element is 1 and the second is 0
+                        buttonHandler.rollButton();
+
+
                         break;
                     case 1:
                         // Code to execute if both elements are equal to 1

@@ -114,51 +114,51 @@ public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
 
 public void initGUI() throws IOException {
 
-    image = ImageIO.read(getClass().getResourceAsStream("/src/images/Map.png"));
-    setSize((int) (1.20 * image.getWidth()), image.getHeight());
-    mapPanel = new JPanel() {
-        BufferedImage backgroundImage = image;
+        image = ImageIO.read(getClass().getResourceAsStream("/src/images/Map.png"));
+        setSize((int) (1.20 * image.getWidth()), image.getHeight());
+        mapPanel = new JPanel() {
+            BufferedImage backgroundImage = image;
 
-        @Override
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(backgroundImage, 0, 0, null); // draw the image
-        }
-    };
-    mapPanel.setOpaque(false);
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage, 0, 0, null); // draw the image
+            }
+        };
+        mapPanel.setOpaque(false);
 
-    //mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
-    mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
-    mapPanel.setLayout(null);
-
-
-
-    PlayerInteractionPanel interactionPanel = new PlayerInteractionPanel(buttonHandler, gameHandler);
-    mapPanel.add(interactionPanel);
-
-
-   InfoPanel infoPanel = new InfoPanel();
-   infoPanel.setPreferredSize(new Dimension((int) (0.20 * image.getWidth()), image.getHeight()));
-   infoPanel.setBackground(Color.lightGray);
+        //mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+        mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+        mapPanel.setLayout(null);
 
 
 
-   PlayerPanel playerPanel = new PlayerPanel(buttonHandler);
-   mapPanel.add(playerPanel);
+        PlayerInteractionPanel interactionPanel = new PlayerInteractionPanel(buttonHandler, gameHandler);
+        mapPanel.add(interactionPanel);
 
-   setLayout(new BorderLayout());
-   add(mapPanel, BorderLayout.CENTER);
-   add(infoPanel, BorderLayout.EAST);
-    setResizable(false);
 
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLocationRelativeTo(null);
-    setLocationRelativeTo(null);
+        InfoPanel infoPanel = new InfoPanel();
+        infoPanel.setPreferredSize(new Dimension((int) (0.20 * image.getWidth()), image.getHeight()));
+        infoPanel.setBackground(Color.lightGray);
 
 
 
-    setVisible(true);
-    createTerritoryButtons();
+        playerPanel = new PlayerPanel(buttonHandler);
+        mapPanel.add(playerPanel);
+
+        setLayout(new BorderLayout());
+        add(mapPanel, BorderLayout.CENTER);
+        add(infoPanel, BorderLayout.EAST);
+        setResizable(false);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
+
+
+
+        setVisible(true);
+        createTerritoryButtons();
    //createFunctionalityButtons();
 
 }
@@ -289,18 +289,19 @@ public void onBoardEvent(TerritoryButton button) {
     public void getRollEvent(String message) {
         // TODO Auto-generated method stub
         JOptionPane.showMessageDialog(MapView.this, message);
+        updatePlayerPanel();    
+    
+    
+    }
 
-        updatePlayerPanel();    }
-
-        public void updatePlayerPanel() {
-
-            playerPanel.clearPlayerInfos();
-
-
-
-            mapPanel.revalidate();
-            mapPanel.repaint();
-        }
+    public void updatePlayerPanel() {
+        playerPanel.clearPlayerInfos();
+        playerPanel.revalidate();
+        playerPanel.repaint();
+        
+        mapPanel.revalidate();
+        mapPanel.repaint();
+    }
 
 
 

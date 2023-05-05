@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
 import src.ConKUeror.domain.controller.MapListener;
+import src.ConKUeror.domain.controller.NextButtonListener;
 import src.ConKUeror.domain.controller.RollDieListener;
 import src.ConKUeror.domain.controller.TerritoryButtonListener;
 import src.ConKUeror.domain.enums.GameMode;
@@ -26,6 +27,7 @@ public class GameLogic {
   private List<MapListener> listeners = new ArrayList<>();
   private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
   private List<RollDieListener> rollListeners = new ArrayList<>();
+  private List<NextButtonListener> nButtonListener = new ArrayList<>();
   private static List<Player> orderedPlayerList;
   DiceRoller diceRoller = new DiceRoller();
 
@@ -38,7 +40,7 @@ public class GameLogic {
   public Territory[] memory = new Territory[2];
   private int memoryIndex = 0;
 
-  private static int phaseIndex= 0;
+  private int phaseIndex= 0;
 
     public GameLogic(Board board,StartMode sMode) {
 
@@ -96,6 +98,10 @@ public class GameLogic {
     rollListeners.add(rdlis);
   }
 
+  public void addNButtonListener(NextButtonListener nbLis) {
+    nButtonListener.add(nbLis);
+  }
+
 
 
   public void giveNeighborIdsOfSelectedTerritoryButton(List<Integer> neigborIdsList ) {
@@ -118,10 +124,7 @@ public class GameLogic {
 
   }
    //this will be changed later as observer pattern
-   public static int getGamePhaseAsIndex() {
-    return phaseIndex;
 
-}
   public void giveFirstPlayer(String playerName) {
     for (RollDieListener l: rollListeners) {
         l.getRollEvent(playerName);
@@ -129,8 +132,20 @@ public class GameLogic {
   }
   public void roll() {
     Player player = diceRoller.getFirstPlayer();
-    giveFirstPlayer(player.getName());
+    
     startMod.setOrderedAfterRoll(player);
+    giveFirstPlayer(player.getName());
+}
+
+    public void increasePhaseIndex() {
+        phaseIndex += 1;
+        for (NextButtonListener l : nButtonListener ) {
+            l.nextPhaseEvent(phaseIndex);
+        }
+    }
+
+    public int getGamePhaseAsIndex() {
+         return phaseIndex;
 
 }
 
