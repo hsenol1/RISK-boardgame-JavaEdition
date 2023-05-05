@@ -34,7 +34,7 @@ public class ButtonHandler{
 
           Territory t = gMode.getBoard().getTerritoryWithIndex(id);
           //System.out.println(t.getId());
-          gMode.prepareButton(t,GameMode.BUILD);
+          gMode.prepareButton(t,GameMode.CONNECTION);
 
     }
 

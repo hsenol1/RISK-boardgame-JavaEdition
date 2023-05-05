@@ -182,7 +182,7 @@ public void createTerritoryButtons() {
                     buttonHandler.selectButton(button);
                 }
 
-                /*
+
                 else if (e.getButton() == MouseEvent.BUTTON3) {
 
                     for (TerritoryButton b: buttonHistory) {
@@ -191,7 +191,7 @@ public void createTerritoryButtons() {
                     buttonHistory.clear();
 
                 }
-                */
+
 
 
                 // TODO Auto-generated method stub

@@ -62,8 +62,8 @@ public class PlayerInteractionPanel extends JPanel{
             panelWidth = 130;
             panelHeight = 300;
 
-           int startX = 40;
-           int startY = 400;
+           int startX = 30;
+           int startY = 420;
 
           setBounds(startX, startY, panelWidth , panelHeight);
           setPreferredSize(new Dimension(panelWidth, panelHeight));
