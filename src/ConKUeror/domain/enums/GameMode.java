@@ -3,10 +3,13 @@ package src.ConKUeror.domain.enums;
 public enum GameMode {
     BUILD,
     START,
-    CARD,
+    CHANCECARD,
     DEPLOY,
     ATTACK,
     FORTIFY,
+    TERRITORYCARD,
+    ARMYCARD,
     CONNECTION
-
 }
+
+

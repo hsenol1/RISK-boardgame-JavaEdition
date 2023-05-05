@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 
 public class Board {
-    
+
 private Continent ASIA;
 private Continent NORTH_AMERICA;
 private Continent SOUTH_AMERICA;
@@ -21,7 +21,6 @@ private Continent AUSTRALIA;
 private Territory territory;
 private static List<Continent> continents;
 
- //private ArrayList<Territory> boardTerritories2 = new ArrayList<Territory>();
 
  private static Map<Integer, Territory> territories= new HashMap<>();
 
@@ -41,7 +40,7 @@ private static List<Continent> continents;
         return territories.get(i);
     }
 
-    public  void takeTerritoryForRemoval(Territory _territory) {
+    public  void setTerritory(Territory _territory) {
         this.territory = _territory;
 
     }
@@ -160,7 +159,7 @@ private static List<Continent> continents;
     public void initAllTerritoriesAndContinents() {
 
 
-         
+
         NORTH_AMERICA = new Continent("North America");
         for(int i = 0 ; i< 9 ; i++) {
             Territory territory = new Territory(i);
@@ -177,9 +176,7 @@ private static List<Continent> continents;
 
         }
 
-        //europe 7
-        //afrika da 6 fark
-        //asia 12 
+
         AFRICA= new Continent("Africa");
 
         for(int i= 13; i<19; i++ ) {
@@ -206,7 +203,7 @@ private static List<Continent> continents;
             if(i == 27) {
                 Territory territory = new Territory(19);
                 ASIA.addTerritoryToContinent(territory);
-                territories.put(19, territory); 
+                territories.put(19, territory);
             }
 
             Territory territory = new Territory(i);

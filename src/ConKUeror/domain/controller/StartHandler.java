@@ -9,8 +9,17 @@ public class StartHandler {
     private Board board;
     private GameLogic gamelogic;
 
-    public StartHandler(StartMode sMode) {
+    private static StartHandler instance;
+
+    private  StartHandler(StartMode sMode) {
         this.startMode = sMode;
+    }
+
+    public static StartHandler getInstance(StartMode smode) {
+        if (instance == null) {
+            instance = new StartHandler(smode);
+        }
+        return instance;
     }
 
     public void registerAsListener(StartModeListener listener) {
@@ -23,9 +32,12 @@ public class StartHandler {
 
     public String enterMessageString() {
 
-	
+
         return startMode.getInitialMessage();
 
+    }
+    public void setStartMode() {
+        startMode.setStartMode();
     }
 
 

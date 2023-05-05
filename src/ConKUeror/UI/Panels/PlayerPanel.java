@@ -1,4 +1,4 @@
-package src.ConKUeror.UI;
+package src.ConKUeror.UI.Panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import src.ConKUeror.domain.controller.ButtonHandler;
-import src.ConKUeror.domain.controller.RollDieListener;
 import src.ConKUeror.domain.model.Modes.StartMode;
 import src.ConKUeror.domain.model.Player.Player;
 
@@ -34,10 +33,10 @@ public class PlayerPanel extends JPanel{
     public PlayerPanel(ButtonHandler buttonHandler) {
         this.buttonHandler = buttonHandler;
         playerInfoPanels = new ArrayList<>();
+
         playerCount = StartMode.getOrderedPlayerList().size();
         setLayout(new GridLayout(1, playerCount));
         orderedPlayers=StartMode.getOrderedPlayerList();
-        
 
         setUI();
         setPlayerInfos();
@@ -60,7 +59,7 @@ public class PlayerPanel extends JPanel{
         setPreferredSize(new Dimension(panelWidth * playerCount, panelHeight));
 
    }
-   
+
 
    public void setPlayerInfos() {
         for (Player p : orderedPlayers){
@@ -74,18 +73,18 @@ public class PlayerPanel extends JPanel{
         Font labelFont = new Font("Arial", Font.PLAIN, 12);
         playerNameLabel.setFont(labelFont);
         armyCountLabel.setFont(labelFont);
-        
-        
+
+
         playerInfoPanel.add(playerNameLabel);
         playerInfoPanel.add(armyCountLabel);
 
-    
+
         playerInfoPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
-    
+
         add(playerInfoPanel);
         playerInfoPanels.add(playerInfoPanel);
-        
-    
+
+
     }
 }
 
@@ -97,9 +96,6 @@ public class PlayerPanel extends JPanel{
 
 
     }
-
-
-
     public void clearPlayerInfos() {
         // Remove old player info panels from UI
           // Remove old player info panels from UI
@@ -123,6 +119,7 @@ public class PlayerPanel extends JPanel{
     public void setOrderedPlayers() {
         orderedPlayers = StartMode.getOrderedPlayerList();
     }
+
 
 
 

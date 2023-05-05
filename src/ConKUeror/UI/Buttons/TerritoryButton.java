@@ -1,4 +1,4 @@
-package src.ConKUeror.UI;
+package src.ConKUeror.UI.Buttons;
 
 
 import java.awt.Color;

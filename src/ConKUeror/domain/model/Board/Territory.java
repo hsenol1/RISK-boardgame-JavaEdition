@@ -8,7 +8,7 @@ import src.ConKUeror.domain.model.Player.Player;
 
 
 public class Territory {
-    
+
     private Map<Integer, Territory> adjacencyList = new  HashMap<>();
     private int id;
 
@@ -52,7 +52,7 @@ public class Territory {
 
     public int getTotalUnit() {
        return totalArmyUnit;
-        
+
     }
     public void removeArmies(int armiesToRemove) {
         if (armiesToRemove > 0) {
@@ -65,7 +65,7 @@ public class Territory {
         return adjacencyList;
     }
 
-    public void addConnection(Territory neighbor) {
+    public void addConnectionDual(Territory neighbor) {
 
        int neighborId = neighbor.getId();
 
@@ -80,5 +80,5 @@ public class Territory {
         return Integer.toString(this.id);
     }
 
-    
+
 }

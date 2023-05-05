@@ -1,5 +1,7 @@
-package src.ConKUeror.UI;
+package src.ConKUeror.UI.Frames;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -16,7 +18,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import src.ConKUeror.UI.Buttons.TerritoryButton;
+import src.ConKUeror.UI.Panels.InfoPanel;
+import src.ConKUeror.UI.Panels.PlayerInteractionPanel;
+import src.ConKUeror.UI.Panels.PlayerPanel;
 import src.ConKUeror.domain.controller.ButtonHandler;
+import src.ConKUeror.domain.controller.GameHandler;
+import src.ConKUeror.domain.controller.HandlerFactory;
 import src.ConKUeror.domain.controller.MapHandler;
 import src.ConKUeror.domain.controller.MapListener;
 import src.ConKUeror.domain.controller.RollDieListener;
@@ -28,12 +36,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener , TerritoryButtonListener, RollDieListener{
+public class MapView extends JFrame implements MapListener , TerritoryButtonListener,RollDieListener{
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
     StartHandler startHandler;
+    GameHandler gameHandler;
     PlayerPanel playerPanel;
+
     JButton pauseAndResumeButton;
     JButton helpButton;
 
@@ -55,28 +65,31 @@ public class MapView extends JFrame implements MapListener , TerritoryButtonList
 
 
 
-public MapView(MapHandler _mapHandler, ButtonHandler _buttonHandler,StartHandler _startHandler) throws IOException {
+public MapView() throws IOException {
 
-    this.mapHandler = _mapHandler;
-    this.buttonHandler = _buttonHandler;
-    this.startHandler = _startHandler;
+    HandlerFactory controller =HandlerFactory.getInstance();
+    this.mapHandler = controller.giveMapHandler();
+    this.buttonHandler = controller.giveButtonHandler();
+    this.gameHandler = controller.giveGameHandler();
 
 
 
     initGUI();
 
 
-    String openingMessage = startHandler.enterMessageString();
-    DialogBox box = new DialogBox(openingMessage,"Select territories" );
+   // String openingMessage = startHandler.enterMessageString();
+    //DialogBox box = new DialogBox(openingMessage,"Select territories" );
     addMapFrameAsListener();
     addMapFrameAsListenertoListenTerrittoryButtonInteraction();
 
 
+   /*
     pauseAndResumeButton.addActionListener(new PauseButtonHandler());
     helpButton.addActionListener(new HelpButtonHandler());
     rollButton.addActionListener(new RollButtonHandler());
     executeButton.addActionListener(new ExecuteButtonHandler());
     nextButton.addActionListener(new NextButtonHandler());
+*/
 
 
 }
@@ -102,7 +115,7 @@ public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
 public void initGUI() throws IOException {
 
     image = ImageIO.read(getClass().getResourceAsStream("/src/images/Map.png"));
-    setSize(image.getWidth(), image.getHeight());
+    setSize((int) (1.20 * image.getWidth()), image.getHeight());
     mapPanel = new JPanel() {
         BufferedImage backgroundImage = image;
 
@@ -115,28 +128,40 @@ public void initGUI() throws IOException {
     mapPanel.setOpaque(false);
 
     //mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
-    mapPanel.setBounds(0,0,image.getWidth(),image.getHeight());
-    mapPanel.setLayout(null); // switch to null layout manager
+    mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+    mapPanel.setLayout(null);
 
 
-    add(mapPanel);
+
+    PlayerInteractionPanel interactionPanel = new PlayerInteractionPanel(buttonHandler, gameHandler);
+    mapPanel.add(interactionPanel);
+
+
+   InfoPanel infoPanel = new InfoPanel();
+   infoPanel.setPreferredSize(new Dimension((int) (0.20 * image.getWidth()), image.getHeight()));
+   infoPanel.setBackground(Color.lightGray);
+
+
+
+   PlayerPanel playerPanel = new PlayerPanel(buttonHandler);
+   mapPanel.add(playerPanel);
+
+   setLayout(new BorderLayout());
+   add(mapPanel, BorderLayout.CENTER);
+   add(infoPanel, BorderLayout.EAST);
     setResizable(false);
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
-    setLayout(null);
+    setLocationRelativeTo(null);
 
 
-    playerPanel = new PlayerPanel(buttonHandler);
-    mapPanel.add(playerPanel);
 
     setVisible(true);
     createTerritoryButtons();
-    createFunctionalityButtons();
+   //createFunctionalityButtons();
 
 }
-
-
 
 
 public void createTerritoryButtons() {
@@ -156,6 +181,8 @@ public void createTerritoryButtons() {
             public void mouseClicked(MouseEvent e) {
                 if(e.getButton()== MouseEvent.BUTTON1) {
                     buttonHandler.matchButtonWithTerritory(button.getID());
+                    buttonHandler.selectButton(button);
+
 
                 }
                 else if (e.getButton() == MouseEvent.BUTTON3) {
@@ -236,10 +263,7 @@ public void onBoardEvent(TerritoryButton button) {
     System.out.println("Remove executed");
     button.setVisible(false); // set the visibility of the button to false
     revalidate(); // revalidate the frame to update the layout
-    repaint();
-
-
-}
+    repaint();}
 
     @Override
     public void getButtonList(List<Integer> neigborIdsList) {
@@ -261,15 +285,32 @@ public void onBoardEvent(TerritoryButton button) {
 
     }
 
+    @Override
+    public void getRollEvent(String message) {
+        // TODO Auto-generated method stub
+        JOptionPane.showMessageDialog(MapView.this, message);
+
+        updatePlayerPanel();    }
+
+        public void updatePlayerPanel() {
+
+            playerPanel.clearPlayerInfos();
 
 
 
+            mapPanel.revalidate();
+            mapPanel.repaint();
+        }
+
+
+
+/*
 private class PauseButtonHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        buttonHandler.rollButton();
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
 
@@ -291,9 +332,7 @@ private class RollButtonHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        buttonHandler.rollButton();
-        
-
+        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
 }
@@ -317,10 +356,10 @@ private class NextButtonHandler implements ActionListener {
         // TODO Auto-generated method stub
 
         //TESTING
-        
+
          System.out.println("Territory List after removal");
          Map<Integer, Territory> territoryMap  =buttonHandler.getBoard().getTerritories();
-         int counter = 0;    
+        int counter = 0;
 
 
          for (Map.Entry<Integer, Territory> entry : territoryMap.entrySet()) {
@@ -340,7 +379,7 @@ private class NextButtonHandler implements ActionListener {
 
         System.out.println("Player list");
 
-        /*
+
         for (Player p :    buttonHandler.getBuildMode().getPlayers())
 
          {
@@ -349,29 +388,9 @@ private class NextButtonHandler implements ActionListener {
         }
         */
 
-    }
 
-}
 
-@Override
-public void getRollEvent(String message) {
-    // TODO Auto-generated method stub
-    JOptionPane.showMessageDialog(MapView.this, message);
-    
-    updatePlayerPanel();
- 
-    
-}
 
-public void updatePlayerPanel() {
-   
-    playerPanel.clearPlayerInfos();
-    
-  
-    
-    mapPanel.revalidate();
-    mapPanel.repaint();
-}
 
 
 

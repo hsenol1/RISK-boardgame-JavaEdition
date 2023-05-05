@@ -158,14 +158,6 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
 
 
 
-
-
-
-
-
-
-
-
     }
 
     public ArrayList<Coordinate> getCoordinateList() {
@@ -174,7 +166,7 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
 
 
     public void addConnection(int x, int y) {
-        Board.getTerritoryWithIndex(x).addConnection(Board.getTerritoryWithIndex(y));
+        Board.getTerritoryWithIndex(x).addConnectionDual(Board.getTerritoryWithIndex(y));
 
     }
 
