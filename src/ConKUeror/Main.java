@@ -1,8 +1,9 @@
 package src.ConKUeror;
 
 
-import src.ConKUeror.UI.BuildModeScreen;
+import src.ConKUeror.UI.Frames.BuildModeScreen;
 import src.ConKUeror.domain.controller.BuildHandler;
+import src.ConKUeror.domain.controller.HandlerFactory;
 import src.ConKUeror.domain.model.Modes.BuildMode;
 
 public class Main {
@@ -10,12 +11,9 @@ public class Main {
 
 public static void main(String[] args) {
 
- BuildMode buildMode = new BuildMode();
 
-
- // controllerın içine modeli atıyoruz
- BuildHandler buildHandler= new BuildHandler(buildMode);
-
+  HandlerFactory controller = HandlerFactory.getInstance();
+  BuildHandler buildHandler = controller.giveBuildHandler();
 
  //view ın içine controller atıyoruz
  BuildModeScreen buildModeScreen = new BuildModeScreen(buildHandler);

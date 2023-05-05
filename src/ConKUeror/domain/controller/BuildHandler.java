@@ -11,16 +11,23 @@ import src.ConKUeror.domain.model.Modes.StartMode;
 
 public class BuildHandler {
 
+private static BuildHandler instance;
 private Boolean firstConfirm = true;
 private BuildMode buildMode;
 private Board board;
 private GameLogic gamelogic;
 private StartMode sMode;
 
-    public BuildHandler(BuildMode bMode) {
+    private BuildHandler(BuildMode bMode) {
         this.buildMode = bMode;
 
 	}
+	public static BuildHandler getInstance(BuildMode buildMode) {
+        if (instance == null) {
+            instance = new BuildHandler(buildMode);
+        }
+        return instance;
+    }
 
 	public void registerAsListener(BuildModeListener listener) {
 			buildMode.addBuildModeListener(listener);
@@ -63,17 +70,26 @@ private StartMode sMode;
 
 	//burada da controllerda logic kullanıyorum. Bu olabilir mi bilmiyorum bunu da sorarım da şu anlık işler kod olması için yapıyorum
 	public void initializeGame() {
-		 board = new Board();
-		 buildMode.initalizeConnections();
 
-		 sMode = new StartMode(buildMode);
+		buildMode.initalizeConnections();
+		HandlerFactory controller = HandlerFactory.getInstance();
+		 StartHandler startHandler =controller.giveStartHandler();
+		 startHandler.setStartMode();
 
-		 gamelogic = new GameLogic(board,sMode);
+
+
+		 //sMode = new StartMode(buildMode);
+
+		 //gamelogic = new GameLogic(board,sMode);
     }
 
 
+/*
+public GameHandler giveGammmeHandler() {
 
-
+	GameHandler gameHandler = new GameHandler();
+	return gameHandler;
+}
 
 	public MapHandler giveMapHandler() {
 
@@ -95,6 +111,7 @@ public StartHandler giveStartHandler() {
 			StartHandler startHandler = new StartHandler(sMode);
 			return startHandler;
 }
+*/
 
 
 

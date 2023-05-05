@@ -154,14 +154,6 @@
 
 
 
-
-
-
-
-
-
-
-
     }
 
     public ArrayList<Coordinate> getCoordinateList() {
@@ -170,7 +162,7 @@
 
 
     public void addConnection(int x, int y) {
-        Board.getTerritoryWithIndex(x).addConnection(Board.getTerritoryWithIndex(y));
+        Board.getTerritoryWithIndex(x).addConnectionDual(Board.getTerritoryWithIndex(y));
 
     }
 

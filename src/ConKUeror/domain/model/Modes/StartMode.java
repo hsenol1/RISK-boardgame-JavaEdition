@@ -8,20 +8,29 @@ public class StartMode {
     private int playerCount;
     private BuildMode buildMode;
     private static List<Player> orderedPlayerList;
-    
+
     public StartMode(BuildMode buildMode) {
 
         this.buildMode=buildMode;
-        this.playerCount = buildMode.getPlayerCount();
+
+    }
+
+    public void setStartMode() {
         setGameOrder();
         setOrderedList();
         setInitialInfantries();
     }
 
+    public void setPlayerCount() {
+        playerCount= buildMode.getPlayerCount();
+    }
+    public int getPlayerCount() {
+        return playerCount;
+    }
 
     public void setInitialInfantries() {
             int inf_count;
-        
+
             if(playerCount == 2) {
                 inf_count=40;
             } else if( playerCount==3) {
@@ -37,21 +46,21 @@ public class StartMode {
             for(Player player : buildMode.getPlayers()) {
                 player.getInventory().addInfantries(inf_count);
             }
-           
-                   
+
+
 
 
     }
-  
+
 //viewa taşı,teknik olarak view la alakalı bir fonksiyon
     public String getInitialMessage() {
 
         String message = "You can select the territories that you don't want to be in the game! \n "+
-        "Click the territory and press Remove Button.\n  " + 
+        "Click the territory and press Remove Button.\n  " +
         "When you are ready press the Next Button";
-    
+
         return message;
-    
+
     }
 
     public void setGameOrder() {
@@ -62,7 +71,7 @@ public class StartMode {
 
     public void setOrderedList() {
 
-        //arrange orderedPlayerList according to order array 
+        //arrange orderedPlayerList according to order array
 
         orderedPlayerList = buildMode.getPlayers();
 

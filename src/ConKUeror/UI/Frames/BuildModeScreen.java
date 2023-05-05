@@ -1,4 +1,4 @@
-package src.ConKUeror.UI;
+package src.ConKUeror.UI.Frames;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import src.ConKUeror.domain.controller.BuildHandler;
 import src.ConKUeror.domain.controller.BuildModeListener;
+import src.ConKUeror.domain.controller.HandlerFactory;
 import src.ConKUeror.domain.model.Modes.BuildMode;
 
 import java.awt.*;
@@ -18,7 +19,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
 
     private BufferedImage worldMap;
     private int width, height;
-    
+
     private JPanel buildModePanel;
     private JLabel playerNumberLabel, botNumberLabel;
     private JButton confirmButton;
@@ -39,12 +40,12 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
             addBoardFrameAsListener();
             confirmButton.addActionListener(new ConfirmButtonHandler());
             startButton.addActionListener(new StartButtonHandler());
-        
+
     }
 
     @Override
     public void onBoardEvent(String msg) {
-        // TODO Auto-generated method stub   
+        // TODO Auto-generated method stub
         openPanelForPlayerInput(msg);
     }
 
@@ -63,8 +64,8 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
                 int totalPlayerNumber = getPlayerNumberComboboxValue();
                 int botPlayerNumber = getBotNumberComboboxValue();
                 buildHandler.validateNumbers(totalPlayerNumber, botPlayerNumber);
-           
-    
+
+
 		}
 
     }
@@ -74,15 +75,13 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
         public void actionPerformed(ActionEvent e) {
             // TODO Auto-generated method stub
 
-          Boolean canStart =BuildMode.getStartStatus(); 
+          Boolean canStart =BuildMode.getStartStatus();
           if(canStart) {
             dispose();
             buildHandler.initalizeBots(getBotNumberComboboxValue());
             buildHandler.initializeGame();
                 try {
-                    MapView map = new MapView(  buildHandler.giveMapHandler(),
-                                                buildHandler.giveButtonHandler(),
-                                                buildHandler.giveStartHandler());
+                    MapView map = new MapView();
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -91,10 +90,10 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
           }
 
 
-            
+
 
         }
-        
+
     }
 
 
@@ -122,7 +121,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
         JTextField textField = new JTextField();
         Object[] message = {
 
-            String.format(msg), textField 
+            String.format(msg), textField
         };
         int option = JOptionPane.showConfirmDialog(null, message, "Name Entry", JOptionPane.OK_CANCEL_OPTION);
         buildHandler.enterNameForRealPlayers(textField.getText());
@@ -131,8 +130,8 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
 
 
 
-  
-   
+
+
     public void initGUI() {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -193,18 +192,18 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
 
         add(buildModePanel);
         setSize(400, 200);
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         this.setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
- 
 
 
-  
-   
 
-    
+
+
+
+
 }
 

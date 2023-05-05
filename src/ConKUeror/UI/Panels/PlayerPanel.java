@@ -1,16 +1,19 @@
-package src.ConKUeror.UI;
+package src.ConKUeror.UI.Panels;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import src.ConKUeror.UI.Buttons.CustomButton;
 import src.ConKUeror.domain.controller.ButtonHandler;
 import src.ConKUeror.domain.model.Modes.StartMode;
 import src.ConKUeror.domain.model.Player.Player;
@@ -56,31 +59,31 @@ public class PlayerPanel extends JPanel{
         setPreferredSize(new Dimension(panelWidth * playerCount, panelHeight));
 
    }
-   
+
+
+
 
    public void setPlayerInfos() {
         for (Player p : orderedPlayers){
-            JPanel playerInfoPanel = new JPanel();
+            JPanel playerInfoPanel = new JPanel(new BorderLayout());
 
-        playerInfoPanel.setBorder(BorderFactory.createCompoundBorder(blackBorder, padding));
-        playerInfoPanel.setBackground(Color.WHITE);
-        JLabel playerNameLabel = new JLabel(p.getName() + ":");
-        String army = Integer.toString(p.getInventory().getTotalArmy());
-        JLabel armyCountLabel = new JLabel(army);
-        Font labelFont = new Font("Arial", Font.PLAIN, 12);
-        playerNameLabel.setFont(labelFont);
-        armyCountLabel.setFont(labelFont);
 
-        
-        playerInfoPanel.add(playerNameLabel);
-        playerInfoPanel.add(armyCountLabel);
+            playerInfoPanel.setBorder(BorderFactory.createCompoundBorder(blackBorder, padding));
+            playerInfoPanel.setBackground(Color.WHITE);
 
-    
-        playerInfoPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
-    
-        add(playerInfoPanel);
-        
-    
+            String playerInfoText= p.getName() + ":" + Integer.toString(p.getInventory().getTotalArmy());
+            Font labelFont = new Font("Arial", Font.PLAIN, 12);
+            CustomButton playerInfoButton = new CustomButton(playerInfoText, labelFont, Color.WHITE);
+
+
+            JPanel emptyPanel = new JPanel();
+            emptyPanel.setOpaque(false);
+
+            playerInfoPanel.add(playerInfoButton, BorderLayout.CENTER);
+            playerInfoPanel.add(emptyPanel, BorderLayout.SOUTH);
+
+
+            add(playerInfoButton);
     }
 }
 
@@ -91,7 +94,7 @@ public class PlayerPanel extends JPanel{
 
 
 
-    } 
+    }
 
 
 

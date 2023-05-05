@@ -24,7 +24,7 @@ private Army army;
     public void addArtilleries(int n) {
         army.addArtilleries(n);
     }
-    
+
     public void addCavalries(int n) {
         army.addCavalries(n);
     }
@@ -32,20 +32,20 @@ private Army army;
     public int getTotalArmy() {
        return  army.getTotalArmyUnit();
     }
-    
+
 
 
 
 
 
 public void deleteCards(Card c[]) {
-    
+
     for(Card c1: c) {
 
         p.getCards().remove(c1);
-        
+
     }
 }
 
-    
+
 }

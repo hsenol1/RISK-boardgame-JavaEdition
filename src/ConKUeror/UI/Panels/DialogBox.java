@@ -1,4 +1,4 @@
-package src.ConKUeror.UI;
+package src.ConKUeror.UI.Panels;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -20,18 +20,18 @@ public class DialogBox extends JOptionPane{
 
         image=image.getScaledInstance(100, 100, ABORT);
        this.setIcon(new ImageIcon(image));
-   
+
 
         Object[] message = {
 
-            String.format(msg) 
+            String.format(msg)
         };
 
         JOptionPane.showMessageDialog(null, message,title , JOptionPane.OK_CANCEL_OPTION, icon);
-        
 
-        
+
+
     }
 
-    
+
 }
