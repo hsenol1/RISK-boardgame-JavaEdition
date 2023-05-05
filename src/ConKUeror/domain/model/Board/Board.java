@@ -48,8 +48,10 @@ private static List<Continent> continents;
 
     public void removeTerritory() {
         int indexToRemove  = territory.getId();
+        System.out.println("this is the selected button id to remove: " +indexToRemove);
+
         territories.remove(indexToRemove);
-    
+
 
     }
     public static void setTerritoryOwner(String territoryName, Player newOwner) {
@@ -74,48 +76,48 @@ private static List<Continent> continents;
         return null;
     }
 
-  
+
     public void formAlliance(Player player1, Player player2) {
         //  to form an alliance between player1 and player2
     }
 
-  
+
     public int rollDiceForReinforcements() {
         //  roll dice and determine the number of reinforcements
         return 0;
     }
 
-    
+
     public Territory chooseTerritoryToReinforce(Player player) {
         // to let the player choose a territory to reinforce
         return null;
     }
 
-   
+
     public int rollDiceForSabotage() {
         //  to roll dice and determine the number of armies to remove
         return 0;
     }
 
-   
+
     public Territory chooseTerritoryToSabotage(Player player) {
         //  to let the player choose an opponent's territory to sabotage
         return null;
     }
 
-   
+
     public Territory chooseTerritoryToConquer(Player player) {
         //  to let the player choose an opponent's territory to conquer
         return null;
     }
 
-  
+
     public Territory chooseAttackingTerritory(Player player) {
         //  to let the player choose a territory to attack from
         return null;
     }
 
- 
+
     public Territory chooseDefendingTerritory(Player player, Territory attackingTerritory) {
         //  to let the player choose an opponent's territory to attack
         return null;
@@ -126,7 +128,7 @@ private static List<Continent> continents;
         //  to perform a surprise attack
     }
 
-   
+
     public int rollDiceForSurpriseAttack() {
         // to roll dice and determine the number of additional armies for surprise attack
         return 0;
@@ -138,18 +140,18 @@ private static List<Continent> continents;
         return null;
     }
 
-  
+
     public void protectTerritoryFromAttack(Territory territory) {
         // Implement your logic to protect a territory from attack for one turn
     }
 
-   
+
     public int rollDiceForMercenaries() {
         // to roll dice and determine the number of additional armies for hiring mercenaries
         return 0;
     }
 
-    
+
     public Territory chooseTerritoryToDeployMercenaries(Player player) {
        // to let the player choose a territory to deploy mercenaries
         return null;

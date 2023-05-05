@@ -33,7 +33,7 @@ public class ActionButton extends JButton implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
 
-//
+//This phase is for build mode
         switch (id[0]) {
             case 0:
                 switch (id[1]) {
@@ -41,41 +41,48 @@ public class ActionButton extends JButton implements ActionListener{
                     buttonHandler.addConnection();
                         break;
                     case 1:
-                    buttonHandler.removeButton();
+                        buttonHandler.removeButton();
 
                         break;
                     case 2:
-                       // buttonHandler.nextPhase();
+                        buttonHandler.nextPhase();
                         break;
 
                 }
                 break;
+
+
+
+
+  //this phase is just for test to see connections
             case 1:
                 switch (id[1]) {
                     case 0:
-                        // Code to execute if the first element is 1 and the second is 0
+        //do nothing
                         break;
                     case 1:
-                        // Code to execute if both elements are equal to 1
+                    //do nothing
                         break;
                     case 2:
-                        // Code to execute if the first element is 1 and the second is 2
-                        break;
+                    buttonHandler.nextPhase();
+                    break;
                     default:
                         // Code to execute if the first element is 1 and the second is neither 0 nor 1 nor 2
                         break;
                 }
                 break;
+
+    // this phase is for start game
             case 2:
                 switch (id[1]) {
                     case 0:
-                        // Code to execute if the first element is 2 and the second is 0
-                        break;
+                    buttonHandler.rollButton();
+                    break;
                     case 1:
                         // Code to execute if the first element is 2 and the second is 1
                         break;
                     case 2:
-                        // Code to execute if both elements are equal to 2
+                    buttonHandler.nextPhase();
                         break;
                     default:
                         // Code to execute if the first element is 2 and the second is neither 0 nor 1 nor 2
