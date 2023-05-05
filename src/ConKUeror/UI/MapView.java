@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import src.ConKUeror.UI.PauseScreen.PauseScreen;
 import src.ConKUeror.domain.controller.ButtonHandler;
 import src.ConKUeror.domain.controller.MapHandler;
 import src.ConKUeror.domain.controller.MapListener;
@@ -262,14 +263,18 @@ public void onBoardEvent(TerritoryButton button) {
     }
 
 
+    JFrame frame = this;
 
 
-private class PauseButtonHandler implements ActionListener {
+public class PauseButtonHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        buttonHandler.rollButton();
+
+         PauseScreen pauseScreen = new PauseScreen(frame);
+        pauseScreen.setVisible(true);
+       
     }
 
 
