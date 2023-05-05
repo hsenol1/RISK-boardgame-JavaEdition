@@ -2,6 +2,9 @@ package src.ConKUeror.domain.model.Board;
 
 import java.util.List;
 import java.util.Map;
+
+import src.ConKUeror.domain.model.Player.Player;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,7 +19,7 @@ private Continent EUROPE;
 private Continent AUSTRALIA;
 
 private Territory territory;
-
+private static List<Continent> continents;
 
  //private ArrayList<Territory> boardTerritories2 = new ArrayList<Territory>();
 
@@ -47,10 +50,111 @@ private Territory territory;
     public void removeTerritory() {
         int indexToRemove  = territory.getId();
         territories.remove(indexToRemove);
-        //add additional method if you want to reverse deleletion
+    
 
     }
+    public static void setTerritoryOwner(String territoryName, Player newOwner) {
+        for (Continent continent : continents) {
+            Territory territory = continent.getTerritoryByName(territoryName);
+            if (territory != null) {
+                territory.setOwner(newOwner);
+                break;
+            }
+        }
+    }
+    public static Continent getContinentByTerritory(String territoryName) {
+        for (Continent continent : continents) {
+            if (continent.containsTerritory(territoryName)) {
+                return continent;
+            }
+        }
+        return null;
+    }
+    public Player choosePlayerForAlliance(Player currentPlayer) {
+        // to choose another player for alliance
+        return null;
+    }
 
+  
+    public void formAlliance(Player player1, Player player2) {
+        //  to form an alliance between player1 and player2
+    }
+
+  
+    public int rollDiceForReinforcements() {
+        //  roll dice and determine the number of reinforcements
+        return 0;
+    }
+
+    
+    public Territory chooseTerritoryToReinforce(Player player) {
+        // to let the player choose a territory to reinforce
+        return null;
+    }
+
+   
+    public int rollDiceForSabotage() {
+        //  to roll dice and determine the number of armies to remove
+        return 0;
+    }
+
+   
+    public Territory chooseTerritoryToSabotage(Player player) {
+        //  to let the player choose an opponent's territory to sabotage
+        return null;
+    }
+
+   
+    public Territory chooseTerritoryToConquer(Player player) {
+        //  to let the player choose an opponent's territory to conquer
+        return null;
+    }
+
+  
+    public Territory chooseAttackingTerritory(Player player) {
+        //  to let the player choose a territory to attack from
+        return null;
+    }
+
+ 
+    public Territory chooseDefendingTerritory(Player player, Territory attackingTerritory) {
+        //  to let the player choose an opponent's territory to attack
+        return null;
+    }
+
+
+    public void performSurpriseAttack(Territory attackingTerritory, Territory defendingTerritory, int additionalArmies) {
+        //  to perform a surprise attack
+    }
+
+   
+    public int rollDiceForSurpriseAttack() {
+        // to roll dice and determine the number of additional armies for surprise attack
+        return 0;
+    }
+
+
+    public Territory chooseTerritoryToProtect(Player player) {
+        //  to let the player choose a territory to protect from attack
+        return null;
+    }
+
+  
+    public void protectTerritoryFromAttack(Territory territory) {
+        // Implement your logic to protect a territory from attack for one turn
+    }
+
+   
+    public int rollDiceForMercenaries() {
+        // to roll dice and determine the number of additional armies for hiring mercenaries
+        return 0;
+    }
+
+    
+    public Territory chooseTerritoryToDeployMercenaries(Player player) {
+       // to let the player choose a territory to deploy mercenaries
+        return null;
+    }
 
 
     public void initAllTerritoriesAndContinents() {

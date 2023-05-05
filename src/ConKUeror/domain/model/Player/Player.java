@@ -9,7 +9,7 @@ import src.ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
 
 public class Player {
     
-        PlayerInventory inv;
+        public PlayerInventory inv = new PlayerInventory();
 
         IDeployBehaviour db;
         IAttackBehaviour ab;
