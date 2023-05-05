@@ -1,9 +1,20 @@
 package src.ConKUeror.domain.model.Board;
 
+import java.util.List;
+
+import src.ConKUeror.domain.model.Player.Player;
+import src.ConKUeror.domain.model.Player.PlayerExpert;
+
 public class DiceRoller {
 
 
-    Die die = Die.getDieInstance();
+    Die die;
+    PlayerExpert playerExpert;
+
+    public DiceRoller() {
+        this.die = Die.getDieInstance();
+        playerExpert = PlayerExpert.getPlayerExpert();
+    }
 
     int attackerArmy;
     int defenderArmy;
@@ -52,6 +63,16 @@ public class DiceRoller {
     public int postWarGetDefenderArmy() {
         return defenderArmy;
         
+    }
+
+    public Player getFirstPlayer() {
+        
+      
+
+        return PlayerExpert.getPlayersList().get(die.getCustomValue(PlayerExpert.getPlayersListSize() - 1));
+
+
+
     }
 
 

@@ -10,7 +10,6 @@ import javax.swing.*;
 
 import src.ConKUeror.domain.controller.BuildHandler;
 import src.ConKUeror.domain.controller.BuildModeListener;
-import src.ConKUeror.domain.controller.HandlerFactory;
 import src.ConKUeror.domain.model.Modes.BuildMode;
 
 import java.awt.*;
@@ -80,7 +79,7 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
             dispose();
             buildHandler.initalizeBots(getBotNumberComboboxValue());
             buildHandler.initializeGame();
-                try {
+                  try {
                     MapView map = new MapView();
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block

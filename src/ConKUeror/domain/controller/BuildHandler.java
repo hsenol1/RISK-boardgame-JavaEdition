@@ -66,6 +66,8 @@ private StartMode sMode;
 		buildMode.setStart();
 	}
 
+ 
+
 
 
 	//burada da controllerda logic kullanıyorum. Bu olabilir mi bilmiyorum bunu da sorarım da şu anlık işler kod olması için yapıyorum

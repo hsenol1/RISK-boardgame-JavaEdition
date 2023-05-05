@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import src.ConKUeror.domain.model.Player.Player;
+
 
 
 public class Territory {
@@ -11,6 +13,8 @@ public class Territory {
     private int id;
 
     private int totalArmyUnit;
+    private String name;
+    private Player owner;
 
     private boolean isFree;
 
@@ -21,6 +25,14 @@ public class Territory {
         this.isFree = true;
         this.totalArmyUnit = 0;
     }
+    public void setOwner(Player newOwner) {
+        this.owner = newOwner;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
 
 
     public int getId() {
@@ -42,7 +54,13 @@ public class Territory {
        return totalArmyUnit;
 
     }
-
+    public void removeArmies(int armiesToRemove) {
+        if (armiesToRemove > 0) {
+            if (this.totalArmyUnit >= armiesToRemove) {
+                this.totalArmyUnit -= armiesToRemove;
+            }
+        }
+    }
     public Map<Integer, Territory> getAdjacencyList() {
         return adjacencyList;
     }

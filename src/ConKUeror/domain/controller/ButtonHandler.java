@@ -1,6 +1,5 @@
 package src.ConKUeror.domain.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
@@ -10,6 +9,8 @@ import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Territory;
 import src.ConKUeror.domain.model.Modes.BuildMode;
 import src.ConKUeror.domain.model.Modes.GameLogic;
+import src.ConKUeror.domain.model.Board.Die;
+import src.ConKUeror.domain.model.Board.DiceRoller;
 
 public class ButtonHandler{
     private static ButtonHandler instance;
@@ -34,7 +35,7 @@ public class ButtonHandler{
 
           Territory t = gMode.getBoard().getTerritoryWithIndex(id);
           //System.out.println(t.getId());
-          gMode.prepareButton(t,GameMode.CONNECTION);
+          gMode.prepareButton(t,GameMode.BUILD);
 
     }
 
@@ -72,6 +73,12 @@ public class ButtonHandler{
         gMode.publishBoardEvent(selectedButton);;
 
     }
+
+    public void rollButton() {
+
+        gMode.roll();
+
+    }
         //just for test
 
 	public Board getBoard() {
@@ -81,6 +88,8 @@ public class ButtonHandler{
 	public BuildMode getBuildMode() {
 		return bMode;
 	}
+
+
 
 
 
@@ -98,9 +107,16 @@ public class ButtonHandler{
 
     public void registerAsListener(MapView mapView) {
         gMode.addTerritoryButtonListener(mapView);
+        gMode.addRollDieListener(mapView);
 
 
     }
+
+
+
+
+
+
 
 
 

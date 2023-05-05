@@ -3,7 +3,6 @@ package src.ConKUeror.UI.Frames;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,25 +11,23 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
-import java.awt.color.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.plaf.TreeUI;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
-import src.ConKUeror.UI.Panels.DialogBox;
 import src.ConKUeror.UI.Panels.InfoPanel;
 import src.ConKUeror.UI.Panels.PlayerInteractionPanel;
 import src.ConKUeror.UI.Panels.PlayerPanel;
-import src.ConKUeror.domain.controller.BuildHandler;
 import src.ConKUeror.domain.controller.ButtonHandler;
 import src.ConKUeror.domain.controller.GameHandler;
 import src.ConKUeror.domain.controller.HandlerFactory;
 import src.ConKUeror.domain.controller.MapHandler;
 import src.ConKUeror.domain.controller.MapListener;
+import src.ConKUeror.domain.controller.RollDieListener;
 import src.ConKUeror.domain.controller.StartHandler;
 import src.ConKUeror.domain.controller.TerritoryButtonListener;
 import src.ConKUeror.domain.model.Board.Territory;
@@ -39,12 +36,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener , TerritoryButtonListener{
+public class MapView extends JFrame implements MapListener , TerritoryButtonListener,RollDieListener{
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
     StartHandler startHandler;
     GameHandler gameHandler;
+    PlayerPanel playerPanel;
 
     JButton pauseAndResumeButton;
     JButton helpButton;
@@ -75,21 +73,24 @@ public MapView() throws IOException {
     this.gameHandler = controller.giveGameHandler();
 
 
+
     initGUI();
 
 
-    //String openingMessage = startHandler.enterMessageString();
+   // String openingMessage = startHandler.enterMessageString();
     //DialogBox box = new DialogBox(openingMessage,"Select territories" );
     addMapFrameAsListener();
     addMapFrameAsListenertoListenTerrittoryButtonInteraction();
 
-/*
+
+   /*
     pauseAndResumeButton.addActionListener(new PauseButtonHandler());
     helpButton.addActionListener(new HelpButtonHandler());
     rollButton.addActionListener(new RollButtonHandler());
     executeButton.addActionListener(new ExecuteButtonHandler());
     nextButton.addActionListener(new NextButtonHandler());
 */
+
 
 }
 
@@ -115,7 +116,6 @@ public void initGUI() throws IOException {
 
     image = ImageIO.read(getClass().getResourceAsStream("/src/images/Map.png"));
     setSize((int) (1.20 * image.getWidth()), image.getHeight());
-
     mapPanel = new JPanel() {
         BufferedImage backgroundImage = image;
 
@@ -125,10 +125,12 @@ public void initGUI() throws IOException {
             g.drawImage(backgroundImage, 0, 0, null); // draw the image
         }
     };
-
     mapPanel.setOpaque(false);
+
+    //mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
     mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
     mapPanel.setLayout(null);
+
 
 
     PlayerInteractionPanel interactionPanel = new PlayerInteractionPanel(buttonHandler, gameHandler);
@@ -180,9 +182,9 @@ public void createTerritoryButtons() {
                 if(e.getButton()== MouseEvent.BUTTON1) {
                     buttonHandler.matchButtonWithTerritory(button.getID());
                     buttonHandler.selectButton(button);
+
+
                 }
-
-
                 else if (e.getButton() == MouseEvent.BUTTON3) {
 
                     for (TerritoryButton b: buttonHistory) {
@@ -191,7 +193,6 @@ public void createTerritoryButtons() {
                     buttonHistory.clear();
 
                 }
-
 
 
                 // TODO Auto-generated method stub
@@ -218,11 +219,18 @@ public void createTerritoryButtons() {
 
 }
 
+public Boolean flip(Boolean b) {
+    if (b) {
+        return false;
+
+    } else {
+        return true;
+    }
 
 
 
 
-
+}
 
 public void createFunctionalityButtons() {
 
@@ -261,7 +269,7 @@ public void onBoardEvent(TerritoryButton button) {
     public void getButtonList(List<Integer> neigborIdsList) {
         // TODO Auto-generated method stub
 
-        System.out.println("Map View classına kadar gelen bir connection methodu var");
+        //System.out.println("Map View classına kadar gelen bir connection methodu var");
 
         for (int i = 0; i < neigborIdsList.size(); i++) {
             TerritoryButton button = territoryButtonsList.get(neigborIdsList.get(i));
@@ -277,10 +285,26 @@ public void onBoardEvent(TerritoryButton button) {
 
     }
 
+    @Override
+    public void getRollEvent(String message) {
+        // TODO Auto-generated method stub
+        JOptionPane.showMessageDialog(MapView.this, message);
+
+        updatePlayerPanel();    }
+
+        public void updatePlayerPanel() {
+
+            playerPanel.clearPlayerInfos();
+
+
+
+            mapPanel.revalidate();
+            mapPanel.repaint();
+        }
+
 
 
 /*
-
 private class PauseButtonHandler implements ActionListener {
 
     @Override
@@ -362,19 +386,16 @@ private class NextButtonHandler implements ActionListener {
             System.out.println(p.getName());
             System.out.println(p.getInventory().getTotalArmy());
         }
-
         */
 
 
 
 
 
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
-

@@ -1,4 +1,7 @@
-package src.ConKUeror.domain.model;
+package src.ConKUeror.domain.model.Army;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Army {
 
@@ -6,7 +9,11 @@ public class Army {
     public final static int CAVALRY_UNIT = 5;
     public final static int ARTILLERY_UNIT = 10;
 
-    
+
+    private List<Infantry> infantryList = new ArrayList<Infantry>();
+    private List<Cavalry> cavalaryList = new ArrayList<Cavalry>();
+    private List<Artillery> artilleryList = new ArrayList<Artillery>();
+
     private int infantry;
     private int cavalry;
     private int artillery;
@@ -40,7 +47,7 @@ public class Army {
     }
 
     public int getInfantries() {
-        return infantry; 
+        return infantry;
     }
     public int getCavalries() {
         return cavalry;
@@ -49,10 +56,23 @@ public class Army {
         return artillery;
     }
 
+    public void addInfantrytoInfantryList(Infantry inf) {
+        infantryList.add(inf);
+
+    }
+    public void addCavalarytoCavalaryList(Cavalry cav) {
+        cavalaryList.add(cav);
+
+    }
+
+    public void addArtillerytoArtilleryList(Artillery ar) {
+        artilleryList.add(ar);
+
+    }
 
     public int getTotalArmyUnit() {
         return infantry*INFANTRY_UNIT + cavalry*CAVALRY_UNIT +artillery*ARTILLERY_UNIT;
     }
 
-    
+
 }
