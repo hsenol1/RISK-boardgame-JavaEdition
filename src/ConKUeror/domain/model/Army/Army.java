@@ -9,6 +9,8 @@ public class Army {
     public final static int CAVALRY_UNIT = 5;
     public final static int ARTILLERY_UNIT = 10;
 
+    private int totalArmy;
+
 
     private List<Infantry> infantryList = new ArrayList<Infantry>();
     private List<Cavalry> cavalaryList = new ArrayList<Cavalry>();
@@ -25,35 +27,67 @@ public class Army {
     }
 
 
-    public void addInfantries(int inf) {
-        this.infantry += inf;
+    public void addInfantries(int n) {
+        for(int i = 0 ; i< n ; i++) {
+            Infantry inf = new Infantry();
+            addInfantrytoInfantryList(inf);
+        }
     }
-    public void addCavalries(int cav) {
-        this.cavalry += cav;
+    public void addCavalries(int n) {
+        for(int i = 0 ; i< n ; i++) {
+            Cavalry cav = new Cavalry();
+            addCavalarytoCavalaryList(cav);
+        }
     }
-    public void addArtilleries(int art) {
-        this.artillery += art;
-    }
+    public void addArtilleries(int n) {
+        for(int i = 0 ; i< n ; i++) {
+            Artillery art = new Artillery();
+            addArtillerytoArtilleryList(art);
+        }    }
 
     public void removeInfantries(int inf) {
-        this.infantry -= inf;
-    }
+        if (!infantryList.isEmpty()) {
+
+            for(int i = 0; i<inf ; i++) {
+                infantryList.remove(infantryList.size()-1);
+            }
+
+        }
+
+
+
+        }
     public void removeCavalries(int cav) {
-        this.cavalry -= cav;
+        if (!cavalaryList.isEmpty()) {
+            for(int i = 0; i<cav ; i++) {
+                cavalaryList.remove(cavalaryList.size()-1);
+            }
+
+        }
+
+
+
+
 
     }
     public void removeArtilleries(int art) {
-        this.artillery -= art;
+        if (!artilleryList.isEmpty()) {
+
+            for(int i = 0; i<art ; i++) {
+                artilleryList.remove(artilleryList.size()-1);
+            }
+        }
+
     }
 
     public int getInfantries() {
-        return infantry;
+        return infantryList.size();
     }
     public int getCavalries() {
-        return cavalry;
+        return cavalaryList.size();
     }
     public int getArtilleries() {
-        return artillery;
+        return artilleryList.size();
     }
 
     public void addInfantrytoInfantryList(Infantry inf) {
@@ -71,7 +105,12 @@ public class Army {
     }
 
     public int getTotalArmyUnit() {
-        return infantry*INFANTRY_UNIT + cavalry*CAVALRY_UNIT +artillery*ARTILLERY_UNIT;
+        totalArmy= getInfantries()*INFANTRY_UNIT + getCavalries()*CAVALRY_UNIT +getArtilleries()*ARTILLERY_UNIT;
+        return totalArmy;
+    }
+
+    public void setTotalArmyUnit(int newArmyUnit) {
+        this. totalArmy = newArmyUnit;
     }
 
 

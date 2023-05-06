@@ -99,7 +99,7 @@ public class PlayerPanel extends JPanel{
     public void clearPlayerInfos() {
         // Remove old player info panels from UI
           // Remove old player info panels from UI
-        
+
         for (JPanel playerInfoPanel : playerInfoPanels) {
             remove(playerInfoPanel);
         }

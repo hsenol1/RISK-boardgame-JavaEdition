@@ -33,9 +33,8 @@ public class ButtonHandler{
 
 
     public void matchButtonWithTerritory(int id) {
-
-          Territory t = gMode.getBoard().getTerritoryWithIndex(id);
-          System.out.println(t.getId());
+          Territory t = Board.getTerritoryWithIndex(id);
+          //System.out.println(t.getId());
           System.out.println(gMode.getGameMode());
 
 
@@ -59,9 +58,6 @@ public class ButtonHandler{
 
         Map<Integer, Territory> tests= territories[0].getAdjacencyList();
         System.out.println("komsularim basladi");
-       // System.out.print(tests.size());
-
-
 
         for (Map.Entry<Integer, Territory> set : tests.entrySet()) {
             int territoryId =set.getKey();
@@ -75,16 +71,16 @@ public class ButtonHandler{
 
     public void removeButton() {
         getBoard().removeTerritory();
-        gMode.publishBoardEvent(selectedButton);;
+        gMode.publishRemoveEvent(selectedButton);;
 
     }
 
     public void rollButton() {
 
         gMode.roll();
+        gMode.setFirstPlayer();
 
     }
-        //just for test
 
 	public Board getBoard() {
         return  gMode.getBoard();
@@ -120,16 +116,22 @@ public class ButtonHandler{
 
     }
 
-    public void registerAsListener(MapView mapView) {
-        gMode.addTerritoryButtonListener(mapView);
-        gMode.addRollDieListener(mapView);
+    public void registerAsTerritoryListener(TerritoryButtonListener territoryListener) {
+        gMode.addTerritoryButtonListener(territoryListener);
+    }
 
+
+     public void registerAsRollListener( RollDieListener rollDieListener) {
+        gMode.addRollDieListener(rollDieListener);
 
     }
 
     public void registerNextAsListener(PlayerInteractionPanel pPanel) {
         gMode.addNButtonListener(pPanel);
     }
+
+
+
 
 
 

@@ -34,8 +34,20 @@ public class TerritoryButton extends JButton {
         setBackground(Color.GREEN);
     }
 
+    public void setColor(Color color) {
+
+        setBackground(color);
+    }
+
     public void resetColor() {
         setBackground(defaultColor);
+
+    }
+
+    public void setArmyValue(int number) {
+
+      String text =  Integer.toString(number);
+      setText(text);
 
     }
 

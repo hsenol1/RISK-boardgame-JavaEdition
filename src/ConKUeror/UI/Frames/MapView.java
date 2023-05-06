@@ -3,6 +3,7 @@ package src.ConKUeror.UI.Frames;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener , TerritoryButtonListener,RollDieListener{
+public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener{
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
@@ -84,7 +85,7 @@ public MapView() throws IOException {
     //DialogBox box = new DialogBox(openingMessage,"Select territories" );
     addMapFrameAsListener();
     addMapFrameAsListenertoListenTerrittoryButtonInteraction();
-
+    addMapFrameAsListenerForRollEvent();
 
 
     pauseAndResumeButton.addActionListener(new PauseButtonHandler());
@@ -110,8 +111,12 @@ public void addMapFrameAsListener() {
 }
 
 public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
-    buttonHandler.registerAsListener(this);
+    buttonHandler.registerAsTerritoryListener(this);
 
+}
+
+public void addMapFrameAsListenerForRollEvent(){
+    buttonHandler.registerAsRollListener(this);
 }
 
 
@@ -186,6 +191,7 @@ public void createTerritoryButtons() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(e.getButton()== MouseEvent.BUTTON1) {
+                    System.out.println("MOUSE CLICKED TO TERRITORY");
                     buttonHandler.matchButtonWithTerritory(button.getID());
                     buttonHandler.selectButton(button);
 
@@ -201,18 +207,6 @@ public void createTerritoryButtons() {
                 }
 
 
-                // TODO Auto-generated method stub
-                 /*if(!selected) {
-                    buttonHandler.matchButtonWithTerritory(button.getID());
-                    selected = flip(selected);
-                 } */
-                //buttonHandler.matchButtonWithTerritory(button.getID());
-
-
-                //buttonHandler.checkButtonforRemoval(button) ;
-
-
-
             }
 
         });
@@ -222,19 +216,6 @@ public void createTerritoryButtons() {
 
 
     }
-
-}
-
-public Boolean flip(Boolean b) {
-    if (b) {
-        return false;
-
-    } else {
-        return true;
-    }
-
-
-
 
 }
 
@@ -264,7 +245,7 @@ public void createFunctionalityButtons() {
 }
 
 @Override
-public void onBoardEvent(TerritoryButton button) {
+public void removeOnboardEvent(TerritoryButton button) {
     // TODO Auto-generated method stub
 
     System.out.println("Remove executed");
@@ -338,33 +319,6 @@ private class HelpButtonHandler implements ActionListener {
 }
 /*
 
-private class RollButtonHandler implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-    }
-
-}
-
-private class ExecuteButtonHandler implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-
-        buttonHandler.executeButton();
-
-    }
-
-}
-
-private class NextButtonHandler implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
 
         //TESTING
 
@@ -385,9 +339,6 @@ private class NextButtonHandler implements ActionListener {
 
         }
 
-
-
-
         System.out.println("Player list");
 
 
@@ -398,6 +349,21 @@ private class NextButtonHandler implements ActionListener {
             System.out.println(p.getInventory().getTotalArmy());
         }
         */
+
+
+@Override
+public void setTerritoryButtonInfo(int buttonId,int armyUnit, Color color,int territoryArmy) {
+    TerritoryButton button = territoryButtonsList.get(buttonId);
+    button.setColor(color);
+     Font labelFont = new Font("Arial", Font.PLAIN, 11);
+     button.setFont(labelFont);
+     button.setArmyValue(territoryArmy);
+     System.out.println(armyUnit);
+     revalidate();
+     repaint();
+
+
+}
 
 
 

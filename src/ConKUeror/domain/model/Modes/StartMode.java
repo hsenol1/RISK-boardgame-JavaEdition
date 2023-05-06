@@ -20,10 +20,11 @@ public class StartMode {
         setGameOrder();
         setOrderedList();
         setInitialInfantries();
+        setPlayerCount();
     }
 
     public void setPlayerCount() {
-        playerCount= buildMode.getPlayerCount();
+        this.playerCount= buildMode.getPlayerCount();
     }
     public int getPlayerCount() {
         return playerCount;
@@ -31,7 +32,7 @@ public class StartMode {
 
     public void setInitialInfantries() {
             int inf_count;
-
+          int playerCount =  buildMode.getPlayerCount();
             if(playerCount == 2) {
                 inf_count=40;
             } else if( playerCount==3) {
@@ -84,6 +85,9 @@ public class StartMode {
         return orderedPlayerList;
     }
 
+
+
+
     public void setOrderedAfterRoll(Player player) {
         int index = orderedPlayerList.indexOf(player);
         List<Player> orderList = new ArrayList<Player>();
@@ -94,6 +98,7 @@ public class StartMode {
 
 
         orderedPlayerList = orderList;
+        GameLogic.setGameOrderList(orderedPlayerList);
     }
 
 

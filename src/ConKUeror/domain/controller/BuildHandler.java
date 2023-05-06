@@ -1,7 +1,6 @@
 package src.ConKUeror.domain.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Modes.BuildMode;
@@ -66,55 +65,17 @@ private StartMode sMode;
 		buildMode.setStart();
 	}
 
- 
 
 
 
-	//burada da controllerda logic kullanıyorum. Bu olabilir mi bilmiyorum bunu da sorarım da şu anlık işler kod olması için yapıyorum
+
 	public void initializeGame() {
 
 		buildMode.initalizeConnections();
 		HandlerFactory controller = HandlerFactory.getInstance();
 		 StartHandler startHandler =controller.giveStartHandler();
 		 startHandler.setStartMode();
-
-
-
-		 //sMode = new StartMode(buildMode);
-
-		 //gamelogic = new GameLogic(board,sMode);
     }
-
-
-/*
-public GameHandler giveGammmeHandler() {
-
-	GameHandler gameHandler = new GameHandler();
-	return gameHandler;
-}
-
-	public MapHandler giveMapHandler() {
-
-			MapHandler mapHandler = new MapHandler(gamelogic,board);
-			return mapHandler;
-
-	}
-
-	public ButtonHandler giveButtonHandler() {
-
-		ButtonHandler buttonHandler = new ButtonHandler(buildMode,gamelogic);
-		return buttonHandler;
-
-
-}
-
-public StartHandler giveStartHandler() {
-
-			StartHandler startHandler = new StartHandler(sMode);
-			return startHandler;
-}
-*/
-
 
 
 

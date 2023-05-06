@@ -109,6 +109,22 @@ private List<ChanceCard> chanceCards;
        return  army.getTotalArmyUnit();
     }
 
+    public void removeInfantries(int n) {
+
+        army.removeInfantries(n);
+    }
+
+    public void removeCavalries(int n) {
+
+        army.removeCavalries(n);
+    }
+
+    public void removeArtilleries(int n) {
+
+        army.removeArtilleries(n);
+    }
+
+
 
 
 

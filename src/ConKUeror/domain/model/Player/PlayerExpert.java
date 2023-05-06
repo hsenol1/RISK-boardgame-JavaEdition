@@ -20,19 +20,19 @@ public class PlayerExpert {
 
         return playerExpertInstance;
     }
-    
+
 
     public void addPlayersList(Player player) {
         players.add(player);
         System.out.println(player.getName() +  " was " + "HERE");
     }
 
-    public static List<Player> getPlayersList() {  
+    public static List<Player> getPlayersList() {
         return players;
     }
 
     public static int getPlayersListSize() {
         return players.size();
     }
-    
+
 }

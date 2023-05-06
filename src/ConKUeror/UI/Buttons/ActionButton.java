@@ -38,11 +38,10 @@ public class ActionButton extends JButton implements ActionListener{
             case 0:
                 switch (id[1]) {
                     case 0:
-                    buttonHandler.addConnection();
+                        buttonHandler.addConnection();
                         break;
                     case 1:
                         buttonHandler.removeButton();
-
                         break;
                     case 2:
                         buttonHandler.nextPhase();
@@ -58,7 +57,7 @@ public class ActionButton extends JButton implements ActionListener{
             case 1:
                 switch (id[1]) {
                     case 0:
-        //do nothing
+                    //do nothing
                         break;
                     case 1:
                     //do nothing
