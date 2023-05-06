@@ -53,7 +53,7 @@ public abstract class ChanceCard {
             Territory territoryToReinforce = gameMap.chooseTerritoryToReinforce(player);
 
             if (territoryToReinforce != null) {
-                territoryToReinforce.addArmy(additionalArmies);
+               // territoryToReinforce.addArmy(additionalArmies);
             }
         }
     }
@@ -140,7 +140,7 @@ public abstract class ChanceCard {
 
                 if (territoryToDeploy != null) {
                     // Deploy the mercenaries to the chosen territory
-                    territoryToDeploy.addArmy(additionalArmies);
+                    //territoryToDeploy.addArmy(additionalArmies);
                 }
             }
 

@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import src.ConKUeror.domain.model.Army.Army;
 import src.ConKUeror.domain.model.Player.Player;
 
 
@@ -15,7 +16,7 @@ public class Territory {
     private int totalArmyUnit;
     private String name;
     private Player owner;
-
+    private Army army;
     private boolean isFree;
 
 
@@ -24,7 +25,14 @@ public class Territory {
         this.id = _id;
         this.isFree = true;
         this.totalArmyUnit = 0;
+        army = new Army();
+
     }
+
+    public Player getOwner() {
+        return owner;
+    }
+
     public void setOwner(Player newOwner) {
         this.owner = newOwner;
     }
@@ -32,17 +40,21 @@ public class Territory {
     public String getName() {
         return name;
     }
-    
+
 
 
     public int getId() {
         return id;
     }
 
-    public void addArmy(int army) {
-        this.totalArmyUnit += army;
+
+
+
+    public void addInfantries(int n) {
+       army.addInfantries(n);
 
  }
+
     public void removeArmy(int army) {
 
     if(totalArmyUnit >= army) {
@@ -51,7 +63,7 @@ public class Territory {
  }
 
     public int getTotalUnit() {
-       return totalArmyUnit;
+       return army.getTotalArmyUnit();
 
     }
     public void removeArmies(int armiesToRemove) {

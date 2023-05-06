@@ -1,5 +1,6 @@
 package src.ConKUeror.domain.model.Player;
 
+import java.awt.Color;
 import java.util.List;
 
 import src.ConKUeror.domain.model.Board.Card;
@@ -8,8 +9,9 @@ import src.ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
 import src.ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
 
 public class Player {
-    
+
         public PlayerInventory inv = new PlayerInventory();
+        private Color playerColor;
 
         IDeployBehaviour db;
         IAttackBehaviour ab;
@@ -37,6 +39,14 @@ public class Player {
 
         }
 
+        public void setColor(Color color) {
+                this.playerColor = color;
+
+        }
+        public Color getColor() {
+            return playerColor;
+        }
+
         public void deploy() {
             db.deploy();
         }
@@ -52,7 +62,7 @@ public class Player {
 
             return this.name;
         }
-        
+
         public List<Card> getCards() {
 
             return this.cards;
@@ -60,11 +70,11 @@ public class Player {
 
         public PlayerInventory getInventory() {
             return inv;
-        
-        
+
+
         }
-        
-        
+
+
     }
-    
+
 

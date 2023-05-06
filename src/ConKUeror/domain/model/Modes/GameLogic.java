@@ -2,6 +2,7 @@ package src.ConKUeror.domain.model.Modes;
 
 import java.util.List;
 import java.util.Map;
+import java.awt.Color;
 import java.util.ArrayList;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
@@ -29,8 +30,9 @@ public class GameLogic {
   private List<RollDieListener> rollListeners = new ArrayList<>();
   private List<NextButtonListener> nButtonListener = new ArrayList<>();
   private static List<Player> orderedPlayerList;
-  DiceRoller diceRoller = new DiceRoller();
 
+  DiceRoller diceRoller = new DiceRoller();
+  private Player playerInTurn;
 
   public Boolean selectedButton;
 
@@ -68,6 +70,27 @@ public class GameLogic {
 
 
     }
+
+    public static void setGameOrderList(List<Player> orderList) {
+      orderedPlayerList =orderList;
+
+    }
+
+
+    public void passToNextPlayer(Player p1) {
+
+
+        int currentIndex = orderedPlayerList.indexOf(p1);
+        playerInTurn= orderedPlayerList.get((currentIndex + 1)% orderedPlayerList.size()) ;
+
+    }
+
+    public void setFirstPlayer() {
+      System.out.println(orderedPlayerList.get(0).getName() );
+
+      this.playerInTurn = orderedPlayerList.get(0);
+    }
+
 
 
     public GameMode getGameMode() {
@@ -116,6 +139,8 @@ public class GameLogic {
 
 
 
+
+
   public void giveNeighborIdsOfSelectedTerritoryButton(List<Integer> neigborIdsList ) {
     for(TerritoryButtonListener l: territoryButtonListeners) {
       l.getButtonList(neigborIdsList);
@@ -124,9 +149,15 @@ public class GameLogic {
   }
 
 
-  public void publishBoardEvent(TerritoryButton button) {
+  public void setTerritoryInfo(int ID, int armyUnit, Color color,int territoryArmy) {
+    for(TerritoryButtonListener l: territoryButtonListeners) {
+      l.setTerritoryButtonInfo(ID, armyUnit, color,territoryArmy);
+    }
+  }
+
+  public void publishRemoveEvent(TerritoryButton button) {
       for(MapListener l: listeners){
-          l.onBoardEvent(button);
+          l.removeOnboardEvent(button);
 
       }
 
@@ -142,11 +173,18 @@ public class GameLogic {
         l.getRollEvent(playerName);
     }
   }
-  public void roll() {
-    Player player = diceRoller.getFirstPlayer();
 
+
+
+  public void roll() {
+
+    //Rollayarak ilk playera karar veriyor
+    Player player = diceRoller.getFirstPlayer();
+    //bu playerın solundaki playerlari listeye atıyor ve orderli bir player listesi oluşturuyor
     startMod.setOrderedAfterRoll(player);
+    //ilk ismi döndürüyor
     giveFirstPlayer(player.getName());
+
 }
 
     public void increasePhaseIndex() {
@@ -190,6 +228,7 @@ public void moveToOtherPhase() {
 
         case CONNECTION:
         this.inputTerritory=t;
+        this.phaseIndex=1;
         Map<Integer,Territory>  adjList = t.getAdjacencyList();
         List<Integer> neighborIds = new ArrayList<Integer>();
         for (Map.Entry<Integer, Territory> set : adjList.entrySet()) {
@@ -202,7 +241,26 @@ public void moveToOtherPhase() {
 
         case START:
         this.inputTerritory = t;
-        this.phaseIndex=1;
+        this.phaseIndex=2;
+
+        if(t.getOwner()==null || t.getOwner() == playerInTurn) {
+          if(playerInTurn.getInventory().getTotalArmy()>0) {
+
+         //inventorydeki asker sayısını değiştirecek
+          playerInTurn.getInventory().removeInfantries(1);
+          t.setOwner(playerInTurn);
+          t.addInfantries(1);
+
+          playerInTurn.getInventory().addTerritory(t);
+           //uidaki territory buttonını değiştirecek ve rengi değiştirecek
+           setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
+        }
+        passToNextPlayer(playerInTurn);
+
+      }
+
+
+
 
           break;
 

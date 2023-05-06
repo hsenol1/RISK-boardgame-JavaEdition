@@ -35,6 +35,7 @@ public class HelpScreen extends JFrame {
         "conquers the entire world by defeating all of their adversaries. In this final phase, all players will play the game on the same computer. \n"+
         " \n");
         textAreaPlus.setFont(new Font("Times New Roman",Font.PLAIN,20));
+        //image = ImageIO.read(getClass().getResourceAsStream("/src/images/Map.png"));
 
         try {
             ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("conquer.jpg"));
@@ -42,7 +43,7 @@ public class HelpScreen extends JFrame {
         } catch (Exception e) {
             // TODO: handle exception
         }
-     
+
 
 
        // textAreaPlus.setForeground(Color.white);

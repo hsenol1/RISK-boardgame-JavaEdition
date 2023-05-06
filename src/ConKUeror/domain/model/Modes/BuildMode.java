@@ -1,9 +1,11 @@
     package src.ConKUeror.domain.model.Modes;
 
-    import java.util.ArrayList;
+    import java.awt.Color;
+import java.util.ArrayList;
     import java.util.List;
+import java.util.Random;
 
-    import src.ConKUeror.domain.controller.BuildModeListener;
+import src.ConKUeror.domain.controller.BuildModeListener;
     import src.ConKUeror.domain.model.Board.Board;
     import src.ConKUeror.domain.model.Board.Coordinate;
     import src.ConKUeror.domain.model.Player.Player;
@@ -15,13 +17,14 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
     private ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
     // private List<Player> players = new ArrayList<Player>();
     private List<BuildModeListener> listeners = new ArrayList<>();
-    private int TOTAL_PLAYER_COUNT;
+    private int totalPlayerCount;
     private int humanPlayerCount;
     public static int botPlayerCount;
     private int index;
     PlayerFactory playerFactory;
     PlayerExpert playerExpert;
     private static boolean canStart = false;
+    private List<Color> playerColors = new ArrayList<Color>();
 
 
 
@@ -186,12 +189,13 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
 
     public int getPlayerCount() {
 
-        return TOTAL_PLAYER_COUNT;
+        return this.totalPlayerCount;
     }
 
     public Boolean validatePlayerNums(int totalPlayerNumber, int botPlayerNumber) {
 
-        this.TOTAL_PLAYER_COUNT=totalPlayerNumber;
+        this.totalPlayerCount=totalPlayerNumber;
+        setColorList();
 
         if(botPlayerNumber<totalPlayerNumber) {
             botPlayerCount =botPlayerNumber;
@@ -203,6 +207,24 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
         return false;
 
         }
+
+        public void setColorList() {
+
+            Random random = new Random();
+            for(int i= 0 ; i<totalPlayerCount ; i++)  {
+                int red = random.nextInt(256); // Generate a random value between 0 (inclusive) and 256 (exclusive) for red
+                int green = random.nextInt(256); // Generate a random value between 0 (inclusive) and 256 (exclusive) for green
+                int blue = random.nextInt(256); // Generate a random value between 0 (inclusive) and 256 (exclusive) for blue
+
+                Color color =  new Color(red, green, blue);
+                playerColors.add(color);
+            }
+            PlayerFactory factory = PlayerFactory.getInstance();
+            factory.setColorList(playerColors);
+
+
+        }
+
 
 
         public void openPlayerInputPanel() {

@@ -2,6 +2,7 @@ package src.ConKUeror.domain.model.Player;
 
 
 import java.util.List;
+import java.awt.Color;
 import java.util.ArrayList;
 
 import src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerAttack;
@@ -18,7 +19,8 @@ public class PlayerFactory {
     private static PlayerFactory instance;
     private PlayerFactory() {};
     private List<String> playerNames = new ArrayList<String>();
-
+    private List<Color> playerColors;
+    private int colorIndex= 0;
 
     public static PlayerFactory getInstance() {
         if(instance==null) {
@@ -28,8 +30,13 @@ public class PlayerFactory {
 
     }
 
+    public void setColorList(List<Color> colors) {
+        this.playerColors = colors;
+
+    }
+
     public Player createPlayer(String type,String name) {
-        
+
         Player player=null;
 
         if (name == null) {
@@ -45,20 +52,21 @@ public class PlayerFactory {
 
            if (searchName(name) && (name.length() != 0)) {
             player = new Player(name,db,ab,fb,inv);
+            setColorToPlayer(player);
             playerNames.add(name);
            }
-//commit
 
        }
 
        else if (type.equals("Computer Player")) {
-       
+
             PlayerInventory inv = new PlayerInventory();
             ComputerPlayerDeploy db = new ComputerPlayerDeploy();
             ComputerPlayerAttack ab = new ComputerPlayerAttack();
             ComputerPlayerFortify fb = new ComputerPlayerFortify();
 
             player = new Player(name, db, ab, fb,inv);
+            setColorToPlayer(player);
 
        }
 
@@ -67,8 +75,14 @@ public class PlayerFactory {
        }
 
        return player;
-        
-        
+
+
+    }
+
+    public void setColorToPlayer(Player player) {
+        player.setColor(playerColors.get(colorIndex));
+        colorIndex++;
+
     }
 
     public boolean searchName(String playerName) {
@@ -80,6 +94,6 @@ public class PlayerFactory {
 
         return true;
     }
-    
+
 
 }
