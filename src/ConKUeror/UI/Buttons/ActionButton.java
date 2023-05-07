@@ -114,9 +114,11 @@ public class ActionButton extends JButton implements ActionListener{
             case 4:  
                 switch (id[1]) {
                     case 0:
-                    
+                        
                         break;
                     case 1:
+                        
+                        
                         // Code to execute if the first element is 2 and the second is 1
                         break;
                     case 2:
@@ -132,10 +134,13 @@ public class ActionButton extends JButton implements ActionListener{
             
             case 5:
                 switch (id[1]) {
-
+                    
                     case 0:
+                        buttonHandler.attack();
                         break;
                     case 1:
+                        buttonHandler.increaseArmyCount();
+                        System.out.println("attack metodundayım");
                         break;
                     case 2:
                         System.out.println("Case 5");

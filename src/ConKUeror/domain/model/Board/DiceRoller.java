@@ -7,13 +7,22 @@ import src.ConKUeror.domain.model.Player.PlayerExpert;
 
 public class DiceRoller {
 
-
+    private static DiceRoller diceRollerInstance = null;
     Die die;
     PlayerExpert playerExpert;
 
-    public DiceRoller() {
+    private DiceRoller() {
         this.die = Die.getDieInstance();
         playerExpert = PlayerExpert.getPlayerExpert();
+    }
+
+    public static DiceRoller getDiceRollerInstance()
+    {
+        if (diceRollerInstance == null)
+        {
+            diceRollerInstance = new DiceRoller();
+        }
+        return diceRollerInstance;
     }
 
     int attackerArmy;

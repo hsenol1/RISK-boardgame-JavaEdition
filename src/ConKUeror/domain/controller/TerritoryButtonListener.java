@@ -10,4 +10,5 @@ public interface TerritoryButtonListener {
 
     void getButtonList(List<Integer> neigborIdsList);
     void setTerritoryButtonInfo(int buttonID,int armyUnit,Color color,int territoryArmy);
+    void setArmyCount(int armyCount);
 }

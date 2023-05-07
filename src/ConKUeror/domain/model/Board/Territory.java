@@ -95,11 +95,8 @@ public class Territory {
             if (canAttackTerritory(this, Board.getTerritories().get(set.getKey())))
             {
                 territoriesAvailableForAttack.add(set.getKey());
-                System.out.println("ifin içi");
             }
-            System.out.println("forun içi");
         }
-        System.out.println("functionin içi");
     }
 
     private boolean canAttackTerritory(Territory attacker, Territory defender)
