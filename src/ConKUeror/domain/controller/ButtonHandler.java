@@ -131,6 +131,16 @@ public class ButtonHandler{
     }
 
 
+    public void addTerritoryCard() {
+        gMode.addTerritoryCard();
+    }
+
+    public void useTerritoryCards() {
+        gMode.useTerritoryCard();
+    }
+    
+
+
 
 
 

@@ -29,6 +29,10 @@ public class Continent {
         return false;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public List<Territory> getTerritories() {
         return territories;
     }

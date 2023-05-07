@@ -73,6 +73,7 @@ public class ActionButton extends JButton implements ActionListener{
 
     // this phase is for start game
             case 2:
+                
                 switch (id[1]) {
                     case 0:
                     buttonHandler.rollButton();
@@ -88,9 +89,9 @@ public class ActionButton extends JButton implements ActionListener{
                         break;
                 }
                 break;
-            default:
-                // Code to execute if the first element is neither 0 nor 1 nor 2
-                break;
+            // default:
+            //     // Code to execute if the first element is neither 0 nor 1 nor 2
+            //     break;
 
             case 3:
                 switch (id[1]) {
@@ -108,7 +109,9 @@ public class ActionButton extends JButton implements ActionListener{
                         break;
                 }
 
-            case 4: 
+                break;
+
+            case 4:  
                 switch (id[1]) {
                     case 0:
                     
@@ -117,12 +120,75 @@ public class ActionButton extends JButton implements ActionListener{
                         // Code to execute if the first element is 2 and the second is 1
                         break;
                     case 2:
+                        System.out.println("Case 4");
                         buttonHandler.nextPhase();
                         break;
                     default:
                         // Code to execute if the first element is 2 and the second is neither 0 nor 1 nor 2
                         break;
                 }
+                
+                break;
+            
+            case 5:
+                switch (id[1]) {
+
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        System.out.println("Case 5");
+                        buttonHandler.nextPhase();
+                        break;
+                    default:
+                        break;
+
+                }
+
+            break;
+
+
+        case 6:
+            switch (id[1]) {
+
+                case 0:
+                    
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    System.out.println("Case 6");
+                    buttonHandler.nextPhase();
+                    break;
+                default:
+                    break;
+
+            }
+
+            break;
+
+        case 7:
+            switch (id[1]) {
+
+                case 0:
+                    buttonHandler.addTerritoryCard();
+                    break;
+                    
+                case 1:
+                    buttonHandler.useTerritoryCards();
+                    break;
+                case 2:
+                    System.out.println("Case 7");
+                    buttonHandler.nextPhase();
+                    break;
+                default:
+                    break;
+
+            }
+
+            break;
+                
         }
 
 
