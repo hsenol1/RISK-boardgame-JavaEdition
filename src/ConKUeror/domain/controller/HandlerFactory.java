@@ -48,4 +48,8 @@ public class HandlerFactory {
         return BuildHandler.getInstance(buildMode);
 
     }
+
+    public CardController giveCardController() {
+        return CardController.getInstance();
+    }
 }

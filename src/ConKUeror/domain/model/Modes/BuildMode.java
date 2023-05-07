@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import src.ConKUeror.domain.controller.BuildModeListener;
-    import src.ConKUeror.domain.model.Board.Board;
+import src.ConKUeror.domain.controller.CardController;
+import src.ConKUeror.domain.controller.HandlerFactory;
+import src.ConKUeror.domain.model.Board.Board;
     import src.ConKUeror.domain.model.Board.Coordinate;
     import src.ConKUeror.domain.model.Player.Player;
 import src.ConKUeror.domain.model.Player.PlayerExpert;
@@ -32,6 +34,7 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
         playerFactory = PlayerFactory.getInstance();
         playerExpert = PlayerExpert.getPlayerExpert();
         fillCoordinates();
+       
     }
 
     public List<Player> getPlayers() {
