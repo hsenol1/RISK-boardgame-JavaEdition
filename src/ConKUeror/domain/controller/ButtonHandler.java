@@ -138,7 +138,10 @@ public class ButtonHandler{
     public void useTerritoryCards() {
         gMode.useTerritoryCard();
     }
-    
+
+    public void addArmyCard() {
+        gMode.addArmyCard();
+    }
 
 
 

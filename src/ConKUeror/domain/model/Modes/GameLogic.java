@@ -183,24 +183,28 @@ public class GameLogic {
   }
 
   public void addTerritoryCard() {
-        cardPlayer = playerInTurn;
+      //  cardPlayer = playerInTurn;
         cardCounter += 1;
         int territory_id = 37 + cardCounter;
         Territory territory = new Territory(territory_id);
         
 
         TerritoryCard territoryC = new TerritoryCard("Territory Card!", territory);
-        cardPlayer.inv.addTerritoryCard(territoryC);
+        playerInTurn.inv.addTerritoryCard(territoryC);
     
 
         
   }
 
   public void useTerritoryCard() {
-        cardPlayer.inv.useTerritoryCards();
+        playerInTurn.inv.useTerritoryCards();
 
   }
 
+
+  public void addArmyCard() {
+       // cardPlayer
+  }
 
 
   public void roll() {
