@@ -257,7 +257,7 @@ public void removeOnboardEvent(TerritoryButton button) {
     public void getButtonList(List<Integer> neigborIdsList) {
         // TODO Auto-generated method stub
 
-        //System.out.println("Map View classına kadar gelen bir connection methodu var");
+        System.out.println("Map View classına kadar gelen bir connection methodu var");
 
         for (int i = 0; i < neigborIdsList.size(); i++) {
             TerritoryButton button = territoryButtonsList.get(neigborIdsList.get(i));
@@ -268,7 +268,11 @@ public void removeOnboardEvent(TerritoryButton button) {
 
         revalidate();
         repaint();
-
+        for (int i = 0; i < neigborIdsList.size(); i++) {
+ 
+            // Print all elements of List
+            System.out.println(neigborIdsList.get(i));
+        }
 
 
     }

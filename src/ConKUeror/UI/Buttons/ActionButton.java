@@ -91,6 +91,38 @@ public class ActionButton extends JButton implements ActionListener{
             default:
                 // Code to execute if the first element is neither 0 nor 1 nor 2
                 break;
+
+            case 3:
+                switch (id[1]) {
+                    case 0:
+                    
+                        break;
+                    case 1:
+                        // Code to execute if the first element is 2 and the second is 1
+                        break;
+                    case 2:
+                        buttonHandler.nextPhase();
+                        break;
+                    default:
+                        // Code to execute if the first element is 2 and the second is neither 0 nor 1 nor 2
+                        break;
+                }
+
+            case 4: 
+                switch (id[1]) {
+                    case 0:
+                    
+                        break;
+                    case 1:
+                        // Code to execute if the first element is 2 and the second is 1
+                        break;
+                    case 2:
+                        buttonHandler.nextPhase();
+                        break;
+                    default:
+                        // Code to execute if the first element is 2 and the second is neither 0 nor 1 nor 2
+                        break;
+                }
         }
 
 
