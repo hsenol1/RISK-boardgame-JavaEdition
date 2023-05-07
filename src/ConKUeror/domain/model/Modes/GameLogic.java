@@ -15,6 +15,7 @@ import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Card;
 import src.ConKUeror.domain.model.Board.DiceRoller;
 import src.ConKUeror.domain.model.Board.Territory;
+import src.ConKUeror.domain.model.Board.TerritoryCard;
 import src.ConKUeror.domain.model.Player.Player;
 import src.ConKUeror.domain.model.Player.PlayerInventory;
 
@@ -33,6 +34,8 @@ public class GameLogic {
 
   DiceRoller diceRoller = new DiceRoller();
   private Player playerInTurn;
+  private Player cardPlayer;
+
 
   public Boolean selectedButton;
 
@@ -43,6 +46,7 @@ public class GameLogic {
   private int memoryIndex = 0;
 
   private int phaseIndex= 0;
+  private int cardCounter = 0;
 
     public GameLogic(Board board,StartMode sMode) {
 
@@ -178,6 +182,29 @@ public class GameLogic {
     }
   }
 
+  public void addTerritoryCard() {
+      //  cardPlayer = playerInTurn;
+        cardCounter += 1;
+        int territory_id = 37 + cardCounter;
+        Territory territory = new Territory(territory_id);
+        
+
+        TerritoryCard territoryC = new TerritoryCard("Territory Card!", territory);
+        playerInTurn.inv.addTerritoryCard(territoryC);
+    
+
+        
+  }
+
+  public void useTerritoryCard() {
+        playerInTurn.inv.useTerritoryCards();
+
+  }
+
+
+  public void addArmyCard() {
+       // cardPlayer
+  }
 
 
   public void roll() {
@@ -203,24 +230,38 @@ public class GameLogic {
 
 }
 public void moveToOtherPhase() {
-  if(currentGameMode== GameMode.BUILD) {
-    setGameMode(GameMode.CONNECTION);
-  }
-  else if (currentGameMode == GameMode.CONNECTION) {
-    setGameMode(GameMode.START);
+        if(currentGameMode== GameMode.BUILD) {
+            setGameMode(GameMode.CONNECTION);
+        }
+        else if (currentGameMode == GameMode.CONNECTION) {
+            setGameMode(GameMode.START);
 
-  }else if (currentGameMode == GameMode.START) {
-    setGameMode(GameMode.CHANCECARD);
+        }else if (currentGameMode == GameMode.START) {
+            setGameMode(GameMode.CHANCECARD);
 
-  }
-  else if (currentGameMode == GameMode.CHANCECARD)
-  {
-    setGameMode(GameMode.DEPLOY);
-  }
-  else if (currentGameMode == GameMode.DEPLOY)
-  {
-    setGameMode(GameMode.ATTACK);
-  }
+        }
+        else if (currentGameMode == GameMode.CHANCECARD)
+        {
+            setGameMode(GameMode.DEPLOY);
+        }
+        else if (currentGameMode == GameMode.DEPLOY)
+        {
+            setGameMode(GameMode.ATTACK);
+        }
+
+        else if (currentGameMode == GameMode.ATTACK)
+        {
+            setGameMode(GameMode.FORTIFY);
+        }
+        else if (currentGameMode == GameMode.FORTIFY)
+        {
+            setGameMode(GameMode.TERRITORYCARD);
+        }
+
+        else if (currentGameMode == GameMode.TERRITORYCARD)
+        {
+            setGameMode(GameMode.ARMYCARD);
+        }
 }
 
 
@@ -292,7 +333,7 @@ public void moveToOtherPhase() {
            System.out.println("Attack");
            this.phaseIndex=4;
            this.inputTerritory=t;
-           this.phaseIndex=1;
+           
            //Map<Integer,Territory>  adjacentList = t.getAdjacencyList();
            List<Integer> territoriesAvailableForAttack = new ArrayList<Integer>();
            t.checkAvailableAttacks(territoriesAvailableForAttack);
@@ -305,6 +346,20 @@ public void moveToOtherPhase() {
           this.phaseIndex=5;
 
           break;
+
+        case TERRITORYCARD:
+            System.out.println("Territory Card Phase test");
+            this.phaseIndex = 6;
+            break;
+
+
+
+        case ARMYCARD:
+            System.out.println("Army Card Phase test");
+            this.phaseIndex = 7;
+            break;
+
+
       }
 
 

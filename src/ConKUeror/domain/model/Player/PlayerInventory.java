@@ -27,6 +27,7 @@ private List<ChanceCard> chanceCards;
         this.army = new Army();
         this.armyCards = new ArrayList<>();
         this.ownedTerritories = new ArrayList<>();
+        this.territoryCards = new ArrayList<>();
         this.armies = 0;
     }
     public List<TerritoryCard> getTerritoryCards() {
@@ -56,10 +57,52 @@ private List<ChanceCard> chanceCards;
     }
     public void addTerritory(Territory territory) {
         ownedTerritories.add(territory);
+        
     }
 
     public void addArmyCard(ArmyCard card) {
         armyCards.add(card);
+    }
+
+    public void useArmyCard() {
+        
+    }
+
+    public void addTerritoryCard(TerritoryCard territoryCard) {
+        territoryCards.add(territoryCard);
+        System.out.println("Territory card's territory name is: " + territoryCard.getTerritory().getId());
+       
+    }
+
+
+    public void useTerritoryCards() {
+        boolean valid = true;
+        Continent continent = Board.getContinentByTerritoryID(territoryCards.get(0).getTerritory().getId());
+        List<Integer> tCardNames = new ArrayList<>();
+        for (TerritoryCard tc : territoryCards) {
+            tCardNames.add(tc.getTerritory().getId());
+        }
+
+        for (Territory territory : continent.getTerritories()) {
+           if (!tCardNames.contains(territory.getId())) {
+                System.out.println("Cards are not enough!");
+                valid = false;
+                break;
+
+           }
+
+        }
+        if (valid) {
+            System.out.println(continent.getName() + " is captured!");
+        }
+       
+        
+
+       
+
+
+    
+    
     }
 
     public int getNumberOfArmies() {

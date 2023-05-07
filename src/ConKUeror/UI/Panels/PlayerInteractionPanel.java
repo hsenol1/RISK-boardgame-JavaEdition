@@ -47,10 +47,10 @@ public class PlayerInteractionPanel extends JPanel implements NextButtonListener
         {"Pick Chance Card","Card Info","Next"},
         {"Deploy Army","Select Army","Next"},
         {"Attack","Select Army","Next"},
-        {"Fortify Army","Select Army" ,"Next"},
-        {"Fortify Army","Select Army" ,"End Turn"},
-        {"Pick Army Card","Card Info", "End Turn"},
-        {"Pick Territory Card","Card Info","End Turn"}};
+        {"Pick Army Card","Select Army" ,"Next"},
+        //{"Fortify Army","Select Army" ,"End Turn"},
+        {"Pick Territory Card","Use!", "End Turn"},
+        {"Pick Army Card","Use!","End Turn"}};
 
     public PlayerInteractionPanel(ButtonHandler buttonHandler, GameHandler gameHandler) {
 

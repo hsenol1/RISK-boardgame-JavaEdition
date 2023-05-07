@@ -19,7 +19,7 @@ private Continent EUROPE;
 private Continent AUSTRALIA;
 
 private Territory territory;
-private static List<Continent> continents;
+private static List<Continent> continents = new ArrayList<>();
 
 
  private static Map<Integer, Territory> territories= new HashMap<>();
@@ -70,6 +70,34 @@ private static List<Continent> continents;
             }
         }
         return null;
+    }
+
+    public static Continent getContinentByTerritoryID(int id) {
+
+        if (id < 9) {
+            return continents.get(0);
+        }
+
+        else if (id > 8 && id < 13) {
+            return continents.get(1);
+        }
+        else if (id > 12 && id < 19) {
+            return continents.get(2);
+        }   
+        else if (id > 19 && id < 27) {
+            return continents.get(3);
+        }       
+        else if (id > 27 && id < 38) {
+            return continents.get(4);
+        }       
+        else if (id > 37 && id < 42) {
+            return continents.get(5);
+        }
+        else {
+            return null;
+        }
+
+
     }
     public Player choosePlayerForAlliance(Player currentPlayer) {
         // to choose another player for alliance
@@ -163,6 +191,7 @@ private static List<Continent> continents;
 
 
         NORTH_AMERICA = new Continent("North America");
+        continents.add(NORTH_AMERICA);
         for(int i = 0 ; i< 9 ; i++) {
             Territory territory = new Territory(i);
             NORTH_AMERICA.addTerritoryToContinent(territory);
@@ -170,6 +199,7 @@ private static List<Continent> continents;
 
         }
         SOUTH_AMERICA= new Continent("South America");
+        continents.add(SOUTH_AMERICA);
         for(int i= 9; i<13 ; i++ ) {
 
             Territory territory = new Territory(i);
@@ -180,6 +210,7 @@ private static List<Continent> continents;
 
 
         AFRICA= new Continent("Africa");
+        continents.add(AFRICA);
 
         for(int i= 13; i<19; i++ ) {
 
@@ -190,6 +221,7 @@ private static List<Continent> continents;
 
         }
         EUROPE= new Continent("Europe");
+        continents.add(EUROPE);
         for(int i= 20; i<27; i++ ) {
 
             Territory territory = new Territory(i);
@@ -200,6 +232,7 @@ private static List<Continent> continents;
         }
 
         ASIA= new Continent("Asia");
+        continents.add(ASIA);
         for(int i= 27; i<38; i++ ) {
 
             if(i == 27) {
@@ -216,6 +249,7 @@ private static List<Continent> continents;
         }
 
         AUSTRALIA= new Continent("Australia");
+        continents.add(AUSTRALIA);
         for(int i= 38; i<42; i++ ) {
 
             Territory territory = new Territory(i);
