@@ -87,10 +87,38 @@ public class Territory {
         }
 
     }
+
+    public void checkAvailableAttacks(List<Integer> territoriesAvailableForAttack)
+    {
+        for (Map.Entry<Integer, Territory> set : this.adjacencyList.entrySet())
+        {
+            if (canAttackTerritory(this, Board.getTerritories().get(set.getKey())))
+            {
+                territoriesAvailableForAttack.add(set.getKey());
+                System.out.println("ifin içi");
+            }
+            System.out.println("forun içi");
+        }
+        System.out.println("functionin içi");
+    }
+
+    private boolean canAttackTerritory(Territory attacker, Territory defender)
+    {
+        boolean canAttack = false;
+        if (attacker.adjacencyList.containsValue(defender) && attacker.getTotalUnit() > defender.getTotalUnit() && defender.getOwner() != attacker.getOwner())
+        {
+            canAttack = true;
+        }
+
+        return canAttack;
+    }
+
+
     @Override
     public String toString() {
         return Integer.toString(this.id);
     }
 
+    
 
 }

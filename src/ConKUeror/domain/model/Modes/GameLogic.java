@@ -60,14 +60,11 @@ public class GameLogic {
         memory[1] = t;
       }
       else {
-        if(memoryIndex%2 ==0) {
-          memory[0]=t;
-          memoryIndex++;
-        }
-
+        memory[0] = memory[1];
+        memory[1] = t;
       }
 
-
+ 
 
     }
 
@@ -148,6 +145,13 @@ public class GameLogic {
 
   }
 
+  private void showAvailableAttacks(List<Integer> territoriesAvailableForAttack)
+    {
+      for(TerritoryButtonListener l: territoryButtonListeners) {
+        l.getButtonList(territoriesAvailableForAttack);
+      }
+    }
+
 
   public void setTerritoryInfo(int ID, int armyUnit, Color color,int territoryArmy) {
     for(TerritoryButtonListener l: territoryButtonListeners) {
@@ -208,6 +212,14 @@ public void moveToOtherPhase() {
   }else if (currentGameMode == GameMode.START) {
     setGameMode(GameMode.CHANCECARD);
 
+  }
+  else if (currentGameMode == GameMode.CHANCECARD)
+  {
+    setGameMode(GameMode.DEPLOY);
+  }
+  else if (currentGameMode == GameMode.DEPLOY)
+  {
+    setGameMode(GameMode.ATTACK);
   }
 }
 
@@ -279,7 +291,13 @@ public void moveToOtherPhase() {
         case ATTACK:
            System.out.println("Attack");
            this.phaseIndex=4;
-
+           this.inputTerritory=t;
+           this.phaseIndex=1;
+           //Map<Integer,Territory>  adjacentList = t.getAdjacencyList();
+           List<Integer> territoriesAvailableForAttack = new ArrayList<Integer>();
+           t.checkAvailableAttacks(territoriesAvailableForAttack);
+           showAvailableAttacks(territoriesAvailableForAttack);
+           addToMemory(t);
           break;
 
         case FORTIFY:
@@ -292,6 +310,8 @@ public void moveToOtherPhase() {
 
 
     }
+
+    
 
 
 
