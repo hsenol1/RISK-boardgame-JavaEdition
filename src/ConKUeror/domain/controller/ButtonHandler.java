@@ -143,6 +143,10 @@ public class ButtonHandler{
         gMode.addArmyCard();
     }
 
+    public void useArmyCards() {
+        gMode.useArmyCards();
+    }
+
 
 
 

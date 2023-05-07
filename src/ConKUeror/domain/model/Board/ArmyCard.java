@@ -23,10 +23,10 @@ public class ArmyCard extends Card {
 
     @Override
     public void use(Player player) {
-        if (player.inv.canTradeCards()) {
-            int additionalArmies = player.inv.tradeCardsAndGetAdditionalArmies();
-            player.inv.addArmies(additionalArmies);
-        }
+        // if (player.inv.canTradeCards()) {
+        //     int additionalArmies = player.inv.tradeCardsAndGetAdditionalArmies();
+        //     player.inv.addArmies(additionalArmies);
+        // }
     }
 
 }

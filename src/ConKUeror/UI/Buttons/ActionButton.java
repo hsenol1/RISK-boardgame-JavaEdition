@@ -153,9 +153,10 @@ public class ActionButton extends JButton implements ActionListener{
             switch (id[1]) {
 
                 case 0:
-                    
+                    buttonHandler.addArmyCard();
                     break;
                 case 1:
+                    buttonHandler.useArmyCards();
                     break;
                 case 2:
                     System.out.println("Case 6");
