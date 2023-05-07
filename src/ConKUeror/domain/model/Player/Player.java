@@ -50,8 +50,8 @@ public class Player {
         public void deploy() {
             db.deploy();
         }
-        public void attack() {
-            ab.attack();
+        public void attack(int attackingArmy, int defendingArmy) {
+            ab.attack(attackingArmy, defendingArmy);
         }
 
         public void fortify() {

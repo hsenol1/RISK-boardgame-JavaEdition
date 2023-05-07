@@ -36,9 +36,17 @@ public class GameLogic {
   private List<NextButtonListener> nButtonListener = new ArrayList<>();
   private static List<Player> orderedPlayerList;
 
-  DiceRoller diceRoller = new DiceRoller();
+  DiceRoller diceRoller = DiceRoller.getDiceRollerInstance();
   private Player playerInTurn;
+
+  private int attackingArmyUnit;
+
+  
+
+
   private Player cardPlayer;
+  
+
   
 
   public Boolean selectedButton;
@@ -176,6 +184,17 @@ public class GameLogic {
       }
 
   }
+
+  public void publishArmyIncreasedEvent(int i)
+  {
+    for(TerritoryButtonListener l: territoryButtonListeners) {
+      l.setArmyCount(i);
+    }
+  }
+
+  
+
+
   public void prepareTerritory(Territory t) {
     board.setTerritory(inputTerritory);
 
@@ -439,8 +458,27 @@ public void moveToOtherPhase() {
     
 
 
+    public int getAttackingArmyUnit() {
+      return attackingArmyUnit;
+    }
+  
+    public void setAttackingArmyUnit(int attackingArmyUnit) {
+      this.attackingArmyUnit = attackingArmyUnit;
+    }
 
-
+    public void setForAttack()
+    {
+      int attackingArmy = attackingArmyUnit;
+      try {
+          int defendingArmy = memory[1].getTotalUnit();
+          playerInTurn.attack(attackingArmy, defendingArmy);
+      }
+      catch (NullPointerException e)
+      {
+          System.out.println("Please choose an attack target");
+      }
+      
+    }
 
 
 

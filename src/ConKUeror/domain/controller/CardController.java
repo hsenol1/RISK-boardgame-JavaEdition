@@ -39,7 +39,7 @@ public class CardController {
     public void initializeDeck(List<Player> players, int numberOfTerritories) {
         // Add territory cards
         for (int i = 1; i <= numberOfTerritories; i++) {
-            terittoryDeck.add(new TerritoryCard("Territory Card " + i, "Territory " + i));
+            //terittoryDeck.add(new TerritoryCard("Territory Card " + i, "Territory " + i));
         }
 
         // Add army cards for each player

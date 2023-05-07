@@ -68,6 +68,31 @@ public class ButtonHandler{
 
     }
 
+    public int getArmyUnitFromInputTerritory()
+    {
+        int i = 0;
+        try {
+            i = gMode.getMemory()[0].getTotalUnit();
+        }
+        catch (NullPointerException e)
+        {
+
+        }
+        return i;
+    }
+
+    public void increaseArmyCount()
+    {
+        System.out.print("increase army count methodundayım");
+        gMode.publishArmyIncreasedEvent(getArmyUnitFromInputTerritory() + 1);
+    }
+
+    public void attack()
+    {
+        gMode.setForAttack();
+    }
+
+
 
     public void removeButton() {
         getBoard().removeTerritory();
@@ -146,7 +171,11 @@ public class ButtonHandler{
     public void useArmyCards() {
         gMode.useArmyCards();
     }
-
+    public void setAttackingArmyCount(int armyCount)
+    {
+        gMode.setAttackingArmyUnit(armyCount);
+    }
+    
 
 
 

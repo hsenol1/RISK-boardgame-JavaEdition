@@ -370,6 +370,14 @@ public void setTerritoryButtonInfo(int buttonId,int armyUnit, Color color,int te
 }
 
 
+//attack sonrası map updatei olacak
+@Override
+public void setArmyCount(int armyCount) {
+    // TODO Auto-generated method stub
+  
+}
+
+
 
 
 
