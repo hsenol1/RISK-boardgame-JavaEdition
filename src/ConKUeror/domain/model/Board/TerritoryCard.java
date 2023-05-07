@@ -4,19 +4,19 @@ import src.ConKUeror.domain.model.Player.*;
 public class TerritoryCard extends Card {
     
 
-    private Territory territory;
+    private String territory;
     private int bonusArmies;
 
-    public TerritoryCard(String name, Territory territory) {
+    public TerritoryCard(String name, String territory) {
         super(name);
         this.territory = territory;
     }
 
-    public Territory getTerritory() {
+    public String getTerritory() {
         return territory;
     }
 
-    public void setTerritory(Territory territory) {
+    public void setTerritory(String territory) {
         this.territory = territory;
     }
 

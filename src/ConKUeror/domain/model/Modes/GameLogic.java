@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
+import src.ConKUeror.domain.controller.CardController;
 import src.ConKUeror.domain.controller.MapListener;
 import src.ConKUeror.domain.controller.NextButtonListener;
 import src.ConKUeror.domain.controller.RollDieListener;
@@ -38,7 +39,7 @@ public class GameLogic {
   DiceRoller diceRoller = new DiceRoller();
   private Player playerInTurn;
   private Player cardPlayer;
-
+  
 
   public Boolean selectedButton;
 
@@ -51,6 +52,7 @@ public class GameLogic {
   private int phaseIndex= 0;
   private int cardCounter = 0;
   private int armyCardCounter = 0;
+  private CardController cardController;
 
     public GameLogic(Board board,StartMode sMode) {
 
@@ -188,83 +190,88 @@ public class GameLogic {
 
   public void addTerritoryCard() {
       //  cardPlayer = playerInTurn;
-        cardCounter += 1;
-        int territory_id = 37 + cardCounter;
-        if (territory_id < 42 ) {
-            Territory territory = new Territory(territory_id);
+        CardController cc  = CardController.getInstance();
+        TerritoryCard tCard = cc.drawTerritoryCard(playerInTurn);
+        if (tCard != null) {
+        System.out.println(tCard.getName());
         
-
-            TerritoryCard territoryC = new TerritoryCard("Territory Card!", territory);
-            playerInTurn.inv.addTerritoryCard(territoryC);
+        playerInTurn.inv.addTerritoryCard(tCard);
         }
-        
-    
-
-        
   }
 
   public void useTerritoryCard() {
+        
         playerInTurn.inv.useTerritoryCards();
-
+        
   }
+  
 
 
   public void addArmyCard() {
-        ArmyCard iArmyCard = new ArmyCard("Infantry Card",ArmyType.INFANTRY);
-        ArmyCard aArmyCard = new ArmyCard("Artillery Card",ArmyType.ARTILLERY);
-        ArmyCard cArmyCard = new ArmyCard("Cavalry Card",ArmyType.CAVALRY);
-        armyCardCounter += 1;
+        CardController cc = CardController.getInstance();
+        ArmyCard aCard = cc.drawArmyCard(playerInTurn);
+        if (aCard != null) {
+            playerInTurn.inv.addArmyCard(aCard);
+            System.out.println(aCard.getName());
+
+
+        }
+        
+
+
+
+       //  ArmyCard iArmyCard = new ArmyCard("Infantry Card",ArmyType.INFANTRY);
+        // ArmyCard aArmyCard = new ArmyCard("Artillery Card",ArmyType.ARTILLERY);
+        // ArmyCard cArmyCard = new ArmyCard("Cavalry Card",ArmyType.CAVALRY);
+        // armyCardCounter += 1;
 
        
         
 
-        if (armyCardCounter == 1) {
-            playerInTurn.inv.addArmyCard(iArmyCard);
-            playerInTurn.inv.addArmyCard(iArmyCard);
-            playerInTurn.inv.addArmyCard(iArmyCard);
-            System.out.println("3 Infantry is Added - Case 1");
-        }
+        // if (armyCardCounter == 1) {
+        //     playerInTurn.inv.addArmyCard(iArmyCard);
+        //     playerInTurn.inv.addArmyCard(iArmyCard);
+        //     playerInTurn.inv.addArmyCard(iArmyCard);
+        //     System.out.println("3 Infantry is Added - Case 1");
+        // }
 
-        else if (armyCardCounter == 2) {
-            playerInTurn.inv.addArmyCard(iArmyCard);
-            playerInTurn.inv.addArmyCard(iArmyCard);
-            playerInTurn.inv.addArmyCard(cArmyCard);
+        // else if (armyCardCounter == 2) {
+        //     playerInTurn.inv.addArmyCard(iArmyCard);
+        //     playerInTurn.inv.addArmyCard(iArmyCard);
+        //     playerInTurn.inv.addArmyCard(cArmyCard);
+        //     System.out.println("2 I + 1 C is added - Case 2 ");
+        // }
 
+        // else if (armyCardCounter == 3) {
+        //     playerInTurn.inv.addArmyCard(iArmyCard);
+        //     playerInTurn.inv.addArmyCard(iArmyCard);
+        //     playerInTurn.inv.addArmyCard(aArmyCard);
+        //     System.out.println("2 I + 1 A is added - Case 3");
+        // }
 
-            playerInTurn.inv.addArmyCard(aArmyCard);
-            System.out.println("2 I + 1 C is added - Case 2 ");
-        }
-
-        else if (armyCardCounter == 3) {
-            playerInTurn.inv.addArmyCard(iArmyCard);
-            playerInTurn.inv.addArmyCard(iArmyCard);
-            playerInTurn.inv.addArmyCard(aArmyCard);
-            System.out.println("2 I + 1 A is added - Case 3");
-        }
-
-        else if (armyCardCounter == 4) {
-            playerInTurn.inv.addArmyCard(iArmyCard);
-            playerInTurn.inv.addArmyCard(cArmyCard);
-            playerInTurn.inv.addArmyCard(cArmyCard);
+        // else if (armyCardCounter == 4) {
+        //     playerInTurn.inv.addArmyCard(iArmyCard);
+        //     playerInTurn.inv.addArmyCard(cArmyCard);
+        //     playerInTurn.inv.addArmyCard(cArmyCard);
             
-            System.out.println("1 I + 2 C is added - Case 4");
-        }
+        //     System.out.println("1 I + 2 C is added - Case 4");
+        // }
 
-        else if (armyCardCounter == 5) {
-            playerInTurn.inv.addArmyCard(aArmyCard);
-            playerInTurn.inv.addArmyCard(cArmyCard);
-            playerInTurn.inv.addArmyCard(cArmyCard);
+        // else if (armyCardCounter == 5) {
+        //     playerInTurn.inv.addArmyCard(aArmyCard);
+        //     playerInTurn.inv.addArmyCard(cArmyCard);
+        //     playerInTurn.inv.addArmyCard(cArmyCard);
             
-            System.out.println("1 A + 2 C is added - Case 5");
-        }
-        else {
-            System.out.println("Use Cases are done, thus no more adding for current moment for simplify tests.");
-        }
+        //     System.out.println("1 A + 2 C is added - Case 5");
+        // }
+        // else {
+        //     System.out.println("Use Cases are done, thus no more adding for current moment for simplify tests.");
+        // }
   }
 
 
   public void useArmyCards() {
-    //playerInTurn.inv.useArmyCards();
+    playerInTurn.inv.useArmyCards();
     //System.out.println("After Using!");
     
   }

@@ -3,6 +3,8 @@ package src.ConKUeror.domain.model.Modes;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.ConKUeror.domain.controller.CardController;
+import src.ConKUeror.domain.controller.HandlerFactory;
 import src.ConKUeror.domain.model.Player.Player;
 
 public class StartMode {
@@ -13,6 +15,7 @@ public class StartMode {
     public StartMode(BuildMode buildMode) {
 
         this.buildMode=buildMode;
+       
 
     }
 
@@ -21,6 +24,10 @@ public class StartMode {
         setOrderedList();
         setInitialInfantries();
         setPlayerCount();
+        HandlerFactory controller = HandlerFactory.getInstance();
+        CardController cardController = controller.giveCardController();
+        cardController.initializeDeck(orderedPlayerList,4); // just created 4 territory based.
+        
     }
 
     public void setPlayerCount() {

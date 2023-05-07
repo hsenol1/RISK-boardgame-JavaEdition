@@ -1,6 +1,7 @@
 package src.ConKUeror.domain.model.Player;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -15,12 +16,13 @@ public class PlayerInventory {
 
 private Player p;
 
-private int infantryCount;
-private int cavalryCount;
-private int artilleryCount;
+private int infantryCount; // card 
+private int cavalryCount; // card
+private int artilleryCount; // card
 private Army army;
-private List<ArmyCard> armyCards;
+private List<ArmyCard> armyCards = new ArrayList<>();
 private List<Territory> ownedTerritories;
+private List<Continent> ownedContinents = new ArrayList<>();
 private int armies;
 private List<TerritoryCard> territoryCards;
 private List<ChanceCard> chanceCards;
@@ -42,7 +44,7 @@ private List<ChanceCard> chanceCards;
     public String getArmyCardstoString() {
         return armyCards.toString();
     }
-    public void canTradeCards() {
+    public void countByTypes() {
         // Check if the player has a valid set of 3 cards to trade
         // This is just a simple example, you might need to implement more complex rules
 
@@ -71,42 +73,89 @@ private List<ChanceCard> chanceCards;
 
     public void addArmyCard(ArmyCard card) {
         armyCards.add(card);
+        if (card.getType().equals(ArmyType.INFANTRY)) {
+            infantryCount += 1;
+        }
+
+        else if (card.getType().equals(ArmyType.CAVALRY)) {
+            cavalryCount += 1;
+        }
+
+        else {
+            artilleryCount += 1;
+        }
     }
 
-    public void useArmyCard() {
-        
-    }
+   
 
     public void addTerritoryCard(TerritoryCard territoryCard) {
         territoryCards.add(territoryCard);
-        System.out.println("Territory card's territory name is: " + territoryCard.getTerritory().getId());
+        
        
     }
 
 
     public void useTerritoryCards() {
-        boolean valid = true;
-        Continent continent = Board.getContinentByTerritoryID(territoryCards.get(0).getTerritory().getId());
-        List<Integer> tCardNames = new ArrayList<>();
+        // boolean valid = true;
+        // Continent continent = Board.getContinentByTerritoryID(territoryCards.get(0).getTerritory().getId());
+        // List<Integer> tCardNames = new ArrayList<>();
 
-        for (TerritoryCard tc : territoryCards) {
-            tCardNames.add(tc.getTerritory().getId());
+        // for (TerritoryCard tc : territoryCards) {
+        //     tCardNames.add(tc.getTerritory().getId());
+        // }
+
+        // for (Territory territory : continent.getTerritories()) {
+        //    if (!tCardNames.contains(territory.getId())) {
+        //         System.out.println("Cards are not enough!");
+        //         valid = false;
+        //         break;
+
+        //    }
+
+        // }
+        // if (valid) {
+        //     for (Territory t : continent.getTerritories()) {
+        //         ownedTerritories.add(t);
+        //     }
+        //     ownedContinents.add(continent);
+        //     System.out.println(continent.getName() + " is captured!");
+        // }
+        
+        List<String> CONTINENT_CHECK = new ArrayList<>();
+        Continent exampleCont = new Continent("EXAMPLE CONTINENT");
+        
+        CONTINENT_CHECK.add("Territory Card 1");
+        CONTINENT_CHECK.add("Territory Card 2");
+        CONTINENT_CHECK.add("Territory Card 3");
+        CONTINENT_CHECK.add("Territory Card 4"); // for EXAMPLE_CONTINENT
+
+        List<String> territoryNames = new ArrayList<>();
+
+
+        
+        
+        for (TerritoryCard t : territoryCards) {
+            territoryNames.add(t.getName());
         }
 
-        for (Territory territory : continent.getTerritories()) {
-           if (!tCardNames.contains(territory.getId())) {
-                System.out.println("Cards are not enough!");
-                valid = false;
-                break;
-
-           }
-
-        }
-        if (valid) {
-            System.out.println(continent.getName() + " is captured!");
+        if (allElementsIncluded(CONTINENT_CHECK, territoryNames)) {
+            System.out.println("CONTINENT IS CONQUERED");
+            ownedContinents.add(exampleCont);
         }
 
+        else {
+            System.out.println("NOT ENOUGH CARDS TO CONQUER");
+        }
     
+    }
+
+    public static boolean allElementsIncluded(List<String> list1, List<String> list2) {
+        for (String element : list1) {
+            if (!list2.contains(element)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     
@@ -115,24 +164,33 @@ private List<ChanceCard> chanceCards;
     public void removeInfantryCard(int n) {
         if (infantryCount != 0) {
             int counter = 0;
-
-            for (ArmyCard aC : armyCards) {
+            Iterator<ArmyCard> iterator = armyCards.iterator();
+    
+            while (iterator.hasNext()) {
+                ArmyCard aC = iterator.next();
+    
                 if (aC.getType().equals(ArmyType.INFANTRY) && counter < n) {
-                    armyCards.remove(aC);
+                    iterator.remove();
                     counter += 1;
+                    infantryCount -= 1;
                 }
             }
         }
     }
+    
 
     public void removeArtilleryCard(int n) {
         if (artilleryCount != 0) {
             int counter = 0;
+            Iterator<ArmyCard> iterator = armyCards.iterator();
 
-            for (ArmyCard aC : armyCards) {
+            while (iterator.hasNext()) {
+                ArmyCard aC = iterator.next();
+    
                 if (aC.getType().equals(ArmyType.ARTILLERY) && counter < n) {
-                    armyCards.remove(aC);
+                    iterator.remove();
                     counter += 1;
+                    artilleryCount -= 1;
                 }
             }
         }
@@ -141,11 +199,15 @@ private List<ChanceCard> chanceCards;
     public void removeCavalryCard(int n) {
         if (cavalryCount != 0) {
             int counter = 0;
+            Iterator<ArmyCard> iterator = armyCards.iterator();
 
-            for (ArmyCard aC : armyCards) {
+            while (iterator.hasNext()) {
+                ArmyCard aC = iterator.next();
+    
                 if (aC.getType().equals(ArmyType.CAVALRY) && counter < n) {
-                    armyCards.remove(aC);
+                    iterator.remove();
                     counter += 1;
+                    cavalryCount -= 1;
                 }
             }
         }
@@ -153,10 +215,15 @@ private List<ChanceCard> chanceCards;
 
 
 
+   
+
+
+
 
     public void useArmyCards() {
         int testCase = isValid();
-        canTradeCards();
+
+        
 
         if (testCase == 0) {
             System.out.println("You can not use Army Cards due to lack of cards.");
@@ -165,7 +232,9 @@ private List<ChanceCard> chanceCards;
         else if (testCase == 1) {
             System.out.println("Test Case 1 occured, transition happening.");
             addCavalries(1);
+          
             removeInfantryCard(3);
+           
 
         }
         else if (testCase == 2) {
@@ -173,6 +242,9 @@ private List<ChanceCard> chanceCards;
             
             addCavalries(2);
             removeInfantries(2);
+            // deleteArmyCards(0, 2);
+            // deleteArmyCards(2, 1);
+
             removeCavalries(1);
             
         }
@@ -180,7 +252,7 @@ private List<ChanceCard> chanceCards;
         else if (testCase == 3) {
             System.out.println("Test Case 3 occured, transition happening.");
             addArtilleries(2);
-            removeInfantries(2);
+           removeInfantries(2);
             removeArtilleries(1);
         }
  
@@ -197,7 +269,9 @@ private List<ChanceCard> chanceCards;
             System.out.println("Test Case 5 occured, transition happening.");
             addArtilleries(3);
             removeArtilleryCard(1);
-            removeCavalries(2);
+            removeCavalryCard(2);
+       
+
         }
     }
 
@@ -264,42 +338,26 @@ private List<ChanceCard> chanceCards;
     }
 
     public int isValid() {
-        int infantryCounter = 0;
-        int artilleryCounter = 0;
-        int cavalryCounter = 0;
-
-        for (ArmyCard aC : armyCards) {
-            if (aC.getType().equals(ArmyCard.ArmyType.INFANTRY)) {
-                infantryCounter++;
-            }
-
-            else if (aC.getType().equals(ArmyCard.ArmyType.ARTILLERY)) {
-                artilleryCounter++;
-            }
-
-            else {
-                cavalryCounter++;
-            }
-        }
+        
 
 
-        if (infantryCounter >= 3) {
+        if (infantryCount >= 3) {
             return 1; // TEST CASE 1 / 3 INFANTRY
         } 
 
-        else if (infantryCounter >= 2 && cavalryCounter >= 1) {
+        else if (infantryCount >= 2 && cavalryCount >= 1) {
             return 2; // TEST CASE 2 / 2 INFANTRY AND 1 CAVALRY
         }
 
-        else if (infantryCounter >= 2 && artilleryCounter >= 1) {
+        else if (infantryCount >= 2 && artilleryCount >= 1) {
             return 3; // TEST CASE 3 / 2 INFANTRY AND 1 ARTILLERY
         }
 
-        else if (infantryCounter >= 1 && cavalryCounter >= 2) {
+        else if (infantryCount >= 1 && cavalryCount>= 2) {
             return 4;
         }
 
-        else if (artilleryCounter >= 1 && cavalryCounter >= 2) {
+        else if (artilleryCount >= 1 && cavalryCount >= 2) {
             return 5;
         }
 

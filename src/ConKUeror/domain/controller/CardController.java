@@ -1,30 +1,42 @@
 package src.ConKUeror.domain.controller;
 import java.util.List;
+
 import java.util.ArrayList;
 import src.ConKUeror.domain.model.Board.*;
 import src.ConKUeror.domain.model.Player.*;
 import java.util.Collections;
 public class CardController {
 
-    private List<Card> armyDeck;
-    private List<Card> terittoryDeck;
+    private List<ArmyCard> armyDeck;
+    private List<TerritoryCard> terittoryDeck;
 
     private List<ChanceCard> chanceDeck;
-    private Card activeTerritoryCard;
-    private Card activeArmyCard;
+    private TerritoryCard activeTerritoryCard;
+    private ArmyCard activeArmyCard;
     private ChanceCard activeChanceCard;
+    private static CardController instance;
+   
 
+// after calling card controller we have to call initializeDeck !
 
-
-    public CardController(List<Player> players, int numberOfTerritories) {
+    private CardController() {
         terittoryDeck = new ArrayList<>();
         armyDeck = new ArrayList<>();
         chanceDeck = new ArrayList<>();
-
-        initializeDeck(players, numberOfTerritories);
+       
     }
 
-    private void initializeDeck(List<Player> players, int numberOfTerritories) {
+    public static CardController getInstance() {
+        if (instance == null) {
+            instance = new CardController();
+        }
+        return instance;
+    }
+
+
+   
+
+    public void initializeDeck(List<Player> players, int numberOfTerritories) {
         // Add territory cards
         for (int i = 1; i <= numberOfTerritories; i++) {
             terittoryDeck.add(new TerritoryCard("Territory Card " + i, "Territory " + i));
@@ -49,7 +61,7 @@ public class CardController {
         }
 */
         // Shuffle the deck
-        Collections.shuffle(chanceDeck);
+        //Collections.shuffle(chanceDeck);
         Collections.shuffle(armyDeck);
         Collections.shuffle(terittoryDeck);
 
@@ -69,7 +81,7 @@ public class CardController {
             return null;
         }
     }
-    public Card drawTerritoryCard(Player player) {
+    public TerritoryCard drawTerritoryCard(Player player) {
 
         if (!terittoryDeck.isEmpty()) {
           activeTerritoryCard = terittoryDeck.remove(0);
@@ -83,7 +95,7 @@ public class CardController {
           return null;
       }
   }
-  public Card drawArmyCard(Player player) {
+  public ArmyCard drawArmyCard(Player player) {
 
     if (!armyDeck.isEmpty()) {
       activeArmyCard = armyDeck.remove(0);
