@@ -11,11 +11,14 @@ import src.ConKUeror.domain.controller.NextButtonListener;
 import src.ConKUeror.domain.controller.RollDieListener;
 import src.ConKUeror.domain.controller.TerritoryButtonListener;
 import src.ConKUeror.domain.enums.GameMode;
+import src.ConKUeror.domain.model.Army.Army;
+import src.ConKUeror.domain.model.Board.ArmyCard;
 import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Card;
 import src.ConKUeror.domain.model.Board.DiceRoller;
 import src.ConKUeror.domain.model.Board.Territory;
 import src.ConKUeror.domain.model.Board.TerritoryCard;
+import src.ConKUeror.domain.model.Board.ArmyCard.ArmyType;
 import src.ConKUeror.domain.model.Player.Player;
 import src.ConKUeror.domain.model.Player.PlayerInventory;
 
@@ -47,6 +50,7 @@ public class GameLogic {
 
   private int phaseIndex= 0;
   private int cardCounter = 0;
+  private int armyCardCounter = 0;
 
     public GameLogic(Board board,StartMode sMode) {
 
@@ -186,11 +190,14 @@ public class GameLogic {
       //  cardPlayer = playerInTurn;
         cardCounter += 1;
         int territory_id = 37 + cardCounter;
-        Territory territory = new Territory(territory_id);
+        if (territory_id < 42 ) {
+            Territory territory = new Territory(territory_id);
         
 
-        TerritoryCard territoryC = new TerritoryCard("Territory Card!", territory);
-        playerInTurn.inv.addTerritoryCard(territoryC);
+            TerritoryCard territoryC = new TerritoryCard("Territory Card!", territory);
+            playerInTurn.inv.addTerritoryCard(territoryC);
+        }
+        
     
 
         
@@ -203,7 +210,63 @@ public class GameLogic {
 
 
   public void addArmyCard() {
-       // cardPlayer
+        ArmyCard iArmyCard = new ArmyCard("Infantry Card",ArmyType.INFANTRY);
+        ArmyCard aArmyCard = new ArmyCard("Artillery Card",ArmyType.ARTILLERY);
+        ArmyCard cArmyCard = new ArmyCard("Cavalry Card",ArmyType.CAVALRY);
+        armyCardCounter += 1;
+
+       
+        
+
+        if (armyCardCounter == 1) {
+            playerInTurn.inv.addArmyCard(iArmyCard);
+            playerInTurn.inv.addArmyCard(iArmyCard);
+            playerInTurn.inv.addArmyCard(iArmyCard);
+            System.out.println("3 Infantry is Added - Case 1");
+        }
+
+        else if (armyCardCounter == 2) {
+            playerInTurn.inv.addArmyCard(iArmyCard);
+            playerInTurn.inv.addArmyCard(iArmyCard);
+            playerInTurn.inv.addArmyCard(cArmyCard);
+
+
+            playerInTurn.inv.addArmyCard(aArmyCard);
+            System.out.println("2 I + 1 C is added - Case 2 ");
+        }
+
+        else if (armyCardCounter == 3) {
+            playerInTurn.inv.addArmyCard(iArmyCard);
+            playerInTurn.inv.addArmyCard(iArmyCard);
+            playerInTurn.inv.addArmyCard(aArmyCard);
+            System.out.println("2 I + 1 A is added - Case 3");
+        }
+
+        else if (armyCardCounter == 4) {
+            playerInTurn.inv.addArmyCard(iArmyCard);
+            playerInTurn.inv.addArmyCard(cArmyCard);
+            playerInTurn.inv.addArmyCard(cArmyCard);
+            
+            System.out.println("1 I + 2 C is added - Case 4");
+        }
+
+        else if (armyCardCounter == 5) {
+            playerInTurn.inv.addArmyCard(aArmyCard);
+            playerInTurn.inv.addArmyCard(cArmyCard);
+            playerInTurn.inv.addArmyCard(cArmyCard);
+            
+            System.out.println("1 A + 2 C is added - Case 5");
+        }
+        else {
+            System.out.println("Use Cases are done, thus no more adding for current moment for simplify tests.");
+        }
+  }
+
+
+  public void useArmyCards() {
+    //playerInTurn.inv.useArmyCards();
+    //System.out.println("After Using!");
+    
   }
 
 
