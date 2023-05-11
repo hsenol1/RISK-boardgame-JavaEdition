@@ -14,8 +14,11 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -46,6 +49,8 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
     StartHandler startHandler;
     GameHandler gameHandler;
     PlayerPanel playerPanel;
+    JPanel jPanel = new JPanel();
+    JPanel jPanel2 =  new JPanel();
 
     JButton pauseAndResumeButton;
     JButton helpButton;
@@ -119,12 +124,48 @@ public void addMapFrameAsListenerForRollEvent(){
     buttonHandler.registerAsRollListener(this);
 }
 
+public void setPanels() {
+/// may be used.
+}
+
+
+private void displayTerritoryInfo(Territory territory, JPanel panel) {
+    if (territory != null ) {
+        String name = "Territory " + Integer.toString(territory.getId());
+
+        String description;
+
+        if (territory.getOwner() != null) {
+            description= territory.getOwner().getName();
+        }
+        else {
+            description = "No player has conquered this territory!";
+        }
+
+        String totalUnit = "Total Army Unit: " + Integer.toString(territory.getTotalUnit());
+
+
+
+        
+
+        JLabel label = new JLabel(name);
+        JLabel label2 = new JLabel(description);
+        JLabel label3 = new JLabel(totalUnit);
+
+        panel.add(label);
+        panel.add(label2);
+        panel.add(label3);
+    }
+    
+    
+}
+
 
 
 
 
 public void initGUI() throws IOException {
-
+        
         image = ImageIO.read(getClass().getResourceAsStream("/src/images/Map.png"));
         setSize((int) (1.20 * image.getWidth()), image.getHeight());
         mapPanel = new JPanel() {
@@ -151,7 +192,18 @@ public void initGUI() throws IOException {
         InfoPanel infoPanel = new InfoPanel();
         infoPanel.setPreferredSize(new Dimension((int) (0.20 * image.getWidth()), image.getHeight()));
         infoPanel.setBackground(Color.lightGray);
-
+        BoxLayout boxLayout = new BoxLayout(infoPanel, BoxLayout.Y_AXIS);
+        infoPanel.setLayout(boxLayout);
+        jPanel = new JPanel();
+        jPanel2 =  new JPanel();
+        jPanel.setPreferredSize(new Dimension((int) 0.2 * image.getWidth(),(int) 0.3 * image.getHeight()));
+        jPanel2.setPreferredSize(new Dimension((int) 0.2 * image.getWidth(),(int) 0.3 * image.getHeight()));
+        jPanel.setBackground(Color.ORANGE);
+        jPanel2.setBackground(Color.GREEN);
+        infoPanel.add(jPanel);
+        infoPanel.add(Box.createVerticalStrut(10));
+        infoPanel.add(jPanel2);
+        infoPanel.add(Box.createVerticalGlue());
 
 
         playerPanel = new PlayerPanel(buttonHandler);
@@ -170,7 +222,7 @@ public void initGUI() throws IOException {
 
     setVisible(true);
     createTerritoryButtons();
-   createFunctionalityButtons();
+    createFunctionalityButtons();
 
 }
 
@@ -194,6 +246,44 @@ public void createTerritoryButtons() {
                     System.out.println("MOUSE CLICKED TO TERRITORY");
                     buttonHandler.matchButtonWithTerritory(button.getID());
                     buttonHandler.selectButton(button);
+
+
+                    buttonHandler.addToMemory(button.getID());
+
+                    Territory[] memoryTerritory = buttonHandler.getMemoryList();
+                    for (Territory t : memoryTerritory) {
+                        System.out.println("Hello World");
+                        if (t != null) {
+                            System.out.println(t.getId());
+                        }
+                        
+                        System.out.println("Bye World!");
+                    }
+
+                    jPanel.removeAll();
+                    jPanel2.removeAll();
+                    if (memoryTerritory.length == 1) {
+                        
+                        Territory t1 = memoryTerritory[1];
+                        displayTerritoryInfo(t1, jPanel);
+                    }
+                    else if (memoryTerritory.length == 2) {
+                        Territory t1 = memoryTerritory[1];
+                        displayTerritoryInfo(t1, jPanel);
+                        Territory t2 = memoryTerritory[0];
+                        displayTerritoryInfo(t2, jPanel2);
+
+                    }
+
+                    jPanel.revalidate();
+                    jPanel.repaint();
+                    jPanel2.revalidate();
+                    jPanel2.repaint();
+
+
+                    
+                    
+                    
 
 
                 }
