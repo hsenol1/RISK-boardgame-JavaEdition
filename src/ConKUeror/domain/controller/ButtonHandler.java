@@ -1,5 +1,6 @@
 package src.ConKUeror.domain.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
@@ -36,11 +37,21 @@ public class ButtonHandler{
           Territory t = Board.getTerritoryWithIndex(id);
           //System.out.println(t.getId());
           System.out.println(gMode.getGameMode());
+          System.out.println(t.getId());
 
 
 
           gMode.prepareButton(t,gMode.getGameMode());
 
+    }
+
+    public void addToMemory(int id) {
+        Territory t = Board.getTerritoryWithIndex(id);
+        gMode.addToMemory(t);
+    }
+
+    public Territory[] getMemoryList() {
+        return gMode.getMemory();
     }
 
     public void selectButton(TerritoryButton button) {

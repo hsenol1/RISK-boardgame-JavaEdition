@@ -71,17 +71,27 @@ public class GameLogic {
     public void addToMemory(Territory t) {
 
 
-      if(memory[0] == null) {
-        memory[0] = t;
-      }
-      else if(memory[1] == null) {
-        memory[1] = t;
-      }
-      else {
-        memory[0] = memory[1];
-        memory[1] = t;
-      }
+    //   if(memory[0] == null) {
+    //     memory[0] = t;
+    //   }
+    //   else if(memory[1] == null) {
+    //     memory[1] = t;
+    //   }
+    //   else {
+    //     memory[0] = memory[1];
+    //     memory[1] = t;
+    //   }
 
+        if (memory[0] == null) {
+            memory[0] = t;
+        } else if (memory[1] == null && memory[0] != t) {
+            memory[1] = t;
+        } else if (memory[0] != t && memory[1] != t) {
+            memory[0] = memory[1];
+            memory[1] = t;
+        }
+    
+    
  
 
     }
