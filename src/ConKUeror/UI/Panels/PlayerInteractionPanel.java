@@ -208,8 +208,6 @@ public void getButtonList(List<Integer> neigborIdsList) {
 public void setTerritoryButtonInfo(int buttonID, int armyUnit, Color color,int territoryArmy) {
     // TODO Auto-generated method stub
 
-
-
     getActionButtonWithIndex(7).setText(Integer.toString(armyUnit));
 
 }
@@ -219,6 +217,13 @@ public void setArmyCount(int armyCount) {
     // TODO Auto-generated method stub
     getActionButtonWithIndex(16).setText("" + armyCount);
     buttonHandler.setAttackingArmyCount(armyCount);
+}
+
+@Override
+public void updateTerritory(int buttonID, int deployArmy) {
+    // TODO Auto-generated method stub
+
+//will be removed
 }
 
 }

@@ -18,7 +18,7 @@ private Continent AFRICA;
 private Continent EUROPE;
 private Continent AUSTRALIA;
 
-private Territory currentTerritory;
+private static Territory currentTerritory;
 private static List<Continent> continents = new ArrayList<>();
 
 
@@ -47,8 +47,8 @@ private static List<Continent> continents = new ArrayList<>();
 
     }
 
-    public Territory getCurrenTerritory() {
-        return this.currentTerritory;
+    public static Territory getCurrenTerritory() {
+        return currentTerritory;
     }
 
 

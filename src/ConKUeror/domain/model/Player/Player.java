@@ -5,6 +5,7 @@ import java.util.List;
 
 import src.ConKUeror.domain.model.Army.Army;
 import src.ConKUeror.domain.model.Board.Card;
+import src.ConKUeror.domain.model.Board.Territory;
 import src.ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
 import src.ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
 import src.ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
@@ -54,8 +55,9 @@ public class Player {
             return playerColor;
         }
 
-        public void deploy() {
-            db.deploy();
+
+        public void deploy(Territory t, int army) {
+            db.deploy(t,army);
         }
         public void attack(int attackingArmy, int defendingArmy) {
             ab.attack(attackingArmy, defendingArmy);

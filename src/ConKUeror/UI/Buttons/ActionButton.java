@@ -109,9 +109,11 @@ public class ActionButton extends JButton implements ActionListener{
             case 4:
                 switch (id[1]) {
                     case 0:
+                    buttonHandler.deploy();
 
                         break;
                     case 1:
+                    buttonHandler.chooseDeployArmy();
 
                         break;
                     case 2:

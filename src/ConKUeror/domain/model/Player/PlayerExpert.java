@@ -2,6 +2,7 @@ package src.ConKUeror.domain.model.Player;
 import src.ConKUeror.domain.controller.PlayerExpertListener;
 import src.ConKUeror.domain.model.Army.Army;
 import src.ConKUeror.domain.model.Modes.DeployMode;
+import src.ConKUeror.domain.model.Modes.GameLogic;
 import src.ConKUeror.domain.model.Player.Player;
 import java.util.List;
 import java.awt.Color;
@@ -13,11 +14,13 @@ public class PlayerExpert {
     private static PlayerExpert playerExpertInstance = null;
     private static List<Player> players = new ArrayList<Player>();
     private static List<PlayerExpertListener> listeners = new ArrayList<>();
+    private static Player playerInTurn;
+    private PlayerExpert( ) {
 
+    }
 
-
-    private PlayerExpert() {
-
+    public static void setPlayerInTurn(Player p1) {
+        PlayerExpert.playerInTurn = p1;
     }
 
 
@@ -62,6 +65,9 @@ public class PlayerExpert {
         return playerExpertInstance;
     }
 
+    public static Player getPlayerInTurn() {
+        return PlayerExpert.playerInTurn;
+    }
 
     public void addPlayersList(Player player) {
         players.add(player);

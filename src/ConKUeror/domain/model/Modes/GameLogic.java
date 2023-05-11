@@ -157,6 +157,11 @@ public class GameLogic {
       }
     }
 
+  public void updateTerritory(int buttonID,int deployArmy ){
+    for(TerritoryButtonListener l: territoryButtonListeners) {
+      l.updateTerritory(buttonID,deployArmy);
+    }
+  }
 
   public void setTerritoryInfo(int ID, int armyUnit, Color color,int territoryArmy) {
     for(TerritoryButtonListener l: territoryButtonListeners) {
@@ -347,6 +352,8 @@ public void moveToOtherPhase() {
 
     public void prepareButton(Territory t,GameMode gameMode) {
 
+      PlayerExpert.setPlayerInTurn(playerInTurn);
+
       switch(gameMode) {
 
         case BUILD:
@@ -397,18 +404,19 @@ public void moveToOtherPhase() {
 
         case CHANCECARD:
           System.out.println("Card");
-          this.phaseIndex=2;
+          this.phaseIndex=3;
 
           break;
 
         case DEPLOY:
           System.out.println("Deploy");
-          this.phaseIndex=3;
+          this.phaseIndex=4;
+          this.inputTerritory = t;
 
+          if(t.getOwner() == playerInTurn) {
+            prepareTerritory(t);
 
-
-
-
+          }
 
           break;
 
@@ -448,6 +456,8 @@ public void moveToOtherPhase() {
 
 
     }
+
+
 
 
 

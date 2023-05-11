@@ -1,5 +1,7 @@
 package src.ConKUeror.domain.controller;
 
+import java.awt.Color;
+
 import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Modes.GameLogic;
 
@@ -25,6 +27,15 @@ public class MapHandler {
 
 
     }
+
+
+    public void updateTerritory(int buttonID , int deployArmy) {
+        game.updateTerritory(buttonID,deployArmy);
+
+
+    }
+
+
 
 
 }

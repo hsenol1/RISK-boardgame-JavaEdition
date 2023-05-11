@@ -146,7 +146,7 @@ private void displayTerritoryInfo(Territory territory, JPanel panel) {
 
 
 
-        
+
 
         JLabel label = new JLabel(name);
         JLabel label2 = new JLabel(description);
@@ -156,8 +156,8 @@ private void displayTerritoryInfo(Territory territory, JPanel panel) {
         panel.add(label2);
         panel.add(label3);
     }
-    
-    
+
+
 }
 
 
@@ -165,7 +165,7 @@ private void displayTerritoryInfo(Territory territory, JPanel panel) {
 
 
 public void initGUI() throws IOException {
-        
+
         image = ImageIO.read(getClass().getResourceAsStream("/src/images/Map.png"));
         setSize((int) (1.20 * image.getWidth()), image.getHeight());
         mapPanel = new JPanel() {
@@ -256,14 +256,14 @@ public void createTerritoryButtons() {
                         if (t != null) {
                             System.out.println(t.getId());
                         }
-                        
+
                         System.out.println("Bye World!");
                     }
 
                     jPanel.removeAll();
                     jPanel2.removeAll();
                     if (memoryTerritory.length == 1) {
-                        
+
                         Territory t1 = memoryTerritory[1];
                         displayTerritoryInfo(t1, jPanel);
                     }
@@ -281,9 +281,9 @@ public void createTerritoryButtons() {
                     jPanel2.repaint();
 
 
-                    
-                    
-                    
+
+
+
 
 
                 }
@@ -359,7 +359,7 @@ public void removeOnboardEvent(TerritoryButton button) {
         revalidate();
         repaint();
         for (int i = 0; i < neigborIdsList.size(); i++) {
- 
+
             // Print all elements of List
             System.out.println(neigborIdsList.get(i));
         }
@@ -447,11 +447,15 @@ private class HelpButtonHandler implements ActionListener {
 
 @Override
 public void setTerritoryButtonInfo(int buttonId,int armyUnit, Color color,int territoryArmy) {
+
+    System.out.print("ŞU AN TESTTEYİM");
     TerritoryButton button = territoryButtonsList.get(buttonId);
     button.setColor(color);
      Font labelFont = new Font("Arial", Font.PLAIN, 11);
      button.setFont(labelFont);
      button.setArmyValue(territoryArmy);
+     System.out.print(territoryArmy);
+
      System.out.println(armyUnit);
      revalidate();
      repaint();
@@ -460,11 +464,25 @@ public void setTerritoryButtonInfo(int buttonId,int armyUnit, Color color,int te
 }
 
 
+
+
 //attack sonrası map updatei olacak
 @Override
 public void setArmyCount(int armyCount) {
     // TODO Auto-generated method stub
-  
+
+}
+
+@Override
+public void updateTerritory(int buttonID, int deployedArmy) {
+    // TODO Auto-generated method stub
+    TerritoryButton button = territoryButtonsList.get(buttonID);
+    button.setArmyValue(deployedArmy);
+
+
+
+
+
 }
 
 
