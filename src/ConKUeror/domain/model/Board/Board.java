@@ -18,7 +18,7 @@ private Continent AFRICA;
 private Continent EUROPE;
 private Continent AUSTRALIA;
 
-private Territory territory;
+private Territory currentTerritory;
 private static List<Continent> continents = new ArrayList<>();
 
 
@@ -28,6 +28,8 @@ private static List<Continent> continents = new ArrayList<>();
         initAllTerritoriesAndContinents();
 
     }
+
+
     public static Map<Integer, Territory> getTerritories() {
 
         return territories;
@@ -41,13 +43,17 @@ private static List<Continent> continents = new ArrayList<>();
     }
 
     public  void setTerritory(Territory _territory) {
-        this.territory = _territory;
+        this.currentTerritory = _territory;
 
+    }
+
+    public Territory getCurrenTerritory() {
+        return this.currentTerritory;
     }
 
 
     public void removeTerritory() {
-        int indexToRemove  = territory.getId();
+        int indexToRemove  = currentTerritory.getId();
         System.out.println("this is the selected button id to remove: " +indexToRemove);
 
         territories.remove(indexToRemove);
@@ -83,13 +89,13 @@ private static List<Continent> continents = new ArrayList<>();
         }
         else if (id > 12 && id < 19) {
             return continents.get(2);
-        }   
+        }
         else if (id > 19 && id < 27) {
             return continents.get(3);
-        }       
+        }
         else if (id > 27 && id < 38) {
             return continents.get(4);
-        }       
+        }
         else if (id > 37 && id < 42) {
             return continents.get(5);
         }

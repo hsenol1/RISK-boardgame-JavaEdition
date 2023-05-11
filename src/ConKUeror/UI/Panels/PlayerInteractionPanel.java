@@ -144,10 +144,12 @@ public void setPanel() {
         String buttonName = buttonNames[p_index][i];
         //this if condition changes the button name to army count when its attack phase
         int armyCount = buttonHandler.getArmyUnitFromInputTerritory();
-        if (p_index == 4 && i == 1)
+
+       /* if (p_index == 4 && i == 1)
         {
             buttonName = String.format("Army Count: %d", armyCount);
-        }
+        } */
+
         int[] id = {p_index, i};
 
         Font labelFont = new Font("Arial", Font.PLAIN, 10);

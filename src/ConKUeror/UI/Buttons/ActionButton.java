@@ -63,40 +63,34 @@ public class ActionButton extends JButton implements ActionListener{
                     //do nothing
                         break;
                     case 2:
-                    buttonHandler.nextPhase();
-                    break;
-                    default:
-                        // Code to execute if the first element is 1 and the second is neither 0 nor 1 nor 2
+                        buttonHandler.nextPhase();
                         break;
+
                 }
                 break;
 
     // this phase is for start game
             case 2:
-                
+
                 switch (id[1]) {
                     case 0:
-                    buttonHandler.rollButton();
-                    break;
+                        buttonHandler.rollButton();
+                        break;
                     case 1:
                         // Code to execute if the first element is 2 and the second is 1
                         break;
                     case 2:
-                    buttonHandler.nextPhase();
+                        buttonHandler.nextPhase();
                         break;
-                    default:
-                        // Code to execute if the first element is 2 and the second is neither 0 nor 1 nor 2
-                        break;
+
                 }
                 break;
-            // default:
-            //     // Code to execute if the first element is neither 0 nor 1 nor 2
-            //     break;
 
+     //This phase is for pick chance card
             case 3:
                 switch (id[1]) {
                     case 0:
-                    
+
                         break;
                     case 1:
                         // Code to execute if the first element is 2 and the second is 1
@@ -104,49 +98,41 @@ public class ActionButton extends JButton implements ActionListener{
                     case 2:
                         buttonHandler.nextPhase();
                         break;
-                    default:
-                        // Code to execute if the first element is 2 and the second is neither 0 nor 1 nor 2
-                        break;
+
                 }
 
                 break;
 
-            case 4:  
+    //This phase is for deploy phase
+
+
+            case 4:
                 switch (id[1]) {
                     case 0:
-                        
+
                         break;
                     case 1:
-                        
-                        
-                        // Code to execute if the first element is 2 and the second is 1
+
                         break;
                     case 2:
-                        System.out.println("Case 4");
                         buttonHandler.nextPhase();
                         break;
-                    default:
-                        // Code to execute if the first element is 2 and the second is neither 0 nor 1 nor 2
-                        break;
+
                 }
-                
+
                 break;
-            
+
             case 5:
                 switch (id[1]) {
-                    
+
                     case 0:
                         buttonHandler.attack();
                         break;
                     case 1:
                         buttonHandler.increaseArmyCount();
-                        System.out.println("attack metodundayım");
                         break;
                     case 2:
-                        System.out.println("Case 5");
                         buttonHandler.nextPhase();
-                        break;
-                    default:
                         break;
 
                 }
@@ -164,11 +150,9 @@ public class ActionButton extends JButton implements ActionListener{
                     buttonHandler.useArmyCards();
                     break;
                 case 2:
-                    System.out.println("Case 6");
                     buttonHandler.nextPhase();
                     break;
-                default:
-                    break;
+
 
             }
 
@@ -180,21 +164,19 @@ public class ActionButton extends JButton implements ActionListener{
                 case 0:
                     buttonHandler.addTerritoryCard();
                     break;
-                    
+
                 case 1:
                     buttonHandler.useTerritoryCards();
                     break;
                 case 2:
-                    System.out.println("Case 7");
                     buttonHandler.nextPhase();
                     break;
-                default:
-                    break;
+
 
             }
 
             break;
-                
+
         }
 
 

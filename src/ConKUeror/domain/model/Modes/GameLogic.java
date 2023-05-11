@@ -41,17 +41,8 @@ public class GameLogic {
   private Player playerInTurn;
 
   private int attackingArmyUnit;
-
-
-
-
   private Player cardPlayer;
-
-
-
-
   public Boolean selectedButton;
-
   public GameMode currentGameMode = GameMode.BUILD;
   public static StartMode startMod;
 
@@ -80,37 +71,29 @@ public class GameLogic {
             memory[1] = t;
         }
 
-
-
-
     }
 
     public static void setGameOrderList(List<Player> orderList) {
       orderedPlayerList =orderList;
+      PlayerExpert.setPlayersList(orderedPlayerList);
 
     }
 
 
     public void passToNextPlayer(Player p1) {
 
-
         int currentIndex = orderedPlayerList.indexOf(p1);
+        PlayerExpert.updatePlayerCount(currentIndex);
         int newIndex = (currentIndex+1 ) %orderedPlayerList.size();
-
-
         playerInTurn= orderedPlayerList.get(newIndex);
-
-
         int oldIndex = currentIndex;
-
-
         PlayerExpert.publishPlayerInfoEvent(oldIndex, newIndex, playerInTurn.getColor());
 
     }
 
-    public void setFirstPlayer() {
-      System.out.println(orderedPlayerList.get(0).getName() );
 
+    public void setFirstPlayer() {
+     // System.out.println(orderedPlayerList.get(0).getName() );
       this.playerInTurn = orderedPlayerList.get(0);
     }
 
@@ -159,10 +142,6 @@ public class GameLogic {
   public void addNButtonListener(NextButtonListener nbLis) {
     nButtonListener.add(nbLis);
   }
-
-
-
-
 
   public void giveNeighborIdsOfSelectedTerritoryButton(List<Integer> neigborIdsList ) {
     for(TerritoryButtonListener l: territoryButtonListeners) {
@@ -340,6 +319,9 @@ public void moveToOtherPhase() {
         else if (currentGameMode == GameMode.CHANCECARD)
         {
             setGameMode(GameMode.DEPLOY);
+            DeployMode.setDeployedArmy(playerInTurn);
+            int player_index =PlayerExpert.getPlayersList().indexOf(playerInTurn);
+            PlayerExpert.updatePlayerCount(player_index);
         }
         else if (currentGameMode == GameMode.DEPLOY)
         {
@@ -392,10 +374,11 @@ public void moveToOtherPhase() {
         case START:
         this.inputTerritory = t;
         this.phaseIndex=2;
+        if (playerInTurn.getInventory().getTotalArmy()>0) {
 
         if(t.getOwner()==null || t.getOwner() == playerInTurn) {
-          if(playerInTurn.getInventory().getTotalArmy()>0) {
 
+          if(playerInTurn.getInventory().getTotalArmy()>0) {
          //inventorydeki asker sayısını değiştirecek
           playerInTurn.getInventory().removeInfantries(1);
           t.setOwner(playerInTurn);
@@ -405,13 +388,10 @@ public void moveToOtherPhase() {
            //uidaki territory buttonını değiştirecek ve rengi değiştirecek
            setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
         }
-        passToNextPlayer(playerInTurn);
+          passToNextPlayer(playerInTurn);
 
       }
-
-
-
-
+    }
           break;
 
         case CHANCECARD:
@@ -423,6 +403,11 @@ public void moveToOtherPhase() {
         case DEPLOY:
           System.out.println("Deploy");
           this.phaseIndex=3;
+
+
+
+
+
 
           break;
 

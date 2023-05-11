@@ -1,6 +1,7 @@
 package src.ConKUeror.UI.Panels;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -29,6 +30,7 @@ public class PlayerPanel extends JPanel implements PlayerExpertListener{
     private int playerCount;
     private List<Player> orderedPlayers;
     private List<JPanel> playerInfoPanels;
+    private List<JLabel> armyCountLabels;
 
     Border blackBorder;
     Border padding;
@@ -39,6 +41,7 @@ public class PlayerPanel extends JPanel implements PlayerExpertListener{
     public PlayerPanel(ButtonHandler buttonHandler) {
         this.buttonHandler = buttonHandler;
         playerInfoPanels = new ArrayList<>();
+        armyCountLabels = new ArrayList<>();
 
         playerCount = StartMode.getOrderedPlayerList().size();
         setLayout(new GridLayout(1, playerCount));
@@ -81,9 +84,13 @@ public class PlayerPanel extends JPanel implements PlayerExpertListener{
 
         playerInfoPanel.setBorder(BorderFactory.createCompoundBorder(blackBorder, padding));
         playerInfoPanel.setBackground(Color.WHITE);
-        JLabel playerNameLabel = new JLabel(p.getName() + ":");
-        String army = Integer.toString(p.getInventory().getTotalArmy());
-        JLabel armyCountLabel = new JLabel(army);
+        JLabel playerNameLabel = new JLabel(p.getName());
+
+        //String army = Integer.toString(p.getInventory().getTotalArmy());
+        //JLabel armyCountLabel = new JLabel(army);
+        JLabel armyCountLabel = new JLabel();
+        armyCountLabels.add(armyCountLabel);
+
         Font labelFont = new Font("Arial", Font.PLAIN, 12);
         playerNameLabel.setFont(labelFont);
         armyCountLabel.setFont(labelFont);
@@ -103,9 +110,12 @@ public class PlayerPanel extends JPanel implements PlayerExpertListener{
 }
 
 
-    public void updatePanel(){
+    public void updatePanelCounts(int index, int army){
 
-    //Update player armys they receive next turn
+        JPanel playerInfoPanel = playerInfoPanels.get(index);
+        JLabel armyLabel= armyCountLabels.get(index);
+        armyLabel.setText(": " + army);
+        playerInfoPanel.add(armyLabel);
 
 
     }
