@@ -279,6 +279,7 @@ public class GameLogic {
   public void useArmyCards() {
     playerInTurn.inv.useArmyCards();
     //System.out.println("After Using!");
+    // f
 
   }
 
