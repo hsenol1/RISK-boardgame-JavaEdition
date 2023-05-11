@@ -19,8 +19,9 @@ public class DeployMode {
         p1.getInventory().addInfantries(3);
 
     } else {
-
+        System.out.println(territoryCount);
         int deployedArmyCount = territoryCount/3;
+        System.out.println(deployedArmyCount);
         p1.getInventory().addInfantries(deployedArmyCount);
     }
 

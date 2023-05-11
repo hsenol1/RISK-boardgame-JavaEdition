@@ -43,7 +43,7 @@ public class StartMode {
             if(playerCount == 2) {
                 inf_count=5;
             } else if( playerCount==3) {
-                inf_count = 35;
+                inf_count = 16;
             }else if( playerCount==4) {
                 inf_count = 30;
              }else if( playerCount==5) {
