@@ -3,6 +3,7 @@ package src.ConKUeror.domain.model.Player;
 import java.awt.Color;
 import java.util.List;
 
+import src.ConKUeror.domain.model.Army.Army;
 import src.ConKUeror.domain.model.Board.Card;
 import src.ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
 import src.ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
@@ -11,6 +12,8 @@ import src.ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
 public class Player {
 
         public PlayerInventory inv = new PlayerInventory();
+        //private Army deployedArmy = new Army();
+
         private Color playerColor;
 
         IDeployBehaviour db;
@@ -38,6 +41,10 @@ public class Player {
 
 
         }
+
+
+
+
 
         public void setColor(Color color) {
                 this.playerColor = color;

@@ -34,7 +34,7 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
         playerFactory = PlayerFactory.getInstance();
         playerExpert = PlayerExpert.getPlayerExpert();
         fillCoordinates();
-       
+
     }
 
     public List<Player> getPlayers() {

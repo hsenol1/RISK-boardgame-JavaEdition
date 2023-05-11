@@ -15,7 +15,7 @@ public class StartMode {
     public StartMode(BuildMode buildMode) {
 
         this.buildMode=buildMode;
-       
+
 
     }
 
@@ -27,7 +27,7 @@ public class StartMode {
         HandlerFactory controller = HandlerFactory.getInstance();
         CardController cardController = controller.giveCardController();
         cardController.initializeDeck(orderedPlayerList,4); // just created 4 territory based.
-        
+
     }
 
     public void setPlayerCount() {
@@ -41,15 +41,18 @@ public class StartMode {
             int inf_count;
           int playerCount =  buildMode.getPlayerCount();
             if(playerCount == 2) {
-                inf_count=40;
+                inf_count=5;
             } else if( playerCount==3) {
                 inf_count = 35;
             }else if( playerCount==4) {
                 inf_count = 30;
              }else if( playerCount==5) {
                 inf_count = 25;
-             }else {
+             }else if (playerCount ==6){
                 inf_count = 20;
+                }
+                else {
+                    inf_count=-1;
                 }
 
             for(Player player : buildMode.getPlayers()) {

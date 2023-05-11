@@ -1,5 +1,7 @@
 package src.ConKUeror.domain.model.Player;
 import src.ConKUeror.domain.controller.PlayerExpertListener;
+import src.ConKUeror.domain.model.Army.Army;
+import src.ConKUeror.domain.model.Modes.DeployMode;
 import src.ConKUeror.domain.model.Player.Player;
 import java.util.List;
 import java.awt.Color;
@@ -23,6 +25,21 @@ public class PlayerExpert {
         listeners.add(l);
     }
 
+    public static void updatePlayerCount(int index) {
+
+        Player player = players.get(index);
+        Army army = player.getInventory().getArmy();
+        int totalUnit = army.getTotalArmyUnit();
+        publishArmyCount(index, totalUnit);
+
+
+    }
+
+    public static void publishArmyCount(int index, int armyUnit) {
+    for(PlayerExpertListener l: listeners){
+        l.updatePanelCounts(index ,armyUnit);
+        }
+    }
 
 
 
@@ -53,6 +70,11 @@ public class PlayerExpert {
 
     public static List<Player> getPlayersList() {
         return players;
+    }
+
+    public static void setPlayersList(List<Player> orderedPlayers) {
+        players = orderedPlayers;
+
     }
 
     public static int getPlayersListSize() {

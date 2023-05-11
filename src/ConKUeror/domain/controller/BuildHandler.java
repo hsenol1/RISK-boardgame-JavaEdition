@@ -51,7 +51,7 @@ private StartMode sMode;
 	public void initalizeBots(int botPlayerCount) {
 
 		for (int i = 1; i <= botPlayerCount; i++) {
-			String name = "Computer " + i;
+			String name = "Comp" +i;
 			buildMode.initalizePlayer(name, "Computer Player");
 		}
 
