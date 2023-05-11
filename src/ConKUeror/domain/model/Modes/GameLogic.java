@@ -384,22 +384,25 @@ public void moveToOtherPhase() {
         this.phaseIndex=2;
         if (playerInTurn.getInventory().getTotalArmy()>0) {
 
-        if(t.getOwner()==null || t.getOwner() == playerInTurn) {
+          if(t.getOwner() == null) {
+            playerInTurn.getInventory().removeInfantries(1);
+            t.setOwner(playerInTurn);
+            t.addInfantries(1);
+            playerInTurn.getInventory().addTerritory(t);
+            setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
 
-          if(playerInTurn.getInventory().getTotalArmy()>0) {
-         //inventorydeki asker sayısını değiştirecek
-          playerInTurn.getInventory().removeInfantries(1);
-          t.setOwner(playerInTurn);
-          t.addInfantries(1);
+          } else if (t.getOwner() == playerInTurn) {
+            playerInTurn.getInventory().removeInfantries(1);
+            t.addInfantries(1);
+            setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
 
-          playerInTurn.getInventory().addTerritory(t);
-           //uidaki territory buttonını değiştirecek ve rengi değiştirecek
-           setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
-        }
+          }
           passToNextPlayer(playerInTurn);
 
-      }
-    }
+        }
+
+
+
           break;
 
         case CHANCECARD:
