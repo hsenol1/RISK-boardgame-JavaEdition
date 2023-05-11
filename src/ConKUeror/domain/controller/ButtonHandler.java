@@ -3,14 +3,22 @@ package src.ConKUeror.domain.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
+//import com.apple.laf.resources.aqua;
+
 import src.ConKUeror.UI.Buttons.TerritoryButton;
 import src.ConKUeror.UI.Frames.MapView;
+import src.ConKUeror.UI.Panels.ArmySelectionPanel;
 import src.ConKUeror.UI.Panels.PlayerInteractionPanel;
 import src.ConKUeror.domain.enums.GameMode;
 import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Territory;
 import src.ConKUeror.domain.model.Modes.BuildMode;
+import src.ConKUeror.domain.model.Modes.DeployMode;
 import src.ConKUeror.domain.model.Modes.GameLogic;
+import src.ConKUeror.domain.model.Player.Player;
+import src.ConKUeror.domain.model.Player.PlayerExpert;
 import src.ConKUeror.domain.model.Board.Die;
 import src.ConKUeror.domain.model.Board.DiceRoller;
 
@@ -60,21 +68,40 @@ public class ButtonHandler{
 
     }
 
+    public void chooseDeployArmy() {
+
+
+
+        ArmySelectionPanel armySelectionPanel = new ArmySelectionPanel("Choose Army");
+        armySelectionPanel.setMaxValue(DeployMode.getMaxValue());
+        armySelectionPanel.createSlider();
+
+        Object[] options = {"OK", "Cancel"};
+        int result = JOptionPane.showOptionDialog(null, armySelectionPanel, "Deploy",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[0]);
+
+       int deployedArmy= armySelectionPanel.getValue();
+       DeployMode.setDeployedArmy(deployedArmy);
+
+
+    }
+
     public void addConnection() {
 
-        System.out.print("add connection methodundayım");
+       // System.out.prinzt("add connection methodundayım");
 
         Territory[] territories=gMode.getMemory();
         territories[0].addConnectionDual(territories[1]);
 
         Map<Integer, Territory> tests= territories[0].getAdjacencyList();
-        System.out.println("komsularim basladi");
+       // System.out.println("komsularim basladi");
 
         for (Map.Entry<Integer, Territory> set : tests.entrySet()) {
             int territoryId =set.getKey();
             System.out.println(territoryId);
             }
-            System.out.println("komsularim bitti");
+           // System.out.println("komsularim bitti");
 
 
     }
@@ -103,6 +130,16 @@ public class ButtonHandler{
         gMode.setForAttack();
     }
 
+    public void deploy(){
+
+        Player playerInTurn = PlayerExpert.getPlayerInTurn();
+        Territory t = Board.getCurrenTerritory();
+        int army = DeployMode.getDeployedArmy();
+        playerInTurn.deploy(t,army);
+
+
+
+    }
 
 
     public void removeButton() {
@@ -186,7 +223,7 @@ public class ButtonHandler{
     {
         gMode.setAttackingArmyUnit(armyCount);
     }
-    
+
 
 
 
