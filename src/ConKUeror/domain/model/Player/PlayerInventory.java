@@ -233,19 +233,22 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
             System.out.println("Test Case 2 occured, transition happening.");
 
             addCavalries(2);
-            removeInfantries(2);
+            removeInfantryCard(2);
+           //removeInfantries(2);
             // deleteArmyCards(0, 2);
             // deleteArmyCards(2, 1);
-
-            removeCavalries(1);
+            removeCavalryCard(1);
+           // removeCavalries(1);
 
         }
 
         else if (type == 3) {
             System.out.println("Test Case 3 occured, transition happening.");
             addArtilleries(2);
-           removeInfantries(2);
-            removeArtilleries(1);
+          // removeInfantries(2);
+          removeInfantryCard(2);
+            //removeArtilleries(1);
+            removeArtilleryCard(1);
         }
 
         else if (type == 4) {
@@ -278,21 +281,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
 
         return totalArmies;
     }
-    public int tradeCardsAndGetAdditionalArmies() {
 
-        int additionalArmies = 0;
-
-        // if (canTradeCards()) {
-        //     // Remove the traded cards from the player's hand
-        //     // and calculate the additional armies
-
-
-        //     // Add the additional armies to the player's total armies
-        //     armies += additionalArmies;
-        // }
-
-        return additionalArmies;
-    }
 
     public void addArmies(int additionalArmies) {
 
