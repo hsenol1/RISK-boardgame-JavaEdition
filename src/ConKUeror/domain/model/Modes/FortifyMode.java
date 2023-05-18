@@ -4,7 +4,7 @@ import src.ConKUeror.domain.model.Board.Territory;
 
 public class FortifyMode {
     static int fortifiedArmy;
-
+static Boolean canFortify = false;
 
     public static Boolean isValidForFortify(Territory t) {
 
@@ -14,6 +14,14 @@ public class FortifyMode {
             return false;
          }
 
+    }
+    public static void setCanFortify() {
+        canFortify = true;
+
+    }
+
+    public static Boolean canFortify() {
+        return canFortify;
     }
 
     public static int getMaxValue(Territory t) {

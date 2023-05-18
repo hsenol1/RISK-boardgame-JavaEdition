@@ -10,6 +10,9 @@ import java.awt.geom.Ellipse2D;
 import javax.swing.JButton;
 // will be used to increase the graphics level. now it is not necessary
 
+import src.ConKUeror.domain.controller.ButtonHandler;
+import src.ConKUeror.domain.controller.HandlerFactory;
+
 
 
 public class TerritoryButton extends JButton {
@@ -40,7 +43,10 @@ public class TerritoryButton extends JButton {
     }
 
     public void resetColor() {
-        setBackground(defaultColor);
+
+        ButtonHandler buttonHandler = HandlerFactory.getInstance().giveButtonHandler();
+       Color color =  buttonHandler.getPlayerColor();
+        setBackground(color);
 
     }
 

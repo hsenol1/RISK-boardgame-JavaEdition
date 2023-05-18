@@ -2,8 +2,10 @@ package src.ConKUeror.domain.model.Modes;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
 import src.ConKUeror.domain.controller.CardController;
@@ -36,6 +38,7 @@ public class GameLogic {
   private List<RollDieListener> rollListeners = new ArrayList<>();
   private List<NextButtonListener> nButtonListener = new ArrayList<>();
   private static List<Player> orderedPlayerList;
+  private Set<Integer> accessibleTerritoryIds = new HashSet<>();
 
   DiceRoller diceRoller = DiceRoller.getDiceRollerInstance();
   private Player playerInTurn;
@@ -337,6 +340,9 @@ public class GameLogic {
 
         else if (currentGameMode == GameMode.ATTACK)
         {
+          memory[0]=null;
+          memory[1]=null;
+
             setGameMode(GameMode.FORTIFY);
         }
         else if (currentGameMode == GameMode.FORTIFY)
@@ -438,10 +444,35 @@ public class GameLogic {
         case FORTIFY:
           System.out.println("Fortify ");
           this.phaseIndex=6;
-          this.inputTerritory=t;
 
           if(t.getOwner() == playerInTurn ) {
-            addToMemory(t);
+
+            if (memory[0] != null && memory[0].getId() != t.getId()  && accessibleTerritoryIds.contains(t.getId())) {
+              memory[1] = t; // Add the green territory to the second slot of memory
+              FortifyMode.setCanFortify();
+
+          }
+
+          else if (memory[0] == null || memory[0].getId() != t.getId()) {
+            this.inputTerritory = t;
+            Set<Integer> visited = new HashSet<>();
+            List<Integer> ownedTerritoryIds = new ArrayList<>();
+            dfs(inputTerritory, visited, ownedTerritoryIds);
+            accessibleTerritoryIds.clear();
+            accessibleTerritoryIds.addAll(ownedTerritoryIds);
+            giveNeighborIdsOfSelectedTerritoryButton(ownedTerritoryIds);
+            memory[0] = t;  // Add the territory to memory
+            memory[1] = null; // Reset the second slot of memory
+        }
+
+
+
+          }
+          // If the territory is not owned by the current player, clear the memory
+          else {
+            memory[0] = null;
+            memory[1] = null;
+            accessibleTerritoryIds.clear();
           }
 
 
@@ -468,6 +499,26 @@ public class GameLogic {
 
 
 
+    private void dfs(Territory territory, Set<Integer> visited, List<Integer> ownedTerritoryIds) {
+      // Check if this territory has already been visited or not owned by the player
+      int territoryId = territory.getId();
+      if (visited.contains(territoryId) || territory.getOwner() != playerInTurn) {
+          return;
+      }
+
+      // Mark the current node as visited and add it to our list
+      visited.add(territoryId);
+      ownedTerritoryIds.add(territoryId);
+
+      // Get the adjacency list for the current territory
+      Map<Integer, Territory> adjList = territory.getAdjacencyList();
+
+      // Recursively visit all the neighbors
+      for (Map.Entry<Integer, Territory> set : adjList.entrySet()) {
+          Territory neighbor = set.getValue();
+          dfs(neighbor, visited, ownedTerritoryIds);
+      }
+  }
 
 
 
