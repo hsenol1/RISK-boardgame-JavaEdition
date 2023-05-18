@@ -188,6 +188,10 @@ if(FortifyMode.canFortify()) {
 
     }
 
+    public Player getPlayerInTurn() {
+        return PlayerExpert.getPlayerInTurn();
+    }
+
     public Color getPlayerColor() {
 
         return PlayerExpert.getPlayerInTurn().getColor();
