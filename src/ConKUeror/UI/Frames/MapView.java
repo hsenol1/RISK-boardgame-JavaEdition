@@ -25,7 +25,8 @@
 
     import src.ConKUeror.UI.Buttons.TerritoryButton;
     import src.ConKUeror.UI.HelpScreen.HelpScreen;
-    import src.ConKUeror.UI.Panels.InfoPanel;
+import src.ConKUeror.UI.InTurnPlayerScreen.PlayerInfoScreen;
+import src.ConKUeror.UI.Panels.InfoPanel;
     import src.ConKUeror.UI.Panels.PlayerInteractionPanel;
     import src.ConKUeror.UI.Panels.PlayerPanel;
     import src.ConKUeror.UI.PauseScreen.PauseScreen;
@@ -98,6 +99,7 @@
 
         pauseAndResumeButton.addActionListener(new PauseButtonHandler());
         helpButton.addActionListener(new HelpButtonHandler());
+        inventoryButton.addActionListener(new PlayerButtonHandler());
         /*
         rollButton.addActionListener(new RollButtonHandler());
         executeButton.addActionListener(new ExecuteButtonHandler());
@@ -204,22 +206,17 @@
         jPanel2.setPreferredSize(new Dimension((int) 0.2 * image.getWidth(),(int) 0.3 * image.getHeight()));
         jPanel.setBackground(Color.ORANGE);
         jPanel2.setBackground(Color.GREEN);
-        inventoryButton = new JButton("Inventory");
-         inventoryButton.setPreferredSize(new Dimension((int) 0.2 * image.getWidth(),(int) 0.3 * image.getHeight()));
-        jPanel3.setPreferredSize(new Dimension((int) 0.2 * image.getWidth(),(int) 0.2 * image.getHeight()));
-      //   jPanel3.setLayout(new BorderLayout());
-        //jPanel3.add(inventoryButton, BorderLayout.CENTER);
-        jPanel3.setBackground(Color.RED);
-      //  inventoryButton.setBackground(Color.RED);
+      
+       
         
         infoPanel.add(jPanel);
         infoPanel.add(Box.createVerticalStrut(10));
         infoPanel.add(jPanel2);
         infoPanel.add(Box.createVerticalStrut(10));
-        infoPanel.add(jPanel3);
+    
 
-        inventoryButton.setVisible(true);
-        jPanel3.add(inventoryButton);
+       
+       
 
         infoPanel.add(Box.createVerticalGlue());
 
@@ -333,6 +330,8 @@
             pauseAndResumeButton.setBounds(buttonHandler.getXFromList(42), buttonHandler.getYFromList(42), 130, 40);
             helpButton = new JButton("Help");
             helpButton.setBounds(buttonHandler.getXFromList(43), buttonHandler.getYFromList(43), 80, 40);
+            inventoryButton = new JButton("Player!");
+            inventoryButton.setBounds(helpButton.getX() + 100, helpButton.getY(), 80, 40);
 
             
         
@@ -432,6 +431,19 @@
             new HelpScreen();
         }
 
+    }
+
+    private class PlayerButtonHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO Auto-generated method stub
+            new PlayerInfoScreen(buttonHandler.getPlayerInTurn());
+            System.out.println("selam knks");
+
+           
+        }
+        
     }
     /*
 
