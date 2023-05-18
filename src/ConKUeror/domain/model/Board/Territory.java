@@ -55,24 +55,15 @@ public class Territory {
 
  }
 
-    public void removeArmy(int army) {
-
-    if(totalArmyUnit >= army) {
-        this.totalArmyUnit -= army;
+    public void removeInfantries(int n) {
+        army.removeInfantries(n);
     }
- }
 
     public int getTotalUnit() {
        return army.getTotalArmyUnit();
 
     }
-    public void removeArmies(int armiesToRemove) {
-        if (armiesToRemove > 0) {
-            if (this.totalArmyUnit >= armiesToRemove) {
-                this.totalArmyUnit -= armiesToRemove;
-            }
-        }
-    }
+
     public Map<Integer, Territory> getAdjacencyList() {
         return adjacencyList;
     }
@@ -116,6 +107,6 @@ public class Territory {
         return Integer.toString(this.id);
     }
 
-    
+
 
 }

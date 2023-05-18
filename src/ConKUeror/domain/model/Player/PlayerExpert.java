@@ -35,8 +35,8 @@ public class PlayerExpert {
         int totalUnit = army.getTotalArmyUnit();
         publishArmyCount(index, totalUnit);
 
-
     }
+
 
     public static void publishArmyCount(int index, int armyUnit) {
     for(PlayerExpertListener l: listeners){

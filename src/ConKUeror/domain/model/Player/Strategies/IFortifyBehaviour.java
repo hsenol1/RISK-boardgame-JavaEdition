@@ -1,8 +1,10 @@
 package src.ConKUeror.domain.model.Player.Strategies;
 
-public interface IFortifyBehaviour {
-    
+import src.ConKUeror.domain.model.Board.Territory;
 
-    void fortify();
+public interface IFortifyBehaviour {
+
+
+    void fortify(Territory fortifyFrom, Territory fortifyTo, int army);
 
 }

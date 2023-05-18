@@ -29,8 +29,8 @@ public class MapHandler {
     }
 
 
-    public void updateTerritory(int buttonID , int deployArmy) {
-        game.updateTerritory(buttonID,deployArmy);
+    public void updateTerritory(int buttonID , int army) {
+        game.updateTerritory(buttonID,army);
 
 
     }

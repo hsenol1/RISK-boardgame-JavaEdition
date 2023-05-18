@@ -16,9 +16,8 @@ import src.ConKUeror.domain.model.Modes.BuildMode;
 import java.awt.*;
 
 public class BuildModeScreen extends JFrame implements BuildModeListener{
+    //OVERVIEW: This class is UI representation of player number choice.
 
-    private BufferedImage worldMap;
-    private int width, height;
 
     private JPanel buildModePanel;
     private JLabel playerNumberLabel, botNumberLabel;
@@ -28,8 +27,8 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
     private JComboBox<Integer> playerNumberBox;
     private JComboBox<Integer> botNumberBox;
 
-    private Integer[] numbers1 = {2, 3, 4, 5, 6};
-    private Integer[] numbers2 = {1, 2, 3, 4, 5};
+    private Integer[] totalPlayerNumbers = {2, 3, 4, 5, 6};
+    private Integer[] botPlayerNumbers = {1, 2, 3, 4, 5};
 
     private BuildHandler buildHandler;
 
@@ -45,9 +44,8 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
     }
 
     @Override
-    public void onBoardEvent(String msg) {
-        // TODO Auto-generated method stub
-        openPanelForPlayerInput(msg);
+    public void onBoardIndexEvent(int index) {
+        openPanelForPlayerInput(index);
     }
 
 
@@ -61,11 +59,9 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-
                 int totalPlayerNumber = getPlayerNumberComboboxValue();
                 int botPlayerNumber = getBotNumberComboboxValue();
-                buildHandler.validateNumbers(totalPlayerNumber, botPlayerNumber);
-
+                buildHandler.handlePlayerCounts(totalPlayerNumber, botPlayerNumber);
 
 		}
 
@@ -118,7 +114,6 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
         String str = playerNumberBox.getSelectedItem().toString();
         return Integer.parseInt(str);
 
-
     }
 
 
@@ -130,13 +125,14 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
     }
 
 
-    public void openPanelForPlayerInput(String msg) {
-
+    public void openPanelForPlayerInput(int index)
+    {
+        String playerNameIndexMessage =  String.format("Enter player %d name:", index);
 
         JTextField textField = new JTextField();
         Object[] message = {
 
-            String.format(msg), textField
+            String.format(playerNameIndexMessage), textField
         };
         int option = JOptionPane.showConfirmDialog(null, message, "Name Entry", JOptionPane.OK_CANCEL_OPTION);
         buildHandler.enterNameForRealPlayers(textField.getText());
@@ -148,6 +144,9 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
 
 
     public void initGUI() {
+        //@requires: (Precondition) BuildModeScreen
+        //@modifies:
+        //@effects: (Postcondition)
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -159,8 +158,8 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
         playerNumberLabel = new JLabel("Number of total players:");
         botNumberLabel = new JLabel("Number of bots among the players:");
 
-        playerNumberBox = new JComboBox<>(numbers1);
-        botNumberBox = new JComboBox<>(numbers2);
+        playerNumberBox = new JComboBox<>(totalPlayerNumbers);
+        botNumberBox = new JComboBox<>(botPlayerNumbers);
 
         confirmButton = new JButton("Confirm");
         helpButton = new JButton("Help");

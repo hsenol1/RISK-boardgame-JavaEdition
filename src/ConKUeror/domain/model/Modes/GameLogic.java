@@ -157,9 +157,9 @@ public class GameLogic {
       }
     }
 
-  public void updateTerritory(int buttonID,int deployArmy ){
+  public void updateTerritory(int buttonID,int army ){
     for(TerritoryButtonListener l: territoryButtonListeners) {
-      l.updateTerritory(buttonID,deployArmy);
+      l.updateTerritory(buttonID,army);
     }
   }
 
@@ -311,7 +311,8 @@ public class GameLogic {
          return phaseIndex;
 
 }
-public void moveToOtherPhase() {
+    public void moveToOtherPhase() {
+
         if(currentGameMode== GameMode.BUILD) {
             setGameMode(GameMode.CONNECTION);
         }
@@ -402,7 +403,6 @@ public void moveToOtherPhase() {
         }
 
 
-
           break;
 
         case CHANCECARD:
@@ -425,7 +425,7 @@ public void moveToOtherPhase() {
 
         case ATTACK:
            System.out.println("Attack");
-           this.phaseIndex=4;
+           this.phaseIndex=5;
            this.inputTerritory=t;
 
            //Map<Integer,Territory>  adjacentList = t.getAdjacencyList();
@@ -436,21 +436,27 @@ public void moveToOtherPhase() {
           break;
 
         case FORTIFY:
-          System.out.println("Fortify");
-          this.phaseIndex=5;
+          System.out.println("Fortify ");
+          this.phaseIndex=6;
+          this.inputTerritory=t;
+
+          if(t.getOwner() == playerInTurn ) {
+            addToMemory(t);
+          }
+
 
           break;
 
         case TERRITORYCARD:
             System.out.println("Territory Card Phase test");
-            this.phaseIndex = 6;
+            this.phaseIndex = 7;
             break;
 
 
 
         case ARMYCARD:
             System.out.println("Army Card Phase test");
-            this.phaseIndex = 7;
+            this.phaseIndex = 8;
             break;
 
 

@@ -22,7 +22,7 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
     private int totalPlayerCount;
     private int humanPlayerCount;
     public static int botPlayerCount;
-    private int index;
+    private int playerIndexIterator;
     PlayerFactory playerFactory;
     PlayerExpert playerExpert;
     private static boolean canStart = false;
@@ -186,7 +186,7 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
         }
 
         else {
-            index += 1;
+            playerIndexIterator += 1;
         }
     }
 
@@ -201,9 +201,9 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
         setColorList();
 
         if(botPlayerNumber<totalPlayerNumber) {
-            botPlayerCount =botPlayerNumber;
-            humanPlayerCount = totalPlayerNumber- botPlayerNumber;
-            index = humanPlayerCount;
+            this.botPlayerCount = botPlayerNumber;
+            this.humanPlayerCount = totalPlayerNumber- botPlayerNumber;
+            this.playerIndexIterator = humanPlayerCount;
             return true;
 
         }
@@ -230,12 +230,12 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
 
 
 
-        public void openPlayerInputPanel() {
+        public void setPlayerIndex() {
 
-            while(index !=0) {
-                index--;
-                String message =  String.format("Enter player %d name:", (humanPlayerCount-index));
-                publishBoardEvent(message);
+            while(playerIndexIterator !=0) {
+                playerIndexIterator--;
+                int index = humanPlayerCount-playerIndexIterator;
+                publishPlayerIndexEvent(index);
             }
         }
 
@@ -256,9 +256,9 @@ import src.ConKUeror.domain.model.Player.PlayerFactory;
     }
 
 
-    private void publishBoardEvent(String message) {
+    private void publishPlayerIndexEvent(int index) {
         for(BuildModeListener l: listeners){
-            l.onBoardEvent(message);
+            l.onBoardIndexEvent(index);
 
         }
 
