@@ -25,7 +25,7 @@ public class StartMode {
         setPlayerCount();
         HandlerFactory controller = HandlerFactory.getInstance();
         CardController cardController = controller.giveCardController();
-        cardController.initializeDeck(orderedPlayerList,4); // just created 4 territory based.
+        cardController.initializeDeck(orderedPlayerList,42); // just created 4 territory based.
 
     }
 

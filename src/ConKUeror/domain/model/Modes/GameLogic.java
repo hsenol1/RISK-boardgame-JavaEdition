@@ -207,9 +207,9 @@ public class GameLogic {
         CardController cc  = CardController.getInstance();
         TerritoryCard tCard = cc.drawTerritoryCard(playerInTurn);
         if (tCard != null) {
-        System.out.println(tCard.getName());
+            System.out.println(tCard.getName());
 
-        playerInTurn.inv.addTerritoryCard(tCard);
+            playerInTurn.inv.addTerritoryCard(tCard);
         }
   }
 
@@ -231,61 +231,12 @@ public class GameLogic {
 
         }
 
-
-
-
-       //  ArmyCard iArmyCard = new ArmyCard("Infantry Card",ArmyType.INFANTRY);
-        // ArmyCard aArmyCard = new ArmyCard("Artillery Card",ArmyType.ARTILLERY);
-        // ArmyCard cArmyCard = new ArmyCard("Cavalry Card",ArmyType.CAVALRY);
-        // armyCardCounter += 1;
-
-
-
-
-        // if (armyCardCounter == 1) {
-        //     playerInTurn.inv.addArmyCard(iArmyCard);
-        //     playerInTurn.inv.addArmyCard(iArmyCard);
-        //     playerInTurn.inv.addArmyCard(iArmyCard);
-        //     System.out.println("3 Infantry is Added - Case 1");
-        // }
-
-        // else if (armyCardCounter == 2) {
-        //     playerInTurn.inv.addArmyCard(iArmyCard);
-        //     playerInTurn.inv.addArmyCard(iArmyCard);
-        //     playerInTurn.inv.addArmyCard(cArmyCard);
-        //     System.out.println("2 I + 1 C is added - Case 2 ");
-        // }
-
-        // else if (armyCardCounter == 3) {
-        //     playerInTurn.inv.addArmyCard(iArmyCard);
-        //     playerInTurn.inv.addArmyCard(iArmyCard);
-        //     playerInTurn.inv.addArmyCard(aArmyCard);
-        //     System.out.println("2 I + 1 A is added - Case 3");
-        // }
-
-        // else if (armyCardCounter == 4) {
-        //     playerInTurn.inv.addArmyCard(iArmyCard);
-        //     playerInTurn.inv.addArmyCard(cArmyCard);
-        //     playerInTurn.inv.addArmyCard(cArmyCard);
-
-        //     System.out.println("1 I + 2 C is added - Case 4");
-        // }
-
-        // else if (armyCardCounter == 5) {
-        //     playerInTurn.inv.addArmyCard(aArmyCard);
-        //     playerInTurn.inv.addArmyCard(cArmyCard);
-        //     playerInTurn.inv.addArmyCard(cArmyCard);
-
-        //     System.out.println("1 A + 2 C is added - Case 5");
-        // }
-        // else {
-        //     System.out.println("Use Cases are done, thus no more adding for current moment for simplify tests.");
-        // }
   }
 
 
-  public void useArmyCards() {
-    playerInTurn.inv.useArmyCards();
+  public void useArmyCards(int type) {
+
+    playerInTurn.inv.useArmyCards(type);
     //System.out.println("After Using!");
     // f
 
