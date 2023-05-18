@@ -1,5 +1,6 @@
 package src.ConKUeror.domain.controller;
 
+import java.awt.Color;
 import java.util.List;
 import java.util.Map;
 
@@ -84,6 +85,12 @@ public class ButtonHandler{
     }
 
     public void chooseFortifyArmy() {
+
+if(FortifyMode.canFortify()) {
+
+
+
+
         memory = gMode.getMemory();
         ArmySelectionPanel armySelectionPanel = new ArmySelectionPanel("Choose Army");
         armySelectionPanel.setMaxValue(FortifyMode.getMaxValue(memory[0]));
@@ -96,7 +103,13 @@ public class ButtonHandler{
 
        int fortifiedArmy= armySelectionPanel.getValue();
        FortifyMode.setFortifiedArmy(fortifiedArmy);
+    } else {
+        memory=gMode.getMemory();
+        System.out.println("Memory slot 0" +memory[0]);
+        System.out.println("Memory slot 1" +memory[1]);
 
+        System.out.println("Sorry, cant fortify");
+    }
 
     }
 
@@ -166,12 +179,19 @@ public class ButtonHandler{
         }
 
 
+
+
        // int army = FortifyMode.getFortifiedArmy();
 
 
 
     }
 
+    public Color getPlayerColor() {
+
+        return PlayerExpert.getPlayerInTurn().getColor();
+
+               }
 
     public void removeButton() {
         getBoard().removeTerritory();
