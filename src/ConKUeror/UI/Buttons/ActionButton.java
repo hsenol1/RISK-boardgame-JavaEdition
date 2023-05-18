@@ -168,6 +168,7 @@ public class ActionButton extends JButton implements ActionListener{
                     break;
 
                 case 1:
+                    
                     buttonHandler.useTerritoryCards();
                     break;
                 case 2:

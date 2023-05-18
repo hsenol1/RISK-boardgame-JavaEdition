@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import src.ConKUeror.UI.Buttons.TerritoryButton;
 import src.ConKUeror.UI.Frames.MapView;
+import src.ConKUeror.UI.Panels.ArmyCardWindow;
 import src.ConKUeror.UI.Panels.ArmySelectionPanel;
 import src.ConKUeror.UI.Panels.PlayerInteractionPanel;
 import src.ConKUeror.domain.enums.GameMode;
@@ -217,7 +218,21 @@ public class ButtonHandler{
     }
 
     public void useArmyCards() {
-        gMode.useArmyCards();
+        ArmyCardWindow window = new ArmyCardWindow("Choose your convert!", new ArmyCardListener() {
+
+            @Override
+            public void onCardSelected(int index) {
+                // TODO Auto-generated method stub
+                System.out.println(index);
+                if (index != 0) {
+                    gMode.useArmyCards(index);
+                }
+            }
+            
+        });
+        window.createWindow();
+     
+       
     }
     public void setAttackingArmyCount(int armyCount)
     {
