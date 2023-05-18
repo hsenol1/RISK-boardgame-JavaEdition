@@ -11,7 +11,7 @@ import src.ConKUeror.domain.model.Modes.StartMode;
 public class BuildHandler {
 
 private static BuildHandler instance;
-private Boolean firstConfirm = true;
+private Boolean isFirstConfirmClick = true;
 private BuildMode buildMode;
 private Board board;
 private GameLogic gamelogic;
@@ -32,12 +32,12 @@ private StartMode sMode;
 			buildMode.addBuildModeListener(listener);
 	}
 
-	public void validateNumbers(int totalNum, int botNum ) {
+	public void handlePlayerCounts(int totalNum, int botNum ) {
 
-			Boolean isValid = buildMode.validatePlayerNums(totalNum, botNum);
-			if(isValid && firstConfirm) {
-				buildMode.openPlayerInputPanel();
-				firstConfirm = false;
+			Boolean isPlayerCountsValid = buildMode.validatePlayerNums(totalNum, botNum);
+			if(isPlayerCountsValid && isFirstConfirmClick) {
+				buildMode.setPlayerIndex();
+				isFirstConfirmClick = false;
 			}
 
 	}
@@ -58,15 +58,12 @@ private StartMode sMode;
 	}
 
 	public void openPlayerSelection() {
-		buildMode.openPlayerInputPanel();
+		buildMode.setPlayerIndex();
 	}
 
 	public void setStartStatus() {
 		buildMode.setStart();
 	}
-
-
-
 
 
 	public void initializeGame() {

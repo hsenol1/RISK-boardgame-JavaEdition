@@ -32,11 +32,12 @@ public class DeployMode {
 
     Player player = PlayerExpert.getPlayerInTurn();
     System.out.println(player.getName());
-      System.out.println(player.getInventory().getArmy().getTotalArmyUnit());
-    return player.getInventory().getArmy().getTotalArmyUnit();
+    System.out.println(player.getInventory().getArmy().getTotalArmyUnit());
+   return player.getInventory().getArmy().getTotalArmyUnit();
 
 
  }
+
 
  public static void setDeployedArmy(int army) {
     deployedArmy = army;

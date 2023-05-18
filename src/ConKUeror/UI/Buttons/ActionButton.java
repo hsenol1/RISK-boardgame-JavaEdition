@@ -104,17 +104,14 @@ public class ActionButton extends JButton implements ActionListener{
                 break;
 
     //This phase is for deploy phase
-
-
             case 4:
                 switch (id[1]) {
                     case 0:
                     buttonHandler.deploy();
-
                         break;
+
                     case 1:
                     buttonHandler.chooseDeployArmy();
-
                         break;
                     case 2:
                         buttonHandler.nextPhase();
@@ -123,7 +120,7 @@ public class ActionButton extends JButton implements ActionListener{
                 }
 
                 break;
-
+             //attack
             case 5:
                 switch (id[1]) {
 
@@ -139,11 +136,29 @@ public class ActionButton extends JButton implements ActionListener{
 
                 }
 
-            break;
+                break;
+
+            //fortify
+            case 6:
+                switch (id[1]) {
+
+                    case 0:
+                        buttonHandler.fortify();
+                        break;
+                    case 1:
+                        buttonHandler.chooseFortifyArmy();
+                        break;
+                    case 2:
+                        buttonHandler.nextPhase();
+                        break;
 
 
-        case 6:
-            switch (id[1]) {
+                 }
+
+                 break;
+
+            case 7:
+              switch (id[1]) {
 
                 case 0:
                     buttonHandler.addArmyCard();
@@ -156,12 +171,31 @@ public class ActionButton extends JButton implements ActionListener{
                     break;
 
 
+                 }
+
+             break;
+
+            case 8:
+                switch (id[1]) {
+
+                case 0:
+                    buttonHandler.addTerritoryCard();
+                    break;
+
+                case 1:
+                    buttonHandler.useTerritoryCards();
+                    break;
+                case 2:
+                    buttonHandler.nextPhase();
+                    break;
+
+
             }
 
             break;
 
-        case 7:
-            switch (id[1]) {
+            case 9:
+                 switch (id[1]) {
 
                 case 0:
                     buttonHandler.addTerritoryCard();

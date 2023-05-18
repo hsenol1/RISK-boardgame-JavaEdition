@@ -20,8 +20,7 @@ public class StartMode {
     }
 
     public void setStartMode() {
-        setGameOrder();
-        setOrderedList();
+    setOrderedList();
         setInitialInfantries();
         setPlayerCount();
         HandlerFactory controller = HandlerFactory.getInstance();
@@ -75,10 +74,7 @@ public class StartMode {
 
     }
 
-    public void setGameOrder() {
 
-    //set the order array according to dice rolls
-    }
 
 
     public void setOrderedList() {

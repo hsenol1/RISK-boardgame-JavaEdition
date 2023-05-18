@@ -16,6 +16,7 @@ import src.ConKUeror.domain.model.Board.Board;
 import src.ConKUeror.domain.model.Board.Territory;
 import src.ConKUeror.domain.model.Modes.BuildMode;
 import src.ConKUeror.domain.model.Modes.DeployMode;
+import src.ConKUeror.domain.model.Modes.FortifyMode;
 import src.ConKUeror.domain.model.Modes.GameLogic;
 import src.ConKUeror.domain.model.Player.Player;
 import src.ConKUeror.domain.model.Player.PlayerExpert;
@@ -26,6 +27,7 @@ public class ButtonHandler{
     private static ButtonHandler instance;
     private BuildMode bMode;
     private GameLogic gMode;
+    private Territory[] memory;
     private TerritoryButton selectedButton;
 
     private ButtonHandler(BuildMode bMode, GameLogic gMode) {
@@ -46,9 +48,6 @@ public class ButtonHandler{
           //System.out.println(t.getId());
           System.out.println(gMode.getGameMode());
           System.out.println(t.getId());
-
-
-
           gMode.prepareButton(t,gMode.getGameMode());
 
     }
@@ -70,8 +69,6 @@ public class ButtonHandler{
 
     public void chooseDeployArmy() {
 
-
-
         ArmySelectionPanel armySelectionPanel = new ArmySelectionPanel("Choose Army");
         armySelectionPanel.setMaxValue(DeployMode.getMaxValue());
         armySelectionPanel.createSlider();
@@ -83,6 +80,22 @@ public class ButtonHandler{
 
        int deployedArmy= armySelectionPanel.getValue();
        DeployMode.setDeployedArmy(deployedArmy);
+
+    }
+
+    public void chooseFortifyArmy() {
+        memory = gMode.getMemory();
+        ArmySelectionPanel armySelectionPanel = new ArmySelectionPanel("Choose Army");
+        armySelectionPanel.setMaxValue(FortifyMode.getMaxValue(memory[0]));
+        armySelectionPanel.createSlider();
+
+        Object[] options = {"OK", "Cancel"};
+        int result = JOptionPane.showOptionDialog(null, armySelectionPanel, "Fortify",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[0]);
+
+       int fortifiedArmy= armySelectionPanel.getValue();
+       FortifyMode.setFortifiedArmy(fortifiedArmy);
 
 
     }
@@ -136,6 +149,24 @@ public class ButtonHandler{
         Territory t = Board.getCurrenTerritory();
         int army = DeployMode.getDeployedArmy();
         playerInTurn.deploy(t,army);
+
+
+
+    }
+    public void fortify() {
+        Player playerInTurn = PlayerExpert.getPlayerInTurn();
+         memory = getMemoryList();
+
+        Territory fortifyFrom =memory[0];
+        Territory fortifyTo =memory[1];
+
+        if (FortifyMode.isValidForFortify(fortifyFrom)) {
+            int army = FortifyMode.getFortifiedArmy();
+            playerInTurn.fortify(fortifyFrom,fortifyTo,army);
+        }
+
+
+       // int army = FortifyMode.getFortifiedArmy();
 
 
 

@@ -71,7 +71,7 @@ public abstract class ChanceCard {
 
             if (territoryToSabotage != null) {
                 // Remove the specified number of armies from the chosen territory
-                territoryToSabotage.removeArmies(armiesToRemove);
+                //territoryToSabotage.removeArmies(armiesToRemove);
             }
 
         }
@@ -89,7 +89,7 @@ public abstract class ChanceCard {
                 if (territoryToConquer != null) {
                     // Transfer control of the territory to the player and remove all opponent's armies
                     territoryToConquer.setOwner(player);
-                    territoryToConquer.removeArmies(territoryToConquer.getTotalUnit());
+                   // territoryToConquer.removeArmies(territoryToConquer.getTotalUnit());
                 }
             }
         }

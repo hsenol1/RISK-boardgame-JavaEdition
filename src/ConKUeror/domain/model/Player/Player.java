@@ -63,8 +63,8 @@ public class Player {
             ab.attack(attackingArmy, defendingArmy);
         }
 
-        public void fortify() {
-            fb.fortify();
+        public void fortify(Territory fortifyFrom, Territory fortifyTo, int army) {
+            fb.fortify(fortifyFrom,fortifyTo,army);
         }
 
         public String getName() {
