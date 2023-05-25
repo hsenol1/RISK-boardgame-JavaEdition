@@ -2,6 +2,7 @@ package ConKUeror.domain.model.Data;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class GameState {
     private String turn;
@@ -36,16 +37,26 @@ public class GameState {
 
     @Override
     public String toString() {
-        return turn + "\n" + mapState; // Only include turn and mapState
+        return turn + "," + mapState; // Only include turn and mapState
     }
-    
+    @Override
+public boolean equals(Object obj) {
+    if (this == obj) {
+        return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+        return false;
+    }
+    GameState other = (GameState) obj;
+    return Objects.equals(turn, other.turn) && Objects.equals(mapState, other.mapState);
+}
     public static GameState fromString(String data) {
-        String[] lines = data.split("\n");
-        if (lines.length < 2) {
+        String[] parts = data.split(",");
+        if (parts.length < 2) {
             return null;
         }
-        String turn = lines[0];
-        String mapState = lines[1]; // Add the map state from the data
+        String turn = parts[0];
+        String mapState = parts[1];
         return new GameState(turn, mapState);
     } 
 }
