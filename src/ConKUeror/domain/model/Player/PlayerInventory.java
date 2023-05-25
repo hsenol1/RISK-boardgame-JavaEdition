@@ -22,6 +22,7 @@ private int cavalryCount; // card
 private int artilleryCount; // card
 private Army army;
 private List<ArmyCard> armyCards = new ArrayList<>();
+
 private List<Territory> ownedTerritories;
 private List<Continent> ownedContinents = new ArrayList<>();
 private int armies;
@@ -54,6 +55,10 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
     }
     public List<ArmyCard> getArmyCards() {
         return armyCards;
+    }
+
+    public int getArmyCardsLength() {
+        return armyCards.size();
     }
 
     public String getArmyCardstoString() {
