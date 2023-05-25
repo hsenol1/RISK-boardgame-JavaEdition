@@ -53,6 +53,32 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
 
         return this.army;
     }
+    public int getArtilleryCount() {
+        return artilleryCount;
+    }
+
+    public void setArtilleryCount(int artilleryCount) {
+        this.artilleryCount = artilleryCount;
+    }
+
+    public int getInfantryCount() {
+        return infantryCount;
+    }
+    public void setOwnedTerritories(List<Territory> territories) {
+        ownedTerritories = new ArrayList<>(territories);
+    }
+
+    public void setInfantryCount(int infantryCount) {
+        this.infantryCount = infantryCount;
+    }
+
+    public int getCavalryCount() {
+        return cavalryCount;
+    }
+
+    public void setCavalryCount(int cavalryCount) {
+        this.cavalryCount = cavalryCount;
+    }
     public List<ArmyCard> getArmyCards() {
         return armyCards;
     }
