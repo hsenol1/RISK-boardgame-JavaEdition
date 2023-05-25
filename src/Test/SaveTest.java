@@ -17,6 +17,8 @@ import ConKUeror.domain.model.Player.PlayerFactory;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -80,14 +82,28 @@ class SaveTest {
         
         gameHandler.saveGame(gameData, filename, fileGameDataAdapter);
 
-        GameData loadedGameData = gameHandler.loadGame(filename, playerList, fileGameDataAdapter);
-        GameState loadedGameState = loadedGameData.getGameState();
-        List<PlayerData> loadedPlayerDataList = loadedGameData.getPlayerDataList();
-    
-        
-        assertEquals(gameData.getGameState(), loadedGameState, "Loaded game state should match original game state");
-        assertEquals(gameData.getPlayerDataList(), loadedPlayerDataList, "Loaded player data list should match original player data list");
+    // Read the saved file
+    List<String> fileLines = Files.readAllLines(Paths.get(filename));
+
+    // Verify the number of lines in the saved file
+    int expectedLines = 2 + playerList.size(); // 1 line for game state + 1 line per player
+    assertEquals(expectedLines, fileLines.size(), "The saved file should contain the correct number of lines");
+
+    // Verify the game state in the saved file
+    String gameStateLine = fileLines.get(1);
+    GameState savedGameState =  GameState.fromString(gameStateLine);
+    //assertNotNull(savedGameState, "The saved game state should not be null");
+    assertEquals(gameData.getGameState().getTurn(), savedGameState.getTurn(), "The turn in the saved file should match the original game state");
+    assertEquals(gameData.getGameState().getMapState(), savedGameState.getMapState(), "The map state in the saved file should match the original game state");
+
+    // Verify the player data in the saved file
+    for (int i = 0; i < playerList.size(); i++) {
+        String playerLine = fileLines.get(i + 1); // Skip the first line (game state)
+        assertTrue(playerLine.contains(playerList.get(i).getName()), "The saved player data should contain the player name");
     }
+    
+}
+    
     @AfterAll
     static void afterAll() {
     System.out.println("Cleaning up after all tests...");

@@ -16,7 +16,9 @@ public class GameState {
     public String getTurn() {
         return turn;
     }
-
+    public String getMapState(){
+        return mapState;
+    }
     public Map<String, Integer> getTerritoryArmies() {
         return territoryArmies;
     }
