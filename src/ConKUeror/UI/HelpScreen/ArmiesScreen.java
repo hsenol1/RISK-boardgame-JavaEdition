@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.HelpScreen;
+package ConKUeror.UI.HelpScreen;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

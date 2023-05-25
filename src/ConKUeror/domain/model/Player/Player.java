@@ -1,14 +1,14 @@
-package src.ConKUeror.domain.model.Player;
+package ConKUeror.domain.model.Player;
 
 import java.awt.Color;
 import java.util.List;
 
-import src.ConKUeror.domain.model.Army.Army;
-import src.ConKUeror.domain.model.Board.Card;
-import src.ConKUeror.domain.model.Board.Territory;
-import src.ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
-import src.ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
-import src.ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
+import ConKUeror.domain.model.Army.Army;
+import ConKUeror.domain.model.Board.Card;
+import ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
+import ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
+import ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
 
 public class Player {
 

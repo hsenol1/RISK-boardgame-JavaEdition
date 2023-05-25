@@ -1,10 +1,10 @@
-package src.ConKUeror.domain.model.Player.Strategies.RealPlayer;
+package ConKUeror.domain.model.Player.Strategies.RealPlayer;
 
-import src.ConKUeror.domain.controller.HandlerFactory;
-import src.ConKUeror.domain.controller.MapHandler;
-import src.ConKUeror.domain.model.Board.Territory;
-import src.ConKUeror.domain.model.Player.PlayerExpert;
-import src.ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
+import ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.controller.MapHandler;
+import ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
 
 public class RealPlayerFortify implements IFortifyBehaviour{
 

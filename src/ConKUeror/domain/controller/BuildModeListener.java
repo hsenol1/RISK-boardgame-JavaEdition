@@ -1,4 +1,5 @@
-package src.ConKUeror.domain.controller;
+package ConKUeror.domain.controller;
+
 
 
 //This interface is created for Observer design pattern.

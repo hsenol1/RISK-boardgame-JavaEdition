@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.model.Army;
+package ConKUeror.domain.model.Army;
 
 public class Cavalry extends Soldier {
     private int unitPower = 5;

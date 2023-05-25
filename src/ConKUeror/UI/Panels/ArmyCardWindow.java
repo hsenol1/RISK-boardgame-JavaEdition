@@ -1,7 +1,7 @@
-package src.ConKUeror.UI.Panels;
+package ConKUeror.UI.Panels;
 
 import java.awt.event.ActionEvent;
-import src.ConKUeror.domain.controller.ArmyCardListener;
+import ConKUeror.domain.controller.ArmyCardListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 
-import src.ConKUeror.domain.model.Board.ArmyCard;
+import ConKUeror.domain.model.Board.ArmyCard;
 
 public class ArmyCardWindow extends JPanel {
 

@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.Panels;
+package ConKUeror.UI.Panels;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -15,13 +15,14 @@ import javax.swing.border.Border;
 
 import org.xml.sax.HandlerBase;
 
-import src.ConKUeror.domain.controller.ButtonHandler;
-import src.ConKUeror.domain.controller.GameHandler;
-import src.ConKUeror.domain.controller.HandlerFactory;
-import src.ConKUeror.domain.controller.PlayerExpertListener;
-import src.ConKUeror.domain.model.Modes.StartMode;
-import src.ConKUeror.domain.model.Player.Player;
-import src.ConKUeror.domain.model.Player.PlayerFactory;
+import ConKUeror.domain.controller.ButtonHandler;
+import ConKUeror.domain.controller.GameHandler;
+import ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.controller.PlayerExpertListener;
+import ConKUeror.domain.model.Modes.StartMode;
+import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerFactory;
+
 
 public class PlayerPanel extends JPanel implements PlayerExpertListener{
 

@@ -1,11 +1,11 @@
-package src.ConKUeror.domain.model.Modes;
+package ConKUeror.domain.model.Modes;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import src.ConKUeror.domain.controller.CardController;
-import src.ConKUeror.domain.controller.HandlerFactory;
-import src.ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.controller.CardController;
+import ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.model.Player.Player;
 
 public class StartMode {
     private int playerCount;

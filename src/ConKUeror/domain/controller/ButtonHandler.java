@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.controller;
+package ConKUeror.domain.controller;
 
 import java.awt.Color;
 import java.util.List;
@@ -8,22 +8,22 @@ import javax.swing.JOptionPane;
 
 //import com.apple.laf.resources.aqua;
 
-import src.ConKUeror.UI.Buttons.TerritoryButton;
-import src.ConKUeror.UI.Frames.MapView;
-import src.ConKUeror.UI.Panels.ArmyCardWindow;
-import src.ConKUeror.UI.Panels.ArmySelectionPanel;
-import src.ConKUeror.UI.Panels.PlayerInteractionPanel;
-import src.ConKUeror.domain.enums.GameMode;
-import src.ConKUeror.domain.model.Board.Board;
-import src.ConKUeror.domain.model.Board.Territory;
-import src.ConKUeror.domain.model.Modes.BuildMode;
-import src.ConKUeror.domain.model.Modes.DeployMode;
-import src.ConKUeror.domain.model.Modes.FortifyMode;
-import src.ConKUeror.domain.model.Modes.GameLogic;
-import src.ConKUeror.domain.model.Player.Player;
-import src.ConKUeror.domain.model.Player.PlayerExpert;
-import src.ConKUeror.domain.model.Board.Die;
-import src.ConKUeror.domain.model.Board.DiceRoller;
+import ConKUeror.UI.Buttons.TerritoryButton;
+import ConKUeror.UI.Frames.MapView;
+import ConKUeror.UI.Panels.ArmyCardWindow;
+import ConKUeror.UI.Panels.ArmySelectionPanel;
+import ConKUeror.UI.Panels.PlayerInteractionPanel;
+import ConKUeror.domain.enums.GameMode;
+import ConKUeror.domain.model.Board.Board;
+import ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Modes.BuildMode;
+import ConKUeror.domain.model.Modes.DeployMode;
+import ConKUeror.domain.model.Modes.FortifyMode;
+import ConKUeror.domain.model.Modes.GameLogic;
+import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Board.Die;
+import ConKUeror.domain.model.Board.DiceRoller;
 
 public class ButtonHandler{
     private static ButtonHandler instance;

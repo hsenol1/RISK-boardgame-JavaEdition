@@ -1,8 +1,8 @@
-package src.ConKUeror.domain.model.Modes;
+package ConKUeror.domain.model.Modes;
 
-import src.ConKUeror.domain.model.Army.Army;
-import src.ConKUeror.domain.model.Player.Player;
-import src.ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Army.Army;
+import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerExpert;
 
 public class DeployMode {
     static int deployedArmy;

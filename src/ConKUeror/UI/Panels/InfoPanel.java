@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.Panels;
+package ConKUeror.UI.Panels;
 
 import javax.swing.JPanel;
 

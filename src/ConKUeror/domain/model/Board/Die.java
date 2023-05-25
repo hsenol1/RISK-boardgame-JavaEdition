@@ -1,11 +1,11 @@
-package src.ConKUeror.domain.model.Board;
+package ConKUeror.domain.model.Board;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-import src.ConKUeror.domain.model.Player.Player;
-import src.ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerExpert;
 
 public class Die {
 

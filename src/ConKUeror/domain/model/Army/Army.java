@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.model.Army;
+package ConKUeror.domain.model.Army;
 
 import java.util.ArrayList;
 import java.util.List;

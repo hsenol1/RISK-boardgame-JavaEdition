@@ -1,7 +1,7 @@
-package src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer;
+package ConKUeror.domain.model.Player.Strategies.ComputerPlayer;
 
-import src.ConKUeror.domain.model.Board.Territory;
-import src.ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
+import ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
 
 public class ComputerPlayerFortify implements IFortifyBehaviour{
 

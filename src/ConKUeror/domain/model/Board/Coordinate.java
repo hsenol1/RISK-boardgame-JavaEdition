@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.model.Board;
+package ConKUeror.domain.model.Board;
 
 public class Coordinate {
     private int x;

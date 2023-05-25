@@ -1,18 +1,18 @@
-    package src.ConKUeror.domain.model.Modes;
+    package ConKUeror.domain.model.Modes;
 
     import java.awt.Color;
 import java.util.ArrayList;
     import java.util.List;
 import java.util.Random;
 
-import src.ConKUeror.domain.controller.BuildModeListener;
-import src.ConKUeror.domain.controller.CardController;
-import src.ConKUeror.domain.controller.HandlerFactory;
-import src.ConKUeror.domain.model.Board.Board;
-    import src.ConKUeror.domain.model.Board.Coordinate;
-    import src.ConKUeror.domain.model.Player.Player;
-import src.ConKUeror.domain.model.Player.PlayerExpert;
-import src.ConKUeror.domain.model.Player.PlayerFactory;
+import ConKUeror.domain.controller.BuildModeListener;
+import ConKUeror.domain.controller.CardController;
+import ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.model.Board.Board;
+    import ConKUeror.domain.model.Board.Coordinate;
+    import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Player.PlayerFactory;
 
     public class BuildMode {
 

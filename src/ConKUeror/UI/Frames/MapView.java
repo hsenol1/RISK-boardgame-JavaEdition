@@ -1,4 +1,4 @@
-    package src.ConKUeror.UI.Frames;
+    package ConKUeror.UI.Frames;
 
     import java.awt.BorderLayout;
     import java.awt.Color;
@@ -23,22 +23,22 @@
     import javax.swing.JOptionPane;
     import javax.swing.JPanel;
 
-    import src.ConKUeror.UI.Buttons.TerritoryButton;
-    import src.ConKUeror.UI.HelpScreen.HelpScreen;
-import src.ConKUeror.UI.InTurnPlayerScreen.PlayerInfoScreen;
-import src.ConKUeror.UI.Panels.InfoPanel;
-    import src.ConKUeror.UI.Panels.PlayerInteractionPanel;
-    import src.ConKUeror.UI.Panels.PlayerPanel;
-    import src.ConKUeror.UI.PauseScreen.PauseScreen;
-    import src.ConKUeror.domain.controller.ButtonHandler;
-    import src.ConKUeror.domain.controller.GameHandler;
-    import src.ConKUeror.domain.controller.HandlerFactory;
-    import src.ConKUeror.domain.controller.MapHandler;
-    import src.ConKUeror.domain.controller.MapListener;
-    import src.ConKUeror.domain.controller.RollDieListener;
-    import src.ConKUeror.domain.controller.StartHandler;
-    import src.ConKUeror.domain.controller.TerritoryButtonListener;
-    import src.ConKUeror.domain.model.Board.Territory;
+    import ConKUeror.UI.Buttons.TerritoryButton;
+    import ConKUeror.UI.HelpScreen.HelpScreen;
+    import ConKUeror.UI.InTurnPlayerScreen.PlayerInfoScreen;
+    import ConKUeror.UI.Panels.InfoPanel;
+    import ConKUeror.UI.Panels.PlayerInteractionPanel;
+    import ConKUeror.UI.Panels.PlayerPanel;
+    import ConKUeror.UI.PauseScreen.PauseScreen;
+    import ConKUeror.domain.controller.ButtonHandler;
+    import ConKUeror.domain.controller.GameHandler;
+    import ConKUeror.domain.controller.HandlerFactory;
+    import ConKUeror.domain.controller.MapHandler;
+    import ConKUeror.domain.controller.MapListener;
+    import ConKUeror.domain.controller.RollDieListener;
+    import ConKUeror.domain.controller.StartHandler;
+    import ConKUeror.domain.controller.TerritoryButtonListener;
+    import ConKUeror.domain.model.Board.Territory;
 
     import java.util.ArrayList;
     import java.util.List;
@@ -171,7 +171,7 @@ import src.ConKUeror.UI.Panels.InfoPanel;
 
     public void initGUI() throws IOException {
 
-        image = ImageIO.read(getClass().getResourceAsStream("/src/images/Map.png"));
+        image = ImageIO.read(getClass().getResourceAsStream("/images/Map.png"));
         setSize((int) (1.20 * image.getWidth()), image.getHeight());
         mapPanel = new JPanel() {
             BufferedImage backgroundImage = image;

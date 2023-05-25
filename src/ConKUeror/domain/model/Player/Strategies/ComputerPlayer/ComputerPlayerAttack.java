@@ -1,6 +1,6 @@
-package src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer;
+package ConKUeror.domain.model.Player.Strategies.ComputerPlayer;
 
-import src.ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
+import ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
 
 public class ComputerPlayerAttack implements IAttackBehaviour {
 

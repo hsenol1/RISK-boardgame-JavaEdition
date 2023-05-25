@@ -1,8 +1,8 @@
-package src.ConKUeror.domain.controller;
+package ConKUeror.domain.controller;
 
 import java.util.List;
 
-import src.ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Player.PlayerExpert;
 
 import java.util.ArrayList;
 

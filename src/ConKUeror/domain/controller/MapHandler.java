@@ -1,9 +1,9 @@
-package src.ConKUeror.domain.controller;
+package ConKUeror.domain.controller;
 
 import java.awt.Color;
 
-import src.ConKUeror.domain.model.Board.Board;
-import src.ConKUeror.domain.model.Modes.GameLogic;
+import ConKUeror.domain.model.Board.Board;
+import ConKUeror.domain.model.Modes.GameLogic;
 
 public class MapHandler {
     GameLogic game;
