@@ -28,6 +28,9 @@ public class PlayerData {
     public int getArmySize() {
         return this.armySize;
     }
+    public void setArmySize(int n){
+        this.armySize = n;
+    }
 
     public List<Territory> getTerritories() {
         return this.territories;
@@ -50,7 +53,7 @@ public class PlayerData {
         return null;
     }*/
 
-    public static PlayerData fromString(String str, List<Player> playerList) {
+   /*  public static PlayerData fromString(String str, List<Player> playerList) {
         String[] parts = str.split(",");
         for (Player player : playerList) {
             if (player.getName().equals(parts[0])) {
@@ -69,7 +72,30 @@ public class PlayerData {
         }
         return null;
     }
-    
+    */
+    public static PlayerData fromString(String str, List<Player> playerList) {
+        String[] parts = str.split(",");
+        for (Player player : playerList) {
+            if (player.getName().equals(parts[0])) {
+                PlayerData playerData = new PlayerData(player);
+                if (!parts[1].isEmpty()) {
+                    try {
+                        playerData.armySize = Integer.parseInt(parts[1]);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error parsing armySize: " + e.getMessage());
+                    }
+                }
+                List<Integer> territoryIds = Arrays.stream(parts[2]
+                    .replaceAll("\\[|\\]", "") // Remove square brackets
+                    .split(";"))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+                playerData.setTerritoriesFromIds(territoryIds);
+                return playerData;
+            }
+        }
+        return null;
+    }
     @Override
     public String toString() {
         return playerName + "," + armySize + "," + String.join(";", territories.toString());

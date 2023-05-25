@@ -32,6 +32,7 @@ import ConKUeror.UI.PauseScreen.PauseScreen;
 import ConKUeror.domain.controller.ButtonHandler;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.controller.IUIRefreshListener;
 import ConKUeror.domain.controller.MapHandler;
 import ConKUeror.domain.controller.MapListener;
 import ConKUeror.domain.controller.RollDieListener;
@@ -47,7 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener{
+public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener{
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
@@ -100,7 +101,7 @@ public MapView() throws IOException {
     addMapFrameAsListenerForRollEvent();
 
 
-    pauseAndResumeButton.addActionListener(new PauseButtonHandler());
+    pauseAndResumeButton.addActionListener(new PauseButtonHandler(this));
     helpButton.addActionListener(new HelpButtonHandler());
     /*
     rollButton.addActionListener(new RollButtonHandler());
@@ -173,7 +174,7 @@ private void displayTerritoryInfo(Territory territory, JPanel panel) {
 
 public void initGUI() throws IOException {
 
-        image = ImageIO.read(getClass().getResourceAsStream("/src/images/Map.png"));
+        image = ImageIO.read(getClass().getResourceAsStream("/images/Map.png"));
         setSize((int) (1.20 * image.getWidth()), image.getHeight());
         mapPanel = new JPanel() {
             BufferedImage backgroundImage = image;
@@ -414,7 +415,12 @@ private class PauseButtonHandler implements ActionListener {
 
     private GameState gameState;
     private List<Player> playerList;
+    private MapView mapView; 
     
+    public PauseButtonHandler(MapView mapView) {  // Modified constructor
+        this.mapView = mapView;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -424,7 +430,8 @@ private class PauseButtonHandler implements ActionListener {
         this.playerList = PlayerExpert.getPlayersList();
 
 
-        PauseScreen pauseScreen = new PauseScreen(frame,gameState,playerList,gameHandler);
+        PauseScreen pauseScreen = new PauseScreen(mapView, frame, gameState, playerList, gameHandler);        pauseScreen.setVisible(true);
+
         pauseScreen.setVisible(true);
     }
 
@@ -474,7 +481,19 @@ private class HelpButtonHandler implements ActionListener {
             System.out.println(p.getInventory().getTotalArmy());
         }
         */
-
+        public void refreshUI() {
+            // TODO: Add code here to refresh the UI.
+            // This might include repainting certain components, revalidating panels, updating labels, etc.
+            // Without specifics of what components are in your UI and how they need to be refreshed, this is just a placeholder method.
+        
+            // Revalidate and repaint panels and frame, this will reflect the changes in the UI
+            mapPanel.revalidate();
+            mapPanel.repaint();
+            playerPanel.revalidate();
+            playerPanel.repaint();
+            revalidate();
+            repaint();
+        }
 
 @Override
 public void setTerritoryButtonInfo(int buttonId,int armyUnit, Color color,int territoryArmy) {
@@ -515,6 +534,11 @@ public void updateTerritory(int buttonID, int deployedArmy) {
 
 
 }
+
+@Override
+    public void onUIRefreshRequested() {
+        refreshUI();
+    }
 
 
 

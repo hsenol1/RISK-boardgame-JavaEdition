@@ -14,21 +14,21 @@ import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerInventory;
 import ConKUeror.domain.model.Data.FileGameDataAdapter;
 import ConKUeror.domain.model.Data.GameDataAdapter;
-
+import ConKUeror.domain.controller.IUIRefreshListener;
 public class PauseScreen extends JDialog {
     private GameDataAdapter localGameDataAdapter;
     private GameDataAdapter onlineGameDataAdapter;
     private GameHandler gameHandler;
     private GameState gameState;
     private List<Player> playerList;
-
-    public PauseScreen(Frame pauseButtonHandler, GameState gameState, List<Player> playerList, GameHandler gameHandler) {
+    private IUIRefreshListener uiRefreshListener;
+    public PauseScreen(IUIRefreshListener uiRefreshListener,Frame pauseButtonHandler, GameState gameState, List<Player> playerList, GameHandler gameHandler) {
         super(pauseButtonHandler, "Game is Paused", true);
         this.gameState = gameState;
         this.gameHandler = gameHandler;
         this.playerList = playerList;
         this.localGameDataAdapter = new FileGameDataAdapter(gameHandler);
-
+        this.uiRefreshListener = uiRefreshListener;
         JLabel label = new JLabel("Game is Paused", SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.BOLD, 20));
         label.setPreferredSize(new Dimension(300, 100));
@@ -72,6 +72,7 @@ public class PauseScreen extends JDialog {
                     GameData loadedData = localGameDataAdapter.loadGameData("gameData.txt", playerList);
                     System.out.println("Game has been loaded from local storage.");
                     updateGame(loadedData);
+                    uiRefreshListener.onUIRefreshRequested();;
                 } else if (choice == 1) {
                     // Load game data from online storage
                 }
@@ -118,8 +119,7 @@ public class PauseScreen extends JDialog {
         // Update the game state
         GameState loadedGameState = loadedGameData.getGameState();
         gameState.setCurrentTurn(loadedGameState.getCurrentTurn());
-       // gameState.setMapState(loadedGameState.getMapState());
-
+    
         // Update the player data
         List<PlayerData> loadedPlayerDataList = loadedGameData.getPlayerDataList();
         for (PlayerData loadedPlayerData : loadedPlayerDataList) {
@@ -134,8 +134,5 @@ public class PauseScreen extends JDialog {
                 }
             }
         }
-
-        // Perform any other necessary updates or actions based on the loaded game data
-        // ...
     }
 }
