@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.model.Player;
+package ConKUeror.domain.model.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,10 +9,10 @@ import java.util.List;
 
 
 
-import src.ConKUeror.domain.model.Board.Card;
-import src.ConKUeror.domain.model.Board.ArmyCard.ArmyType;
-import src.ConKUeror.domain.model.Army.Army;
-import src.ConKUeror.domain.model.Board.*;;;;
+import ConKUeror.domain.model.Board.Card;
+import ConKUeror.domain.model.Board.ArmyCard.ArmyType;
+import ConKUeror.domain.model.Army.Army;
+import ConKUeror.domain.model.Board.*;;;;
 public class PlayerInventory {
 
 private Player p;

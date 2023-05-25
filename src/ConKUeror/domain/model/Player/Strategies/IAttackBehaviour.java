@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.model.Player.Strategies;
+package ConKUeror.domain.model.Player.Strategies;
 
 public interface IAttackBehaviour {
    

@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.Panels;
+package ConKUeror.UI.Panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,13 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
-import src.ConKUeror.UI.Buttons.ActionButton;
-import src.ConKUeror.domain.controller.BuildHandler;
-import src.ConKUeror.domain.controller.ButtonHandler;
-import src.ConKUeror.domain.controller.GameHandler;
-import src.ConKUeror.domain.controller.NextButtonListener;
-import src.ConKUeror.domain.controller.TerritoryButtonListener;
-import src.ConKUeror.domain.model.Modes.GameLogic;
+import ConKUeror.domain.controller.BuildHandler;
+import ConKUeror.UI.Buttons.ActionButton;
+import ConKUeror.domain.controller.ButtonHandler;
+import ConKUeror.domain.controller.GameHandler;
+import ConKUeror.domain.controller.NextButtonListener;
+import ConKUeror.domain.controller.TerritoryButtonListener;
+import ConKUeror.domain.model.Modes.GameLogic;
 
 public class PlayerInteractionPanel extends JPanel implements NextButtonListener,TerritoryButtonListener{
 

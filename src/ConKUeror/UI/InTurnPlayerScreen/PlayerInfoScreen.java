@@ -1,13 +1,13 @@
-package src.ConKUeror.UI.InTurnPlayerScreen;
+package ConKUeror.UI.InTurnPlayerScreen;
 
 import java.awt.Font;
 
 import javax.swing.JFrame;
 
-import src.ConKUeror.UI.HelpScreen.JTextAreaPlus;
-import src.ConKUeror.domain.model.Board.Territory;
-import src.ConKUeror.domain.model.Player.Player;
-import src.ConKUeror.domain.model.Player.PlayerInventory;
+import ConKUeror.UI.HelpScreen.JTextAreaPlus;
+import ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerInventory;
 
 public class PlayerInfoScreen extends JFrame {
     Player player; 

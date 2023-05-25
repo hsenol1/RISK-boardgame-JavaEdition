@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.Buttons;
+package ConKUeror.UI.Buttons;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import src.ConKUeror.domain.controller.ButtonHandler;
-import src.ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.controller.ButtonHandler;
+import ConKUeror.domain.controller.HandlerFactory;
 
 public class ActionButton extends JButton implements ActionListener{
 

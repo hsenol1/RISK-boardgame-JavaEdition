@@ -1,10 +1,10 @@
-package src.ConKUeror.domain.model.Board;
+package ConKUeror.domain.model.Board;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import src.ConKUeror.domain.model.Army.Army;
-import src.ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Army.Army;
+import ConKUeror.domain.model.Player.Player;
 
 
 

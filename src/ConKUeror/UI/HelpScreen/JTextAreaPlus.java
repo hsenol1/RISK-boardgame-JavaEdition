@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.HelpScreen;
+package ConKUeror.UI.HelpScreen;
 
 import java.awt.Graphics;
 import java.awt.Image;

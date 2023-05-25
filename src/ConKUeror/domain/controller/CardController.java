@@ -1,9 +1,9 @@
-package src.ConKUeror.domain.controller;
+package ConKUeror.domain.controller;
 import java.util.List;
 
 import java.util.ArrayList;
-import src.ConKUeror.domain.model.Board.*;
-import src.ConKUeror.domain.model.Player.*;
+import ConKUeror.domain.model.Board.*;
+import ConKUeror.domain.model.Player.*;
 import java.util.Collections;
 public class CardController {
 

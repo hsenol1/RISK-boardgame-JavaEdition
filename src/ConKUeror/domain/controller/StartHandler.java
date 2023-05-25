@@ -1,8 +1,8 @@
-package src.ConKUeror.domain.controller;
+package ConKUeror.domain.controller;
 
-import src.ConKUeror.domain.model.Board.Board;
-import src.ConKUeror.domain.model.Modes.GameLogic;
-import src.ConKUeror.domain.model.Modes.StartMode;
+import ConKUeror.domain.model.Board.Board;
+import ConKUeror.domain.model.Modes.GameLogic;
+import ConKUeror.domain.model.Modes.StartMode;
 
 public class StartHandler {
     private StartMode startMode;

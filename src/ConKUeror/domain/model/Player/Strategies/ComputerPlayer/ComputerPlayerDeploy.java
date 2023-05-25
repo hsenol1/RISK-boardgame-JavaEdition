@@ -1,7 +1,7 @@
-package src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer;
+package ConKUeror.domain.model.Player.Strategies.ComputerPlayer;
 
-import src.ConKUeror.domain.model.Board.Territory;
-import src.ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
+import ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
 
 public class ComputerPlayerDeploy implements IDeployBehaviour{
 

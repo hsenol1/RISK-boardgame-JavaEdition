@@ -1,16 +1,16 @@
-package src.ConKUeror.domain.model.Player;
+package ConKUeror.domain.model.Player;
 
 
 import java.util.List;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerAttack;
-import src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerDeploy;
-import src.ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerFortify;
-import src.ConKUeror.domain.model.Player.Strategies.RealPlayer.RealPlayerAttack;
-import src.ConKUeror.domain.model.Player.Strategies.RealPlayer.RealPlayerDeploy;
-import src.ConKUeror.domain.model.Player.Strategies.RealPlayer.RealPlayerFortify;
+import ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerAttack;
+import ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerDeploy;
+import ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerFortify;
+import ConKUeror.domain.model.Player.Strategies.RealPlayer.RealPlayerAttack;
+import ConKUeror.domain.model.Player.Strategies.RealPlayer.RealPlayerDeploy;
+import ConKUeror.domain.model.Player.Strategies.RealPlayer.RealPlayerFortify;
 
 public class PlayerFactory {
 

@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.controller;
+package ConKUeror.domain.controller;
 
 public interface StartModeListener {
     void onBoardEvent(String msg);

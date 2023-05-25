@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.Frames;
+package ConKUeror.UI.Frames;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
@@ -8,10 +8,10 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import src.ConKUeror.UI.HelpScreen.HelpScreen;
-import src.ConKUeror.domain.controller.BuildHandler;
-import src.ConKUeror.domain.controller.BuildModeListener;
-import src.ConKUeror.domain.model.Modes.BuildMode;
+import ConKUeror.domain.controller.BuildHandler;
+import ConKUeror.UI.HelpScreen.HelpScreen;
+import ConKUeror.domain.controller.BuildModeListener;
+import ConKUeror.domain.model.Modes.BuildMode;
 
 import java.awt.*;
 

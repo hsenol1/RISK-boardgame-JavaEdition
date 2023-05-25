@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.Buttons;
+package ConKUeror.UI.Buttons;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-import src.ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.Player;
 
 public class CustomButton extends JButton {
     private Color backgroundColor;

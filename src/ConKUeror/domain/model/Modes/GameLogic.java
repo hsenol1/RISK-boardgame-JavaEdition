@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.model.Modes;
+package ConKUeror.domain.model.Modes;
 
 import java.util.List;
 import java.util.Map;
@@ -7,24 +7,24 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import src.ConKUeror.UI.Buttons.TerritoryButton;
-import src.ConKUeror.domain.controller.CardController;
-import src.ConKUeror.domain.controller.MapListener;
-import src.ConKUeror.domain.controller.NextButtonListener;
-import src.ConKUeror.domain.controller.RollDieListener;
-import src.ConKUeror.domain.controller.TerritoryButtonListener;
-import src.ConKUeror.domain.enums.GameMode;
-import src.ConKUeror.domain.model.Army.Army;
-import src.ConKUeror.domain.model.Board.ArmyCard;
-import src.ConKUeror.domain.model.Board.Board;
-import src.ConKUeror.domain.model.Board.Card;
-import src.ConKUeror.domain.model.Board.DiceRoller;
-import src.ConKUeror.domain.model.Board.Territory;
-import src.ConKUeror.domain.model.Board.TerritoryCard;
-import src.ConKUeror.domain.model.Board.ArmyCard.ArmyType;
-import src.ConKUeror.domain.model.Player.Player;
-import src.ConKUeror.domain.model.Player.PlayerExpert;
-import src.ConKUeror.domain.model.Player.PlayerInventory;
+import ConKUeror.UI.Buttons.TerritoryButton;
+import ConKUeror.domain.controller.CardController;
+import ConKUeror.domain.controller.MapListener;
+import ConKUeror.domain.controller.NextButtonListener;
+import ConKUeror.domain.controller.RollDieListener;
+import ConKUeror.domain.controller.TerritoryButtonListener;
+import ConKUeror.domain.enums.GameMode;
+import ConKUeror.domain.model.Army.Army;
+import ConKUeror.domain.model.Board.ArmyCard;
+import ConKUeror.domain.model.Board.Board;
+import ConKUeror.domain.model.Board.Card;
+import ConKUeror.domain.model.Board.DiceRoller;
+import ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Board.TerritoryCard;
+import ConKUeror.domain.model.Board.ArmyCard.ArmyType;
+import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Player.PlayerInventory;
 
 
 public class GameLogic {

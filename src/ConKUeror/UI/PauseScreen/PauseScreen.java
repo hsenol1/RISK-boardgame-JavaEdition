@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.PauseScreen;
+package ConKUeror.UI.PauseScreen;
 
 import javax.swing.*;
 

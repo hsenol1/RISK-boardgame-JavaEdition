@@ -1,5 +1,5 @@
-package src.ConKUeror.domain.model.Board;
-import src.ConKUeror.domain.model.Player.*;
+package ConKUeror.domain.model.Board;
+import ConKUeror.domain.model.Player.*;
 
 
 

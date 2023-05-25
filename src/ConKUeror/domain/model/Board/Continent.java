@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.model.Board;
+package ConKUeror.domain.model.Board;
 
 import java.util.ArrayList;
 import java.util.List;

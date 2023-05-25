@@ -1,4 +1,4 @@
-package src.ConKUeror.domain.controller;
+package ConKUeror.domain.controller;
 
 import java.awt.Color;
 

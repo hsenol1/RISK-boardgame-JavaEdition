@@ -1,6 +1,6 @@
-package src.ConKUeror.domain.model.Player.Strategies;
+package ConKUeror.domain.model.Player.Strategies;
 
-import src.ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Board.Territory;
 
 public interface IDeployBehaviour {
 

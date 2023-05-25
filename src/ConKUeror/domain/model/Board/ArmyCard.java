@@ -1,6 +1,6 @@
-package src.ConKUeror.domain.model.Board;
-import src.ConKUeror.domain.model.Player.*;
-import src.ConKUeror.domain.model.Player.PlayerInventory;
+package ConKUeror.domain.model.Board;
+import ConKUeror.domain.model.Player.*;
+import ConKUeror.domain.model.Player.PlayerInventory;
 public class ArmyCard extends Card {
     public enum ArmyType {
         INFANTRY, CAVALRY, ARTILLERY

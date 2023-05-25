@@ -1,4 +1,4 @@
-package src.ConKUeror.UI.Buttons;
+package ConKUeror.UI.Buttons;
 
 
 import java.awt.Color;
@@ -10,8 +10,8 @@ import java.awt.geom.Ellipse2D;
 import javax.swing.JButton;
 // will be used to increase the graphics level. now it is not necessary
 
-import src.ConKUeror.domain.controller.ButtonHandler;
-import src.ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.controller.ButtonHandler;
+import ConKUeror.domain.controller.HandlerFactory;
 
 
 

@@ -1,9 +1,9 @@
-package src.ConKUeror.domain.model.Player;
-import src.ConKUeror.domain.controller.PlayerExpertListener;
-import src.ConKUeror.domain.model.Army.Army;
-import src.ConKUeror.domain.model.Modes.DeployMode;
-import src.ConKUeror.domain.model.Modes.GameLogic;
-import src.ConKUeror.domain.model.Player.Player;
+package ConKUeror.domain.model.Player;
+import ConKUeror.domain.controller.PlayerExpertListener;
+import ConKUeror.domain.model.Army.Army;
+import ConKUeror.domain.model.Modes.DeployMode;
+import ConKUeror.domain.model.Modes.GameLogic;
+import ConKUeror.domain.model.Player.Player;
 import java.util.List;
 import java.awt.Color;
 import java.util.ArrayList;

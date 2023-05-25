@@ -1,9 +1,9 @@
-package src.ConKUeror;
+package ConKUeror;
 
 
-import src.ConKUeror.UI.Frames.BuildModeScreen;
-import src.ConKUeror.domain.controller.BuildHandler;
-import src.ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.controller.BuildHandler;
+import ConKUeror.UI.Frames.BuildModeScreen;
+import ConKUeror.domain.controller.HandlerFactory;
 
 public class Main {
 

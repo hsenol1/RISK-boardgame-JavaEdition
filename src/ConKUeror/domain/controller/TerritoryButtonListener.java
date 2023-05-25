@@ -1,10 +1,10 @@
-package src.ConKUeror.domain.controller;
+package ConKUeror.domain.controller;
 
 import java.util.List;
 import java.awt.Color;
 
 
-import src.ConKUeror.UI.Buttons.TerritoryButton;
+import ConKUeror.UI.Buttons.TerritoryButton;
 
 public interface TerritoryButtonListener {
 

@@ -1,6 +1,6 @@
-package src.ConKUeror.domain.model.Modes;
+package ConKUeror.domain.model.Modes;
 
-import src.ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Board.Territory;
 
 public class FortifyMode {
     static int fortifiedArmy;

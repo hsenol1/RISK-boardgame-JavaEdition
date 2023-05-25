@@ -1,11 +1,11 @@
-package src.ConKUeror.domain.model.Player.Strategies.RealPlayer;
+package ConKUeror.domain.model.Player.Strategies.RealPlayer;
 
-import src.ConKUeror.domain.controller.HandlerFactory;
-import src.ConKUeror.domain.controller.MapHandler;
-import src.ConKUeror.domain.model.Board.Territory;
-import src.ConKUeror.domain.model.Player.Player;
-import src.ConKUeror.domain.model.Player.PlayerExpert;
-import src.ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
+import ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.controller.MapHandler;
+import ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
 
 public class RealPlayerDeploy implements IDeployBehaviour {
 
@@ -13,7 +13,9 @@ public class RealPlayerDeploy implements IDeployBehaviour {
     public void deploy(Territory t, int army) {
         // TODO Auto-generated method stub
 
-
+        if (t == null) {
+            return;
+        }
         t.addInfantries(army);
         Player player = PlayerExpert.getPlayerInTurn();
         int player_index =PlayerExpert.getPlayersList().indexOf(player);
