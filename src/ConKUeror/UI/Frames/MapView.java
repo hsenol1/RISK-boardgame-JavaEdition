@@ -252,9 +252,14 @@ public void createTerritoryButtons() {
             public void mouseClicked(MouseEvent e) {
                 if(e.getButton()== MouseEvent.BUTTON1) {
                     System.out.println("MOUSE CLICKED TO TERRITORY");
-                    buttonHandler.matchButtonWithTerritory(button.getID());
+                    try {
+                        buttonHandler.matchButtonWithTerritory(button.getID());
+                    } catch (InterruptedException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
                     buttonHandler.selectButton(button);
- 
+
 
                     buttonHandler.addToMemory(button.getID());
 
@@ -391,19 +396,19 @@ public void removeOnboardEvent(TerritoryButton button) {
 
         mapPanel.revalidate();
         mapPanel.repaint();
-    }   
+    }
     public void updateTerritoryArmies(GameState gameState) {
         Map<String, Integer> territoryArmies = gameState.getTerritoryArmies();
-    
+
         for (TerritoryButton button : territoryButtonsList) {
             int territoryId = button.getID();
-    
+
             if (territoryArmies.containsKey(territoryId)) {
                 int armyCount = territoryArmies.get(territoryId);
                 button.setArmyValue(armyCount);
             }
         }
-    
+
         revalidate();
         repaint();
     }
@@ -415,8 +420,8 @@ private class PauseButtonHandler implements ActionListener {
 
     private GameState gameState;
     private List<Player> playerList;
-    private MapView mapView; 
-    
+    private MapView mapView;
+
     public PauseButtonHandler(MapView mapView) {  // Modified constructor
         this.mapView = mapView;
     }
@@ -485,7 +490,7 @@ private class HelpButtonHandler implements ActionListener {
             // TODO: Add code here to refresh the UI.
             // This might include repainting certain components, revalidating panels, updating labels, etc.
             // Without specifics of what components are in your UI and how they need to be refreshed, this is just a placeholder method.
-        
+
             // Revalidate and repaint panels and frame, this will reflect the changes in the UI
             mapPanel.revalidate();
             mapPanel.repaint();

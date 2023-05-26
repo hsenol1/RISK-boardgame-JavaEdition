@@ -7,6 +7,7 @@ import ConKUeror.domain.model.Player.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 public class Board {
@@ -20,6 +21,7 @@ private Continent AUSTRALIA;
 
 private static Territory currentTerritory;
 private static List<Continent> continents = new ArrayList<>();
+static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
 
 
  private static Map<Integer, Territory> territories= new HashMap<>();
@@ -28,6 +30,17 @@ private static List<Continent> continents = new ArrayList<>();
         initAllTerritoriesAndContinents();
 
     }
+
+    public static void initUnoccupiedTerritories() {
+        unoccupiedTerritories.putAll(territories);
+
+    }
+
+    public static Map<Integer, Territory> getUnoccupiedTerritories() {
+        return unoccupiedTerritories;
+    }
+
+
 
 
     public static Map<Integer, Territory> getTerritories() {

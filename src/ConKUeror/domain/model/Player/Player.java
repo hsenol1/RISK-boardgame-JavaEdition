@@ -14,7 +14,7 @@ public class Player {
 
         public PlayerInventory inv = new PlayerInventory();
         //private Army deployedArmy = new Army();
-
+        private String type;
         private Color playerColor;
 
         IDeployBehaviour db;
@@ -44,6 +44,15 @@ public class Player {
         }
 
 
+        public void setType(String type) {
+            this.type = type;
+        }
+
+
+        public String getType() {
+            return this.type;
+        }
+
 
 
 
@@ -55,10 +64,18 @@ public class Player {
             return playerColor;
         }
 
-
+/**
+ * Deploy Method
+ *
+ * Requires: (about domain range of values) -> Düzelt
+ * Modifies: Territory.army and Player.playerInventory
+ * Effects: Armies are deployed to territory's army,
+ * and from player's inventory army is removed.</p>
+ */
         public void deploy(Territory t, int army) {
             db.deploy(t,army);
         }
+
         public void attack(int attackingArmy, int defendingArmy) {
             ab.attack(attackingArmy, defendingArmy);
         }
