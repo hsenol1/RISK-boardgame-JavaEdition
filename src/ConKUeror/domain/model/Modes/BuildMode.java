@@ -29,6 +29,8 @@ import ConKUeror.domain.model.Player.PlayerFactory;
     private List<Color> playerColors = new ArrayList<Color>();
 
 
+    public static final Integer[] PLAYER_COUNT_VALUES = {2, 3, 4, 5, 6};
+    public static final Integer[] BOT_PLAYER_NUMBERS = {1, 2, 3, 4, 5};
 
     public BuildMode() {
         playerFactory = PlayerFactory.getInstance();
@@ -189,7 +191,18 @@ import ConKUeror.domain.model.Player.PlayerFactory;
             playerIndexIterator += 1;
         }
     }
+    public boolean repOK() {
 
+        List<Player> playerList = PlayerExpert.getPlayersList();
+
+        int size = playerList.size();
+        int max_player_count = PLAYER_COUNT_VALUES[PLAYER_COUNT_VALUES.length-1];
+
+        if (size !=0 | size <= max_player_count) {
+            return true;
+        }
+             return false;
+    }
     public int getPlayerCount() {
 
         return this.totalPlayerCount;

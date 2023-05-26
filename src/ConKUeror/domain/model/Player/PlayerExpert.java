@@ -69,7 +69,7 @@ public class PlayerExpert {
         return PlayerExpert.playerInTurn;
     }
 
-    public void addPlayersList(Player player) {
+    public static void addPlayersList(Player player) {
         players.add(player);
         System.out.println(player.getName() +  " was " + "HERE");
     }
