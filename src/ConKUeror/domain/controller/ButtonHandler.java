@@ -228,6 +228,10 @@ if(FortifyMode.canFortify()) {
 
     }
 
+    public void endTurn() {
+        gMode.prepareForOtherPlayer();
+    }
+
 
 
 

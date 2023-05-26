@@ -49,6 +49,9 @@ public class GameLogic {
   private Set<Integer> accessibleTerritoryIds = new HashSet<>();
   private Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
   private Random rand ;
+  private int territoryOrArmyCard;
+
+
 
 
   DiceRoller diceRoller = DiceRoller.getDiceRollerInstance();
@@ -221,6 +224,7 @@ public class GameLogic {
 
     public void setGameMode(GameMode mode ) {
         this.currentGameMode = mode;
+
     }
 
 
@@ -366,10 +370,40 @@ public class GameLogic {
 }
 
     public void increasePhaseIndex() {
+      if(phaseIndex == 6) {
+         territoryOrArmyCard = rand.nextInt(2);
+          System.out.println("rand sonucu");
+          System.out.println(territoryOrArmyCard);
+
+          //if it is one that means it is Territory Card
+          if(territoryOrArmyCard == 1) {
+            phaseIndex += 1;
+
+          }
+
+      }
+
+
         phaseIndex += 1;
+        System.out.println(phaseIndex);
+
         for (NextButtonListener l : nButtonListener ) {
             l.nextPhaseEvent(phaseIndex);
         }
+    }
+
+    public void prepareForOtherPlayer() {
+       this.phaseIndex = 3;
+       setGameMode(GameMode.CHANCECARD);
+       for (NextButtonListener l : nButtonListener ) {
+        l.nextPhaseEvent(phaseIndex);
+    }
+      int currentIndex = orderedPlayerList.indexOf(playerInTurn);
+      PlayerExpert.updatePlayerCount(currentIndex);
+      int newIndex = (currentIndex+1 ) %orderedPlayerList.size();
+      playerInTurn= orderedPlayerList.get(newIndex);
+      int oldIndex = currentIndex;
+      PlayerExpert.publishPlayerInfoEvent(oldIndex, newIndex, playerInTurn.getColor());
     }
 
     public int getGamePhaseAsIndex() {
@@ -414,13 +448,18 @@ public class GameLogic {
         }
         else if (currentGameMode == GameMode.FORTIFY)
         {
+          if(territoryOrArmyCard==1) {
             setGameMode(GameMode.TERRITORYCARD);
+
+          }else {
+            setGameMode(GameMode.ARMYCARD);
+
+          }
+
+
         }
 
-        else if (currentGameMode == GameMode.TERRITORYCARD)
-        {
-            setGameMode(GameMode.ARMYCARD);
-        }
+
 }
 
 
@@ -548,16 +587,17 @@ public class GameLogic {
 
           break;
 
-        case TERRITORYCARD:
-            System.out.println("Territory Card Phase test");
-            this.phaseIndex = 7;
-            break;
-
-
-
         case ARMYCARD:
-            System.out.println("Army Card Phase test");
-            this.phaseIndex = 8;
+             System.out.println("Army Card Phase test");
+             System.out.println("Territory Card Phase test");
+             this.phaseIndex = 7;
+              break;
+
+
+
+        case TERRITORYCARD:
+          System.out.println("Territory Card Phase test");
+          this.phaseIndex = 8;
             break;
 
 
