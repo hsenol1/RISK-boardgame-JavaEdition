@@ -2,10 +2,18 @@ package ConKUeror.domain.model.Modes;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
+
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 import ConKUeror.UI.Buttons.TerritoryButton;
 import ConKUeror.domain.controller.CardController;
@@ -39,6 +47,9 @@ public class GameLogic {
   private List<NextButtonListener> nButtonListener = new ArrayList<>();
   private static List<Player> orderedPlayerList;
   private Set<Integer> accessibleTerritoryIds = new HashSet<>();
+  private Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
+  private Random rand ;
+
 
   DiceRoller diceRoller = DiceRoller.getDiceRollerInstance();
   private Player playerInTurn;
@@ -57,11 +68,30 @@ public class GameLogic {
   private int armyCardCounter = 0;
   private CardController cardController;
 
+  private static final int UNOCCUPIED_FIXED_SIZE =  42;
+
     public GameLogic(Board board,StartMode sMode) {
 
       this.startMod = sMode;
       this.board = board;
+       rand = new Random();
+
     }
+
+    public void waitAndExecute(Runnable action) {
+      int delay = 1000; // delay for 1 second.
+      Timer timer = new Timer(delay, null);
+      ActionListener taskPerformer = new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+              SwingUtilities.invokeLater(action);
+              timer.stop(); // stop the timer after it fires
+          }
+      };
+      timer.addActionListener(taskPerformer);
+      timer.start();
+  }
+
+
 
     public void addToMemory(Territory t) {
 
@@ -83,16 +113,98 @@ public class GameLogic {
     }
 
 
-    public void passToNextPlayer(Player p1) {
 
-        int currentIndex = orderedPlayerList.indexOf(p1);
-        PlayerExpert.updatePlayerCount(currentIndex);
-        int newIndex = (currentIndex+1 ) %orderedPlayerList.size();
-        playerInTurn= orderedPlayerList.get(newIndex);
-        int oldIndex = currentIndex;
-        PlayerExpert.publishPlayerInfoEvent(oldIndex, newIndex, playerInTurn.getColor());
+
+     public void setForMapInitalization() throws InterruptedException {
+
+       String playerType= playerInTurn.getType();
+
+       if (playerType.equals("Computer")) {
+        computerChoosesTerritory();
+       }
+
+
 
     }
+
+
+
+
+    public void computerChoosesTerritory() throws InterruptedException {
+
+
+
+       if (playerInTurn.getInventory().getTotalArmy()>0 && playerInTurn.getType().equals("Computer")) {
+
+            if(!unoccupiedTerritories.isEmpty()) {
+
+              int size =  unoccupiedTerritories.size();
+
+
+
+              int randomTerritoryId = rand.nextInt(UNOCCUPIED_FIXED_SIZE);
+              Territory t = unoccupiedTerritories.get(randomTerritoryId);
+
+              while(t == null) {
+                 randomTerritoryId = rand.nextInt(UNOCCUPIED_FIXED_SIZE);
+                 t = unoccupiedTerritories.get(randomTerritoryId);
+              }
+
+              unoccupiedTerritories.remove(randomTerritoryId);
+
+              playerInTurn.getInventory().removeInfantries(1);
+              t.setOwner(playerInTurn);
+              t.addInfantries(1);
+              playerInTurn.getInventory().addTerritory(t);
+              setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
+              passToNextPlayer(playerInTurn);
+
+          } else {
+
+              List<Territory> ownedTerritories = playerInTurn.inv.getOwnedTerritories();
+              int size = ownedTerritories.size();
+              int randomTerritoryId = rand.nextInt(size);
+              Territory t = ownedTerritories.get(randomTerritoryId);
+
+                randomTerritoryId = rand.nextInt(size);
+                t = ownedTerritories.get(randomTerritoryId);
+
+
+              playerInTurn.getInventory().removeInfantries(1);
+              t.addInfantries(1);
+              setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
+              passToNextPlayer(playerInTurn);
+
+          }
+
+      }
+
+
+
+
+
+
+    }
+
+
+
+    public void passToNextPlayer(Player p1) throws InterruptedException {
+      int currentIndex = orderedPlayerList.indexOf(p1);
+      PlayerExpert.updatePlayerCount(currentIndex);
+      int newIndex = (currentIndex+1 ) %orderedPlayerList.size();
+      playerInTurn= orderedPlayerList.get(newIndex);
+      int oldIndex = currentIndex;
+      PlayerExpert.publishPlayerInfoEvent(oldIndex, newIndex, playerInTurn.getColor());
+      if(playerInTurn.getType().equals("Computer")) {
+        waitAndExecute(() -> {
+            try {
+                computerChoosesTerritory();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+      }
+  }
 
 
     public void setFirstPlayer() {
@@ -233,7 +345,6 @@ public class GameLogic {
 
   }
 
-
   public void useArmyCards(int type) {
 
     playerInTurn.inv.useArmyCards(type);
@@ -269,12 +380,17 @@ public class GameLogic {
 
         if(currentGameMode== GameMode.BUILD) {
             setGameMode(GameMode.CONNECTION);
+            board.initUnoccupiedTerritories();
+            unoccupiedTerritories = board.getUnoccupiedTerritories();
+
         }
         else if (currentGameMode == GameMode.CONNECTION) {
             setGameMode(GameMode.START);
 
+
         }else if (currentGameMode == GameMode.START) {
             setGameMode(GameMode.CHANCECARD);
+
 
         }
         else if (currentGameMode == GameMode.CHANCECARD)
@@ -308,7 +424,7 @@ public class GameLogic {
 }
 
 
-    public void prepareButton(Territory t,GameMode gameMode) {
+    public void prepareGame(Territory t,GameMode gameMode) throws InterruptedException {
 
       PlayerExpert.setPlayerInTurn(playerInTurn);
 
@@ -342,23 +458,26 @@ public class GameLogic {
         this.phaseIndex=2;
         if (playerInTurn.getInventory().getTotalArmy()>0) {
 
-          if(t.getOwner() == null) {
+          if(t.getOwner() ==  null) {
             playerInTurn.getInventory().removeInfantries(1);
             t.setOwner(playerInTurn);
             t.addInfantries(1);
             playerInTurn.getInventory().addTerritory(t);
             setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
+            unoccupiedTerritories.remove(t.getId());
+
+            passToNextPlayer(playerInTurn);
 
           } else if (t.getOwner() == playerInTurn) {
             playerInTurn.getInventory().removeInfantries(1);
             t.addInfantries(1);
             setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
 
+            passToNextPlayer(playerInTurn);
+
           }
-          passToNextPlayer(playerInTurn);
 
         }
-
 
           break;
 

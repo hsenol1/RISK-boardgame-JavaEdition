@@ -103,16 +103,15 @@ class ModeTests {
     Territory t = new Territory(1);
 
     int beforeDeploy = t.getTotalUnit();
+    int fiveInfantry = 5;
 
-    int fiveArmy = 5;
-
-    player.getInventory().addInfantries(fiveArmy);
-    player.deploy(t, fiveArmy);
+    player.getInventory().addInfantries(fiveInfantry);
+    player.deploy(t, fiveInfantry);
 
     int afterDeploy = t.getTotalUnit();
     int deployedInfantryCount = afterDeploy-beforeDeploy;
 
-    assertEquals(fiveArmy, deployedInfantryCount,"5 army deployed ");
+    assertEquals(fiveInfantry, deployedInfantryCount,"5 army deployed ");
 
 
 

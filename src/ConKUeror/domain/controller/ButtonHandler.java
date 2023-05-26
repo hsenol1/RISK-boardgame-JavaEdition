@@ -45,12 +45,14 @@ public class ButtonHandler{
     }
 
 
-    public void matchButtonWithTerritory(int id) {
+
+
+    public void matchButtonWithTerritory(int id) throws InterruptedException {
           Territory t = Board.getTerritoryWithIndex(id);
           //System.out.println(t.getId());
           System.out.println(gMode.getGameMode());
           System.out.println(t.getId());
-          gMode.prepareButton(t,gMode.getGameMode());
+          gMode.prepareGame(t,gMode.getGameMode());
 
     }
 
@@ -204,10 +206,11 @@ if(FortifyMode.canFortify()) {
 
     }
 
-    public void rollButton() {
+    public void rollButton() throws InterruptedException {
 
         gMode.roll();
         gMode.setFirstPlayer();
+        gMode.setForMapInitalization();
 
     }
 
@@ -283,11 +286,11 @@ if(FortifyMode.canFortify()) {
                     gMode.useArmyCards(index);
                 }
             }
-            
+
         });
         window.createWindow();
-     
-       
+
+
     }
     public void setAttackingArmyCount(int armyCount)
     {
