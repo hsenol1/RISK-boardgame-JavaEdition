@@ -4,11 +4,14 @@ package ConKUeror.domain.model.Army;
 
 public abstract class Soldier {
     
+protected int healthPoints;
+    
 public abstract int getUnitPower();
-
-
-
-
+    
+public abstract void takeHit();
+    
+public abstract int getHealth();
+    
 /* 
     There are 6 complete sets of armies, each containing 3 denominations of army pieces: 
     Infantry (worth l), Cavalry (worth 5 Infantry), and Artillery (worth 10 Infantry, or 2 Cavalry). 

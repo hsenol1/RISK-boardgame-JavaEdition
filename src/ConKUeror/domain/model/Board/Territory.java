@@ -107,6 +107,10 @@ public class Territory {
         return Integer.toString(this.id);
     }
 
+    public Army getArmy() {
+        return this.army;
+    }
+
 
 
 }
