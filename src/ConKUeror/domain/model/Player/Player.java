@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.util.List;
 
 import ConKUeror.domain.model.Army.Army;
+import ConKUeror.domain.model.Army.Artillery;
+import ConKUeror.domain.model.Army.Cavalry;
+import ConKUeror.domain.model.Army.Infantry;
 import ConKUeror.domain.model.Board.Card;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
@@ -76,9 +79,12 @@ public class Player {
             db.deploy(t,army);
         }
 
-        public void attack(int attackingArmy, int defendingArmy) {
-            ab.attack(attackingArmy, defendingArmy);
+        public void attack(List<Infantry> attackingInfantries, List<Cavalry> attackingCavalries,
+        List<Artillery> attackingArtilleries, Army defendingArmy)
+        {
+            ab.attack(attackingInfantries, attackingCavalries, attackingArtilleries, defendingArmy);
         }
+
 
         public void fortify(Territory fortifyFrom, Territory fortifyTo, int army) {
             fb.fortify(fortifyFrom,fortifyTo,army);

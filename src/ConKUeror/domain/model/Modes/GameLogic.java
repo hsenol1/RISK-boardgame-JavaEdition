@@ -23,6 +23,9 @@ import ConKUeror.domain.controller.RollDieListener;
 import ConKUeror.domain.controller.TerritoryButtonListener;
 import ConKUeror.domain.enums.GameMode;
 import ConKUeror.domain.model.Army.Army;
+import ConKUeror.domain.model.Army.Artillery;
+import ConKUeror.domain.model.Army.Cavalry;
+import ConKUeror.domain.model.Army.Infantry;
 import ConKUeror.domain.model.Board.ArmyCard;
 import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Board.Card;
@@ -688,12 +691,15 @@ public class GameLogic {
       this.attackingArmyUnit = attackingArmyUnit;
     }
 
-    public void setForAttack()
+    public void setForAttack(List<Infantry> attackingInfantries, List<Cavalry> attackingCavalries, List<Artillery> attackingArtilleries)
     {
-      int attackingArmy = attackingArmyUnit;
-      try {
-          int defendingArmy = memory[1].getTotalUnit();
-          playerInTurn.attack(attackingArmy, defendingArmy);
+
+      //int attackingArmyUnits = attackingArmyUnit;
+      try
+      {
+        Army defendingArmy = memory[1].getArmy();
+        
+        playerInTurn.attack(attackingInfantries, attackingCavalries, attackingArtilleries, defendingArmy);
       }
       catch (NullPointerException e)
       {
