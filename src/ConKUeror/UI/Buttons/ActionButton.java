@@ -80,6 +80,7 @@ public class ActionButton extends JButton implements ActionListener{
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
+
                         break;
                     case 1:
                         // Code to execute if the first element is 2 and the second is 1

@@ -95,6 +95,33 @@ public class GameLogic {
   }
 
 
+  public void executeComputerLoop() {
+    System.out.println("Computer LOOP");
+
+    waitAndExecute(() -> {
+      computerChanceCard();
+  });
+
+
+    waitAndExecute(() -> {
+      computerDeploy();
+  });
+
+  }
+
+  public void computerChanceCard() {
+    System.out.println("Chance Card methodu");
+
+
+    increasePhaseIndex();
+    moveToOtherPhase();
+
+
+
+
+  }
+
+
 
     public void addToMemory(Territory t) {
 
@@ -130,7 +157,14 @@ public class GameLogic {
 
     }
 
+    public void computerDeploy() {
 
+        List<Territory> ownedTerritories = playerInTurn.inv.getOwnedTerritories();
+        int botDeployIndex = rand.nextInt(ownedTerritories.size());
+        Territory deployedTerritory =ownedTerritories.get(botDeployIndex);
+        int army = playerInTurn.inv.getTotalArmy();
+        playerInTurn.deploy(deployedTerritory,army);
+    }
 
 
     public void computerChoosesTerritory() throws InterruptedException {
@@ -402,8 +436,15 @@ public class GameLogic {
       PlayerExpert.updatePlayerCount(currentIndex);
       int newIndex = (currentIndex+1 ) %orderedPlayerList.size();
       playerInTurn= orderedPlayerList.get(newIndex);
+      PlayerExpert.setPlayerInTurn(playerInTurn);
       int oldIndex = currentIndex;
       PlayerExpert.publishPlayerInfoEvent(oldIndex, newIndex, playerInTurn.getColor());
+
+      if(playerInTurn.getType().equals("Computer")) {
+        executeComputerLoop();
+      }
+
+
     }
 
     public int getGamePhaseAsIndex() {
@@ -411,6 +452,7 @@ public class GameLogic {
 
 }
     public void moveToOtherPhase() {
+
 
         if(currentGameMode== GameMode.BUILD) {
             setGameMode(GameMode.CONNECTION);
@@ -424,6 +466,10 @@ public class GameLogic {
 
         }else if (currentGameMode == GameMode.START) {
             setGameMode(GameMode.CHANCECARD);
+            if(playerInTurn.getType().equals("Computer")) {
+              executeComputerLoop();
+              this.phaseIndex = 3;
+            }
 
 
         }
@@ -431,6 +477,8 @@ public class GameLogic {
         {
             setGameMode(GameMode.DEPLOY);
             DeployMode.setDeployedArmy(playerInTurn);
+            System.out.println("move to other phase deki method");
+
             int player_index =PlayerExpert.getPlayersList().indexOf(playerInTurn);
             PlayerExpert.updatePlayerCount(player_index);
         }

@@ -32,7 +32,11 @@ public class PlayerExpert {
 
         Player player = players.get(index);
         Army army = player.getInventory().getArmy();
+
         int totalUnit = army.getTotalArmyUnit();
+        System.out.println(totalUnit);
+
+
         publishArmyCount(index, totalUnit);
 
     }
