@@ -14,7 +14,7 @@ public class Army implements Serializable{
 
 
     private List<Infantry> infantryList = new ArrayList<Infantry>();
-    private List<Cavalry> cavalaryList = new ArrayList<Cavalry>();
+    private List<Cavalry> cavalryList = new ArrayList<Cavalry>();
     private List<Artillery> artilleryList = new ArrayList<Artillery>();
 
     private int infantry;
@@ -37,7 +37,7 @@ public class Army implements Serializable{
     public void addCavalries(int n) {
         for(int i = 0 ; i< n ; i++) {
             Cavalry cav = new Cavalry();
-            addCavalarytoCavalaryList(cav);
+            addCavalrytoCavalryList(cav);
         }
     }
     public void addArtilleries(int n) {
@@ -59,9 +59,9 @@ public class Army implements Serializable{
 
         }
     public void removeCavalries(int cav) {
-        if (!cavalaryList.isEmpty()) {
+        if (!cavalryList.isEmpty()) {
             for(int i = 0; i<cav ; i++) {
-                cavalaryList.remove(cavalaryList.size()-1);
+                cavalryList.remove(cavalryList.size()-1);
             }
 
         }
@@ -85,7 +85,7 @@ public class Army implements Serializable{
         return infantryList.size();
     }
     public int getCavalries() {
-        return cavalaryList.size();
+        return cavalryList.size();
     }
     public int getArtilleries() {
         return artilleryList.size();
@@ -95,8 +95,8 @@ public class Army implements Serializable{
         infantryList.add(inf);
 
     }
-    public void addCavalarytoCavalaryList(Cavalry cav) {
-        cavalaryList.add(cav);
+    public void addCavalrytoCavalryList(Cavalry cav) {
+        cavalryList.add(cav);
 
     }
 
@@ -113,6 +113,23 @@ public class Army implements Serializable{
     public void setTotalArmyUnit(int newArmyUnit) {
         this. totalArmy = newArmyUnit;
     }
+
+
+    public List<Infantry> getInfantryList()
+    {
+        return this.infantryList;
+    }
+
+    public List<Cavalry> getCavalryList()
+    {
+        return this.cavalryList;
+    }
+
+    public List<Artillery> getArtilleryList()
+    {
+        return this.artilleryList;
+    }
+
 
 
 }

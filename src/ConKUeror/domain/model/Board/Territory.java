@@ -108,6 +108,10 @@ public class Territory implements Serializable {
         return Integer.toString(this.id);
     }
 
+    public Army getArmy() {
+        return this.army;
+    }
+
 
 
 }

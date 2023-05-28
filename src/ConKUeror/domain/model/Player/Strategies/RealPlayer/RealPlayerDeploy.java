@@ -26,7 +26,7 @@ public class RealPlayerDeploy implements IDeployBehaviour,Serializable {
 
         PlayerExpert.updatePlayerCount(player_index);
 
-       MapHandler mapHandler =  HandlerFactory.getInstance().giveMapHandler();
+        MapHandler mapHandler =  HandlerFactory.getInstance().giveMapHandler();
 
         int buttonId = t.getId();
         int result = t.getTotalUnit();

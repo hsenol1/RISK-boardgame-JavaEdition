@@ -38,7 +38,7 @@ public class ArmyFactory {
 
         for(int i = 0; i<n; i++) {
             Cavalry cavalary = new Cavalry();
-            army.addCavalarytoCavalaryList(cavalary);
+            army.addCavalrytoCavalryList(cavalary);
             }
 
 

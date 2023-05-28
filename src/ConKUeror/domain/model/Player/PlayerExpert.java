@@ -32,7 +32,11 @@ public class PlayerExpert {
 
         Player player = players.get(index);
         Army army = player.getInventory().getArmy();
+
         int totalUnit = army.getTotalArmyUnit();
+        System.out.println(totalUnit);
+
+
         publishArmyCount(index, totalUnit);
 
     }
@@ -69,7 +73,7 @@ public class PlayerExpert {
         return PlayerExpert.playerInTurn;
     }
 
-    public void addPlayersList(Player player) {
+    public static void addPlayersList(Player player) {
         players.add(player);
         System.out.println(player.getName() +  " was " + "HERE");
     }

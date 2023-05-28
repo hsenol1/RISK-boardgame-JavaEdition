@@ -1,6 +1,7 @@
 package ConKUeror.domain.controller;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,12 @@ import ConKUeror.UI.Buttons.TerritoryButton;
 import ConKUeror.UI.Frames.MapView;
 import ConKUeror.UI.Panels.ArmyCardWindow;
 import ConKUeror.UI.Panels.ArmySelectionPanel;
+import ConKUeror.UI.Panels.AttackingArmyPanel;
 import ConKUeror.UI.Panels.PlayerInteractionPanel;
 import ConKUeror.domain.enums.GameMode;
+import ConKUeror.domain.model.Army.Artillery;
+import ConKUeror.domain.model.Army.Cavalry;
+import ConKUeror.domain.model.Army.Infantry;
 import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Modes.BuildMode;
@@ -32,6 +37,11 @@ public class ButtonHandler{
     private Territory[] memory;
     private TerritoryButton selectedButton;
 
+    
+    private ArrayList<Infantry> attackingInfantries;
+    private ArrayList<Cavalry> attackingCavalries;
+    private ArrayList<Artillery> attackingArtilleries;
+
     private ButtonHandler(BuildMode bMode, GameLogic gMode) {
             this.bMode = bMode;
             this.gMode = gMode;
@@ -45,12 +55,14 @@ public class ButtonHandler{
     }
 
 
-    public void matchButtonWithTerritory(int id) {
+
+
+    public void matchButtonWithTerritory(int id) throws InterruptedException {
           Territory t = Board.getTerritoryWithIndex(id);
           //System.out.println(t.getId());
           System.out.println(gMode.getGameMode());
           System.out.println(t.getId());
-          gMode.prepareButton(t,gMode.getGameMode());
+          gMode.prepareGame(t,gMode.getGameMode());
 
     }
 
@@ -148,13 +160,60 @@ if(FortifyMode.canFortify()) {
 
     public void increaseArmyCount()
     {
-        System.out.print("increase army count methodundayım");
-        gMode.publishArmyIncreasedEvent(getArmyUnitFromInputTerritory() + 1);
+        // System.out.print("increase army count methodundayım");
+        gMode.publishArmyIncreasedEvent(0);
+
+        AttackingArmyPanel attackingArmyPanel = new AttackingArmyPanel("Choose Army Units");
+
+        //these values are random and they need to be changed
+        //i had to put these because otherwise territories without any cavalry or artillery create a problem
+        attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size());
+        attackingArmyPanel.setMaxCavalryValue(gMode.memory[0].getArmy().getCavalryList().size());
+        attackingArmyPanel.setMaxArtilleryValue(5);
+        
+
+        //ideally this is how the values should be set
+        // attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size());
+        // attackingArmyPanel.setMaxCavalryValue(gMode.memory[0].getArmy().getCavalryList().size());
+        // attackingArmyPanel.setMaxArtilleryValue(gMode.memory[0].getArmy().getArtilleryList().size());
+
+        attackingArmyPanel.createSlider();
+
+        Object[] options = {"OK", "Cancel"};
+        JOptionPane.showOptionDialog(null, attackingArmyPanel, "Choose Army Units", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+        null, options, options[0]);
+
+        int i = 0;
+        this.attackingInfantries = new ArrayList<Infantry>();
+        while (attackingInfantries.size() < attackingArmyPanel.getInfantryValue())
+        {
+            attackingInfantries.add(gMode.memory[0].getArmy().getInfantryList().get(i));
+            i++;
+        }
+
+        i = 0;
+        this.attackingCavalries = new ArrayList<Cavalry>();
+        while(attackingCavalries.size() < attackingArmyPanel.getCavalryValue())
+        {
+            attackingCavalries.add(gMode.memory[0].getArmy().getCavalryList().get(i));
+            i++;
+        }
+
+        i = 0;
+        this.attackingArtilleries = new ArrayList<Artillery>();
+        while(attackingArtilleries.size() < attackingArmyPanel.getArtilleryValue())
+        {
+            attackingArtilleries.add(gMode.memory[0].getArmy().getArtilleryList().get(i));
+            i++;
+        }
+
+        i = 0;
+
     }
 
     public void attack()
     {
-        gMode.setForAttack();
+        gMode.setForAttack(attackingInfantries, attackingCavalries, attackingArtilleries);
     }
 
     public void deploy(){
@@ -204,10 +263,11 @@ if(FortifyMode.canFortify()) {
 
     }
 
-    public void rollButton() {
+    public void rollButton() throws InterruptedException {
 
         gMode.roll();
         gMode.setFirstPlayer();
+        gMode.setForMapInitalization();
 
     }
 
@@ -223,6 +283,10 @@ if(FortifyMode.canFortify()) {
         gMode.increasePhaseIndex();
         gMode.moveToOtherPhase();
 
+    }
+
+    public void endTurn() {
+        gMode.prepareForOtherPlayer();
     }
 
 
@@ -283,11 +347,11 @@ if(FortifyMode.canFortify()) {
                     gMode.useArmyCards(index);
                 }
             }
-            
+
         });
         window.createWindow();
-     
-       
+
+
     }
     public void setAttackingArmyCount(int armyCount)
     {

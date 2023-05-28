@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import ConKUeror.domain.model.Army.Army;
+import ConKUeror.domain.model.Army.Artillery;
+import ConKUeror.domain.model.Army.Cavalry;
+import ConKUeror.domain.model.Army.Infantry;
 import ConKUeror.domain.model.Board.Card;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
@@ -15,7 +18,7 @@ public class Player implements Serializable {
 
         public PlayerInventory inv = new PlayerInventory();
         //private Army deployedArmy = new Army();
-
+        private String type;
         private Color playerColor;
 
         IDeployBehaviour db;
@@ -45,9 +48,21 @@ public class Player implements Serializable {
         }
 
 
+
         public String getPlayerType() {
             return this.playerType;
         }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+
+        public String getType() {
+            return this.type;
+        }
+
+
 
 
         public void setColor(Color color) {
@@ -58,13 +73,24 @@ public class Player implements Serializable {
             return playerColor;
         }
 
-
+/**
+ * Deploy Method
+ *
+ * Requires: (about domain range of values) -> Düzelt
+ * Modifies: Territory.army and Player.playerInventory
+ * Effects: Armies are deployed to territory's army,
+ * and from player's inventory army is removed.</p>
+ */
         public void deploy(Territory t, int army) {
             db.deploy(t,army);
         }
-        public void attack(int attackingArmy, int defendingArmy) {
-            ab.attack(attackingArmy, defendingArmy);
+
+        public void attack(List<Infantry> attackingInfantries, List<Cavalry> attackingCavalries,
+        List<Artillery> attackingArtilleries, Army defendingArmy)
+        {
+            ab.attack(attackingInfantries, attackingCavalries, attackingArtilleries, defendingArmy);
         }
+
 
         public void fortify(Territory fortifyFrom, Territory fortifyTo, int army) {
             fb.fortify(fortifyFrom,fortifyTo,army);
