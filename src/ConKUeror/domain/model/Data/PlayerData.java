@@ -27,6 +27,7 @@ public class PlayerData implements Serializable{
     private PlayerInventory inventory;
     private String playerType;
     private Color playerColor;
+    private Player player;
     public PlayerData(Player player) {
         this.playerName = player.getName();
         this.cavalryCount = player.getInventory().getCavalryCount();
@@ -37,8 +38,12 @@ public class PlayerData implements Serializable{
         this.territoryCards= player.getInventory().getTerritoryCards();
         this.territories = player.getInventory().getOwnedTerritories();
         this.inventory = player.getInventory();
-        this.playerType = player.getPlayerType();
+        this.playerType = player.getType();
         this.playerColor = player.getColor();
+        this.player = player;
+    }
+    public Player getPlayer(){
+        return player;
     }
     public Color getPlayerColor(){
         return playerColor;

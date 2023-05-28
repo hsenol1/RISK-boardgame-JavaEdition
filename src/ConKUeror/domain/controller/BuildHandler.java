@@ -47,7 +47,9 @@ private StartMode sMode;
 	public void enterNameForRealPlayers(String name) {
 		buildMode.initalizePlayer(name,"Real Player");
 	}
-
+	public GameLogic getGameLogic(){
+		return gamelogic;
+	}
 
 	public void initalizeBots(int botPlayerCount) {
 
@@ -64,6 +66,9 @@ private StartMode sMode;
 
 	public void setStartStatus() {
 		buildMode.setStart();
+	}
+	public BuildMode getBuildMode(){
+		return buildMode;
 	}
 
 

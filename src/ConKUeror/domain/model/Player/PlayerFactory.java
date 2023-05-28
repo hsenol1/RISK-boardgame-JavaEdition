@@ -52,7 +52,7 @@ public class PlayerFactory {
 
            if (searchName(name) && (name.length() != 0)) {
 
-            player = new Player(name,db,ab,fb,inv,type);
+            player = new Player(name,db,ab,fb,inv);
 
             player.setType("Real");
 
@@ -70,7 +70,7 @@ public class PlayerFactory {
             ComputerPlayerFortify fb = new ComputerPlayerFortify();
 
 
-            player = new Player(name, db, ab, fb,inv,type);
+            player = new Player(name, db, ab, fb,inv);
 
            
             player.setType("Computer");
