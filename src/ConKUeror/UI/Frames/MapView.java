@@ -391,7 +391,7 @@ public void removeOnboardEvent(TerritoryButton button) {
 
         mapPanel.revalidate();
         mapPanel.repaint();
-    }   
+    }  /* 
     public void updateTerritoryArmies(GameState gameState) {
         Map<String, Integer> territoryArmies = gameState.getTerritoryArmies();
     
@@ -407,13 +407,13 @@ public void removeOnboardEvent(TerritoryButton button) {
         revalidate();
         repaint();
     }
-
+*/
 
 
 
 private class PauseButtonHandler implements ActionListener {
 
-    private GameState gameState;
+    
     private List<Player> playerList;
     private MapView mapView; 
     
@@ -426,11 +426,11 @@ private class PauseButtonHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
        // String turn = PlayerExpert.getPlayerInTurn().getName();
-        this.gameState = new GameState("turn", "aa");
+        
         this.playerList = PlayerExpert.getPlayersList();
 
 
-        PauseScreen pauseScreen = new PauseScreen(mapView, frame, gameState, playerList, gameHandler);        pauseScreen.setVisible(true);
+        PauseScreen pauseScreen = new PauseScreen(mapView, frame, playerList, gameHandler);       
 
         pauseScreen.setVisible(true);
     }
@@ -489,8 +489,7 @@ private class HelpButtonHandler implements ActionListener {
             // Revalidate and repaint panels and frame, this will reflect the changes in the UI
             mapPanel.revalidate();
             mapPanel.repaint();
-            playerPanel.revalidate();
-            playerPanel.repaint();
+            updatePlayerPanel();
             revalidate();
             repaint();
         }
@@ -537,7 +536,9 @@ public void updateTerritory(int buttonID, int deployedArmy) {
 
 @Override
     public void onUIRefreshRequested() {
+        System.out.println("refresh requested");
         refreshUI();
+        
     }
 
 

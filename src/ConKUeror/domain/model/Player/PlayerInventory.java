@@ -1,5 +1,6 @@
 package ConKUeror.domain.model.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -13,7 +14,7 @@ import ConKUeror.domain.model.Board.Card;
 import ConKUeror.domain.model.Board.ArmyCard.ArmyType;
 import ConKUeror.domain.model.Army.Army;
 import ConKUeror.domain.model.Board.*;;;;
-public class PlayerInventory {
+public class PlayerInventory implements Serializable {
 
 private Player p;
 
@@ -78,6 +79,12 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
 
     public void setCavalryCount(int cavalryCount) {
         this.cavalryCount = cavalryCount;
+    }
+    public List<ChanceCard> getChanceCards(){
+        return chanceCards;
+    }
+    public void setChanceCards(List<ChanceCard> cd){
+        this.chanceCards = cd;
     }
     public List<ArmyCard> getArmyCards() {
         return armyCards;

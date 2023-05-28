@@ -2,13 +2,16 @@ package ConKUeror.domain.controller;
 
 import java.util.List;
 
-import ConKUeror.domain.model.Data.GameData;
-import ConKUeror.domain.model.Data.GameDataAdapter;
+import ConKUeror.domain.model.Data.GameState;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class GameHandler {
@@ -27,13 +30,8 @@ public class GameHandler {
         }
         return instance;
     }
-    public void saveGame(GameData gameData, String filename, GameDataAdapter adapter) throws IOException {
-        adapter.saveGameData(gameData, filename);
-    }
-    public GameData loadGame(String filename, List<Player> playerList, GameDataAdapter adapter) throws FileNotFoundException {
-        return adapter.loadGameData(filename, playerList);
-    } 
-
+ 
+    
 
     public void registerPlayerPanelAsListener(PlayerExpertListener listener) {
         PlayerExpert.addPlayerPanelAsListener(listener);

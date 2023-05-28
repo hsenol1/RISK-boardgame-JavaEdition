@@ -1,8 +1,8 @@
 package ConKUeror.domain.model.Army;
 
+import java.io.Serializable;
 
-
-public abstract class Soldier {
+public abstract class Soldier implements Serializable {
     
 public abstract int getUnitPower();
 

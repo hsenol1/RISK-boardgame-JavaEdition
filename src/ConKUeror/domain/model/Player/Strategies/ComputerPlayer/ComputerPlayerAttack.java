@@ -1,8 +1,10 @@
 package ConKUeror.domain.model.Player.Strategies.ComputerPlayer;
 
+import java.io.Serializable;
+
 import ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
 
-public class ComputerPlayerAttack implements IAttackBehaviour {
+public class ComputerPlayerAttack implements IAttackBehaviour,Serializable {
 
     @Override
     public void attack(int attackingArmy, int defendingArmy) {

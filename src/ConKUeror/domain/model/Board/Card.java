@@ -1,9 +1,11 @@
 package ConKUeror.domain.model.Board;
+import java.io.Serializable;
+
 import ConKUeror.domain.model.Player.*;
 
 
 
-public abstract class Card {
+public abstract class Card implements Serializable{
 
     private String name;
 

@@ -51,7 +51,7 @@ public class PlayerFactory {
            RealPlayerFortify fb =new RealPlayerFortify();
 
            if (searchName(name) && (name.length() != 0)) {
-            player = new Player(name,db,ab,fb,inv);
+            player = new Player(name,db,ab,fb,inv,type);
             setColorToPlayer(player);
             playerNames.add(name);
            }
@@ -65,7 +65,7 @@ public class PlayerFactory {
             ComputerPlayerAttack ab = new ComputerPlayerAttack();
             ComputerPlayerFortify fb = new ComputerPlayerFortify();
 
-            player = new Player(name, db, ab, fb,inv);
+            player = new Player(name, db, ab, fb,inv,type);
             setColorToPlayer(player);
 
        }

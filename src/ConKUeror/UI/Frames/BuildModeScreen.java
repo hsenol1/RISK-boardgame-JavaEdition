@@ -18,7 +18,7 @@ import java.awt.*;
 public class BuildModeScreen extends JFrame implements BuildModeListener{
     //OVERVIEW: This class is UI representation of player number choice.
 
-
+    private Boolean canStart;
     private JPanel buildModePanel;
     private JLabel playerNumberLabel, botNumberLabel;
     private JButton confirmButton;
@@ -212,7 +212,18 @@ public class BuildModeScreen extends JFrame implements BuildModeListener{
         setVisible(true);
     }
 
-
+    public void updatePlayerCount(int playerCount) {
+        playerNumberBox.setSelectedItem(playerCount);
+    }
+    
+    public void updateBotCount(int botCount) {
+        botNumberBox.setSelectedItem(botCount);
+    }
+    
+    public void setCanStart(boolean canStart) {
+        // assuming canStart is a member variable in BuildModeScreen class.
+        this.canStart = canStart; 
+    }
 
 
 
