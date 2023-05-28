@@ -42,18 +42,16 @@ public class LoginFrame extends JFrame {
 
     public LoginFrame() {
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(240, 240, 240)); // a light background color
-        panel.setBorder(new EmptyBorder(50, 80, 50, 80)); // padding
+        panel.setBackground(new Color(240, 240, 240)); 
+        panel.setBorder(new EmptyBorder(50, 80, 50, 80)); //padding icin 
 
         JLabel titleLabel = new JLabel("ConKuEror");
         Font titleFont = new Font("Arial", Font.BOLD, 30);
         titleLabel.setFont(titleFont);
         titleLabel.setForeground(Color.BLUE);
 
-        // Create the "Made by" label
         JLabel madeByLabel = new JLabel("Made by: artbatremix");
 
-        // Create a panel for the header and the rest of the content
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         headerPanel.add(titleLabel);
         headerPanel.add(madeByLabel);
@@ -63,7 +61,7 @@ public class LoginFrame extends JFrame {
         this.newGameButton = createButton("New Game");
         this.loadGameButton = createButton("Load Game");
 
-        // Set button action listeners
+        
         newGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 startNewGame();
@@ -72,27 +70,26 @@ public class LoginFrame extends JFrame {
 
         loadGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Load GameState from a saved file
+                
                 try {
                     gameState = loadGameState();
                 } catch (ClassNotFoundException | IOException e1) {
                     e1.printStackTrace();
                 }
 
-                // Start loaded game
                 startLoadedGame(gameState.getPlayerData());
             }
         });
 
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
         panel.add(newGameButton);
-        panel.add(Box.createHorizontalStrut(10)); // Add horizontal spacing
+        panel.add(Box.createHorizontalStrut(10)); 
         panel.add(loadGameButton);
 
         panel.setBorder(new EmptyBorder(new Insets(50, 80, 50, 80))); // padding
         this.add(panel);
 
-        this.setSize(new Dimension(800, 600)); // increase frame size
+        this.setSize(new Dimension(800, 600)); 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -100,14 +97,14 @@ public class LoginFrame extends JFrame {
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setPreferredSize(new Dimension(250, 50)); // set button size
-        button.setFont(new Font("Arial", Font.BOLD, 16)); // set font
-        button.setForeground(Color.BLACK); // set text color
-        button.setBackground(new Color(59, 89, 182)); // set background color
-        button.setFocusPainted(false); // remove focus border
+        button.setPreferredSize(new Dimension(250, 50)); 
+        button.setFont(new Font("Arial", Font.BOLD, 16)); 
+        button.setForeground(Color.BLACK); 
+        button.setBackground(new Color(59, 89, 182)); 
+        button.setFocusPainted(false); 
         button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK, 2), // outer border
-                BorderFactory.createEmptyBorder(5, 15, 5, 15) // inner padding
+                BorderFactory.createLineBorder(Color.BLACK, 2), 
+                BorderFactory.createEmptyBorder(5, 15, 5, 15) 
         ));
         return button;
     }
@@ -140,6 +137,7 @@ public class LoginFrame extends JFrame {
                 player.getInventory().setOwnedTerritories(playerData.getTerritories());
                 player.setColor(playerData.getPlayerColor());
                 // Insert the player back into the system
+                //geri sisteme nasıl sokuyoruz onun haricinde bütün verileri topluyo
             }
         }
         StartHandler startHandler = controller.giveStartHandler();
@@ -152,7 +150,7 @@ public class LoginFrame extends JFrame {
             e1.printStackTrace();
         }
 
-        this.dispose(); // Close the login frame
+        this.dispose(); 
     }
 
     public static void main(String[] args) {
