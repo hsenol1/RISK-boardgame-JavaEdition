@@ -1,5 +1,7 @@
 package ConKUeror.domain.model.Player.Strategies.RealPlayer;
 
+import java.io.Serializable;
+
 import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.controller.MapHandler;
 import ConKUeror.domain.model.Board.Territory;
@@ -7,7 +9,7 @@ import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 import ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
 
-public class RealPlayerDeploy implements IDeployBehaviour {
+public class RealPlayerDeploy implements IDeployBehaviour,Serializable {
 
     @Override
     public void deploy(Territory t, int army) {

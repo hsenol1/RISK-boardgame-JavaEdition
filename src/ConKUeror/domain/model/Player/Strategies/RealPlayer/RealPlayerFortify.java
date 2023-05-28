@@ -1,12 +1,14 @@
 package ConKUeror.domain.model.Player.Strategies.RealPlayer;
 
+import java.io.Serializable;
+
 import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.controller.MapHandler;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Player.PlayerExpert;
 import ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
 
-public class RealPlayerFortify implements IFortifyBehaviour{
+public class RealPlayerFortify implements IFortifyBehaviour,Serializable{
 
     @Override
     public void fortify(Territory fortifyFrom, Territory fortifyTo, int army) {

@@ -1,6 +1,7 @@
 package ConKUeror.domain.model.Player;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.List;
 
 import ConKUeror.domain.model.Army.Army;
@@ -13,7 +14,7 @@ import ConKUeror.domain.model.Player.Strategies.IAttackBehaviour;
 import ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
 import ConKUeror.domain.model.Player.Strategies.IFortifyBehaviour;
 
-public class Player {
+public class Player implements Serializable {
 
         public PlayerInventory inv = new PlayerInventory();
         //private Army deployedArmy = new Army();
@@ -23,7 +24,7 @@ public class Player {
         IDeployBehaviour db;
         IAttackBehaviour ab;
         IFortifyBehaviour fb;
-
+        private String playerType;
 
 
         private String name;
@@ -35,7 +36,7 @@ public class Player {
         IDeployBehaviour db,
         IAttackBehaviour ab,
         IFortifyBehaviour fb,
-        PlayerInventory inv) {
+        PlayerInventory inv, String playerType) {
 
             this.name = name;
             this.db = db;
@@ -43,9 +44,14 @@ public class Player {
             this.fb = fb;
             this.inv = inv;
 
-
+            this.playerType = playerType;
         }
 
+
+
+        public String getPlayerType() {
+            return this.playerType;
+        }
 
         public void setType(String type) {
             this.type = type;

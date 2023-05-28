@@ -1,4 +1,5 @@
 package ConKUeror.domain.model.Board;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ import ConKUeror.domain.model.Player.Player;
 
 
 
-public class Territory {
+public class Territory implements Serializable {
 
     private Map<Integer, Territory> adjacencyList = new  HashMap<>();
     private int id;

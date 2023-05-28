@@ -1,22 +1,12 @@
 package ConKUeror;
 
-
-import ConKUeror.domain.controller.BuildHandler;
-import ConKUeror.UI.Frames.BuildModeScreen;
-import ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.UI.Frames.LoginFrame;
+import javax.swing.SwingUtilities;
 
 public class Main {
 
-
-public static void main(String[] args) {
-
-
-  HandlerFactory controller = HandlerFactory.getInstance();
-  BuildHandler buildHandler = controller.giveBuildHandler();
-  BuildModeScreen buildModeScreen = new BuildModeScreen(buildHandler);
-
-
-
+    public static void main(String[] args) {
+        
+        SwingUtilities.invokeLater(LoginFrame::new);
+    }
 }
-}
-

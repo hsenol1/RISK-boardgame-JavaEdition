@@ -1,9 +1,10 @@
 package ConKUeror.domain.model.Army;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Army {
+public class Army implements Serializable{
 
     public final static int INFANTRY_UNIT = 1;
     public final static int CAVALRY_UNIT = 5;

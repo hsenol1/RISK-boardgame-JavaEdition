@@ -1,123 +1,108 @@
 package ConKUeror.domain.model.Data;
 
+
+import java.awt.Color;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ConKUeror.domain.model.Board.ArmyCard;
 import ConKUeror.domain.model.Board.Board;
+import ConKUeror.domain.model.Board.ChanceCard;
 import ConKUeror.domain.model.Board.Territory;
+import ConKUeror.domain.model.Board.TerritoryCard;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerInventory;
 
-public class PlayerData {
+public class PlayerData implements Serializable{
     private String playerName;
-    private int armySize;
+    private int cavalryCount;
+    private int infantryCount;
+    private int artilleryCount;
+    private List<ChanceCard> chanceCards;
+    private List<TerritoryCard> territoryCards;
+    private List<ArmyCard> armyCards;
     private List<Territory> territories;
     private PlayerInventory inventory;
+    private String playerType;
+    private Color playerColor;
     public PlayerData(Player player) {
         this.playerName = player.getName();
-        this.armySize = player.getInventory().getNumberOfArmies();
+        this.cavalryCount = player.getInventory().getCavalryCount();
+        this.infantryCount = player.getInventory().getInfantryCount();
+        this.artilleryCount = player.getInventory().getArtilleryCount();
+        this.chanceCards = player.getInventory().getChanceCards();
+        this.armyCards = player.getInventory().getArmyCards();
+        this.territoryCards= player.getInventory().getTerritoryCards();
         this.territories = player.getInventory().getOwnedTerritories();
         this.inventory = player.getInventory();
+        this.playerType = player.getPlayerType();
+        this.playerColor = player.getColor();
     }
-
+    public Color getPlayerColor(){
+        return playerColor;
+    }
     public String getPlayerName() {
         return this.playerName;
     }
-
-    public int getArmySize() {
-        return this.armySize;
+    public String getPlayerType(){
+        return playerType;
     }
-    public void setArmySize(int n){
-        this.armySize = n;
-    }
+    
 
     public List<Territory> getTerritories() {
         return this.territories;
     }
-    /*public static PlayerData fromString(String str, List<Player> playerList) {
-        String[] parts = str.split(",");
-        for (Player player : playerList) {
-            if (player.getName().equals(parts[0])) {
-                PlayerData playerData = new PlayerData(player);
-                playerData.armySize = Integer.parseInt(parts[1]);
     
-                List<Integer> territoryIds = Arrays.stream(parts[2].split(";"))
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList());
-    
-                playerData.setTerritoriesFromIds(territoryIds);
-                return playerData;
-            }
-        }
-        return null;
-    }*/
+    public int getCavalryCount() {
+        return cavalryCount;
+    }
 
-   /*  public static PlayerData fromString(String str, List<Player> playerList) {
-        String[] parts = str.split(",");
-        for (Player player : playerList) {
-            if (player.getName().equals(parts[0])) {
-                PlayerData playerData = new PlayerData(player);
-                playerData.armySize = Integer.parseInt(parts[1]);
-    
-                List<Integer> territoryIds = Arrays.stream(parts[2]
-                    .replaceAll("\\[|\\]", "") // Remove square brackets
-                    .split(";"))
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList());
-    
-                playerData.setTerritoriesFromIds(territoryIds);
-                return playerData;
-            }
-        }
-        return null;
-    }
-    */
-    public static PlayerData fromString(String str, List<Player> playerList) {
-        String[] parts = str.split(",");
-        for (Player player : playerList) {
-            if (player.getName().equals(parts[0])) {
-                PlayerData playerData = new PlayerData(player);
-                if (!parts[1].isEmpty()) {
-                    try {
-                        playerData.armySize = Integer.parseInt(parts[1]);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error parsing armySize: " + e.getMessage());
-                    }
-                }
-                List<Integer> territoryIds = Arrays.stream(parts[2]
-                    .replaceAll("\\[|\\]", "") // Remove square brackets
-                    .split(";"))
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList());
-                playerData.setTerritoriesFromIds(territoryIds);
-                return playerData;
-            }
-        }
-        return null;
-    }
-    @Override
-    public String toString() {
-        return playerName + "," + armySize + "," + String.join(";", territories.toString());
-    }
-    public void setTerritoriesFromIds(List<Integer> territoryIds) {
-        for (Integer id : territoryIds) {
-            Territory territory = Board.getTerritories().get(id);
-            if (territory != null) {
-                this.territories.add(territory);
-            } else {
-                throw new IllegalArgumentException("Territory with id " + id + " does not exist.");
-            }
-        }
+    public void setCavalryCount(int cavalryCount) {
+        this.cavalryCount = cavalryCount;
     }
 
     public int getInfantryCount() {
-        return inventory.getInfantryCount();
+        return infantryCount;
     }
+
+    public void setInfantryCount(int infantryCount) {
+        this.infantryCount = infantryCount;
+    }
+
     public int getArtilleryCount() {
-        return inventory.getArtilleryCount();
+        return artilleryCount;
+    }
+
+    public void setArtilleryCount(int artilleryCount) {
+        this.artilleryCount = artilleryCount;
+    }
+
+    public List<ChanceCard> getChanceCards() {
+        return chanceCards;
+    }
+
+    public void setChanceCards(List<ChanceCard> chanceCards) {
+        this.chanceCards = chanceCards;
+    }
+
+    public List<TerritoryCard> getTerritoryCards() {
+        return territoryCards;
+    }
+
+    public void setTerritoryCards(List<TerritoryCard> territoryCards) {
+        this.territoryCards = territoryCards;
+    }
+
+    public List<ArmyCard> getArmyCards() {
+        return armyCards;
+    }
+
+    public void setArmyCards(List<ArmyCard> armyCards) {
+        this.armyCards = armyCards;
     } 
-     public int getCavalryCount() {
-        return inventory.getCavalryCount();
-    }  
+    
+
+   
 }

@@ -5,12 +5,13 @@ import java.util.Map;
 
 import ConKUeror.domain.model.Player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
-public class Board {
+public class Board implements Serializable{
 
 private Continent ASIA;
 private Continent NORTH_AMERICA;

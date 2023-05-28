@@ -1,5 +1,8 @@
 package ConKUeror.domain.model.Player.Strategies.ComputerPlayer;
 
+import java.io.Serializable;
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,12 +11,13 @@ import javax.swing.Timer;
 
 import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.controller.MapHandler;
+
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 import ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
 
-public class ComputerPlayerDeploy implements IDeployBehaviour{
+public class ComputerPlayerDeploy implements IDeployBehaviour,Serializable{
 
 
     public void waitAndExecute(Runnable action) {
