@@ -517,6 +517,7 @@ public class GameLogic {
     public void prepareGame(Territory t,GameMode gameMode) throws InterruptedException {
 
       PlayerExpert.setPlayerInTurn(playerInTurn);
+     if (playerInTurn == null || playerInTurn.getType().equals("Real")) {
 
       switch(gameMode) {
 
@@ -546,6 +547,7 @@ public class GameLogic {
         case START:
         this.inputTerritory = t;
         this.phaseIndex=2;
+
         if (playerInTurn.getInventory().getTotalArmy()>0) {
 
           if(t.getOwner() ==  null) {
@@ -653,6 +655,8 @@ public class GameLogic {
 
 
       }
+
+    }
 
 
 
