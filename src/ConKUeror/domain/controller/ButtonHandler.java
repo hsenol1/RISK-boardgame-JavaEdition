@@ -223,8 +223,20 @@ if(FortifyMode.canFortify()) {
 	}
 
     public void nextPhase() {
-        gMode.increasePhaseIndex();
-        gMode.moveToOtherPhase();
+
+        if(gMode.getGameMode() == GameMode.START) {
+            if(PlayerExpert.getPlayerInTurn().getType().equals("Real")) {
+                System.out.println("PLAYER TYPE" + PlayerExpert.getPlayerInTurn().getType());
+                gMode.increasePhaseIndex();
+                gMode.moveToOtherPhase();
+            }
+        } else {
+
+            gMode.increasePhaseIndex();
+            gMode.moveToOtherPhase();
+        }
+
+
 
     }
 
