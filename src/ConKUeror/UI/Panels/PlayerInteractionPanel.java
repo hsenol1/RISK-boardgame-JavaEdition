@@ -44,7 +44,7 @@ public class PlayerInteractionPanel extends JPanel implements NextButtonListener
         {"Add Connections", "Remove Territory", "Next"},
         {"Test","Test","Next"},
         {"Set Game Order","Place Army","Next"},
-        {"Pick Chance Card","Card Info","Next"},
+        {"Pick Chance Card","Use Chance Card","Next"},
         {"Deploy Army","Select Army","Next"},
         {"Attack","Select Army","Next"},
         {"Fortify Army","Select Army" ,"Next"},

@@ -53,6 +53,9 @@ public class CardController {
             armyDeck.add(new ArmyCard("Artillery Card", ArmyCard.ArmyType.ARTILLERY));
         }
 
+        chanceDeck.add(new ChanceCard("Coup", ChanceCard.ChanceType.COUP));
+        
+
         // Add chance cards
        /*  for (ChanceCard.ChanceType chanceType : ChanceCard.ChanceType.values()) {
             String name = chanceType.name() + " Card";

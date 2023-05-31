@@ -372,6 +372,10 @@ public class GameLogic {
 
   }
 
+  public void useChanceCard() {
+    playerInTurn.inv.useChanceCard();
+  }
+
 
 
   public void addArmyCard() {
@@ -575,8 +579,10 @@ public class GameLogic {
 
         case CHANCECARD:
           System.out.println("Card");
+          
           this.phaseIndex=3;
-
+          this.inputTerritory = t;
+          prepareTerritory(t);
           break;
 
         case DEPLOY:
