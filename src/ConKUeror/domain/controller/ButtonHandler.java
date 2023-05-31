@@ -14,6 +14,7 @@ import ConKUeror.UI.Frames.MapView;
 import ConKUeror.UI.Panels.ArmyCardWindow;
 import ConKUeror.UI.Panels.ArmySelectionPanel;
 import ConKUeror.UI.Panels.AttackingArmyPanel;
+import ConKUeror.UI.Panels.ChanceCardWindow;
 import ConKUeror.UI.Panels.PlayerInteractionPanel;
 import ConKUeror.domain.enums.GameMode;
 import ConKUeror.domain.model.Army.Artillery;
@@ -27,6 +28,7 @@ import ConKUeror.domain.model.Modes.FortifyMode;
 import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Player.PlayerInventory;
 import ConKUeror.domain.model.Board.Die;
 import ConKUeror.domain.model.Board.DiceRoller;
 
@@ -226,6 +228,8 @@ if(FortifyMode.canFortify()) {
 
 
     }
+
+
     public void fortify() {
         Player playerInTurn = PlayerExpert.getPlayerInTurn();
          memory = getMemoryList();
@@ -325,6 +329,12 @@ if(FortifyMode.canFortify()) {
         gMode.addTerritoryButtonListener(territoryListener);
     }
 
+    public void registerAsTerritoryListenerPINV(TerritoryButtonListener territoryListener) {
+        for (Player p : PlayerExpert.getPlayersList()) {
+            p.getInventory().addTerritoryButtonListener(territoryListener);
+        }
+    }
+
 
      public void registerAsRollListener( RollDieListener rollDieListener) {
         gMode.addRollDieListener(rollDieListener);
@@ -368,6 +378,16 @@ if(FortifyMode.canFortify()) {
     public void setAttackingArmyCount(int armyCount)
     {
         gMode.setAttackingArmyUnit(armyCount);
+    }
+
+
+    public void showChanceCardInfo() {
+        ChanceCardWindow window = new ChanceCardWindow("This is a coup card, select a territory and pick use!");
+        window.createChanceWindow();
+    }
+
+    public void useChanceCard() {
+        gMode.useChanceCard();
     }
 
 

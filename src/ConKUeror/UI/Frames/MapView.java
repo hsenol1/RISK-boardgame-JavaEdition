@@ -125,8 +125,11 @@ public void addMapFrameAsListener() {
 
 public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
     buttonHandler.registerAsTerritoryListener(this);
+    buttonHandler.registerAsTerritoryListenerPINV(this);
 
 }
+
+
 
 public void addMapFrameAsListenerForRollEvent(){
     buttonHandler.registerAsRollListener(this);
@@ -360,7 +363,7 @@ public void removeOnboardEvent(TerritoryButton button) {
     public void getButtonList(List<Integer> neigborIdsList) {
         // TODO Auto-generated method stub
 
-        System.out.println("Map View classına kadar gelen bir connection methodu var");
+     //   System.out.println("Map View classına kadar gelen bir connection methodu var");
 
         for (int i = 0; i < neigborIdsList.size(); i++) {
             TerritoryButton button = territoryButtonsList.get(neigborIdsList.get(i));
