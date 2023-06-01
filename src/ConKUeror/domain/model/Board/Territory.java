@@ -64,6 +64,9 @@ public class Territory implements Serializable {
        return army.getTotalArmyUnit();
 
     }
+    public void setTotalUnit(int n){
+        totalArmyUnit = n;
+    }
 
     public Map<Integer, Territory> getAdjacencyList() {
         return adjacencyList;

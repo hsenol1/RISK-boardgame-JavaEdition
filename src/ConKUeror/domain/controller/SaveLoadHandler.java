@@ -5,10 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import ConKUeror.domain.model.Data.GameState;
 
-public class SaveLoadHandler {
+public class SaveLoadHandler implements Serializable {
 
    public SaveLoadHandler() {
 

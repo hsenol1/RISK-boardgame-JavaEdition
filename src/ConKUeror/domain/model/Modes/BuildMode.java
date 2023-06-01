@@ -1,6 +1,7 @@
     package ConKUeror.domain.model.Modes;
 
     import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
     import java.util.List;
 import java.util.Random;
@@ -14,7 +15,7 @@ import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Player.PlayerExpert;
 import ConKUeror.domain.model.Player.PlayerFactory;
 
-    public class BuildMode {
+    public class BuildMode implements Serializable {
 
     private ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
     // private List<Player> players = new ArrayList<Player>();
@@ -191,18 +192,36 @@ import ConKUeror.domain.model.Player.PlayerFactory;
             playerIndexIterator += 1;
         }
     }
+    public void initalizeColoredPlayer(String name,String type, Color color) {
+
+        Player player = playerFactory.createColoredPlayer(type, name, color);
+        if (player != null) {
+            playerExpert.addPlayersList(player);
+            // players.add(player);
+        }
+
+        else {
+            playerIndexIterator += 1;
+        }
+    }
+
     public boolean repOK() {
-
         List<Player> playerList = PlayerExpert.getPlayersList();
-
+    
+        if(playerList == null){
+            return false;
+        }
+    
         int size = playerList.size();
-        int max_player_count = PLAYER_COUNT_VALUES[PLAYER_COUNT_VALUES.length-1];
-
-        if (size !=0 | size <= max_player_count) {
+        int max_player_count = PLAYER_COUNT_VALUES[PLAYER_COUNT_VALUES.length - 1];
+    
+        if (size == 0 || size > max_player_count) {
+            return false;
+        }
+        else {
             return true;
         }
-             return false;
-    }
+    } 
     public int getPlayerCount() {
 
         return this.totalPlayerCount;

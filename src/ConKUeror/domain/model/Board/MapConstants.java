@@ -1,8 +1,9 @@
 package ConKUeror.domain.model.Board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MapConstants {
+public class MapConstants implements Serializable {
     private ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
 
 

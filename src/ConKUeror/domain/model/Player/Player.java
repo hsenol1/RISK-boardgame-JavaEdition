@@ -68,6 +68,9 @@ public class Player implements Serializable {
         public Color getColor() {
             return playerColor;
         }
+        public void setName(String name){
+            this.name = name;
+        }
 
 /**
  * Deploy Method

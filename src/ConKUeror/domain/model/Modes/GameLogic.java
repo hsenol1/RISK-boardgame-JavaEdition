@@ -11,6 +11,7 @@ import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -38,7 +39,7 @@ import ConKUeror.domain.model.Player.PlayerExpert;
 import ConKUeror.domain.model.Player.PlayerInventory;
 
 
-public class GameLogic {
+public class GameLogic implements Serializable {
 
   private Board board;
   private PlayerInventory p;
@@ -339,7 +340,9 @@ public class GameLogic {
       l.setArmyCount(i);
     }
   }
-
+  public Player getPlayerInTurn(){
+    return this.playerInTurn;
+  }
 
 
 
@@ -454,6 +457,9 @@ public class GameLogic {
          return phaseIndex;
 
 }
+  public void setGamePhaseIndex(int n){
+    this.phaseIndex = n;
+  }
     public void moveToOtherPhase() {
 
 

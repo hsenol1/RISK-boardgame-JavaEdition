@@ -1,13 +1,14 @@
 package ConKUeror.domain.model.Board;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 
-public class Die {
+public class Die  implements Serializable{
 
     private static Die dieInstance = null;
 

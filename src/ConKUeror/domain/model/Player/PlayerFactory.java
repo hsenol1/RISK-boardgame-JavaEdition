@@ -3,6 +3,7 @@ package ConKUeror.domain.model.Player;
 
 import java.util.List;
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import ConKUeror.domain.model.Player.Strategies.ComputerPlayer.ComputerPlayerAttack;
@@ -12,7 +13,7 @@ import ConKUeror.domain.model.Player.Strategies.RealPlayer.RealPlayerAttack;
 import ConKUeror.domain.model.Player.Strategies.RealPlayer.RealPlayerDeploy;
 import ConKUeror.domain.model.Player.Strategies.RealPlayer.RealPlayerFortify;
 
-public class PlayerFactory {
+public class PlayerFactory implements Serializable {
 
     //PlayerFactory is implemented with singleton pattern.
 
@@ -35,6 +36,59 @@ public class PlayerFactory {
 
     }
 
+    public Player createColoredPlayer(String type,String name, Color color) {
+
+        Player player=null;
+
+        if (name == null) {
+            throw new IllegalArgumentException("Player name cannot be null");
+        }
+
+       if(type.equals("Real Player")) {
+
+           PlayerInventory inv = new PlayerInventory();
+           RealPlayerDeploy db =new RealPlayerDeploy();
+           RealPlayerAttack ab =new RealPlayerAttack();
+           RealPlayerFortify fb =new RealPlayerFortify();
+
+           if (searchName(name) && (name.length() != 0)) {
+
+            player = new Player(name,db,ab,fb,inv);
+
+            player.setType("Real");
+
+            player.setColor(color);
+            playerNames.add(name);
+           }
+
+       }
+
+       else if (type.equals("Computer Player")) {
+
+            PlayerInventory inv = new PlayerInventory();
+            ComputerPlayerDeploy db = new ComputerPlayerDeploy();
+            ComputerPlayerAttack ab = new ComputerPlayerAttack();
+            ComputerPlayerFortify fb = new ComputerPlayerFortify();
+
+
+            player = new Player(name, db, ab, fb,inv);
+
+           
+            player.setType("Computer");
+
+
+            player.setColor(color);
+
+       }
+
+       else {
+        throw new IllegalArgumentException("Invalid player type: " + type);
+       }
+
+       return player;
+
+
+    }
     public Player createPlayer(String type,String name) {
 
         Player player=null;
@@ -92,7 +146,9 @@ public class PlayerFactory {
     public void setColorToPlayer(Player player) {
         player.setColor(playerColors.get(colorIndex));
         colorIndex++;
-
+        if (colorIndex >= playerColors.size()) {
+            colorIndex = 0;
+        }
     }
 
     public boolean searchName(String playerName) {

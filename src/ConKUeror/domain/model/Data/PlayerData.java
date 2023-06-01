@@ -12,6 +12,7 @@ import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Board.ChanceCard;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Board.TerritoryCard;
+import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerInventory;
 
@@ -28,6 +29,7 @@ public class PlayerData implements Serializable{
     private String playerType;
     private Color playerColor;
     private Player player;
+   
     public PlayerData(Player player) {
         this.playerName = player.getName();
         this.cavalryCount = player.getInventory().getCavalryCount();

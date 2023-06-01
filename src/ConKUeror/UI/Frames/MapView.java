@@ -32,7 +32,7 @@ import ConKUeror.UI.PauseScreen.PauseScreen;
 import ConKUeror.domain.controller.ButtonHandler;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.HandlerFactory;
-import ConKUeror.domain.controller.IUIRefreshListener;
+
 import ConKUeror.domain.controller.MapHandler;
 import ConKUeror.domain.controller.MapListener;
 import ConKUeror.domain.controller.RollDieListener;
@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener{
+public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener{
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
@@ -72,7 +72,7 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
     List<TerritoryButton> buttonHistory = new ArrayList<TerritoryButton>();
 
 
-    public BufferedImage image;
+    public transient  BufferedImage image;
     JPanel mapPanel;
     String armyNum =String.valueOf(0);
     Boolean disable = false;
@@ -135,6 +135,9 @@ public void addMapFrameAsListenerForRollEvent(){
 public void setPanels() {
 /// may be used.
 }
+public List<TerritoryButton> getTerritoryButtonsList(){
+    return territoryButtonsList;
+}
 
 
 private void displayTerritoryInfo(Territory territory, JPanel panel) {
@@ -177,7 +180,7 @@ public void initGUI() throws IOException {
         image = ImageIO.read(getClass().getResourceAsStream("/images/Map.png"));
         setSize((int) (1.20 * image.getWidth()), image.getHeight());
         mapPanel = new JPanel() {
-            BufferedImage backgroundImage = image;
+            transient BufferedImage backgroundImage = image;
 
             @Override
             public void paintComponent(Graphics g) {
@@ -416,9 +419,9 @@ private class PauseButtonHandler implements ActionListener {
        // String turn = PlayerExpert.getPlayerInTurn().getName();
         
         this.playerList = PlayerExpert.getPlayersList();
+    
 
-
-        PauseScreen pauseScreen = new PauseScreen(mapView, frame, playerList, gameHandler);       
+        PauseScreen pauseScreen = new PauseScreen(frame, playerList, gameHandler);       
 
         pauseScreen.setVisible(true);
     }
@@ -469,24 +472,14 @@ private class HelpButtonHandler implements ActionListener {
             System.out.println(p.getInventory().getTotalArmy());
         }
         */
-        public void refreshUI() {
-            // TODO: Add code here to refresh the UI.
-            // This might include repainting certain components, revalidating panels, updating labels, etc.
-            // Without specifics of what components are in your UI and how they need to be refreshed, this is just a placeholder method.
-
-            // Revalidate and repaint panels and frame, this will reflect the changes in the UI
-            mapPanel.revalidate();
-            mapPanel.repaint();
-            updatePlayerPanel();
-            revalidate();
-            repaint();
-        }
+      
 
 @Override
 public void setTerritoryButtonInfo(int buttonId,int armyUnit, Color color,int territoryArmy) {
 
     System.out.print("ŞU AN TESTTEYİM");
     TerritoryButton button = territoryButtonsList.get(buttonId);
+    
     button.setColor(color);
      Font labelFont = new Font("Arial", Font.PLAIN, 11);
      button.setFont(labelFont);
@@ -521,13 +514,6 @@ public void updateTerritory(int buttonID, int deployedArmy) {
 
 
 }
-
-@Override
-    public void onUIRefreshRequested() {
-        System.out.println("refresh requested");
-        refreshUI();
-        
-    }
 
 
 
