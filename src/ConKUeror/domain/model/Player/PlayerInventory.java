@@ -33,6 +33,7 @@ private int armies;
 private List<TerritoryCard> territoryCards;
 private List<ChanceCard> chanceCards;
 private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
+private static int MAX_ARMY_CARD_PER_TURN = 1;
 
 private static final List<String> NORTH_AMERICA = Arrays.asList("Territory Card 0", "Territory Card 1", "Territory Card 2", "Territory Card 5", "Territory Card 3", "Territory Card 4", "Territory Card 6", "Territory Card 7", "Territory Card 8");
 private static final List<String> SOUTH_AMERICA = Arrays.asList("Territory Card 9", "Territory Card 10", "Territory Card 11", "Territory Card 12");
@@ -52,6 +53,14 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
     }
     public List<TerritoryCard> getTerritoryCards() {
         return territoryCards;
+    }
+
+    public int getDrawCardRequest() {
+        return MAX_ARMY_CARD_PER_TURN;
+    }
+
+    public void setDrawCardRequest(int i) {
+        MAX_ARMY_CARD_PER_TURN = i;
     }
 
     public Army getArmy() {
@@ -312,6 +321,8 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
         }
     }
 
+
+
     public int getNumberOfArmies() {
         int totalArmies = 0;
 
@@ -444,19 +455,45 @@ public void addTerritoryButtonListener(TerritoryButtonListener lis) {
   }
 
 public void useChanceCard() {
-    ChanceCard chanceCardTurn = new ChanceCard("COUP", ChanceCard.ChanceType.COUP);
+    // ChanceCard chanceCardTurn = new ChanceCard("COUP", ChanceCard.ChanceType.COUP);
+    ChanceCard chanceCardTurn = new ChanceCard("DRAFT", ChanceCard.ChanceType.DRAFT);
+    Player cardUser = PlayerExpert.getPlayerInTurn();
     switch(chanceCardTurn.getType()) {
         case COUP:
-            Player cardUser = PlayerExpert.getPlayerInTurn();
-
-            Territory t = Board.getCurrenTerritory();
-            t.setOwner(cardUser);
+            
+            useCoup(cardUser);
+            // Territory t = Board.getCurrenTerritory();
+            // t.setOwner(cardUser);
           
 
-            setTerritoryInfo(t.getId(), cardUser.getInventory().getTotalArmy(),cardUser.getColor(), t.getTotalUnit());
+            // setTerritoryInfo(t.getId(), cardUser.getInventory().getTotalArmy(),cardUser.getColor(), t.getTotalUnit());
+        case DRAFT:
+            useDraft(cardUser);
+
+        case SABOTAGE:
+            
+
         default: 
             return;
     }
+
+}
+
+public void useCoup(Player p) {
+    Territory t = Board.getCurrenTerritory();
+    t.setOwner(p);
+    setTerritoryInfo(t.getId(), p.getInventory().getTotalArmy(),p.getColor(), t.getTotalUnit());
+}
+
+
+public void useSabotage() {
+    Territory t = Board.getCurrenTerritory();
+    Player p = t.getOwner();
+
+}
+
+public void useDraft(Player p) {
+    p.getInventory().setDrawCardRequest(3);
 
 }
 
