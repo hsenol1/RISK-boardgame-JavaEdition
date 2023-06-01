@@ -175,6 +175,7 @@ public class ActionButton extends JButton implements ActionListener{
                 case 2:
                   //  buttonHandler.nextPhase();
                    buttonHandler.endTurn();
+                   buttonHandler.setArmyCardtoDefault();
 
                     break;
 

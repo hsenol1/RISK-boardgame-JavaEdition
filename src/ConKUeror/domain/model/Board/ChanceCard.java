@@ -5,7 +5,7 @@ import ConKUeror.domain.model.Player.Player;
 public class ChanceCard extends Card {
 
     public enum ChanceType {
-        REINFORCEMENTS, COUP, REVOLT, SECRETWEAPON, DRAFT
+        REINFORCEMENTS, COUP, REVOLT, SECRETWEAPON, DRAFT, SABOTAGE
     }
 
     private ChanceType type;

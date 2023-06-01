@@ -345,6 +345,10 @@ if(FortifyMode.canFortify()) {
         gMode.addNButtonListener(pPanel);
     }
 
+    public void setArmyCardtoDefault() {
+        gMode.setArmyCardNumbertoDefault();
+    }
+
 
     public void addTerritoryCard() {
         gMode.addTerritoryCard();
