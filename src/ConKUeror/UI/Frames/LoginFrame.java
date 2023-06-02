@@ -9,7 +9,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -22,16 +24,21 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import ConKUeror.UI.Buttons.TerritoryButton;
 import ConKUeror.domain.controller.BuildHandler;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.controller.SaveLoadHandler;
 import ConKUeror.domain.controller.StartHandler;
+import ConKUeror.domain.model.Board.Board;
+import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Data.GameState;
 import ConKUeror.domain.model.Data.PlayerData;
 import ConKUeror.domain.model.Modes.BuildMode;
 import ConKUeror.domain.model.Modes.StartMode;
 import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Player.PlayerFactory;
 
 public class LoginFrame extends JFrame {
     private JButton newGameButton;
@@ -39,7 +46,7 @@ public class LoginFrame extends JFrame {
     private GameState gameState;
     private StartMode startMode;
     private SaveLoadHandler saveLoadHandler = new SaveLoadHandler();
-
+    private List<Player> playerList;
     public LoginFrame() {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(240, 240, 240)); 
@@ -119,39 +126,81 @@ public class LoginFrame extends JFrame {
 
     public void startLoadedGame(List<PlayerData> loadedPlayerDataList) {
         HandlerFactory controller = HandlerFactory.getInstance();
-        BuildHandler buildHandler = controller.giveBuildHandler();
-
+        playerList = new ArrayList<Player>();
+        //BuildHandler buildHandler = controller.giveBuildHandler();
         int botCount = 0;
+        PlayerExpert.setPlayerInTurn(gameState.getPlayerInTurn());
+        PlayerFactory playerFactory = PlayerFactory.getInstance();
+        StartHandler startHandler = controller.giveStartHandler();
+
+
+        
+
         // Initialize the players using the loaded player data
         for (PlayerData playerData : loadedPlayerDataList) {
-            if (playerData.getPlayerType().equals("Computer")) {
-                botCount++;
-                buildHandler.initalizeBots(botCount); // Initialize bot player.
-            } else {
-                Player player = playerData.getPlayer();
-                // Set the player's inventory and other attributes based on the loaded data
-                player.getInventory().setCavalryCount(playerData.getCavalryCount());
-                player.getInventory().setInfantryCount(playerData.getInfantryCount());
-                player.getInventory().setArtilleryCount(playerData.getArtilleryCount());
-                buildHandler.enterNameForRealPlayers(playerData.getPlayerName());
-                player.getInventory().setOwnedTerritories(playerData.getTerritories());
-                player.setColor(playerData.getPlayerColor());
-                // Insert the player back into the system
-                //geri sisteme nasıl sokuyoruz onun haricinde bütün verileri topluyo
-            }
-        }
-        StartHandler startHandler = controller.giveStartHandler();
-        startHandler.setStartMode();
+            Player player = playerData.getPlayer();
+            playerList.add(player); // Use the loaded Player object directly
+            controller.getGameLogic().setGamePhaseIndex(gameState.getGamePhase());
+            // Set the player's inventory and other attributes based on the loaded data
+            player.getInventory().setCavalryCount(playerData.getCavalryCount());
+            player.getInventory().setInfantryCount(playerData.getInfantryCount());
+            player.getInventory().setArtilleryCount(playerData.getArtilleryCount());
+    
+            player.getInventory().setOwnedTerritories(playerData.getTerritories());
+    
+            player.setColor(playerData.getPlayerColor());
+            player.setName(playerData.getPlayerName());
+            Board board = startHandler.getBoard();
+            Map<Integer, Territory> hashMap = board.getTerritories();
 
+            if (playerData.getPlayerType().equals("Computer")) {
+                 // Initialize bot player.
+                 botCount++;
+            } else {
+               playerFactory.createColoredPlayer(player.getType() + " Player", player.getName(), player.getColor());
+                // Insert the player back into the system
+                //buildHandler.initializeColoredPlayers(player.getName(),player.getColor());
+                
+            }
+           // buildHandler.initalizeColoredBots(botCount, player.getColor());
+        }
+        
+        startHandler.setLoadedStartMode(gameState);;
+        PlayerExpert.setPlayersList(playerList);
         // Start the game
         try {
             MapView map = new MapView();
+           for(PlayerData playerData: loadedPlayerDataList){
+            Player p2 = playerData.getPlayer();
+            List<Territory> owned = p2.getInventory().getOwnedTerritories();
+            p2.setColor(playerData.getPlayerColor());
+            for(Territory t : owned){
+                t.getArmy().addArtilleries(p2.getInventory().getArtilleryCount());
+                t.getArmy().addCavalries(p2.getInventory().getCavalryCount());
+                t.getArmy().addInfantries(p2.getInventory().getInfantryCount());
+                t.setOwner(p2);
+                t.setTotalUnit(p2.getInventory().getNumberOfArmies());
+                //map.updateTerritory(t.getId(), t.getTotalUnit());
+                 
+                controller.getGameLogic().setTerritoryInfo(t.getId(), t.getTotalUnit(), p2.getColor(), t.getTotalUnit());
+               
+                
+                
+        
+                
+            }
+
+         
+           }
+            
+            
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-
+    
         this.dispose(); 
     }
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(LoginFrame::new);

@@ -8,12 +8,14 @@
   import javax.swing.SwingUtilities;
   import javax.swing.Timer;
 
-  import java.awt.Color;
-  import java.awt.event.ActionEvent;
-  import java.awt.event.ActionListener;
-  import java.util.ArrayList;
-  import java.util.HashSet;
-  import java.util.LinkedHashMap;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.Serializable;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 
   import ConKUeror.UI.Buttons.TerritoryButton;
   import ConKUeror.domain.controller.CardController;
@@ -38,7 +40,7 @@
   import ConKUeror.domain.model.Player.PlayerInventory;
 
 
-  public class GameLogic {
+  public class GameLogic implements Serializable {
 
     private Board board;
     private PlayerInventory p;
@@ -488,7 +490,10 @@
       public int getGamePhaseAsIndex() {
           return phaseIndex;
 
-  }
+}
+  public void setGamePhaseIndex(int n){
+    this.phaseIndex = n;
+    }
       public void moveToOtherPhase() {
 
 

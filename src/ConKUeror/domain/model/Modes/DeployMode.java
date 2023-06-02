@@ -1,10 +1,12 @@
 package ConKUeror.domain.model.Modes;
 
+import java.io.Serializable;
+
 import ConKUeror.domain.model.Army.Army;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 
-public class DeployMode {
+public class DeployMode  implements Serializable{
     static int deployedArmy;
 
 

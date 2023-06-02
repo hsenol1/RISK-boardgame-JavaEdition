@@ -1,5 +1,6 @@
 package ConKUeror.domain.model.Board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import ConKUeror.domain.model.Army.Soldier;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 
-public class DiceRoller {
+public class DiceRoller implements Serializable{
 
     private static DiceRoller diceRollerInstance = null;
     Die die;

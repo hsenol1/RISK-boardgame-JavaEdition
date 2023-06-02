@@ -1,13 +1,16 @@
 package ConKUeror.domain.model.Modes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import ConKUeror.domain.controller.CardController;
 import ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.model.Board.Card;
+import ConKUeror.domain.model.Data.GameState;
 import ConKUeror.domain.model.Player.Player;
 
-public class StartMode {
+public class StartMode  implements Serializable{
     private int playerCount;
     private BuildMode buildMode;
     private static List<Player> orderedPlayerList;
@@ -26,6 +29,16 @@ public class StartMode {
         HandlerFactory controller = HandlerFactory.getInstance();
         CardController cardController = controller.giveCardController();
         cardController.initializeDeck(orderedPlayerList,42); // just created 4 territory based.
+
+    }
+
+    public void startLoadedGame(GameState gameState){
+
+        orderedPlayerList = gameState.getOrderedList();
+        this.playerCount = gameState.getPlayerData().size();
+        HandlerFactory controller = HandlerFactory.getInstance();
+        CardController cardController = controller.giveCardController();
+        cardController.initializeDeck(orderedPlayerList, 42);
 
     }
 

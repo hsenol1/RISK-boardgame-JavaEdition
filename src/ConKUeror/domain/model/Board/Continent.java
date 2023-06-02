@@ -1,11 +1,12 @@
 package ConKUeror.domain.model.Board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class Continent {
+public class Continent implements Serializable {
     
     private String name;
     private List<Territory> territories;

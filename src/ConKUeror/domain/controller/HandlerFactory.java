@@ -1,11 +1,13 @@
 package ConKUeror.domain.controller;
 
+import java.io.Serializable;
+
 import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Modes.BuildMode;
 import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Modes.StartMode;
 
-public class HandlerFactory {
+public class HandlerFactory implements Serializable {
 
     private GameLogic gameLogic;
     private Board board;
@@ -20,6 +22,9 @@ public class HandlerFactory {
         startMode = new StartMode(buildMode);
         gameLogic = new GameLogic(board, startMode);
 
+    }
+    public GameLogic getGameLogic(){
+        return gameLogic;
     }
 
     public static HandlerFactory getInstance() {

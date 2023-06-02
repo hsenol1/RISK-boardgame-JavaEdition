@@ -6,9 +6,10 @@ import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Player.Player;
 import java.util.List;
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PlayerExpert {
+public class PlayerExpert implements Serializable {
 
 
     private static PlayerExpert playerExpertInstance = null;

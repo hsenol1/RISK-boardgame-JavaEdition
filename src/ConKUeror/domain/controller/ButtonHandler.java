@@ -1,6 +1,7 @@
 package ConKUeror.domain.controller;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ import ConKUeror.domain.model.Player.PlayerInventory;
 import ConKUeror.domain.model.Board.Die;
 import ConKUeror.domain.model.Board.DiceRoller;
 
-public class ButtonHandler{
+public class ButtonHandler implements Serializable{
     private static ButtonHandler instance;
     private BuildMode bMode;
     private GameLogic gMode;
