@@ -73,7 +73,7 @@ public class PlayerFactory implements Serializable {
 
             player = new Player(name, db, ab, fb,inv);
 
-           
+
             player.setType("Computer");
 
 
@@ -89,7 +89,7 @@ public class PlayerFactory implements Serializable {
 
 
     }
-    public Player createPlayer(String type,String name) {
+    public Player  createPlayer(String type,String name) {
 
         Player player=null;
 
@@ -150,6 +150,10 @@ public class PlayerFactory implements Serializable {
             colorIndex = 0;
         }
     }
+    public void resetPlayerNames() {
+        playerNames = new ArrayList<String>();
+    }
+
 
     public boolean searchName(String playerName) {
         for (int i = 0; i < playerNames.size(); i++) {
