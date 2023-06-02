@@ -1,8 +1,10 @@
 package ConKUeror.domain.model.Modes;
 
+import java.io.Serializable;
+
 import ConKUeror.domain.model.Board.Territory;
 
-public class FortifyMode {
+public class FortifyMode implements Serializable {
     static int fortifiedArmy;
 static Boolean canFortify = false;
 

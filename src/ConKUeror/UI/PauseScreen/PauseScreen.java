@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ConKUeror.domain.controller.GameHandler;
+import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.model.Data.GameState;
 import ConKUeror.domain.model.Data.PlayerData;
+import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerInventory;
 
-import ConKUeror.domain.controller.IUIRefreshListener;
+
 import ConKUeror.domain.controller.SaveLoadHandler;
 public class PauseScreen extends JDialog {
    
@@ -20,15 +22,17 @@ public class PauseScreen extends JDialog {
     private GameState gameState;
     private SaveLoadHandler saveLoadHandler = new SaveLoadHandler();
     private List<Player> playerList;
-    private IUIRefreshListener uiRefreshListener;
+   private GameLogic gameLogic;
+   private HandlerFactory handlerFactory; 
     private List<PlayerData> playerDataList;
-    public PauseScreen(IUIRefreshListener uiRefreshListener,Frame pauseButtonHandler, List<Player> playerList, GameHandler gameHandler) {
+    public PauseScreen(Frame pauseButtonHandler, List<Player> playerList, GameHandler gameHandler) {
         super(pauseButtonHandler, "Game is Paused", true);
-       
+       this.handlerFactory = HandlerFactory.getInstance();
+       this.gameLogic = handlerFactory.getGameLogic();
         this.gameHandler = gameHandler;
         this.playerList = playerList;
        this.playerDataList = new ArrayList<>();
-        this.uiRefreshListener = uiRefreshListener;
+
         JLabel label = new JLabel("Game is Paused", SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.BOLD, 20));
         label.setPreferredSize(new Dimension(300, 100));
@@ -42,9 +46,12 @@ public class PauseScreen extends JDialog {
                 try {
                     for(Player p: playerList){
                         System.out.println(p.getName());
+                        
                     }
                     generatePlayerDatas(this.playerList);
-                    gameState = new GameState(playerDataList);
+                    
+
+                    gameState = new GameState(playerDataList,gameLogic);
                     saveLoadHandler.saveGame(fileName,gameState);
                     JOptionPane.showMessageDialog(this, "Game saved successfully.");
                 } catch (IOException ex) {

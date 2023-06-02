@@ -1,11 +1,12 @@
 package ConKUeror.domain.controller;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Modes.GameLogic;
 
-public class MapHandler {
+public class MapHandler implements Serializable {
     GameLogic game;
     private static MapHandler instance ;
 
