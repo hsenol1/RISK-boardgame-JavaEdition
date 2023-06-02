@@ -3,6 +3,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.awt.Color;
+
 
 import ConKUeror.domain.model.Army.Army;
 import ConKUeror.domain.model.Player.Player;
@@ -19,6 +21,8 @@ public class Territory implements Serializable {
     private Player owner;
     private Army army;
     private boolean isFree;
+    private Color territoryColor;
+
 
 
 
@@ -42,6 +46,13 @@ public class Territory implements Serializable {
         return name;
     }
 
+    public void setColor(Color color) {
+        this.territoryColor = color;
+    }
+
+    public Color getColor() {
+        return this.territoryColor;
+    }
 
 
     public int getId() {
