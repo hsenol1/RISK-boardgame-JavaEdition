@@ -35,7 +35,7 @@ public class PlayerFactory {
 
     }
 
-    public Player createPlayer(String type,String name) {
+    public Player  createPlayer(String type,String name) {
 
         Player player=null;
 
@@ -93,6 +93,9 @@ public class PlayerFactory {
         player.setColor(playerColors.get(colorIndex));
         colorIndex++;
 
+    }
+    public void resetPlayerNames() {
+        playerNames = new ArrayList<String>();
     }
 
     public boolean searchName(String playerName) {
