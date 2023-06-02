@@ -125,8 +125,11 @@ public void addMapFrameAsListener() {
 
 public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
     buttonHandler.registerAsTerritoryListener(this);
+    buttonHandler.registerAsTerritoryListenerPINV(this);
 
 }
+
+
 
 public void addMapFrameAsListenerForRollEvent(){
     buttonHandler.registerAsRollListener(this);

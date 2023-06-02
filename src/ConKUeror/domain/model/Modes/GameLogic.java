@@ -386,17 +386,33 @@ public class GameLogic {
 
   }
 
+  public void useChanceCard() {
+    playerInTurn.inv.useChanceCard();
+  }
+
+
+  public void setArmyCardNumbertoDefault() {
+    playerInTurn.getInventory().setDrawCardRequest(1);
+  }
+
 
 
   public void addArmyCard() {
         CardController cc = CardController.getInstance();
-        ArmyCard aCard = cc.drawArmyCard(playerInTurn);
-        if (aCard != null) {
-            playerInTurn.inv.addArmyCard(aCard);
-            System.out.println(aCard.getName());
-
-
+        int numberOfDraw = playerInTurn.getInventory().getDrawCardRequest();
+        for (int i = 0; i < numberOfDraw; i++) {
+            ArmyCard aCard = cc.drawArmyCard(playerInTurn);
+           
+            if (aCard != null) {
+                playerInTurn.inv.addArmyCard(aCard);
+                System.out.println(aCard.getName());
+    
+    
+            }
         }
+
+        playerInTurn.getInventory().setDrawCardRequest(0);
+     
 
   }
 
@@ -590,8 +606,10 @@ public class GameLogic {
 
         case CHANCECARD:
           System.out.println("Card");
+          
           this.phaseIndex=3;
-
+          this.inputTerritory = t;
+          prepareTerritory(t);
           break;
 
         case DEPLOY:
