@@ -39,7 +39,7 @@ public class ButtonHandler{
     private Territory[] memory;
     private TerritoryButton selectedButton;
 
-    
+
     private ArrayList<Infantry> attackingInfantries;
     private ArrayList<Cavalry> attackingCavalries;
     private ArrayList<Artillery> attackingArtilleries;
@@ -128,6 +128,14 @@ if(FortifyMode.canFortify()) {
 
     }
 
+    public void resetColorOfTerritoryButton(TerritoryButton b) {
+         int  buttonID =  b.getID();
+        Territory t = Board.getTerritories().get(buttonID);
+        b.resetColor(t.getColor());
+
+
+}
+
     public void addConnection() {
 
        // System.out.prinzt("add connection methodundayım");
@@ -172,7 +180,7 @@ if(FortifyMode.canFortify()) {
         attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size());
         attackingArmyPanel.setMaxCavalryValue(gMode.memory[0].getArmy().getCavalryList().size());
         attackingArmyPanel.setMaxArtilleryValue(5);
-        
+
 
         //ideally this is how the values should be set
         // attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size());

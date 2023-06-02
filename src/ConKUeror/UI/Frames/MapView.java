@@ -304,10 +304,12 @@ public void createTerritoryButtons() {
 
                 }
                 else if (e.getButton() == MouseEvent.BUTTON3) {
+                  ButtonHandler bHandler = HandlerFactory.getInstance().giveButtonHandler();
 
                     for (TerritoryButton b: buttonHistory) {
-                        b.resetColor();
-                    }
+
+                        bHandler.resetColorOfTerritoryButton(b);
+                        }
                     buttonHistory.clear();
 
                 }
@@ -363,7 +365,6 @@ public void removeOnboardEvent(TerritoryButton button) {
     public void getButtonList(List<Integer> neigborIdsList) {
         // TODO Auto-generated method stub
 
-     //   System.out.println("Map View classına kadar gelen bir connection methodu var");
 
         for (int i = 0; i < neigborIdsList.size(); i++) {
             TerritoryButton button = territoryButtonsList.get(neigborIdsList.get(i));
@@ -400,11 +401,11 @@ public void removeOnboardEvent(TerritoryButton button) {
         mapPanel.revalidate();
         mapPanel.repaint();
 
-    }  
+    }
 
 private class PauseButtonHandler implements ActionListener {
 
-    
+
     private List<Player> playerList;
     private MapView mapView;
 
@@ -417,11 +418,11 @@ private class PauseButtonHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
        // String turn = PlayerExpert.getPlayerInTurn().getName();
-        
+
         this.playerList = PlayerExpert.getPlayersList();
 
 
-        PauseScreen pauseScreen = new PauseScreen(mapView, frame, playerList, gameHandler);       
+        PauseScreen pauseScreen = new PauseScreen(mapView, frame, playerList, gameHandler);
 
         pauseScreen.setVisible(true);
     }
@@ -529,7 +530,7 @@ public void updateTerritory(int buttonID, int deployedArmy) {
     public void onUIRefreshRequested() {
         System.out.println("refresh requested");
         refreshUI();
-        
+
     }
 
 

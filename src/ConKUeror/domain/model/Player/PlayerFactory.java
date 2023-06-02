@@ -20,7 +20,7 @@ public class PlayerFactory {
     private PlayerFactory() {};
     private List<String> playerNames = new ArrayList<String>();
     private List<Color> playerColors;
-    private int colorIndex= 0;
+    public int colorIndex= 0;
 
     public static PlayerFactory getInstance() {
         if(instance==null) {
@@ -72,7 +72,7 @@ public class PlayerFactory {
 
             player = new Player(name, db, ab, fb,inv);
 
-           
+
             player.setType("Computer");
 
 
