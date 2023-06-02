@@ -1,5 +1,6 @@
 package ConKUeror.domain.model.Player;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +13,8 @@ import java.util.List;
 
 import ConKUeror.domain.model.Board.Card;
 import ConKUeror.domain.model.Board.ArmyCard.ArmyType;
+import ConKUeror.domain.model.Board.ChanceCard.ChanceType;
+import ConKUeror.domain.controller.TerritoryButtonListener;
 import ConKUeror.domain.model.Army.Army;
 import ConKUeror.domain.model.Board.*;;;;
 public class PlayerInventory implements Serializable {
@@ -29,7 +32,8 @@ private List<Continent> ownedContinents = new ArrayList<>();
 private int armies;
 private List<TerritoryCard> territoryCards;
 private List<ChanceCard> chanceCards;
-
+private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
+private static int MAX_ARMY_CARD_PER_TURN = 1;
 
 private static final List<String> NORTH_AMERICA = Arrays.asList("Territory Card 0", "Territory Card 1", "Territory Card 2", "Territory Card 5", "Territory Card 3", "Territory Card 4", "Territory Card 6", "Territory Card 7", "Territory Card 8");
 private static final List<String> SOUTH_AMERICA = Arrays.asList("Territory Card 9", "Territory Card 10", "Territory Card 11", "Territory Card 12");
@@ -45,9 +49,18 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
         this.ownedTerritories = new ArrayList<>();
         this.territoryCards = new ArrayList<>();
         this.armies = 0;
+       
     }
     public List<TerritoryCard> getTerritoryCards() {
         return territoryCards;
+    }
+
+    public int getDrawCardRequest() {
+        return MAX_ARMY_CARD_PER_TURN;
+    }
+
+    public void setDrawCardRequest(int i) {
+        MAX_ARMY_CARD_PER_TURN = i;
     }
 
     public Army getArmy() {
@@ -284,7 +297,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
             System.out.println("Test Case 3 occured, transition happening.");
             addArtilleries(2);
           // removeInfantries(2);
-          removeInfantryCard(2);
+            removeInfantryCard(2);
             //removeArtilleries(1);
             removeArtilleryCard(1);
         }
@@ -307,6 +320,8 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
 
         }
     }
+
+
 
     public int getNumberOfArmies() {
         int totalArmies = 0;
@@ -427,6 +442,61 @@ public void deleteCards(Card c[]) {
 
     }
 }
+
+public void addTerritoryButtonListener(TerritoryButtonListener lis) {
+    territoryButtonListeners.add(lis);
+  }
+
+  
+  public void setTerritoryInfo(int ID, int armyUnit, Color color,int territoryArmy) {
+    for(TerritoryButtonListener l: territoryButtonListeners) {
+      l.setTerritoryButtonInfo(ID, armyUnit, color,territoryArmy);
+    }
+  }
+
+public void useChanceCard() {
+    // ChanceCard chanceCardTurn = new ChanceCard("COUP", ChanceCard.ChanceType.COUP);
+    ChanceCard chanceCardTurn = new ChanceCard("DRAFT", ChanceCard.ChanceType.DRAFT);
+    Player cardUser = PlayerExpert.getPlayerInTurn();
+    switch(chanceCardTurn.getType()) {
+        case COUP:
+            
+            useCoup(cardUser);
+            // Territory t = Board.getCurrenTerritory();
+            // t.setOwner(cardUser);
+          
+
+            // setTerritoryInfo(t.getId(), cardUser.getInventory().getTotalArmy(),cardUser.getColor(), t.getTotalUnit());
+        case DRAFT:
+            useDraft(cardUser);
+
+        case SABOTAGE:
+            
+
+        default: 
+            return;
+    }
+
+}
+
+public void useCoup(Player p) {
+    Territory t = Board.getCurrenTerritory();
+    t.setOwner(p);
+    setTerritoryInfo(t.getId(), p.getInventory().getTotalArmy(),p.getColor(), t.getTotalUnit());
+}
+
+
+public void useSabotage() {
+    Territory t = Board.getCurrenTerritory();
+    Player p = t.getOwner();
+
+}
+
+public void useDraft(Player p) {
+    p.getInventory().setDrawCardRequest(3);
+
+}
+
 
 
 }

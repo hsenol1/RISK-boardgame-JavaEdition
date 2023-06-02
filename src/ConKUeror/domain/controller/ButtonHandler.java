@@ -15,6 +15,7 @@ import ConKUeror.UI.Frames.MapView;
 import ConKUeror.UI.Panels.ArmyCardWindow;
 import ConKUeror.UI.Panels.ArmySelectionPanel;
 import ConKUeror.UI.Panels.AttackingArmyPanel;
+import ConKUeror.UI.Panels.ChanceCardWindow;
 import ConKUeror.UI.Panels.PlayerInteractionPanel;
 import ConKUeror.domain.enums.GameMode;
 import ConKUeror.domain.model.Army.Artillery;
@@ -28,6 +29,7 @@ import ConKUeror.domain.model.Modes.FortifyMode;
 import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
+import ConKUeror.domain.model.Player.PlayerInventory;
 import ConKUeror.domain.model.Board.Die;
 import ConKUeror.domain.model.Board.DiceRoller;
 
@@ -38,7 +40,7 @@ public class ButtonHandler implements Serializable{
     private Territory[] memory;
     private TerritoryButton selectedButton;
 
-    
+
     private ArrayList<Infantry> attackingInfantries;
     private ArrayList<Cavalry> attackingCavalries;
     private ArrayList<Artillery> attackingArtilleries;
@@ -127,6 +129,14 @@ if(FortifyMode.canFortify()) {
 
     }
 
+    public void resetColorOfTerritoryButton(TerritoryButton b) {
+         int  buttonID =  b.getID();
+        Territory t = Board.getTerritories().get(buttonID);
+        b.resetColor(t.getColor());
+
+
+}
+
     public void addConnection() {
 
        // System.out.prinzt("add connection methodundayım");
@@ -171,7 +181,7 @@ if(FortifyMode.canFortify()) {
         attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size());
         attackingArmyPanel.setMaxCavalryValue(gMode.memory[0].getArmy().getCavalryList().size());
         attackingArmyPanel.setMaxArtilleryValue(5);
-        
+
 
         //ideally this is how the values should be set
         // attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size());
@@ -227,6 +237,8 @@ if(FortifyMode.canFortify()) {
 
 
     }
+
+
     public void fortify() {
         Player playerInTurn = PlayerExpert.getPlayerInTurn();
          memory = getMemoryList();
@@ -281,8 +293,20 @@ if(FortifyMode.canFortify()) {
 	}
 
     public void nextPhase() {
-        gMode.increasePhaseIndex();
-        gMode.moveToOtherPhase();
+
+        if(gMode.getGameMode() == GameMode.START) {
+            if(PlayerExpert.getPlayerInTurn().getType().equals("Real")) {
+                System.out.println("PLAYER TYPE" + PlayerExpert.getPlayerInTurn().getType());
+                gMode.increasePhaseIndex();
+                gMode.moveToOtherPhase();
+            }
+        } else {
+
+            gMode.increasePhaseIndex();
+            gMode.moveToOtherPhase();
+        }
+
+
 
     }
 
@@ -314,6 +338,12 @@ if(FortifyMode.canFortify()) {
         gMode.addTerritoryButtonListener(territoryListener);
     }
 
+    public void registerAsTerritoryListenerPINV(TerritoryButtonListener territoryListener) {
+        for (Player p : PlayerExpert.getPlayersList()) {
+            p.getInventory().addTerritoryButtonListener(territoryListener);
+        }
+    }
+
 
      public void registerAsRollListener( RollDieListener rollDieListener) {
         gMode.addRollDieListener(rollDieListener);
@@ -322,6 +352,10 @@ if(FortifyMode.canFortify()) {
 
     public void registerNextAsListener(PlayerInteractionPanel pPanel) {
         gMode.addNButtonListener(pPanel);
+    }
+
+    public void setArmyCardtoDefault() {
+        gMode.setArmyCardNumbertoDefault();
     }
 
 
@@ -357,6 +391,16 @@ if(FortifyMode.canFortify()) {
     public void setAttackingArmyCount(int armyCount)
     {
         gMode.setAttackingArmyUnit(armyCount);
+    }
+
+
+    public void showChanceCardInfo() {
+        ChanceCardWindow window = new ChanceCardWindow("This is a coup card, select a territory and pick use!");
+        window.createChanceWindow();
+    }
+
+    public void useChanceCard() {
+        gMode.useChanceCard();
     }
 
 

@@ -12,6 +12,7 @@ import javax.swing.JButton;
 
 import ConKUeror.domain.controller.ButtonHandler;
 import ConKUeror.domain.controller.HandlerFactory;
+import ConKUeror.domain.model.Board.Board;
 
 
 
@@ -42,13 +43,14 @@ public class TerritoryButton extends JButton {
         setBackground(color);
     }
 
-    public void resetColor() {
+    public void resetColor(Color territoryColor) {
 
-        ButtonHandler buttonHandler = HandlerFactory.getInstance().giveButtonHandler();
-       Color color =  buttonHandler.getPlayerColor();
-        setBackground(color);
+
+        setBackground(territoryColor);
 
     }
+
+
 
     public void setArmyValue(int number) {
 

@@ -76,7 +76,7 @@ public class PlayerExpert implements Serializable {
 
     public static void addPlayersList(Player player) {
         players.add(player);
-        System.out.println(player.getName() +  " was " + "HERE");
+        //System.out.println(player.getName() +  " was " + "HERE");
     }
 
     public static List<Player> getPlayersList() {

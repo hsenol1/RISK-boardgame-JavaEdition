@@ -60,6 +60,8 @@ public class GameLogic implements Serializable {
 
   DiceRoller diceRoller = DiceRoller.getDiceRollerInstance();
   private Player playerInTurn;
+  private Player playerInTurn2;
+
 
   private int attackingArmyUnit;
   private Player cardPlayer;
@@ -81,7 +83,7 @@ public class GameLogic implements Serializable {
 
       this.startMod = sMode;
       this.board = board;
-       rand = new Random();
+      rand = new Random();
 
     }
 
@@ -180,9 +182,6 @@ public class GameLogic implements Serializable {
             if(!unoccupiedTerritories.isEmpty()) {
 
               int size =  unoccupiedTerritories.size();
-
-
-
               int randomTerritoryId = rand.nextInt(UNOCCUPIED_FIXED_SIZE);
               Territory t = unoccupiedTerritories.get(randomTerritoryId);
 
@@ -195,6 +194,7 @@ public class GameLogic implements Serializable {
 
               playerInTurn.getInventory().removeInfantries(1);
               t.setOwner(playerInTurn);
+              t.setColor(playerInTurn.getColor());
               t.addInfantries(1);
               playerInTurn.getInventory().addTerritory(t);
               setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
@@ -207,9 +207,8 @@ public class GameLogic implements Serializable {
               int randomTerritoryId = rand.nextInt(size);
               Territory t = ownedTerritories.get(randomTerritoryId);
 
-                randomTerritoryId = rand.nextInt(size);
-                t = ownedTerritories.get(randomTerritoryId);
-
+              randomTerritoryId = rand.nextInt(size);
+              t = ownedTerritories.get(randomTerritoryId);
 
               playerInTurn.getInventory().removeInfantries(1);
               t.addInfantries(1);
@@ -217,6 +216,16 @@ public class GameLogic implements Serializable {
               passToNextPlayer(playerInTurn);
 
           }
+
+      } else {
+
+        if(playerInTurn.getType().equals("Real")) {
+          System.out.println("This is Real Player. Something is not right.");
+        } else if(playerInTurn.getInventory().getTotalArmy()<= 0 ) {
+          System.out.println("Computer Player doesnt have army to choose a territory.");
+
+        }
+
 
       }
 
@@ -251,6 +260,11 @@ public class GameLogic implements Serializable {
     public void setFirstPlayer() {
      // System.out.println(orderedPlayerList.get(0).getName() );
       this.playerInTurn = orderedPlayerList.get(0);
+    }
+
+    public void setPlayerInTurn(Player player) {
+
+      this.playerInTurn = player;
     }
 
 
@@ -375,17 +389,33 @@ public class GameLogic implements Serializable {
 
   }
 
+  public void useChanceCard() {
+    playerInTurn.inv.useChanceCard();
+  }
+
+
+  public void setArmyCardNumbertoDefault() {
+    playerInTurn.getInventory().setDrawCardRequest(1);
+  }
+
 
 
   public void addArmyCard() {
         CardController cc = CardController.getInstance();
-        ArmyCard aCard = cc.drawArmyCard(playerInTurn);
-        if (aCard != null) {
-            playerInTurn.inv.addArmyCard(aCard);
-            System.out.println(aCard.getName());
-
-
+        int numberOfDraw = playerInTurn.getInventory().getDrawCardRequest();
+        for (int i = 0; i < numberOfDraw; i++) {
+            ArmyCard aCard = cc.drawArmyCard(playerInTurn);
+           
+            if (aCard != null) {
+                playerInTurn.inv.addArmyCard(aCard);
+                System.out.println(aCard.getName());
+    
+    
+            }
         }
+
+        playerInTurn.getInventory().setDrawCardRequest(0);
+     
 
   }
 
@@ -523,6 +553,7 @@ public class GameLogic implements Serializable {
     public void prepareGame(Territory t,GameMode gameMode) throws InterruptedException {
 
       PlayerExpert.setPlayerInTurn(playerInTurn);
+     if (playerInTurn == null || playerInTurn.getType().equals("Real")) {
 
       switch(gameMode) {
 
@@ -552,11 +583,13 @@ public class GameLogic implements Serializable {
         case START:
         this.inputTerritory = t;
         this.phaseIndex=2;
+
         if (playerInTurn.getInventory().getTotalArmy()>0) {
 
           if(t.getOwner() ==  null) {
             playerInTurn.getInventory().removeInfantries(1);
             t.setOwner(playerInTurn);
+            t.setColor(playerInTurn.getColor());
             t.addInfantries(1);
             playerInTurn.getInventory().addTerritory(t);
             setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
@@ -579,8 +612,10 @@ public class GameLogic implements Serializable {
 
         case CHANCECARD:
           System.out.println("Card");
+          
           this.phaseIndex=3;
-
+          this.inputTerritory = t;
+          prepareTerritory(t);
           break;
 
         case DEPLOY:
@@ -660,6 +695,8 @@ public class GameLogic implements Serializable {
 
       }
 
+    }
+
 
 
     }
@@ -704,7 +741,7 @@ public class GameLogic implements Serializable {
       try
       {
         Army defendingArmy = memory[1].getArmy();
-        
+
         playerInTurn.attack(attackingInfantries, attackingCavalries, attackingArtilleries, defendingArmy);
       }
       catch (NullPointerException e)

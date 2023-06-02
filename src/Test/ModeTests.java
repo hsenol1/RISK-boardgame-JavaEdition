@@ -114,7 +114,6 @@ class ModeTests {
     assertEquals(fiveInfantry, deployedInfantryCount,"5 army deployed ");
 
 
-
 }
 
 
