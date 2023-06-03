@@ -75,7 +75,7 @@ class BoardClassTest {
 
     /*
     *Test that a territory can be removed and is removed correctly.
-    *This is a GLASSBOX test.
+    *This is a GLASSBOX test
     */
 
     @Test
