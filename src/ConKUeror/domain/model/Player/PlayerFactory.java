@@ -89,6 +89,24 @@ public class PlayerFactory implements Serializable {
 
 
     }
+     /*
+     * Function: createPlayer
+     * 
+     * Requires: 
+     *      - type: a String representing the type of player ("Real Player" or "Computer Player")
+     *      - name: a String representing the name of the player. It should not be null or empty.
+     * 
+     * Modifies: 
+     *      - playerNames: If the name is unique and the player is a "Real Player", the name is added to the list of player names.
+     *      - colorIndex: the colorIndex is incremented each time a player is created.
+     *      - Player object: The function creates a new Player object with the given type, name, and color.
+     *      
+     * Effects: 
+     *      - Returns a new Player object if the type and name are valid.
+     *      - Throws IllegalArgumentException if the type is not valid or the name is null.
+     *      - If the player type is "Real Player" and the name is not unique or is an empty string, the function returns null.
+     * 
+     */
     public Player  createPlayer(String type,String name) {
 
         Player player=null;
