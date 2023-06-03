@@ -13,6 +13,26 @@ import java.util.LinkedHashMap;
 
 public class Board implements Serializable{
 
+ /*
+  * OVERVIEW: The Board class represents the game board in the game, consisting of
+  * territories grouped into continents. Each territory can be unoccupied at the beginning of the game
+  * and they can be occupied by a player.
+ */
+ /*
+ * The abstraction function is
+ * AF(c) = { "Board with " + c.continents.size() + " continents. Each territory in each
+ * continent may be owned by a Player or unoccupied" }
+ */
+/*
+ *The rep invariant is:
+ * RI(c) = (c.continents != null) && (c.territories != null) && (c.unoccupiedTerritories != null) &&
+ * (Every territory in territories belongs to exactly one continent in continents) &&
+ * (Every territory in unoccupiedTerritories is also present in territories)
+ */
+
+
+
+
 private Continent ASIA;
 private Continent NORTH_AMERICA;
 private Continent SOUTH_AMERICA;
@@ -23,12 +43,11 @@ private Continent AUSTRALIA;
 private static Territory currentTerritory;
 private static List<Continent> continents = new ArrayList<>();
 static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
-
-
- private static Map<Integer, Territory> territories= new HashMap<>();
+private static Map<Integer, Territory> territories= new HashMap<>();
 
     public  Board() {
         initAllTerritoriesAndContinents();
+        initUnoccupiedTerritories();
 
     }
 
@@ -40,8 +59,6 @@ static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
     public static Map<Integer, Territory> getUnoccupiedTerritories() {
         return unoccupiedTerritories;
     }
-
-
 
 
     public static Map<Integer, Territory> getTerritories() {
@@ -69,20 +86,25 @@ static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
     public void removeTerritory() {
         int indexToRemove  = currentTerritory.getId();
         System.out.println("this is the selected button id to remove: " +indexToRemove);
-
         territories.remove(indexToRemove);
 
 
     }
-    public static void setTerritoryOwner(String territoryName, Player newOwner) {
+
+    public static List<Continent> getContinents() {
+        return continents;
+    }
+
+    public static Continent getContinentByName(String name) {
         for (Continent continent : continents) {
-            Territory territory = continent.getTerritoryByName(territoryName);
-            if (territory != null) {
-                territory.setOwner(newOwner);
-                break;
+            if (continent.getName().equals(name)) {
+                return continent;
             }
         }
+        return null;
     }
+
+
     public static Continent getContinentByTerritory(String territoryName) {
         for (Continent continent : continents) {
             if (continent.containsTerritory(territoryName)) {
@@ -119,91 +141,23 @@ static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
 
 
     }
-    public Player choosePlayerForAlliance(Player currentPlayer) {
-        // to choose another player for alliance
-        return null;
+    public boolean repOk() {
+        if (continents == null || territories == null || unoccupiedTerritories == null) return false;
+
+        for (Continent continent : continents) {
+            if (continent == null || continent.getTerritories() == null) return false;
+            for (Territory territory : continent.getTerritories()) {
+                if (!territories.containsValue(territory)) return false;
+            }
+        }
+
+        for (Territory territory : unoccupiedTerritories.values()) {
+            if (!territories.containsValue(territory)) return false;
+        }
+
+        return true;
     }
 
-
-    public void formAlliance(Player player1, Player player2) {
-        //  to form an alliance between player1 and player2
-    }
-
-
-    public int rollDiceForReinforcements() {
-        //  roll dice and determine the number of reinforcements
-        return 0;
-    }
-
-
-    public Territory chooseTerritoryToReinforce(Player player) {
-        // to let the player choose a territory to reinforce
-        return null;
-    }
-
-
-    public int rollDiceForSabotage() {
-        //  to roll dice and determine the number of armies to remove
-        return 0;
-    }
-
-
-    public Territory chooseTerritoryToSabotage(Player player) {
-        //  to let the player choose an opponent's territory to sabotage
-        return null;
-    }
-
-
-    public Territory chooseTerritoryToConquer(Player player) {
-        //  to let the player choose an opponent's territory to conquer
-        return null;
-    }
-
-
-    public Territory chooseAttackingTerritory(Player player) {
-        //  to let the player choose a territory to attack from
-        return null;
-    }
-
-
-    public Territory chooseDefendingTerritory(Player player, Territory attackingTerritory) {
-        //  to let the player choose an opponent's territory to attack
-        return null;
-    }
-
-
-    public void performSurpriseAttack(Territory attackingTerritory, Territory defendingTerritory, int additionalArmies) {
-        //  to perform a surprise attack
-    }
-
-
-    public int rollDiceForSurpriseAttack() {
-        // to roll dice and determine the number of additional armies for surprise attack
-        return 0;
-    }
-
-
-    public Territory chooseTerritoryToProtect(Player player) {
-        //  to let the player choose a territory to protect from attack
-        return null;
-    }
-
-
-    public void protectTerritoryFromAttack(Territory territory) {
-        // Implement your logic to protect a territory from attack for one turn
-    }
-
-
-    public int rollDiceForMercenaries() {
-        // to roll dice and determine the number of additional armies for hiring mercenaries
-        return 0;
-    }
-
-
-    public Territory chooseTerritoryToDeployMercenaries(Player player) {
-       // to let the player choose a territory to deploy mercenaries
-        return null;
-    }
 
 
     public void initAllTerritoriesAndContinents() {

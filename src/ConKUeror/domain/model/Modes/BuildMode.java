@@ -18,7 +18,6 @@ import ConKUeror.domain.model.Player.PlayerFactory;
     public class BuildMode implements Serializable {
 
     private ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
-    // private List<Player> players = new ArrayList<Player>();
     private List<BuildModeListener> listeners = new ArrayList<>();
     private int totalPlayerCount;
     private int humanPlayerCount;
@@ -41,7 +40,6 @@ import ConKUeror.domain.model.Player.PlayerFactory;
     }
 
     public List<Player> getPlayers() {
-       //  return this.players;
        return playerExpert.getPlayersList();
     }
 
@@ -186,8 +184,8 @@ import ConKUeror.domain.model.Player.PlayerFactory;
         if (player != null) {
             playerExpert.addPlayersList(player);
             totalPlayerCount++;
-            
-          
+
+
         }
 
         else {
@@ -208,95 +206,9 @@ import ConKUeror.domain.model.Player.PlayerFactory;
         }
     }
 
-    public boolean repOK() {
-        // Check that coordinates is not null and is not empty
-        if (coordinates == null || coordinates.isEmpty()) {
-            System.out.println("Coordinates is null or empty");
-            return false;
-        }
-    
-        // Check that listeners is not null
-        if (listeners == null) {
-            System.out.println("Listeners is null");
-            return false;
-        }
-    
-        // Check that playerFactory and playerExpert are not null
-        if (playerFactory == null || playerExpert == null) {
-            System.out.println("PlayerFactory or PlayerExpert is null");
-            return false;
-        }
-    
-        // Check that playerColors is not null
-        if (playerColors == null) {
-            System.out.println("PlayerColors is null");
-            return false;
-        }
-    
-        // Check totalPlayerCount is within range
-        if (totalPlayerCount < 0 || totalPlayerCount > PLAYER_COUNT_VALUES[PLAYER_COUNT_VALUES.length - 1]) {
-            System.out.println("Invalid totalPlayerCount: " + totalPlayerCount);
-            return false;
-        }
-    
-        // Check humanPlayerCount is non-negative and not greater than totalPlayerCount
-        if (humanPlayerCount < 0 || humanPlayerCount > totalPlayerCount) {
-            System.out.println("Invalid humanPlayerCount: " + humanPlayerCount);
-            return false;
-        }
-    
-        // Check botPlayerCount is non-negative and not greater than totalPlayerCount
-        if (botPlayerCount < 0 || botPlayerCount > totalPlayerCount) {
-            System.out.println("Invalid botPlayerCount: " + botPlayerCount);
-            return false;
-        }
-    
-        // playerIndexIterator should be non-negative
-        if (playerIndexIterator < 0) {
-            System.out.println("Invalid playerIndexIterator: " + playerIndexIterator);
-            return false;
-        }
-    
-        // playerColors should have the same size as totalPlayerCount
-        if (playerColors.size() != totalPlayerCount) {
-            System.out.println("Mismatch in playerColors size: expected " + totalPlayerCount + ", actual " + playerColors.size());
-            return false;
-        }
-    
-        // The sum of humanPlayerCount and botPlayerCount should be equal to totalPlayerCount
-        if (humanPlayerCount + botPlayerCount != totalPlayerCount) {
-            System.out.println("Mismatch in player counts: humanPlayerCount = " + humanPlayerCount + ", botPlayerCount = " + botPlayerCount + ", totalPlayerCount = " + totalPlayerCount);
-            return false;
-        }
-    
-        // All coordinates in the list should be non-null
-        for (Coordinate coord : coordinates) {
-            if (coord == null) {
-                System.out.println("Coordinate is null");
-                return false;
-            }
-        }
-    
-        // All listeners in the list should be non-null
-        for (BuildModeListener listener : listeners) {
-            if (listener == null) {
-                System.out.println("Listener is null");
-                return false;
-            }
-        }
-    
-        // All player colors in the list should be non-null
-        for (Color color : playerColors) {
-            if (color == null) {
-                System.out.println("Player color is null");
-                return false;
-            }
-        }
-    
-        return true;
-    }
-     
-     
+
+
+
     public int getPlayerCount() {
 
         return this.totalPlayerCount;
