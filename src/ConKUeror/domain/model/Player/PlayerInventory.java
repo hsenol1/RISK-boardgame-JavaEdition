@@ -260,16 +260,26 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
 
 
 
-
+    /* 
+     * Requires: 
+     * Modifies: this.ArmyCards, Army.cavalryList, Army.infantryList, Army.artilleryList
+     * Effects: No return value, Terminal String output is provided. 
+     * 
+     * 
+     * 
+     */
 
 
     public void useArmyCards(int type) {
+
+        System.out.println("Use Army Card operation is done. Leaving...");
         boolean validation = isValid(type);
         if (!validation) {
-            System.out.println("you can not use army cards, because not valid!");
+            System.out.println("Not valid type!");
             return;
         }
 
+        
 
 
         if (type == 1) {
@@ -319,6 +329,9 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
 
 
         }
+
+
+        
     }
 
 
