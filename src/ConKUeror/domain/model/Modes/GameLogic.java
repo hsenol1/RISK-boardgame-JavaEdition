@@ -499,7 +499,6 @@ import java.util.LinkedHashMap;
 
           if(currentGameMode== GameMode.BUILD) {
               setGameMode(GameMode.CONNECTION);
-              board.initUnoccupiedTerritories();
               unoccupiedTerritories = board.getUnoccupiedTerritories();
 
           }
