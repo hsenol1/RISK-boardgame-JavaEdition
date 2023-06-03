@@ -27,7 +27,7 @@ class BoardClassTest {
 
 
     /*
-    *Testing that repOk returns true after initialization
+    *Testing that repOk returns true after initialization.
     *This is a BLACKBOX test.
     */
     @Test
@@ -36,7 +36,7 @@ class BoardClassTest {
     }
 
     /*
-    *Testing that the unoccupied territories map is identical to the territories map after initialization
+    *Testing that the unoccupied territories map is identical to the territories map after initialization.
     *This is a BLACKBOX test.
     */
 
@@ -46,7 +46,7 @@ class BoardClassTest {
     }
 
     /*
-    *Test that we get correct continent based on territory ID
+    *Test that we get correct continent based on territory ID.
     *This is a GLASSBOX test.
     */
 
@@ -74,7 +74,7 @@ class BoardClassTest {
 
 
     /*
-    *Test that a territory can be removed and is removed correctly
+    *Test that a territory can be removed and is removed correctly.
     *This is a GLASSBOX test.
     */
 
@@ -87,7 +87,7 @@ class BoardClassTest {
     }
 
     /*
-    *Testing that all continents are initialized and have the correct number of territories
+    *Testing that all continents are initialized and have the correct number of territories.
     *This is a BLACKBOX test.
     */
 
