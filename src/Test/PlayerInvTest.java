@@ -48,15 +48,16 @@ public class PlayerInvTest {
     static ArmyCard artilleryCard;
     
     
-    private final PrintStream standardOut = System.out;
+    private final static PrintStream standardOut = System.out;
     private final static ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     
    
 
-
+    //// IN THIS TEST, PLAYERINVENTORY.USEARMYCARDS() IS USED.
+    /// FIRST 4 ARE WHITEBOX - IF ELSE - / LAST ONE IS BLACK BOX.
 
     @BeforeAll
-    void beforeAll() {
+    static void beforeAll() {
         System.setOut(new PrintStream(outputStreamCaptor));
         cardController = CardController.getInstance();
         playerFactory = PlayerFactory.getInstance();
@@ -111,7 +112,7 @@ public class PlayerInvTest {
 
     }
 
-    @AfterAll
+    @AfterEach
     public void afterEach() {
         System.setOut(standardOut);
     }
@@ -119,7 +120,7 @@ public class PlayerInvTest {
     @Test
     public void isTypeValid() {
     
-        playerTurn4.getInventory().useArmyCards(9); // there are only 5 types.
+        playerTurn5.getInventory().useArmyCards(9); // there are only 5 types.
 
         assertEquals("Not valid type!", outputStreamCaptor.toString().trim());
 
@@ -169,18 +170,21 @@ public class PlayerInvTest {
     }
 
 
+
+
+
     @Test
-    public void successfulConvertPrint() {
-        int before_Cavalry_Number = playerTurn5.getInventory().getArmy().getArtilleries();
+    public void noMatterWhat_ClickedIncreased() {
+        int randomNumber = 123;
 
-        playerTurn5.getInventory().useArmyCards(5);
+        int previous =  playerTurn5.getInventory().returnClicked();
 
-        int after_Cavalry_Number = playerTurn5.getInventory().getArmy().getArtilleries();
+        playerTurn5.getInventory().useArmyCards(randomNumber);
 
-        assertEquals(after_Cavalry_Number,before_Cavalry_Number + 3, "Army has 2 extra cavalries!");
-       
-        
 
+        int current = playerTurn5.getInventory().returnClicked();
+
+        assertEquals(current,previous + 1, "Army has 2 extra cavalries!");
     }
 
 
