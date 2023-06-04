@@ -34,6 +34,7 @@ private List<TerritoryCard> territoryCards;
 private List<ChanceCard> chanceCards;
 private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
 private static int MAX_ARMY_CARD_PER_TURN = 1;
+private static int CLICKED_ARMY_BUTTON = 0;
 
 private static final List<String> NORTH_AMERICA = Arrays.asList("Territory Card 0", "Territory Card 1", "Territory Card 2", "Territory Card 5", "Territory Card 3", "Territory Card 4", "Territory Card 6", "Territory Card 7", "Territory Card 8");
 private static final List<String> SOUTH_AMERICA = Arrays.asList("Territory Card 9", "Territory Card 10", "Territory Card 11", "Territory Card 12");
@@ -256,6 +257,10 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
         }
     }
 
+    public int returnClicked() {
+        return CLICKED_ARMY_BUTTON;
+    }
+
 
 
 
@@ -271,8 +276,9 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
 
 
     public void useArmyCards(int type) {
+        CLICKED_ARMY_BUTTON++;
 
-        System.out.println("Use Army Card operation is done. Leaving...");
+        
         boolean validation = isValid(type);
         if (!validation) {
             System.out.println("Not valid type!");
@@ -287,6 +293,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
             addCavalries(1);
 
             removeInfantryCard(3);
+            return;
 
 
         }
@@ -295,11 +302,9 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
 
             addCavalries(2);
             removeInfantryCard(2);
-           //removeInfantries(2);
-            // deleteArmyCards(0, 2);
-            // deleteArmyCards(2, 1);
             removeCavalryCard(1);
-           // removeCavalries(1);
+
+           return;
 
         }
 
@@ -310,6 +315,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
             removeInfantryCard(2);
             //removeArtilleries(1);
             removeArtilleryCard(1);
+            return;
         }
 
         else if (type == 4) {
@@ -318,6 +324,8 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
             addArtilleries(1);
             removeInfantryCard(1);
             removeCavalryCard(2);
+            return;
+
         }
 
 
@@ -326,7 +334,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
             addArtilleries(3);
             removeArtilleryCard(1);
             removeCavalryCard(2);
-
+            return;
 
         }
 
