@@ -170,6 +170,14 @@ if(FortifyMode.canFortify()) {
         return i;
     }
 
+    /*
+     * REQUIRES: gMode.memory[0] != null
+     * MODIFIES:
+     *  List<Infantry> attackingInfantries
+     *  List<Cavalry> attackingCavalries
+     *  List<Artillery> attackingArtilleries
+     * EFFECTS:
+     */
     public void increaseArmyCount()
     {
         // System.out.print("increase army count methodundayım");
@@ -181,7 +189,7 @@ if(FortifyMode.canFortify()) {
         //i had to put these because otherwise territories without any cavalry or artillery create a problem
         attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size());
         attackingArmyPanel.setMaxCavalryValue(gMode.memory[0].getArmy().getCavalryList().size());
-        attackingArmyPanel.setMaxArtilleryValue(5);
+        attackingArmyPanel.setMaxArtilleryValue(gMode.memory[0].getArmy().getArtilleryList().size());
 
 
         //ideally this is how the values should be set
