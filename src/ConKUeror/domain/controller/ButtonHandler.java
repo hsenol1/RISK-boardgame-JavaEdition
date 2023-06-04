@@ -45,6 +45,7 @@ public class ButtonHandler implements Serializable{
     private ArrayList<Cavalry> attackingCavalries;
     private ArrayList<Artillery> attackingArtilleries;
 
+    
     private ButtonHandler(BuildMode bMode, GameLogic gMode) {
             this.bMode = bMode;
             this.gMode = gMode;
@@ -405,7 +406,15 @@ if(FortifyMode.canFortify()) {
 
 
 
-
+    public ArrayList<Infantry> getAttackingInfantries() {
+        return attackingInfantries;
+    }
+    public ArrayList<Cavalry> getAttackingCavalries() {
+        return attackingCavalries;
+    }
+    public ArrayList<Artillery> getAttackingArtilleries() {
+        return attackingArtilleries;
+    }
 
 
 
