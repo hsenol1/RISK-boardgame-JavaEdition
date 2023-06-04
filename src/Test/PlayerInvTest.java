@@ -160,9 +160,9 @@ public class PlayerInvTest {
 
 
     @Test
-    public void notEnoughCards() {
-        // // this time, not valid due to lack of cards.
-
+    public void validOutputSys() { 
+    
+        // correct output.
          playerTurn3.getInventory().useArmyCards(2);
 
          assertEquals("Test Case 2 occured, transition happening.", outputStreamCaptor.toString().trim());
