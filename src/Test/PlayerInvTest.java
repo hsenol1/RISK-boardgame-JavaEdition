@@ -66,6 +66,9 @@ public class PlayerInvTest {
         Color green = Color.GREEN;
         colorList.add(green);
         playerFactory.setColorList(colorList);
+
+
+        
         playerTurn1 = playerFactory.createPlayer("Real Player", "Test Player");
         playerInventory = playerTurn1.getInventory();
         playerTurn2 =  playerFactory.createPlayer("Real Player", "Test2 Player");

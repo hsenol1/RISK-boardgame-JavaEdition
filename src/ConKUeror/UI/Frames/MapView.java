@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -24,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import ConKUeror.UI.Buttons.TerritoryButton;
+import ConKUeror.UI.Frames.ArrowAnimation.Arrow;
 import ConKUeror.UI.HelpScreen.HelpScreen;
 import ConKUeror.UI.Panels.InfoPanel;
 import ConKUeror.UI.Panels.PlayerInteractionPanel;
@@ -49,6 +52,21 @@ import java.util.List;
 
 
 public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener{
+
+    Integer[][]  line_width_ends = new Integer[43][43];
+    Float[][] line_width_neighborTerritories = new Float[43][43];
+    private float arrow_x;
+    private float arrow_y;
+    float path_width;
+    float path_height;
+    float line_height;
+    float line_width;
+    Graphics2D g2d;
+    float path_width_end;
+    float path_height_end;
+    float line_height_end;
+    float line_width_end;
+
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
@@ -173,6 +191,75 @@ private void displayTerritoryInfo(Territory territory, JPanel panel) {
 
 
 }
+private Arrow arrow = new Arrow();
+
+private int territory_id = -1;
+
+
+public void animation(int territory_id,Integer [] neighborterritorId) { // REQUIRES: Territory_id should be between 0 and 41 && neighborterritorId
+    // should have a size of 42. The red line starting from the button territory_id
+    // should end to its neighbor buttons territoryId.
+    
+    
+    // EFFECTS: Returns a red line object starting from the button territory_id
+    // ends to the buttons index of its neighborterritorId  .
+
+for(int i =0;i<neighborterritorId.length;i++) {
+
+
+float neighbor_x= buttonHandler.getBuildMode().getCoordinateList().get(neighborterritorId[i]).getX();
+float neighbor_y= buttonHandler.getBuildMode().getCoordinateList().get(neighborterritorId[i]).getY();
+
+
+
+float distance_neighbor_x = arrow_x - neighbor_x;
+float distance_neighbor_y = arrow_y - neighbor_y;
+
+System.out.println("Distance x: " + distance_neighbor_x);
+System.out.println("Distance y: " + distance_neighbor_y);
+
+double angle =  distance_neighbor_y/distance_neighbor_x;
+
+
+
+double degree =  Math.toDegrees(Math.atan(angle));
+
+
+
+double distance_neighbor_x_square = distance_neighbor_x*distance_neighbor_x;
+double distance_neighbor_y_square = distance_neighbor_y*distance_neighbor_y;
+
+double distance_overall = (float) Math.sqrt(distance_neighbor_x_square+distance_neighbor_y_square);
+
+System.out.println("Distance x: "+ distance_neighbor_x);
+System.out.println("Distance y: "+ distance_neighbor_y);
+System.out.println(angle);
+System.out.println("Degree: "+ degree);
+
+
+
+if(distance_neighbor_y>0 && distance_neighbor_x<0)
+degree = degree;
+else if(distance_neighbor_y<0 && distance_neighbor_x<0)
+degree = degree;
+else if(distance_neighbor_y<0 && distance_neighbor_x>0)
+degree = degree-180;
+else if(distance_neighbor_y>0 && distance_neighbor_x>0)
+degree =180+ degree;
+
+System.out.println("Update Degree: "+ degree);
+line_width_ends[0][i] += 2;
+if(line_width_ends[0][i]>distance_overall)
+line_width_ends[0][i] = 0;
+
+arrow.draw(g2d, arrow_x, arrow_y, path_height,path_width-arrow_x, line_height, line_width_ends[0][i]+arrow_x,degree);
+
+
+
+
+}
+
+}
 
 
 
@@ -189,8 +276,365 @@ public void initGUI() throws IOException {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.drawImage(backgroundImage, 0, 0, null); // draw the image
+            
+                g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            
+                int width = getWidth();
+                int height = getHeight();
+             
+                
+                for(int i=0; i<43;i++) {
+
+
+
+                    if(i== territory_id) {
+            
+            
+                        line_height = 0.5f;
+                        path_height = 0.8f;
+            
+            
+            
+                        switch (territory_id) {
+                            case 0:
+            
+                        Integer [] array = new Integer[2];
+                        array[0] = 1;
+                        array[1] = 5;
+                            animation(territory_id,array);
+                     
+            
+                                break;
+            
+            
+                             case 1:
+                             Integer [] array1 = new Integer[5];
+                             array1[0] = 0;
+                             array1[1] = 5;
+                             array1[2] = 2;
+                             array1[3] = 4;
+                             array1[4] = 3;
+            
+                                             animation(territory_id,array1);
+            
+            
+                            
+                             break;
+            
+            
+                             case 2:
+            
+                             Integer [] array2 = new Integer[5];
+                             array2[0] = 1;
+                             array2[1] = 4;
+                             array2[2] = 3;
+                             array2[3] = 23;
+                             array2[4] = 22;
+                                           
+                             animation(territory_id,array2);
+            
+            
+                             break;
+            
+            
+            
+                             case 3:
+                              
+                             Integer [] array3 = new Integer[4];
+                             array3[0] = 2;
+                             array3[1] = 4;
+                             array3[2] = 7;
+                             array3[3] = 22;
+                                           
+                             animation(territory_id,array3);
+            
+            
+                             break;
+            
+            
+                             case 4:
+            
+                             Integer [] array4 = new Integer[6];
+                             array4[0] = 5;
+                              array4[1] = 2;
+                              array4[2] = 7;
+                              array4[3] = 6;
+                              array4[4] = 3;
+                              array4[5] = 1;
+            
+                                           
+                             animation(territory_id,array4);
+            
+                             
+                             break;
+            
+                             case 5:
+            
+                             Integer [] array5 = new Integer[4];
+                              array5[0] = 0;
+                              array5[1] = 1;
+                              array5[2] = 4;
+                              array5[3] = 6;
+                          
+            
+                                           
+                             animation(territory_id,array5);
+            
+            
+                             break;
+            
+                      
+                             case 6:
+            
+                             Integer [] array6 = new Integer[4];
+                              array6[0] = 5;
+                              array6[1] = 4;
+                              array6[2] = 7;
+                              array6[3] = 8;
+                          
+            
+                                           
+                             animation(territory_id,array6);
+            
+            
+                             break;
+            
+                 
+                             case 7:
+            
+                             Integer [] array7 = new Integer[7];
+                              array7[0] = 8;
+                              array7[1] = 6;
+                              array7[2] = 4;
+                              array7[3] = 3;
+                              array7[4] = 9;
+                              array7[5] = 22;
+                              array7[6] = 21;
+            
+            
+                                           
+                             animation(territory_id,array7);
+            
+            
+                             break;
+            
+            
+                 
+                             case 8:
+            
+                             Integer [] array8 = new Integer[4];
+                              array8[0] = 6;
+                              array8[1] = 7;
+                              array8[2] = 9;
+                              array8[3] = 21;
+                             
+            
+            
+                                           
+                             animation(territory_id,array8);
+            
+            
+                             break;
+            
+                             case 9:
+            
+                             Integer [] array9 = new Integer[5];
+                              array9[0] = 8;
+                              array9[1] = 21;
+                              array9[2] = 12;
+                              array9[3] = 10;
+                              array9[4] = 7;
+            
+            
+            
+                                           
+                             animation(territory_id,array9);
+            
+            
+                             break;
+            
+            
+            
+                             case 10:
+            
+                             Integer [] array10 = new Integer[3];
+                              array10[0] = 9;
+                              array10[1] = 12;
+                              array10[2] = 11;
+                             
+                                           
+                             animation(territory_id,array10);
+            
+            
+                             break;
+            
+                             case 11:
+            
+                             Integer [] array11 = new Integer[3];
+                              array11[0] = 12;
+                              array11[1] = 10;
+                              array11[2] = 15;
+            
+                                     
+                             animation(territory_id,array11);
+            
+            
+                             break;
+            
+            
+            
+                             case 12:
+            
+                             Integer [] array12 = new Integer[5];
+                              array12[0] = 9;
+                              array12[1] = 10;
+                              array12[2] = 11;
+                              array12[3] = 13;
+                              array12[4] = 21;
+            
+                      
+                             animation(territory_id,array12);
+            
+            
+                             break;
+            
+                             case 13:
+            
+                             Integer [] array13 = new Integer[6];
+                              array13[0] = 21;
+                              array13[1] = 20;
+                              array13[2] = 18;
+                              array13[3] = 17;
+                              array13[4] = 12;
+                              array13[5] = 14;
+            
+                      
+                             animation(territory_id,array13);
+            
+            
+                             break;
+            
+                             case 14:
+            
+                             Integer [] array14 = new Integer[4];
+                              array14[0] = 15;
+                              array14[1] = 17;
+                              array14[2] = 18;
+                              array14[3] = 13;
+            
+                      
+                             animation(territory_id,array14);
+            
+            
+                             break;
+            
+            
+                             
+                             case 15:
+            
+                             Integer [] array15 = new Integer[5];
+                              array15[0] = 11;
+                              array15[1] = 14;
+                              array15[2] = 15;
+                              array15[3] = 17;
+                              array15[4] = 16;
+            
+            
+                      
+                             animation(territory_id,array15);
+            
+            
+                             break;
+            
+                             case 16:
+            
+                             Integer [] array16 = new Integer[5];
+                              array16[0] = 15;
+                              array16[1] = 14;
+                              array16[2] = 17;
+                              array16[3] = 17;
+                              array16[4] = 41;
+            
+            
+                      
+                             animation(territory_id,array16);
+            
+            
+                             break;
+            
+            
+                             case 17:
+            
+                             Integer [] array17 = new Integer[5];
+                              array17[0] = 14;
+                              array17[1] = 13;
+                              array17[2] = 15;
+                              array17[3] = 19;
+                              array17[4] = 18;
+            
+            
+                      
+                             animation(territory_id,array17);
+            
+            
+                             break;
+            
+            
+            
+                             case 18:
+            
+                             Integer [] array18 = new Integer[4];
+                              array18[0] = 20;
+                              array18[1] = 13;
+                              array18[2] = 17;
+                              array18[3] = 19;
+                           
+            
+            
+                      
+                             animation(territory_id,array18);
+            
+            
+                             break;
+            
+            
+                             case 19:
+            
+                             Integer [] array19 = new Integer[6];
+                              array19[0] = 17;
+                              array19[1] = 18;
+                              array19[2] = 20;
+                              array19[3] = 26;
+                              array19[4] = 28;
+                              array19[5] = 29;
+                           
+                     
+                             animation(territory_id,array19);
+            
+            
+                             break;
+            
+            
+                            default:
+                                break;
+                        }
+                       
+                       System.out.println("Territory: "+ territory_id +"\n X Coordinate: " + arrow_x + "\nY Coordinate: " + arrow_y);        
+                    
+                    }
+                }            
+            
+            
+            
+            
+            
             }
         };
+
+
+
+
         mapPanel.setOpaque(false);
 
         //mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
@@ -241,9 +685,35 @@ public void initGUI() throws IOException {
 }
 
 
+
+
+
+Thread animationThread = new Thread(() -> {
+    while (true) {
+
+
+ 
+
+        
+        mapPanel.repaint();
+        try {
+            Thread.sleep(60);
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+        }
+    }
+ });
+
 public void createTerritoryButtons() {
 
     for(int i= 0 ; i<42 ; i++) {
+
+        for(int j= 0 ; j<42 ; j++) {
+            line_width_ends[i][j] = 0;
+            line_width_neighborTerritories[i][j] = 0.f;
+}
+
+
 
         int x = buttonHandler.getXFromList(i);
         int y = buttonHandler.getYFromList(i);
@@ -273,7 +743,33 @@ public void createTerritoryButtons() {
                     for (Territory t : memoryTerritory) {
                         System.out.println("Hello World");
                         if (t != null) {
+
+
+
                             System.out.println(t.getId());
+
+
+                            territory_id = t.getId();
+                            arrow_x= buttonHandler.getBuildMode().getCoordinateList().get(territory_id).getX();
+                            arrow_y= buttonHandler.getBuildMode().getCoordinateList().get(territory_id).getY();
+                          line_width =buttonHandler.getBuildMode().getCoordinateList().get(territory_id).getY();
+                          path_width = buttonHandler.getBuildMode().getCoordinateList().get(territory_id).getX();
+
+                          path_width_end = path_width;
+                          line_width_end =  0;
+                                try {
+                                    animationThread.start();
+
+                                } catch (Exception b) {
+                                     // TODO: handle exception
+                                 }
+                            
+
+
+
+
+
+
                         }
 
                         System.out.println("Bye World!");
