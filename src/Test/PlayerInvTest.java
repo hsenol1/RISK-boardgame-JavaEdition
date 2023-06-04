@@ -160,8 +160,8 @@ public class PlayerInvTest {
 
 
     @Test
-    public void notEnoughCards() {
-        // // this time, not valid due to lack of cards.
+    public void validOutputSys() {
+    
 
          playerTurn3.getInventory().useArmyCards(2);
 
