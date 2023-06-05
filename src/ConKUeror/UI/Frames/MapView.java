@@ -58,6 +58,8 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
   
     PauseScreen pauseScreen;
 
+    private int count = 0;
+    boolean threadStarter;
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
     StartHandler startHandler;
@@ -89,7 +91,6 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
     JFrame frame;
 
 
-
 public MapView() throws IOException {
 
     HandlerFactory controller =HandlerFactory.getInstance();
@@ -101,6 +102,7 @@ public MapView() throws IOException {
 
     initGUI();
 
+    
 
    // String openingMessage = startHandler.enterMessageString();
     //DialogBox box = new DialogBox(openingMessage,"Select territories" );
@@ -1124,11 +1126,14 @@ public void initGUI() throws IOException {
 
 
 
-Boolean threader = true;
-
 Thread animationThread = new Thread(() -> {
 
-    while (threader) {
+    // if(!pauseScreen.isVisible()) threader = true; 
+    while (threadStarter == true) {
+
+
+
+
 
 
 
@@ -1139,8 +1144,15 @@ Thread animationThread = new Thread(() -> {
          } catch (InterruptedException e) {
              e.printStackTrace();
         }
+
+
     }
  });
+
+
+ public void stop() {
+    threadStarter = false;
+ }
 
 public void createTerritoryButtons() {
 
@@ -1160,12 +1172,19 @@ public void createTerritoryButtons() {
         button.setBounds(x, y, 40, 40);
         button.setPreferredSize(new Dimension(40, 40));
         territoryButtonsList.add(button);
+
+    
         button.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(e.getButton()== MouseEvent.BUTTON1) {
                     System.out.println("MOUSE CLICKED TO TERRITORY");
+                    threadStarter = true;
+               
+                
+                    System.out.println("Count: "+ count);
+                 
                     try {
                         buttonHandler.matchButtonWithTerritory(button.getID());
                     } catch (InterruptedException e1) {
@@ -1342,29 +1361,42 @@ public void removeOnboardEvent(TerritoryButton button) {
 
 private class PauseButtonHandler implements ActionListener {
 
-
     private List<Player> playerList;
     private MapView mapView;
 
     public PauseButtonHandler(MapView mapView) {  // Modified constructor
         this.mapView = mapView;
+   
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
        // String turn = PlayerExpert.getPlayerInTurn().getName();
 
+       
+try {
+    
+} catch (Exception b) {
+    // TODO: handle exception
+
+}
+
+       
+
         this.playerList = PlayerExpert.getPlayersList();
     
 
         pauseScreen = new PauseScreen(frame, playerList, gameHandler);       
 
-        threader = false;
+
        
 
         pauseScreen.setVisible(true);
+
+
+       
+        
      
     }
 
@@ -1379,6 +1411,7 @@ private class HelpButtonHandler implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         new HelpScreen();
+        
     }
 
 }
