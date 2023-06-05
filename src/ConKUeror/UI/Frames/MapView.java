@@ -346,6 +346,7 @@ public void initGUI() throws IOException {
                              array3[1] = 4;
                              array3[2] = 7;
                              array3[3] = 22;
+                             array3[4] = 1;
                                            
                              animation(territory_id,array3);
             
