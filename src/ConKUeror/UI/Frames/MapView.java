@@ -181,6 +181,9 @@ private void displayTerritoryInfo(Territory territory, JPanel panel) {
 
 
 }
+
+
+
 private Arrow arrow = new Arrow();
 
 private int territory_id = -1;
@@ -342,7 +345,7 @@ public void initGUI() throws IOException {
             
                              case 3:
                               
-                             Integer [] array3 = new Integer[4];
+                             Integer [] array3 = new Integer[5];
                              array3[0] = 2;
                              array3[1] = 4;
                              array3[2] = 7;
@@ -358,7 +361,7 @@ public void initGUI() throws IOException {
                              case 4:
             
                              Integer [] array4 = new Integer[6];
-                             array4[0] = 5;
+                                array4[0] = 5;
                               array4[1] = 2;
                               array4[2] = 7;
                               array4[3] = 6;
