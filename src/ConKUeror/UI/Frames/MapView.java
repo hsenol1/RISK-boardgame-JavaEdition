@@ -886,10 +886,13 @@ public void initGUI() throws IOException {
             
 
 
-                             Integer [] array34 = new Integer[3];
+                             Integer [] array34 = new Integer[5];
                              array34[0] = 33;
                              array34[1] = 27;
                              array34[2] = 35;
+                             array34[3] = 30;
+                             array34[4] = 32;
+
                            
                            
                      
@@ -919,10 +922,11 @@ public void initGUI() throws IOException {
 
 
             
-                             Integer [] array36 = new Integer[3];
+                             Integer [] array36 = new Integer[4];
                              array36[0] = 31;
                              array36[1] = 33;
                              array36[2] = 35;
+                             array36[3] = 32;
                             
                            
                      
