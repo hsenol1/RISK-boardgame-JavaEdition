@@ -55,18 +55,8 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
 
     Integer[][]  line_width_ends = new Integer[43][43];
     Float[][] line_width_neighborTerritories = new Float[43][43];
-    private float arrow_x;
-    private float arrow_y;
-    float path_width;
-    float path_height;
-    float line_height;
-    float line_width;
-    Graphics2D g2d;
-    float path_width_end;
-    float path_height_end;
-    float line_height_end;
-    float line_width_end;
-
+  
+   
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
@@ -194,6 +184,17 @@ private void displayTerritoryInfo(Territory territory, JPanel panel) {
 private Arrow arrow = new Arrow();
 
 private int territory_id = -1;
+private float arrow_x;
+private float arrow_y;
+float path_width;
+float path_height;
+float line_height;
+float line_width;
+Graphics2D g2d;
+float path_width_end;
+float path_height_end;
+float line_height_end;
+float line_width_end;
 
 
 public void animation(int territory_id,Integer [] neighborterritorId) { // REQUIRES: Territory_id should be between 0 and 41 && neighborterritorId
@@ -303,7 +304,7 @@ public void initGUI() throws IOException {
                         array[0] = 1;
                         array[1] = 5;
                             animation(territory_id,array);
-                     
+                           
             
                                 break;
             
@@ -434,6 +435,7 @@ public void initGUI() throws IOException {
             
                                            
                              animation(territory_id,array8);
+                             
             
             
                              break;
@@ -852,11 +854,12 @@ public void initGUI() throws IOException {
 
 
             
-                             Integer [] array32 = new Integer[4];
+                             Integer [] array32 = new Integer[5];
                              array32[0] = 30;
                              array32[1] = 33;
                              array32[2] = 31;
                              array32[3] = 36;
+                             array32[4] = 34;
                              
                            
                      
