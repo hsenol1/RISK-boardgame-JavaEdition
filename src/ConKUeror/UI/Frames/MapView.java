@@ -572,6 +572,7 @@ public void initGUI() throws IOException {
                               array17[2] = 15;
                               array17[3] = 19;
                               array17[4] = 18;
+                              array17[5] = 38;
             
             
                       
