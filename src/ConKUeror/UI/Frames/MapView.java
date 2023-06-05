@@ -56,7 +56,7 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
     Integer[][]  line_width_ends = new Integer[43][43];
     Float[][] line_width_neighborTerritories = new Float[43][43];
   
-   
+    PauseScreen pauseScreen;
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
@@ -1124,13 +1124,13 @@ public void initGUI() throws IOException {
 
 
 
-
+Boolean threader = true;
 
 Thread animationThread = new Thread(() -> {
-    while (true) {
+
+    while (threader) {
 
 
- 
 
         
         mapPanel.repaint();
@@ -1359,12 +1359,13 @@ private class PauseButtonHandler implements ActionListener {
         this.playerList = PlayerExpert.getPlayersList();
     
 
-        PauseScreen pauseScreen = new PauseScreen(frame, playerList, gameHandler);       
+        pauseScreen = new PauseScreen(frame, playerList, gameHandler);       
 
-
+        threader = false;
        
 
         pauseScreen.setVisible(true);
+     
     }
 
 
