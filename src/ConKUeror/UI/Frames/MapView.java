@@ -56,7 +56,8 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
     Integer[][]  line_width_ends = new Integer[43][43];
     Float[][] line_width_neighborTerritories = new Float[43][43];
   
-    PauseScreen pauseScreen;
+    PauseScreen pauseScreen = new PauseScreen(null, null, null);
+    
 
     private int count = 0;
     boolean threadStarter;
@@ -1121,7 +1122,6 @@ public void initGUI() throws IOException {
     setVisible(true);
     createTerritoryButtons();
     createFunctionalityButtons();
-
 }
 
 
@@ -1129,13 +1129,7 @@ public void initGUI() throws IOException {
 Thread animationThread = new Thread(() -> {
 
     // if(!pauseScreen.isVisible()) threader = true; 
-    while (threadStarter == true) {
-
-
-
-
-
-
+    while (threadStarter) {
 
         
         mapPanel.repaint();
@@ -1214,9 +1208,25 @@ public void createTerritoryButtons() {
 
                           path_width_end = path_width;
                           line_width_end =  0;
-                                try {
-                                    animationThread.start();
+                          
 
+                          try {
+                                    
+
+
+                            
+                            if(count == 0)
+                                    animationThread.start();
+                                    
+                          count++;          
+                                    
+                                
+                                        animationThread.interrupt();
+                                    
+                                    
+                                    
+
+                                
                                 } catch (Exception b) {
                                      // TODO: handle exception
                                  }
@@ -1377,6 +1387,11 @@ private class PauseButtonHandler implements ActionListener {
        
 try {
     
+
+
+
+
+
 } catch (Exception b) {
     // TODO: handle exception
 
@@ -1387,12 +1402,16 @@ try {
         this.playerList = PlayerExpert.getPlayersList();
     
 
-        pauseScreen = new PauseScreen(frame, playerList, gameHandler);       
+       PauseScreen pauseScreen = new PauseScreen(frame, playerList, gameHandler);       
 
 
        
 
         pauseScreen.setVisible(true);
+
+
+        
+
 
 
        
