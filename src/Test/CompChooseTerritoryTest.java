@@ -65,6 +65,7 @@ public class CompChooseTerritoryTest {
             Color green = Color.GREEN;
             colorList.add(green);
             playerFactory.setColorList(colorList);
+            
 
             computerPlayer = playerFactory.createPlayer("Computer Player", "Player 1");
             realPlayer = playerFactory.createPlayer("Real Player", "Player 2");

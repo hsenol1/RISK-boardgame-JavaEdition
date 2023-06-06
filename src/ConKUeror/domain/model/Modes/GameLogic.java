@@ -44,7 +44,7 @@ import java.util.LinkedHashMap;
 
     private Board board;
     private PlayerInventory p;
-    private Territory inputTerritory;
+    public Territory inputTerritory;
     private ArrayList<Territory> inputTerritories = new ArrayList<Territory>();
     private List<MapListener> listeners = new ArrayList<>();
     private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
@@ -62,7 +62,8 @@ import java.util.LinkedHashMap;
     DiceRoller diceRoller = DiceRoller.getDiceRollerInstance();
     private Player playerInTurn;
 
-
+    public boolean isPrepareTerritoryCalled = false;
+    public boolean addToMemory_check = false;
     private int attackingArmyUnit;
     private Player cardPlayer;
     public Boolean selectedButton;
@@ -72,7 +73,7 @@ import java.util.LinkedHashMap;
     public Territory[] memory = new Territory[2];
     private int memoryIndex = 0;
 
-    private int phaseIndex= 0;
+    public int phaseIndex= 0;
     private int cardCounter = 0;
     private int armyCardCounter = 0;
     private CardController cardController;
@@ -131,6 +132,9 @@ import java.util.LinkedHashMap;
 
       public void addToMemory(Territory t) {
 
+
+        
+
           if (memory[0] == null) {
               memory[0] = t;
           } else if (memory[1] == null && memory[0] != t) {
@@ -140,6 +144,8 @@ import java.util.LinkedHashMap;
               memory[1] = t;
           }
 
+
+          addToMemory_check = true;
       }
 
       public static void setGameOrderList(List<Player> orderList) {
@@ -370,10 +376,14 @@ import java.util.LinkedHashMap;
     }
     //this will be changed later as observer pattern
 
+
     public void giveFirstPlayer(String playerName) {
       for (RollDieListener l: rollListeners) {
           l.getRollEvent(playerName);
       }
+
+
+
     }
 
     public void addTerritoryCard() {
@@ -432,6 +442,10 @@ import java.util.LinkedHashMap;
     }
 
 
+
+
+
+
     public void roll() {
 
       //Rollayarak ilk playera karar veriyor
@@ -440,7 +454,7 @@ import java.util.LinkedHashMap;
       startMod.setOrderedAfterRoll(player);
       //ilk ismi döndürüyor
       giveFirstPlayer(player.getName());
-
+      
   }
 
       public void increasePhaseIndex() {

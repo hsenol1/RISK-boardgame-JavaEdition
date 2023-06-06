@@ -66,4 +66,9 @@ public void testPlayerColorAssignment() {
     assertEquals(Color.ORANGE, player1.getColor());
     assertEquals(Color.GREEN, player2.getColor());
 }
+
+// Test case: Create Real Player with duplicate name
+// This test case checks that a player cannot be created with a duplicate name and throws an exception.
+
+
 }

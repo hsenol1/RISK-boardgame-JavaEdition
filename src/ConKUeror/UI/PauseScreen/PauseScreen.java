@@ -25,6 +25,7 @@ public class PauseScreen extends JDialog {
    private GameLogic gameLogic;
    private HandlerFactory handlerFactory; 
     private List<PlayerData> playerDataList;
+    JButton resumeButton;
     public PauseScreen(Frame pauseButtonHandler, List<Player> playerList, GameHandler gameHandler) {
         super(pauseButtonHandler, "Game is Paused", true);
        this.handlerFactory = HandlerFactory.getInstance();
@@ -38,7 +39,11 @@ public class PauseScreen extends JDialog {
         label.setPreferredSize(new Dimension(300, 100));
 
         JButton resumeButton = new JButton("Resume");
-        resumeButton.addActionListener(e -> dispose());
+        resumeButton.addActionListener(e -> {
+            dispose();   
+            // setVisible(false);
+            
+        });
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(e -> {
             String fileName = JOptionPane.showInputDialog(this, "Enter file name to save:");
