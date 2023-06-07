@@ -1138,9 +1138,21 @@ Thread animationThread = new Thread(() -> {
       if(threadStarter == 0) {
         try {
             Thread.sleep(5000);
+            
         } catch (Exception e) {
             // TODO: handle exception
         }
+      } else {
+
+
+        try {
+      
+        } catch (Exception b) {
+            // TODO: handle exception
+           
+        }
+
+        
       }
 
 
@@ -1449,10 +1461,9 @@ private class PauseButtonHandler implements ActionListener {
 
         
 
+threadStarter = 0;
+        if(pauseScreen.isVisible() == false) threadStarter = 1;
 
-        System.out.println("Count " +count);
-
-count++;
 
        
         
