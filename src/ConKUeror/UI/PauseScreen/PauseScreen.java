@@ -43,6 +43,7 @@ public class PauseScreen extends JDialog {
             dispose();   
             // setVisible(false);
             
+            
         });
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(e -> {
