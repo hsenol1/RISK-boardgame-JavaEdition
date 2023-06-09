@@ -45,16 +45,25 @@ private static List<Continent> continents = new ArrayList<>();
 static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
 private static Map<Integer, Territory> territories= new HashMap<>();
 
+
     public  Board() {
+
         initAllTerritoriesAndContinents();
-        initUnoccupiedTerritories();
 
     }
+
 
     public static void initUnoccupiedTerritories() {
-        unoccupiedTerritories.putAll(territories);
-
+        for (Map.Entry<Integer, Territory> entry : territories.entrySet()) {
+            Territory territory = entry.getValue();
+            if (!territory.isDeleted()) {
+                unoccupiedTerritories.put(entry.getKey(), territory);
+            }
+        }
     }
+
+
+
 
     public static Map<Integer, Territory> getUnoccupiedTerritories() {
         return unoccupiedTerritories;
@@ -69,8 +78,10 @@ private static Map<Integer, Territory> territories= new HashMap<>();
 
 
     public static Territory getTerritoryWithIndex(int i) {
-
-        return territories.get(i);
+        if(!territories.get(i).isDeleted()) {
+            return territories.get(i);
+        }
+        return null;
     }
 
     public  void setTerritory(Territory _territory) {
@@ -86,7 +97,9 @@ private static Map<Integer, Territory> territories= new HashMap<>();
     public void removeTerritory() {
         int indexToRemove  = currentTerritory.getId();
         System.out.println("this is the selected button id to remove: " +indexToRemove);
-        territories.remove(indexToRemove);
+        currentTerritory.removeExistenceInNeighbors();
+        getContinentByTerritoryID(indexToRemove).deleteFromContinent(currentTerritory);
+        territories.get(indexToRemove).setDeleted();
 
 
     }
@@ -116,7 +129,11 @@ private static Map<Integer, Territory> territories= new HashMap<>();
 
     public static Continent getContinentByTerritoryID(int id) {
 
-        if (id < 9) {
+        if(id == 19) {
+            return continents.get(3);
+        }
+
+        else if (id < 9) {
             return continents.get(0);
         }
 
@@ -129,7 +146,7 @@ private static Map<Integer, Territory> territories= new HashMap<>();
         else if (id > 19 && id < 27) {
             return continents.get(3);
         }
-        else if (id > 27 && id < 38) {
+        else if (id > 26 && id < 38) {
             return continents.get(4);
         }
         else if (id > 37 && id < 42) {

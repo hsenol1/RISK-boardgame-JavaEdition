@@ -52,7 +52,7 @@ import java.util.LinkedHashMap;
     private List<NextButtonListener> nButtonListener = new ArrayList<>();
     private static List<Player> orderedPlayerList;
     private Set<Integer> accessibleTerritoryIds = new HashSet<>();
-    private Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
+    private static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
     private Random rand ;
     private int territoryOrArmyCard;
 
@@ -78,7 +78,7 @@ import java.util.LinkedHashMap;
     private int armyCardCounter = 0;
     private CardController cardController;
 
-    private static final int UNOCCUPIED_FIXED_SIZE =  42;
+//    private static final int UNOCCUPIED_FIXED_SIZE =  42;
 
       public GameLogic(Board board,StartMode sMode) {
 
@@ -133,7 +133,7 @@ import java.util.LinkedHashMap;
       public void addToMemory(Territory t) {
 
 
-        
+
 
           if (memory[0] == null) {
               memory[0] = t;
@@ -194,13 +194,17 @@ import java.util.LinkedHashMap;
 
             if(!unoccupiedTerritories.isEmpty()) {
 
+
               int size =  unoccupiedTerritories.size();
-              int randomTerritoryId = rand.nextInt(UNOCCUPIED_FIXED_SIZE);
+              System.out.println("size of unoccupied " + size);
+              int randomTerritoryId  = getRandomTerritoryId();
+
               Territory t = unoccupiedTerritories.get(randomTerritoryId);
 
-                while(t == null) {
+                while(t == null || t.isDeleted()) {
 
-                  randomTerritoryId = rand.nextInt(UNOCCUPIED_FIXED_SIZE);
+                  randomTerritoryId = rand.nextInt(              unoccupiedTerritories.size()
+                  );
                   t = unoccupiedTerritories.get(randomTerritoryId);
                 }
 
@@ -214,15 +218,18 @@ import java.util.LinkedHashMap;
               setTerritoryInfo(t.getId(),playerInTurn.getInventory().getTotalArmy(),playerInTurn.getColor(),t.getTotalUnit());
               passToNextPlayer(playerInTurn);
 
+
             } else {
 
               List<Territory> ownedTerritories = playerInTurn.inv.getOwnedTerritories();
-              int size = ownedTerritories.size();
-              int randomTerritoryId = rand.nextInt(size);
-              Territory t = ownedTerritories.get(randomTerritoryId);
 
-              randomTerritoryId = rand.nextInt(size);
-              t = ownedTerritories.get(randomTerritoryId);
+              int randomTerritoryId = getRandomTerritoryId2(ownedTerritories);
+
+
+              Territory t = Board.getTerritoryWithIndex(randomTerritoryId);
+
+              //randomTerritoryId = rand.nextInt(size);
+              //t = ownedTerritories.get(randomTerritoryId);
 
               playerInTurn.getInventory().removeInfantries(1);
               t.addInfantries(1);
@@ -272,6 +279,35 @@ import java.util.LinkedHashMap;
           });
         }
     }
+    public static int getRandomTerritoryId() {
+      List<Integer> territoryIds = new ArrayList<>(unoccupiedTerritories.keySet());
+      if (territoryIds.isEmpty()) {
+          return -1; // Handle the case when the map is empty
+      }
+
+
+      Random rand = new Random();
+      int randomIndex = rand.nextInt(territoryIds.size());
+      return territoryIds.get(randomIndex);
+  }
+  public static int getRandomTerritoryId2( List<Territory> ownedTerritories) {
+    // Get the list of territories owned by the player
+
+    if (ownedTerritories.isEmpty()) {
+        return -1; // Handle the case when the list is empty
+    }
+
+    // Extract IDs from the territories
+    List<Integer> territoryIds = new ArrayList<>();
+    for(Territory t : ownedTerritories) {
+      territoryIds.add(t.getId());
+    }
+
+    Random rand = new Random();
+    int randomIndex = rand.nextInt(territoryIds.size());
+    return territoryIds.get(randomIndex);
+  }
+
 
 
       public void setFirstPlayer() {
@@ -454,7 +490,7 @@ import java.util.LinkedHashMap;
       startMod.setOrderedAfterRoll(player);
       //ilk ismi döndürüyor
       giveFirstPlayer(player.getName());
-      
+
   }
 
       public void increasePhaseIndex() {
@@ -513,7 +549,9 @@ import java.util.LinkedHashMap;
 
           if(currentGameMode== GameMode.BUILD) {
               setGameMode(GameMode.CONNECTION);
-              unoccupiedTerritories = board.getUnoccupiedTerritories();
+              Board.initUnoccupiedTerritories();
+              unoccupiedTerritories = Board.getUnoccupiedTerritories();
+              System.out.println("UNOCCUPİED SIZE " +unoccupiedTerritories);
 
           }
           else if (currentGameMode == GameMode.CONNECTION) {
@@ -570,6 +608,9 @@ import java.util.LinkedHashMap;
       public void prepareGame(Territory t,GameMode gameMode) throws InterruptedException {
 
         PlayerExpert.setPlayerInTurn(playerInTurn);
+
+
+
       if (playerInTurn == null || playerInTurn.getType().equals("Real")) {
 
         switch(gameMode) {
@@ -577,6 +618,7 @@ import java.util.LinkedHashMap;
           case BUILD:
 
           this.inputTerritory = t;
+          System.out.println(t.getAdjacencyList()) ;
           this.phaseIndex=0;
           prepareTerritory(t);
           addToMemory(t);

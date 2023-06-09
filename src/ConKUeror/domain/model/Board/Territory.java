@@ -1,8 +1,11 @@
 package ConKUeror.domain.model.Board;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+
 import java.awt.Color;
 
 
@@ -21,9 +24,8 @@ public class Territory implements Serializable {
     private Player owner;
     private Army army;
     private boolean isFree;
+    private boolean isDeleted;
     private Color territoryColor;
-
-
 
 
     public Territory(int _id) {
@@ -31,6 +33,7 @@ public class Territory implements Serializable {
         this.isFree = true;
         this.totalArmyUnit = 0;
         army = new Army();
+        this.isDeleted=false;
 
     }
 
@@ -38,12 +41,41 @@ public class Territory implements Serializable {
         return owner;
     }
 
+        //If i remove a territory from the map, i should also remove its existence  from its neighbor's adjacency list.
+        //Map is initialized at the beginning so connections are set at the start of the game.
+        //With this method we can update its connections.
+        public void removeExistenceInNeighbors() {
+            for (Territory t : adjacencyList.values()) {
+                searchInAdjacencyList(t.adjacencyList);
+            }
+        }
+
+        public void searchInAdjacencyList(Map<Integer, Territory> adj) {
+            Iterator<Map.Entry<Integer, Territory>> iterator = adj.entrySet().iterator();
+
+            while (iterator.hasNext()) {
+                Map.Entry<Integer, Territory> entry = iterator.next();
+                if (entry.getValue().id == this.id) {
+                    iterator.remove();
+                }
+            }
+        }
+
+
     public void setOwner(Player newOwner) {
         this.owner = newOwner;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setDeleted() {
+        this.isDeleted = true;
+    }
+
+    public Boolean isDeleted() {
+        return this.isDeleted;
     }
 
     public void setColor(Color color) {
@@ -85,8 +117,8 @@ public class Territory implements Serializable {
 
     public void addConnectionDual(Territory neighbor) {
 
-       int neighborId = neighbor.getId();
 
+       int neighborId = neighbor.getId();
         if(this.adjacencyList.get(neighborId) == null) {
             this.adjacencyList.put(neighborId, neighbor);
             neighbor.getAdjacencyList().put(this.getId(),this);
