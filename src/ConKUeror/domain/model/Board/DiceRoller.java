@@ -38,7 +38,7 @@ public class DiceRoller implements Serializable{
 
     public int rollDice() {
         die.rollDie();
-       return die.getFaceValue();
+            return die.getFaceValue();
     }
 
 
@@ -131,7 +131,7 @@ public class DiceRoller implements Serializable{
                     attackingSoldiers.remove(0);
                 }
             }
-            
+
         }
 
         if (attackingSoldiers.size() != 0)
@@ -142,7 +142,7 @@ public class DiceRoller implements Serializable{
         return attackSuccess;
 
         // while (attackerArmy > 0 && defenderArmy > 0) {
-            
+
         //     die.rollDie();
         //     int roll1 =die.getFaceValue();
         //     //System.out.println(roll1);
@@ -158,7 +158,7 @@ public class DiceRoller implements Serializable{
         //     } else {
         //         attackerArmy--;
         //         System.out.println("DEFENDER HITS");
-                
+
 
         //     }
         // }
@@ -166,7 +166,7 @@ public class DiceRoller implements Serializable{
         // this.defenderArmy = defenderArmy;
 
         // return defenderArmy == 0;
-    
+
     }
 
     public int postWarGetAttackerArmy() {
@@ -176,12 +176,12 @@ public class DiceRoller implements Serializable{
 
     public int postWarGetDefenderArmy() {
         return defenderArmy;
-        
+
     }
 
     public Player getFirstPlayer() {
-        
-      
+
+
 
         return PlayerExpert.getPlayersList().get(die.getCustomValue(PlayerExpert.getPlayersListSize() - 1));
 
@@ -191,6 +191,6 @@ public class DiceRoller implements Serializable{
 
 
 
-    
-    
+
+
 }

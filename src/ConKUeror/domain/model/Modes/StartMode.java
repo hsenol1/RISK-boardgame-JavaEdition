@@ -23,7 +23,7 @@ public class StartMode  implements Serializable{
     }
 
     public void setStartMode() {
-    setOrderedList();
+        setOrderedList();
         setInitialInfantries();
         setPlayerCount();
         HandlerFactory controller = HandlerFactory.getInstance();
@@ -50,6 +50,7 @@ public class StartMode  implements Serializable{
     }
 
     public void setInitialInfantries() {
+
             int inf_count;
           int playerCount =  buildMode.getPlayerCount();
             if(playerCount == 2) {
