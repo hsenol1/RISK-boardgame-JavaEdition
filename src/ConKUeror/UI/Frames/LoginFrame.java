@@ -223,13 +223,14 @@ public class LoginFrame extends JFrame {
 
                //controller.giveMapHandler().updateTerritory(t.getId(),t.getTotalUnit());
 
-                  controller.giveMapHandler().updateTerritory(t.getId(),t.getTotalUnit());
+                controller.giveMapHandler().updateTerritory(t.getId(),t.getTotalUnit());
 
-
+                }
+            }
 
 
             }
-        } catch (IOException e1) {
+         catch (IOException e1) {
             e1.printStackTrace();
         }
     }
