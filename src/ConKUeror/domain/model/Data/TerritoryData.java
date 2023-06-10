@@ -12,7 +12,41 @@ public class TerritoryData implements Serializable {
     private int artillery;
     private int cavalry;
     private int infantry;
-    private Color color;
+    private int colorRValue;
+    private int colorGValue;
+    private int colorBValue;
+ private Boolean colored;
+
+    public int getColorRValue() {
+        return colorRValue;
+    }
+
+    public void setColorRValue(int colorRValue) {
+        this.colorRValue = colorRValue;
+    }
+
+    public int getColorGValue() {
+        return colorGValue;
+    }
+
+    public Boolean isColored() {
+        return colored;
+
+    }
+
+
+    public void setColorGValue(int colorGValue) {
+        this.colorGValue = colorGValue;
+    }
+
+    public int getColorBValue() {
+        return colorBValue;
+    }
+
+    public void setColorBValue(int colorBValue) {
+        this.colorBValue = colorBValue;
+    }
+
     private Player owner;
     private Boolean isDeleted;
     private int id;
@@ -33,9 +67,7 @@ public class TerritoryData implements Serializable {
         this.infantry = infantry;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
+
 
     public void setOwner(Player owner) {
         this.owner = owner;
@@ -65,9 +97,7 @@ public class TerritoryData implements Serializable {
         return infantry;
     }
 
-    public Color getColor() {
-        return color;
-    }
+
 
     public Player getOwner() {
         return owner;
@@ -95,7 +125,14 @@ public class TerritoryData implements Serializable {
         this.artillery = territory.getArmy().getArtilleries();
         this.cavalry = territory.getArmy().getCavalries();
         this.infantry = territory.getArmy().getInfantries();
-        this.color =  territory.getColor();
+        if(territory.getColor() != null) {
+            this.colorRValue =  territory.getColor().getRed();
+            this.colorGValue =  territory.getColor().getGreen();
+            this.colorBValue =  territory.getColor().getBlue();
+            this.colored = true;
+        }
+        this.colored = false;
+
         this.owner = territory.getOwner();
         this.isDeleted =territory.isDeleted();
         this.id = territory.getId();

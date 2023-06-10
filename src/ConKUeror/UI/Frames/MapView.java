@@ -91,7 +91,7 @@ public MapView() throws IOException {
     this.mapHandler = controller.giveMapHandler();
     this.buttonHandler = controller.giveButtonHandler();
     this.gameHandler = controller.giveGameHandler();
-     frame = this;
+    frame = this;
 
 
     initGUI();
@@ -106,16 +106,7 @@ public MapView() throws IOException {
 
     pauseAndResumeButton.addActionListener(new PauseButtonHandler(this));
     helpButton.addActionListener(new HelpButtonHandler());
-    /*
-    rollButton.addActionListener(new RollButtonHandler());
-    executeButton.addActionListener(new ExecuteButtonHandler());
-    nextButton.addActionListener(new NextButtonHandler());
-*/
 
-
-}
-
-public void occupyTerritory() {
 
 }
 
@@ -247,13 +238,29 @@ public void createTerritoryButtons() {
         int x = buttonHandler.getXFromList(i);
         int y = buttonHandler.getYFromList(i);
 
-         TerritoryButton button = new TerritoryButton(x,y,i);
+        TerritoryButton button = new TerritoryButton(x,y,i);
+        System.out.println("TERRITORY BUTTON YARATILIYOR");
+
+        System.out.println(Board.getTerritories().get(i).getId());
+        System.out.println(Board.getTerritories().get(i).getColor());
 
 
-        System.out.println("ne bunun rengi" + Board.getTerritories().get(i).getColor());
-        if(Board.getTerritories().get(i).getColor() !=null) {
-            button.setColor(Board.getTerritories().get(i).getColor());
+
+        if(Board.getTerritories().get(i).getColor()!= null) {
+            Object color = Board.getTerritories().get(i).getColor();
+            if(color instanceof java.awt.Color) {
+                 button.changeColor();
+
+            } else {
+                // It's not an instance of java.awt.Color
+            }
+
+            //button.setColor(Board.getTerritories().get(i).getColor());
+           // System.out.println("RENK DEĞİŞTİ");
+
         }
+
+
         button.setBounds(x, y, 40, 40);
         button.setPreferredSize(new Dimension(40, 40));
        // territoryButtonsList.add(button);
@@ -340,20 +347,9 @@ public void createFunctionalityButtons() {
         pauseAndResumeButton.setBounds(buttonHandler.getXFromList(42), buttonHandler.getYFromList(42), 130, 40);
         helpButton = new JButton("Help");
         helpButton.setBounds(buttonHandler.getXFromList(43), buttonHandler.getYFromList(43), 80, 40);
-/*
-       rollButton = new JButton("Roll");
-        rollButton.setBounds(buttonHandler.getXFromList(44), buttonHandler.getYFromList(44), 80, 80);
-        executeButton = new JButton("Remove");
-        executeButton.setBounds(buttonHandler.getXFromList(45), buttonHandler.getYFromList(45), 80, 80);
-        nextButton = new JButton("Next");
-        nextButton.setBounds(buttonHandler.getXFromList(46), buttonHandler.getYFromList(46), 80, 80);
-        mapPanel.setLayout(null); // switch to null layout manager
-*/
         mapPanel.add(pauseAndResumeButton);
         mapPanel.add(helpButton);
-       // mapPanel.add(rollButton);
-        //mapPanel.add(executeButton);
-        //mapPanel.add(nextButton);
+
 
 
 
@@ -378,7 +374,6 @@ public void removeOnboardEvent(TerritoryButton button) {
             TerritoryButton button = territoryButtonsList.get(neigborIdsList.get(i));
             button.changeColor();
             buttonHistory.add(button);
-
         };
 
         revalidate();
@@ -402,6 +397,7 @@ public void removeOnboardEvent(TerritoryButton button) {
     }
 
     public void updatePlayerPanel() {
+
         playerPanel.clearPlayerInfos();
         playerPanel.revalidate();
         playerPanel.repaint();
@@ -466,17 +462,16 @@ private class HelpButtonHandler implements ActionListener {
 @Override
 public void setTerritoryButtonInfo(int buttonId,int armyUnit, Color color,int territoryArmy) {
 
-    System.out.print("ŞU AN TESTTEYİM");
     TerritoryButton button = territoryButtonsList.get(buttonId);
     button.setColor(color);
-     Font labelFont = new Font("Arial", Font.PLAIN, 11);
-     button.setFont(labelFont);
-     button.setArmyValue(territoryArmy);
-     System.out.print(territoryArmy);
+    Font labelFont = new Font("Arial", Font.PLAIN, 11);
+    button.setFont(labelFont);
+    button.setArmyValue(territoryArmy);
+    System.out.print(territoryArmy);
 
-     System.out.println(armyUnit);
-     revalidate();
-     repaint();
+    System.out.println(armyUnit);
+    revalidate();
+    repaint();
 
 
 }
