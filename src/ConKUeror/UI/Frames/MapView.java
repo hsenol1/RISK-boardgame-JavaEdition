@@ -239,17 +239,11 @@ public void createTerritoryButtons() {
         int y = buttonHandler.getYFromList(i);
 
         TerritoryButton button = new TerritoryButton(x,y,i);
-        System.out.println("TERRITORY BUTTON YARATILIYOR");
-
-        System.out.println(Board.getTerritories().get(i).getId());
-        System.out.println(Board.getTerritories().get(i).getColor());
-
-
 
         if(Board.getTerritories().get(i).getColor()!= null) {
             Object color = Board.getTerritories().get(i).getColor();
             if(color instanceof java.awt.Color) {
-                 button.changeColor();
+                 button.setColor((Color) color);
 
             } else {
                 // It's not an instance of java.awt.Color

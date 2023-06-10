@@ -153,6 +153,7 @@ public class GameLogic {
       System.out.println("set For Map Initalization");
        String playerType= this.playerInTurn.getType();
        System.out.println("player Type" +playerType);
+       playerInTurn = PlayerExpert.getPlayerInTurn();
        if (playerType.equals("Computer")) {
         computerChoosesTerritory();
        }
@@ -566,7 +567,6 @@ public void setGamePhaseIndex(int n){
 
     public void prepareGame(Territory t,GameMode gameMode) throws InterruptedException {
 
-      PlayerExpert.setPlayerInTurn(playerInTurn);
       if (playerInTurn == null || playerInTurn.getType().equals("Real")) {
 
       switch(gameMode) {
