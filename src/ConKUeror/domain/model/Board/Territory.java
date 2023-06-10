@@ -1,13 +1,10 @@
 package ConKUeror.domain.model.Board;
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-
-import java.awt.Color;
-
 
 import ConKUeror.domain.model.Army.Army;
 import ConKUeror.domain.model.Player.Player;
@@ -28,6 +25,7 @@ public class Territory implements Serializable {
     private Color territoryColor;
 
 
+
     public Territory(int _id) {
         this.id = _id;
         this.isFree = true;
@@ -37,14 +35,25 @@ public class Territory implements Serializable {
 
     }
 
+    public void setId(int _id) {
+        this.id= _id;
+    }
+
     public Player getOwner() {
         return owner;
     }
 
-        //If i remove a territory from the map, i should also remove its existence  from its neighbor's adjacency list.
-        //Map is initialized at the beginning so connections are set at the start of the game.
-        //With this method we can update its connections.
-        public void removeExistenceInNeighbors() {
+    public void setOwner(Player newOwner) {
+        this.owner = newOwner;
+    }
+
+    public String getName() {
+        return name;
+    }
+      //If i remove a territory from the map, i should also remove its existence  from its neighbor's adjacency list.
+         //Map is initialized at the beginning so connections are set at the start of the game.
+         //With this method we can update its connections.
+         public void removeExistenceInNeighbors() {
             for (Territory t : adjacencyList.values()) {
                 searchInAdjacencyList(t.adjacencyList);
             }
@@ -60,22 +69,21 @@ public class Territory implements Serializable {
                 }
             }
         }
+        public void setDeleted() {
+            this.isDeleted = true;
+        }
 
+        public void setIsDeleted(Boolean d) {
+            this.isDeleted = d;
 
-    public void setOwner(Player newOwner) {
-        this.owner = newOwner;
-    }
+        }
 
-    public String getName() {
-        return name;
-    }
+        public Boolean isDeleted() {
+            return this.isDeleted;
+        }
 
-    public void setDeleted() {
-        this.isDeleted = true;
-    }
-
-    public Boolean isDeleted() {
-        return this.isDeleted;
+    public int getId() {
+        return id;
     }
 
     public void setColor(Color color) {
@@ -84,11 +92,6 @@ public class Territory implements Serializable {
 
     public Color getColor() {
         return this.territoryColor;
-    }
-
-
-    public int getId() {
-        return id;
     }
 
 
@@ -107,9 +110,6 @@ public class Territory implements Serializable {
        return army.getTotalArmyUnit();
 
     }
-    public void setTotalUnit(int n){
-        totalArmyUnit = n;
-    }
 
     public Map<Integer, Territory> getAdjacencyList() {
         return adjacencyList;
@@ -117,8 +117,8 @@ public class Territory implements Serializable {
 
     public void addConnectionDual(Territory neighbor) {
 
-
        int neighborId = neighbor.getId();
+
         if(this.adjacencyList.get(neighborId) == null) {
             this.adjacencyList.put(neighborId, neighbor);
             neighbor.getAdjacencyList().put(this.getId(),this);

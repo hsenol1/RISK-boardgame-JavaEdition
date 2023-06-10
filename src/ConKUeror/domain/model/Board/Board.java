@@ -13,45 +13,28 @@ import java.util.LinkedHashMap;
 
 public class Board implements Serializable{
 
- /*
-  * OVERVIEW: The Board class represents the game board in the game, consisting of
-  * territories grouped into continents. Each territory can be unoccupied at the beginning of the game
-  * and they can be occupied by a player.
- */
- /*
- * The abstraction function is
- * AF(c) = { "Board with " + c.continents.size() + " continents. Each territory in each
- * continent may be owned by a Player or unoccupied" }
- */
-/*
- *The rep invariant is:
- * RI(c) = (c.continents != null) && (c.territories != null) && (c.unoccupiedTerritories != null) &&
- * (Every territory in territories belongs to exactly one continent in continents) &&
- * (Every territory in unoccupiedTerritories is also present in territories)
- */
-
-
-
-
-private Continent ASIA;
-private Continent NORTH_AMERICA;
-private Continent SOUTH_AMERICA;
-private Continent AFRICA;
-private Continent EUROPE;
-private Continent AUSTRALIA;
+private static Continent ASIA;
+private static Continent NORTH_AMERICA;
+private static Continent SOUTH_AMERICA;
+private static Continent AFRICA;
+private static Continent EUROPE;
+private static Continent AUSTRALIA;
 
 private static Territory currentTerritory;
 private static List<Continent> continents = new ArrayList<>();
 static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
-private static Map<Integer, Territory> territories= new HashMap<>();
 
+
+ private static Map<Integer, Territory> territories= new HashMap<>();
 
     public  Board() {
 
-        initAllTerritoriesAndContinents();
-
     }
 
+    public static void setContinents( List<Continent> continents) {
+        Board.continents= continents;
+
+    }
 
     public static void initUnoccupiedTerritories() {
         for (Map.Entry<Integer, Territory> entry : territories.entrySet()) {
@@ -61,13 +44,27 @@ private static Map<Integer, Territory> territories= new HashMap<>();
             }
         }
     }
-
-
+    public static int countUndeletedTerritories() {
+        int count = 0;
+        for (Territory territory : territories.values()) {
+            if (!territory.isDeleted()) {
+                count++;
+            }
+        }
+        return count;
+    }
 
 
     public static Map<Integer, Territory> getUnoccupiedTerritories() {
         return unoccupiedTerritories;
     }
+
+    public static void setTerritories( Map<Integer, Territory> _territories) {
+        territories = _territories;
+
+    }
+
+
 
 
     public static Map<Integer, Territory> getTerritories() {
@@ -85,14 +82,12 @@ private static Map<Integer, Territory> territories= new HashMap<>();
     }
 
     public  void setTerritory(Territory _territory) {
-        this.currentTerritory = _territory;
+        Board.currentTerritory = _territory;
 
     }
-
-    public static Territory getCurrenTerritory() {
+    public static Territory getCurrentTerritory() {
         return currentTerritory;
     }
-
 
     public void removeTerritory() {
         int indexToRemove  = currentTerritory.getId();
@@ -104,10 +99,10 @@ private static Map<Integer, Territory> territories= new HashMap<>();
 
     }
 
+
     public static List<Continent> getContinents() {
         return continents;
     }
-
     public static Continent getContinentByName(String name) {
         for (Continent continent : continents) {
             if (continent.getName().equals(name)) {
@@ -116,8 +111,15 @@ private static Map<Integer, Territory> territories= new HashMap<>();
         }
         return null;
     }
-
-
+    public static void setTerritoryOwner(String territoryName, Player newOwner) {
+        for (Continent continent : continents) {
+            Territory territory = continent.getTerritoryByName(territoryName);
+            if (territory != null) {
+                territory.setOwner(newOwner);
+                break;
+            }
+        }
+    }
     public static Continent getContinentByTerritory(String territoryName) {
         for (Continent continent : continents) {
             if (continent.containsTerritory(territoryName)) {
@@ -132,7 +134,6 @@ private static Map<Integer, Territory> territories= new HashMap<>();
         if(id == 19) {
             return continents.get(3);
         }
-
         else if (id < 9) {
             return continents.get(0);
         }
@@ -177,7 +178,13 @@ private static Map<Integer, Territory> territories= new HashMap<>();
 
 
 
-    public void initAllTerritoriesAndContinents() {
+
+
+
+
+
+
+    public static void initAllTerritoriesAndContinents() {
 
 
 

@@ -3,16 +3,13 @@ package ConKUeror.domain.controller;
 
 
 
-import java.awt.Color;
-import java.io.Serializable;
-
 import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Modes.BuildMode;
 import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Modes.StartMode;
 
 
-public class BuildHandler  implements Serializable{
+public class BuildHandler {
 
 private static BuildHandler instance;
 private Boolean isFirstConfirmClick = true;
@@ -50,12 +47,8 @@ private StartMode sMode;
 	public void enterNameForRealPlayers(String name) {
 		buildMode.initalizePlayer(name,"Real Player");
 	}
-	public GameLogic getGameLogic(){
-		return gamelogic;
-	}
-	public void initializeColoredPlayers(String name , Color color){
-		buildMode.initalizeColoredPlayer(name,"Real Player",color);
-	}
+
+
 	public void initalizeBots(int botPlayerCount) {
 
 		for (int i = 1; i <= botPlayerCount; i++) {
@@ -64,14 +57,7 @@ private StartMode sMode;
 		}
 
 	}
-	public void initalizeColoredBots(int botPlayerCount, Color color) {
 
-		for (int i = 1; i <= botPlayerCount; i++) {
-			String name = "Comp" +i;
-			buildMode.initalizeColoredPlayer(name, "Computer Player", color);
-		}
-
-	}
 	public void openPlayerSelection() {
 		buildMode.setPlayerIndex();
 	}
@@ -79,17 +65,14 @@ private StartMode sMode;
 	public void setStartStatus() {
 		buildMode.setStart();
 	}
-	public BuildMode getBuildMode(){
-		return buildMode;
-	}
 
 
 	public void initializeGame() {
-
+		Board.initAllTerritoriesAndContinents();
 		buildMode.initalizeConnections();
 		HandlerFactory controller = HandlerFactory.getInstance();
-		 StartHandler startHandler =controller.giveStartHandler();
-		 startHandler.setStartMode();
+		StartHandler startHandler =controller.giveStartHandler();
+		startHandler.setStartMode();
     }
 
 

@@ -1,16 +1,13 @@
 package ConKUeror.domain.model.Modes;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import ConKUeror.domain.controller.CardController;
 import ConKUeror.domain.controller.HandlerFactory;
-import ConKUeror.domain.model.Board.Card;
-import ConKUeror.domain.model.Data.GameState;
 import ConKUeror.domain.model.Player.Player;
 
-public class StartMode  implements Serializable{
+public class StartMode {
     private int playerCount;
     private BuildMode buildMode;
     private static List<Player> orderedPlayerList;
@@ -23,22 +20,12 @@ public class StartMode  implements Serializable{
     }
 
     public void setStartMode() {
-        setOrderedList();
+    setOrderedList();
         setInitialInfantries();
         setPlayerCount();
         HandlerFactory controller = HandlerFactory.getInstance();
         CardController cardController = controller.giveCardController();
         cardController.initializeDeck(orderedPlayerList,42); // just created 4 territory based.
-
-    }
-
-    public void startLoadedGame(GameState gameState){
-
-        orderedPlayerList = gameState.getOrderedList();
-        this.playerCount = gameState.getPlayerData().size();
-        HandlerFactory controller = HandlerFactory.getInstance();
-        CardController cardController = controller.giveCardController();
-        cardController.initializeDeck(orderedPlayerList, 42);
 
     }
 
@@ -50,7 +37,6 @@ public class StartMode  implements Serializable{
     }
 
     public void setInitialInfantries() {
-
             int inf_count;
           int playerCount =  buildMode.getPlayerCount();
             if(playerCount == 2) {
@@ -119,6 +105,10 @@ public class StartMode  implements Serializable{
 
         orderedPlayerList = orderList;
         GameLogic.setGameOrderList(orderedPlayerList);
+    }
+
+    public static void setOrderedList(List<Player> playerList) {
+        orderedPlayerList = playerList;
     }
 
 

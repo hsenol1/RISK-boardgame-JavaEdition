@@ -24,7 +24,7 @@ public class Player implements Serializable {
         IDeployBehaviour db;
         IAttackBehaviour ab;
         IFortifyBehaviour fb;
-  
+        private String playerType;
 
 
         private String name;
@@ -36,7 +36,7 @@ public class Player implements Serializable {
         IDeployBehaviour db,
         IAttackBehaviour ab,
         IFortifyBehaviour fb,
-        PlayerInventory inv ) {
+        PlayerInventory inv, String playerType) {
 
             this.name = name;
             this.db = db;
@@ -44,12 +44,16 @@ public class Player implements Serializable {
             this.fb = fb;
             this.inv = inv;
 
-            
+            this.playerType = playerType;
         }
 
 
 
-               public void setType(String type) {
+        public String getPlayerType() {
+            return this.playerType;
+        }
+
+        public void setType(String type) {
             this.type = type;
         }
 
@@ -67,9 +71,6 @@ public class Player implements Serializable {
         }
         public Color getColor() {
             return playerColor;
-        }
-        public void setName(String name){
-            this.name = name;
         }
 
 /**
@@ -109,6 +110,11 @@ public class Player implements Serializable {
             return inv;
 
 
+        }
+
+
+
+        public void setName(String playerName) {
         }
 
 
