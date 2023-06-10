@@ -38,11 +38,9 @@ public class LoginFrame extends JFrame {
     private SaveLoadHandler saveLoadHandler = new SaveLoadHandler();
     private List<Player> playerList;
     private List<Territory> territoryList;
-    private static Map<Integer, Territory> territories= new HashMap<>();
-
+    private static Map<Integer, Territory> territories = new HashMap<>();
 
     private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
-
 
     public LoginFrame() {
         JPanel panel = new JPanel();
@@ -58,10 +56,15 @@ public class LoginFrame extends JFrame {
         madeByLabel.setFont(new Font("Monospaced", Font.ITALIC, 16));
         madeByLabel.setForeground(Color.LIGHT_GRAY);
 
-        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setBackground(Color.DARK_GRAY);
-        headerPanel.add(titleLabel);
-        headerPanel.add(madeByLabel);
+        headerPanel.add(titleLabel, BorderLayout.CENTER);
+
+        // Create a panel for the "Made by" label
+        JPanel madeByPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        madeByPanel.setBackground(Color.DARK_GRAY);
+        madeByPanel.add(madeByLabel);
+        headerPanel.add(madeByPanel, BorderLayout.SOUTH);
 
         this.add(headerPanel, BorderLayout.NORTH);
 
@@ -74,22 +77,37 @@ public class LoginFrame extends JFrame {
             }
         });
 
+        JButton exitButton = createButton("Exit");
+        exitButton.setPreferredSize(new Dimension(100, 30));
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        JPanel exitPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        exitPanel.setBackground(Color.DARK_GRAY);
+        exitPanel.add(exitButton);
+
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.setBackground(Color.DARK_GRAY);
+        contentPanel.add(panel, BorderLayout.CENTER);
+        contentPanel.add(exitPanel, BorderLayout.SOUTH);
+
+        this.add(contentPanel);
+
         loadGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     gameState = loadGameState();
                     System.out.println("Loaddan sonra territories");
-
-                    //System.out.println(gameState.getTerritories());
-                    System.out.println("player name" +gameState.getPlayerData().get(0).getPlayerName());
-                    System.out.println( "owned territories" +gameState.getPlayerData().get(0).getTerritories());
-
-
+                    System.out.println("player name" + gameState.getPlayerData().get(0).getPlayerName());
+                    System.out.println("owned territories" + gameState.getPlayerData().get(0).getTerritories());
                 } catch (ClassNotFoundException | IOException e1) {
                     e1.printStackTrace();
                 }
 
-                startLoadedGame(gameState.getPlayerData(),gameState.getTerritoryData());
+                startLoadedGame(gameState.getPlayerData(), gameState.getTerritoryData());
             }
         });
 
@@ -99,8 +117,6 @@ public class LoginFrame extends JFrame {
         panel.add(loadGameButton);
 
         panel.setBorder(new EmptyBorder(new Insets(50, 80, 50, 80)));
-        this.add(panel);
-
         this.setSize(new Dimension(800, 600));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -128,32 +144,21 @@ public class LoginFrame extends JFrame {
         this.dispose();
     }
 
-
-
-
-
     public void addTerritoryButtonListener(TerritoryButtonListener lis) {
         territoryButtonListeners.add(lis);
-      }
+    }
 
-
-    public void startLoadedGame(List<PlayerData> loadedPlayerDataList,List<TerritoryData> loadedTerritoryDataList) {
-      //  System.out.println(gameState.getTerritories());
-
+    public void startLoadedGame(List<PlayerData> loadedPlayerDataList, List<TerritoryData> loadedTerritoryDataList) {
         HandlerFactory controller = HandlerFactory.getInstance();
         playerList = new ArrayList<Player>();
         territoryList = new ArrayList<Territory>();
-        //BuildHandler buildHandler = controller.giveBuildHandler();
         int botCount = 0;
 
         PlayerExpert.setPlayerInTurn(gameState.getPlayerInTurn());
         PlayerFactory playerFactory = PlayerFactory.getInstance();
         StartHandler startHandler = controller.giveStartHandler();
 
-
-
-        for(TerritoryData territoryData : loadedTerritoryDataList) {
-
+        for (TerritoryData territoryData : loadedTerritoryDataList) {
             Territory territory = territoryData.getTerritory();
             territoryList.add(territory);
 
@@ -164,43 +169,29 @@ public class LoginFrame extends JFrame {
 
             territory.setIsDeleted(territoryData.getIsDeleted());
             territory.setId(territoryData.getId());
-            System.out.println("Territory and deletion boolean" +territory.getId() + territory.isDeleted());
-
+            System.out.println("Territory and deletion boolean" + territory.getId() + territory.isDeleted());
             territories.put(territory.getId(), territory);
-
-
-
         }
-
-
 
         Board.setTerritories(territories);
         Board.setContinents(gameState.getContinents());
         controller.getGameLogic().setPlayerInTurn(gameState.getPlayerInTurn());
 
-
-        // Initialize the players using the loaded player data
         for (PlayerData playerData : loadedPlayerDataList) {
             Player player = playerData.getPlayer();
             playerList.add(player);
 
-            // Set the player's inventory and other attributes based on the loaded data
             player.getInventory().setCavalryCount(playerData.getCavalryCount());
             player.getInventory().setInfantryCount(playerData.getInfantryCount());
             player.getInventory().setArtilleryCount(playerData.getArtilleryCount());
-
             player.getInventory().setOwnedTerritories(playerData.getTerritories());
 
-           // player.setColor(new Color(playerData.getPlayerColor()));
             player.setName(playerData.getPlayerName());
-            Map<Integer, Territory> hashMap = Board.getTerritories();
 
             if (playerData.getPlayerType().equals("Computer")) {
-                 // Initialize bot player.
-                  botCount++;
+                botCount++;
             } else {
-               playerFactory.createColoredPlayer(player.getType() + " Player", player.getName(), player.getColor());
-
+                playerFactory.createColoredPlayer(player.getType() + " Player", player.getName(), player.getColor());
             }
         }
 
@@ -208,23 +199,21 @@ public class LoginFrame extends JFrame {
         PlayerExpert.setPlayersList(playerList);
 
         controller.getGameLogic().setGamePhaseIndex(gameState.getPhaseIndex());
-        controller.getGameLogic().setGameMode(  gameState.getGameMode());
+        controller.getGameLogic().setGameMode(gameState.getGameMode());
 
-        // Start the game
         try {
             MapView map = new MapView();
-           for(PlayerData playerData: loadedPlayerDataList){
-            Player p2 = playerData.getPlayer();
-            List<Territory> owned = p2.getInventory().getOwnedTerritories();
+            for (PlayerData playerData : loadedPlayerDataList) {
+                Player p2 = playerData.getPlayer();
+                List<Territory> owned = p2.getInventory().getOwnedTerritories();
 
             p2.setColor(playerData.getPlayerColor());
 
-
-            for(Territory t : owned){
-                t.getArmy().addArtilleries(p2.getInventory().getArtilleryCount());
-                t.getArmy().addCavalries(p2.getInventory().getCavalryCount());
-                t.getArmy().addInfantries(p2.getInventory().getInfantryCount());
-                t.setOwner(p2);
+                for (Territory t : owned) {
+                    t.getArmy().addArtilleries(p2.getInventory().getArtilleryCount());
+                    t.getArmy().addCavalries(p2.getInventory().getCavalryCount());
+                    t.getArmy().addInfantries(p2.getInventory().getInfantryCount());
+                    t.setOwner(p2);
 
                // controller.getGameLogic().setTerritoryInfo(botCount, botCount, color, botCount);
                 //controller.giveMapHandler().updateTerritory(botCount, botCount);
@@ -240,19 +229,10 @@ public class LoginFrame extends JFrame {
 
 
             }
-
-
-           }
-
-
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-
-       // this.dispose();
     }
-
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(LoginFrame::new);
