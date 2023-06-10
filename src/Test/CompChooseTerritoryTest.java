@@ -58,14 +58,14 @@ public class CompChooseTerritoryTest {
 
 
             playerFactory = PlayerFactory.getInstance();
-            playerFactory.resetPlayerNames();
+            //playerFactory.resetPlayerNames();
             Color orange = Color.ORANGE;
             List<Color> colorList = new ArrayList<Color>();
             colorList.add(orange);
             Color green = Color.GREEN;
             colorList.add(green);
             playerFactory.setColorList(colorList);
-            
+
 
             computerPlayer = playerFactory.createPlayer("Computer Player", "Player 1");
             realPlayer = playerFactory.createPlayer("Real Player", "Player 2");
@@ -75,7 +75,7 @@ public class CompChooseTerritoryTest {
             List<Player> orderList = new ArrayList<>();
             orderList= PlayerExpert.getPlayersList();
             game.setGameOrderList(orderList);
-            playerFactory.colorIndex=0;
+           // playerFactory.colorIndex=0;
 
 
 

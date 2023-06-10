@@ -17,7 +17,7 @@ public class CreatePlayerTest {
     @BeforeEach
     void BeforeEach() {
         playerFactory = PlayerFactory.getInstance();
-        playerFactory.resetPlayerNames();
+       // playerFactory.resetPlayerNames();
         Color orange = Color.ORANGE;
         List<Color> colorList = new ArrayList<Color>();
         colorList.add(orange);
@@ -28,7 +28,7 @@ public class CreatePlayerTest {
 
     // Test case: Create Real Player with null name --> Black Box  This is based on the expected behavior that creating a player with a null name should throw an exception.
     @Test
-    public void testCreateRealPlayerWithNullName() { 
+    public void testCreateRealPlayerWithNullName() {
         assertThrows(IllegalArgumentException.class, () -> playerFactory.createPlayer("Real Player", null));
     }
 

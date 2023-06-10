@@ -12,7 +12,6 @@ import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Board.ChanceCard;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Board.TerritoryCard;
-import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerInventory;
 
@@ -28,9 +27,9 @@ public class PlayerData implements Serializable{
     private PlayerInventory inventory;
     private String playerType;
     private Color playerColor;
-    private Player player;
-   
+    Player player;
     public PlayerData(Player player) {
+        this.player = player;
         this.playerName = player.getName();
         this.cavalryCount = player.getInventory().getCavalryCount();
         this.infantryCount = player.getInventory().getInfantryCount();
@@ -40,12 +39,11 @@ public class PlayerData implements Serializable{
         this.territoryCards= player.getInventory().getTerritoryCards();
         this.territories = player.getInventory().getOwnedTerritories();
         this.inventory = player.getInventory();
-        this.playerType = player.getType();
-        this.playerColor = player.getColor();
-        this.player = player;
-    }
-    public Player getPlayer(){
-        return player;
+        this.playerType = player.getPlayerType();
+        this.playerColor =  player.getColor();
+
+
+
     }
     public Color getPlayerColor(){
         return playerColor;
@@ -56,12 +54,15 @@ public class PlayerData implements Serializable{
     public String getPlayerType(){
         return playerType;
     }
-    
+    public Player getPlayer(){
+        return player;
+    }
+
 
     public List<Territory> getTerritories() {
         return this.territories;
     }
-    
+
     public int getCavalryCount() {
         return cavalryCount;
     }
@@ -108,8 +109,8 @@ public class PlayerData implements Serializable{
 
     public void setArmyCards(List<ArmyCard> armyCards) {
         this.armyCards = armyCards;
-    } 
-    
+    }
 
-   
+
+
 }

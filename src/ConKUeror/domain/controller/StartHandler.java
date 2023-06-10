@@ -1,7 +1,6 @@
 package ConKUeror.domain.controller;
 
 import ConKUeror.domain.model.Board.Board;
-import ConKUeror.domain.model.Data.GameState;
 import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Modes.StartMode;
 
@@ -30,9 +29,6 @@ public class StartHandler {
     public void occupyTerritory(int id) {
      //    startMode
     }
-    public Board getBoard(){
-        return board;
-    }
 
     public String enterMessageString() {
 
@@ -43,8 +39,10 @@ public class StartHandler {
     public void setStartMode() {
         startMode.setStartMode();
     }
-    public void setLoadedStartMode(GameState gs){
-        startMode.startLoadedGame(gs);
+
+    public Board getBoard() {
+        return null;
     }
+
 
 }

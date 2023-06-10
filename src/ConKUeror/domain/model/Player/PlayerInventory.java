@@ -50,7 +50,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
         this.ownedTerritories = new ArrayList<>();
         this.territoryCards = new ArrayList<>();
         this.armies = 0;
-       
+
     }
     public List<TerritoryCard> getTerritoryCards() {
         return territoryCards;
@@ -169,10 +169,10 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
     public void useTerritoryCards() {
         for (List<String> continent : Arrays.asList(NORTH_AMERICA, SOUTH_AMERICA, EUROPE, AFRICA, ASIA, AUSTRALIA)) {
             boolean continentCanBeCreated = true;
-  
+
             for (String cardName : continent) {
-                
-                
+
+
                 if (!territoryCards.stream().anyMatch(card -> card.getName().endsWith(cardName))) {
                     continentCanBeCreated = false;
                     break;
@@ -183,13 +183,13 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
                     territoryCards.removeIf(card -> card.getName().endsWith(cardName));
                 }
                 System.out.println(continent);
-               
+
             }
         }
 
 
 
-        
+
 
     }
 
@@ -265,27 +265,27 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
 
 
 
-    /* 
-     * Requires: 
+    /*
+     * Requires:
      * Modifies: this.ArmyCards, Army.cavalryList, Army.infantryList, Army.artilleryList
-     * Effects: No return value, Terminal String output is provided. 
-     * 
-     * 
-     * 
+     * Effects: No return value, Terminal String output is provided.
+     *
+     *
+     *
      */
 
 
     public void useArmyCards(int type) {
         CLICKED_ARMY_BUTTON++;
 
-        
+
         boolean validation = isValid(type);
         if (!validation) {
             System.out.println("Not valid type!");
             return;
         }
 
-        
+
 
 
         if (type == 1) {
@@ -339,7 +339,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
         }
 
 
-        
+
     }
 
 
@@ -401,7 +401,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
                 else {
                     return false;
                 }
-                
+
             case 2:
                 if (infantryCount >= 2 && cavalryCount >= 1) {
                     return true;
@@ -410,7 +410,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
                 else {
                     return false;
                 }
-                
+
             case 3:
                 if (infantryCount >= 2 && artilleryCount >= 1) {
                     return true;
@@ -418,7 +418,7 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
                 else {
                     return false;
                 }
-                
+
             case 4:
                 if (infantryCount >= 1 && cavalryCount>= 2) {
                     return true;
@@ -426,8 +426,8 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
                 else {
                     return false;
                 }
-                
-                
+
+
             case 5:
                 if (artilleryCount >= 1 && cavalryCount >= 2) {
                     return true;
@@ -435,16 +435,16 @@ private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38",
                 else {
                     return false;
                 }
-                
 
-                
 
-            
+
+
+
         }
         return false;
 
 
-   
+
 
 
     }
@@ -468,7 +468,7 @@ public void addTerritoryButtonListener(TerritoryButtonListener lis) {
     territoryButtonListeners.add(lis);
   }
 
-  
+
   public void setTerritoryInfo(int ID, int armyUnit, Color color,int territoryArmy) {
     for(TerritoryButtonListener l: territoryButtonListeners) {
       l.setTerritoryButtonInfo(ID, armyUnit, color,territoryArmy);
@@ -481,34 +481,34 @@ public void useChanceCard() {
     Player cardUser = PlayerExpert.getPlayerInTurn();
     switch(chanceCardTurn.getType()) {
         case COUP:
-            
+
             useCoup(cardUser);
             // Territory t = Board.getCurrenTerritory();
             // t.setOwner(cardUser);
-          
+
 
             // setTerritoryInfo(t.getId(), cardUser.getInventory().getTotalArmy(),cardUser.getColor(), t.getTotalUnit());
         case DRAFT:
             useDraft(cardUser);
 
         case SABOTAGE:
-            
 
-        default: 
+
+        default:
             return;
     }
 
 }
 
 public void useCoup(Player p) {
-    Territory t = Board.getCurrenTerritory();
+    Territory t = Board.getCurrentTerritory();
     t.setOwner(p);
     setTerritoryInfo(t.getId(), p.getInventory().getTotalArmy(),p.getColor(), t.getTotalUnit());
 }
 
 
 public void useSabotage() {
-    Territory t = Board.getCurrenTerritory();
+    Territory t = Board.getCurrentTerritory();
     Player p = t.getOwner();
 
 }

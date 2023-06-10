@@ -32,12 +32,13 @@ import ConKUeror.UI.PauseScreen.PauseScreen;
 import ConKUeror.domain.controller.ButtonHandler;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.HandlerFactory;
-
+import ConKUeror.domain.controller.IUIRefreshListener;
 import ConKUeror.domain.controller.MapHandler;
 import ConKUeror.domain.controller.MapListener;
 import ConKUeror.domain.controller.RollDieListener;
 import ConKUeror.domain.controller.StartHandler;
 import ConKUeror.domain.controller.TerritoryButtonListener;
+import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Data.GameState;
 import ConKUeror.domain.model.Modes.GameLogic;
@@ -45,10 +46,11 @@ import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener{
+public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener{
 
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
@@ -67,12 +69,13 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
     JButton executeButton;
     JButton nextButton;
     TerritoryButton selectedButton;
-    List<TerritoryButton> territoryButtonsList = new ArrayList<TerritoryButton>();
+    private static Map<Integer, TerritoryButton> territoryButtonsList= new HashMap<>();
+
     Boolean selected = false;
     List<TerritoryButton> buttonHistory = new ArrayList<TerritoryButton>();
 
 
-    public transient  BufferedImage image;
+    public BufferedImage image;
     JPanel mapPanel;
     String armyNum =String.valueOf(0);
     Boolean disable = false;
@@ -88,12 +91,14 @@ public MapView() throws IOException {
     this.mapHandler = controller.giveMapHandler();
     this.buttonHandler = controller.giveButtonHandler();
     this.gameHandler = controller.giveGameHandler();
-    frame = this;
+     frame = this;
 
 
     initGUI();
 
 
+   // String openingMessage = startHandler.enterMessageString();
+    //DialogBox box = new DialogBox(openingMessage,"Select territories" );
     addMapFrameAsListener();
     addMapFrameAsListenertoListenTerrittoryButtonInteraction();
     addMapFrameAsListenerForRollEvent();
@@ -101,6 +106,12 @@ public MapView() throws IOException {
 
     pauseAndResumeButton.addActionListener(new PauseButtonHandler(this));
     helpButton.addActionListener(new HelpButtonHandler());
+    /*
+    rollButton.addActionListener(new RollButtonHandler());
+    executeButton.addActionListener(new ExecuteButtonHandler());
+    nextButton.addActionListener(new NextButtonHandler());
+*/
+
 
 }
 
@@ -117,11 +128,8 @@ public void addMapFrameAsListener() {
 
 public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
     buttonHandler.registerAsTerritoryListener(this);
-    buttonHandler.registerAsTerritoryListenerPINV(this);
 
 }
-
-
 
 public void addMapFrameAsListenerForRollEvent(){
     buttonHandler.registerAsRollListener(this);
@@ -129,9 +137,6 @@ public void addMapFrameAsListenerForRollEvent(){
 
 public void setPanels() {
 /// may be used.
-}
-public List<TerritoryButton> getTerritoryButtonsList(){
-    return territoryButtonsList;
 }
 
 
@@ -175,7 +180,7 @@ public void initGUI() throws IOException {
         image = ImageIO.read(getClass().getResourceAsStream("/images/Map.png"));
         setSize((int) (1.20 * image.getWidth()), image.getHeight());
         mapPanel = new JPanel() {
-            transient BufferedImage backgroundImage = image;
+            BufferedImage backgroundImage = image;
 
             @Override
             public void paintComponent(Graphics g) {
@@ -185,6 +190,7 @@ public void initGUI() throws IOException {
         };
         mapPanel.setOpaque(false);
 
+        //mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
         mapPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
         mapPanel.setLayout(null);
 
@@ -225,9 +231,9 @@ public void initGUI() throws IOException {
 
 
 
-        setVisible(true);
-        createTerritoryButtons();
-        createFunctionalityButtons();
+    setVisible(true);
+    createTerritoryButtons();
+    createFunctionalityButtons();
 
 }
 
@@ -235,34 +241,48 @@ public void initGUI() throws IOException {
 public void createTerritoryButtons() {
 
     for(int i= 0 ; i<42 ; i++) {
+        if(!Board.getTerritories().get(i).isDeleted()) {
+
 
         int x = buttonHandler.getXFromList(i);
         int y = buttonHandler.getYFromList(i);
 
-        TerritoryButton button = new TerritoryButton(x,y,i);
+         TerritoryButton button = new TerritoryButton(x,y,i);
+
+
+        System.out.println("ne bunun rengi" + Board.getTerritories().get(i).getColor());
+        if(Board.getTerritories().get(i).getColor() !=null) {
+            button.setColor(Board.getTerritories().get(i).getColor());
+        }
         button.setBounds(x, y, 40, 40);
         button.setPreferredSize(new Dimension(40, 40));
-        territoryButtonsList.add(button);
+       // territoryButtonsList.add(button);
+        territoryButtonsList.put(i, button);
         button.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
-
                 if(e.getButton()== MouseEvent.BUTTON1) {
+                    System.out.println("MOUSE CLICKED TO TERRITORY");
                     try {
                         buttonHandler.matchButtonWithTerritory(button.getID());
                     } catch (InterruptedException e1) {
+                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
+                    buttonHandler.selectButton(button);
 
-                        buttonHandler.selectButton(button);
-                        buttonHandler.addToMemory(button.getID());
+
+                    buttonHandler.addToMemory(button.getID());
 
                     Territory[] memoryTerritory = buttonHandler.getMemoryList();
                     for (Territory t : memoryTerritory) {
+                        System.out.println("Hello World");
                         if (t != null) {
                             System.out.println(t.getId());
                         }
 
+                        System.out.println("Bye World!");
                     }
 
                     jPanel.removeAll();
@@ -293,12 +313,10 @@ public void createTerritoryButtons() {
 
                 }
                 else if (e.getButton() == MouseEvent.BUTTON3) {
-                ButtonHandler bHandler = HandlerFactory.getInstance().giveButtonHandler();
 
                     for (TerritoryButton b: buttonHistory) {
-                        bHandler.resetColorOfTerritoryButton(b);
-                        }
-
+                        b.resetColor();
+                    }
                     buttonHistory.clear();
 
                 }
@@ -310,7 +328,7 @@ public void createTerritoryButtons() {
         mapPanel.setLayout(null); // switch to null layout manager
         mapPanel.add(button);
 
-
+    }
 
     }
 
@@ -322,9 +340,20 @@ public void createFunctionalityButtons() {
         pauseAndResumeButton.setBounds(buttonHandler.getXFromList(42), buttonHandler.getYFromList(42), 130, 40);
         helpButton = new JButton("Help");
         helpButton.setBounds(buttonHandler.getXFromList(43), buttonHandler.getYFromList(43), 80, 40);
+/*
+       rollButton = new JButton("Roll");
+        rollButton.setBounds(buttonHandler.getXFromList(44), buttonHandler.getYFromList(44), 80, 80);
+        executeButton = new JButton("Remove");
+        executeButton.setBounds(buttonHandler.getXFromList(45), buttonHandler.getYFromList(45), 80, 80);
+        nextButton = new JButton("Next");
+        nextButton.setBounds(buttonHandler.getXFromList(46), buttonHandler.getYFromList(46), 80, 80);
+        mapPanel.setLayout(null); // switch to null layout manager
+*/
         mapPanel.add(pauseAndResumeButton);
         mapPanel.add(helpButton);
-
+       // mapPanel.add(rollButton);
+        //mapPanel.add(executeButton);
+        //mapPanel.add(nextButton);
 
 
 
@@ -343,6 +372,7 @@ public void removeOnboardEvent(TerritoryButton button) {
     public void getButtonList(List<Integer> neigborIdsList) {
         // TODO Auto-generated method stub
 
+        System.out.println("Map View classına kadar gelen bir connection methodu var");
 
         for (int i = 0; i < neigborIdsList.size(); i++) {
             TerritoryButton button = territoryButtonsList.get(neigborIdsList.get(i));
@@ -400,10 +430,7 @@ private class PauseButtonHandler implements ActionListener {
         this.playerList = PlayerExpert.getPlayersList();
 
 
-        PauseScreen pauseScreen = new PauseScreen(frame, playerList, gameHandler);
-
-
-
+        PauseScreen pauseScreen = new PauseScreen(mapView, frame, playerList, Board.getTerritories(),gameHandler);
 
         pauseScreen.setVisible(true);
     }
@@ -423,14 +450,24 @@ private class HelpButtonHandler implements ActionListener {
 
 }
 
+        public void refreshUI() {
+            // TODO: Add code here to refresh the UI.
+            // This might include repainting certain components, revalidating panels, updating labels, etc.
+            // Without specifics of what components are in your UI and how they need to be refreshed, this is just a placeholder method.
 
+            // Revalidate and repaint panels and frame, this will reflect the changes in the UI
+            mapPanel.revalidate();
+            mapPanel.repaint();
+            updatePlayerPanel();
+            revalidate();
+            repaint();
+        }
 
 @Override
 public void setTerritoryButtonInfo(int buttonId,int armyUnit, Color color,int territoryArmy) {
 
     System.out.print("ŞU AN TESTTEYİM");
     TerritoryButton button = territoryButtonsList.get(buttonId);
-
     button.setColor(color);
      Font labelFont = new Font("Arial", Font.PLAIN, 11);
      button.setFont(labelFont);
@@ -460,12 +497,19 @@ public void updateTerritory(int buttonID, int deployedArmy) {
     TerritoryButton button = territoryButtonsList.get(buttonID);
     button.setArmyValue(deployedArmy);
 
-
+    revalidate();
+    repaint();
 
 
 
 }
 
+@Override
+    public void onUIRefreshRequested() {
+        System.out.println("refresh requested");
+        refreshUI();
+
+    }
 
 
 
