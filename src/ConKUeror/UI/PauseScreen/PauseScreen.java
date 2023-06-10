@@ -55,9 +55,7 @@ public class PauseScreen extends JDialog {
             String fileName = JOptionPane.showInputDialog(this, "Enter file name to save:");
             if (fileName != null) {
                 try {
-                    for(Player p: playerList){
-                        System.out.println(p.getName());
-                    }
+
                     generatePlayerDatas(this.playerList);
                     generateTerritoryDatas(this.territoryMap);
                     HandlerFactory controller = HandlerFactory.getInstance();
