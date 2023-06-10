@@ -37,7 +37,7 @@ public class ArmyCardScreen extends JFrame {
             ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("armies.jpg"));
             textAreaPlus.setImage(icon);
         } catch (Exception e) {
-            // TODO: handle exception
+
         }
   
         textAreaPlus.setForeground(Color.white);
