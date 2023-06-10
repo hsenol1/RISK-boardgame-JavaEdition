@@ -175,6 +175,9 @@ public class LoginFrame extends JFrame {
 
         Board.setTerritories(territories);
         Board.setContinents(gameState.getContinents());
+        Board.initUnoccupiedTerritories();
+        controller.getGameLogic().unoccupiedTerritories = Board.getUnoccupiedTerritories();
+
         controller.getGameLogic().setPlayerInTurn(gameState.getPlayerInTurn());
 
         for (PlayerData playerData : loadedPlayerDataList) {

@@ -25,6 +25,9 @@ public class GameState implements Serializable{
     private Player playerInTurn;
     private List<Player> orderedList;
     private int phaseIndex;
+    private static Map<Integer, Territory> unoccupiedTerritories;
+
+
 
     private GameMode gameMode;
   //  private static List<Continent> continents = new ArrayList<>();
@@ -41,9 +44,14 @@ public class GameState implements Serializable{
         this.phaseIndex= index;
         this.playerInTurn = PlayerExpert.getPlayerInTurn();
         this.orderedList = PlayerExpert.getPlayersList();
+        this.unoccupiedTerritories = Board.getUnoccupiedTerritories();
 
 
     }
+    public static Map<Integer, Territory> getUnoccupiedTerritories() {
+        return unoccupiedTerritories;
+    }
+
     public GameMode getGameMode() {
         return gameMode;
     }

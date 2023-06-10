@@ -51,7 +51,7 @@ public class GameLogic {
   private List<NextButtonListener> nButtonListener = new ArrayList<>();
   private static List<Player> orderedPlayerList;
   private Set<Integer> accessibleTerritoryIds = new HashSet<>();
-  private static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
+  public static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
   private Random rand ;
   private int territoryOrArmyCard;
 

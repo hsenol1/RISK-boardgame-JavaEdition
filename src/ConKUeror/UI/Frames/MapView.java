@@ -255,8 +255,8 @@ public void createTerritoryButtons() {
         }
 
 
-        button.setBounds(x, y, 40, 40);
-        button.setPreferredSize(new Dimension(40, 40));
+        button.setBounds(x, y, 45, 45);
+        button.setPreferredSize(new Dimension(45, 45));
        // territoryButtonsList.add(button);
         territoryButtonsList.put(i, button);
         button.addMouseListener(new MouseAdapter() {
