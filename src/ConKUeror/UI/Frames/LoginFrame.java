@@ -215,13 +215,7 @@ public class LoginFrame extends JFrame {
                     t.getArmy().addInfantries(p2.getInventory().getInfantryCount());
                     t.setOwner(p2);
 
-               // controller.getGameLogic().setTerritoryInfo(botCount, botCount, color, botCount);
-                //controller.giveMapHandler().updateTerritory(botCount, botCount);
-               // mapHandler.updateTerritory(buttonId,result);
 
-              // controller.getGameLogic().setTerritoryInfo(t.getId(), t.getTotalUnit(), t.getColor(), t.getTotalUnit());
-
-               //controller.giveMapHandler().updateTerritory(t.getId(),t.getTotalUnit());
 
                 controller.giveMapHandler().updateTerritory(t.getId(),t.getTotalUnit());
 
