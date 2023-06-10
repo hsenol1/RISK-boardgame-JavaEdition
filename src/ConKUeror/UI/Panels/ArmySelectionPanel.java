@@ -28,6 +28,7 @@ public class ArmySelectionPanel extends JPanel{
 
 public void createSlider() {
     JSlider slider = new JSlider(min, maxValue, min);
+    System.out.println("min" + min + "max" +maxValue);
     slider.setPaintLabels(true);
     slider.setMajorTickSpacing(maxValue - min);
     slider.addChangeListener(new ChangeListener() {

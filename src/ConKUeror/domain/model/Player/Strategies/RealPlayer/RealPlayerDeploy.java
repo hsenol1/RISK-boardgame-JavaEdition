@@ -16,22 +16,16 @@ public class RealPlayerDeploy implements IDeployBehaviour,Serializable {
         // TODO Auto-generated method stub
 
         if (t == null) {
-            return;
-        }
+            return; }
         t.addInfantries(army);
         Player player = PlayerExpert.getPlayerInTurn();
         int player_index =PlayerExpert.getPlayersList().indexOf(player);
-
         player.getInventory().removeInfantries(army);
-
         PlayerExpert.updatePlayerCount(player_index);
-
         MapHandler mapHandler =  HandlerFactory.getInstance().giveMapHandler();
-
         int buttonId = t.getId();
         int result = t.getTotalUnit();
-
-       mapHandler.updateTerritory(buttonId,result);
+        mapHandler.updateTerritory(buttonId,result);
     }
 
 }

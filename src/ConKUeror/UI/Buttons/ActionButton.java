@@ -46,13 +46,8 @@ public class ActionButton extends JButton implements ActionListener{
                     case 2:
                         buttonHandler.nextPhase();
                         break;
-
                 }
                 break;
-
-
-
-
   //this phase is just for test to see connections
             case 1:
                 switch (id[1]) {
@@ -68,10 +63,8 @@ public class ActionButton extends JButton implements ActionListener{
 
                 }
                 break;
-
     // this phase is for start game
             case 2:
-
                 switch (id[1]) {
                     case 0:
                         try {
@@ -80,7 +73,6 @@ public class ActionButton extends JButton implements ActionListener{
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
-
                         break;
                     case 1:
                         // Code to execute if the first element is 2 and the second is 1
@@ -88,15 +80,12 @@ public class ActionButton extends JButton implements ActionListener{
                     case 2:
                         buttonHandler.nextPhase();
                         break;
-
                 }
                 break;
-
      //This phase is for pick chance card
             case 3:
                 switch (id[1]) {
                     case 0:
-
                         break;
                     case 1:
                         // Code to execute if the first element is 2 and the second is 1
@@ -104,32 +93,25 @@ public class ActionButton extends JButton implements ActionListener{
                     case 2:
                         buttonHandler.nextPhase();
                         break;
-
                 }
-
                 break;
-
     //This phase is for deploy phase
             case 4:
                 switch (id[1]) {
                     case 0:
                     buttonHandler.deploy();
                         break;
-
                     case 1:
                     buttonHandler.chooseDeployArmy();
                         break;
                     case 2:
                         buttonHandler.nextPhase();
                         break;
-
                 }
-
                 break;
              //attack
             case 5:
                 switch (id[1]) {
-
                     case 0:
                         buttonHandler.attack();
                         break;
@@ -139,15 +121,11 @@ public class ActionButton extends JButton implements ActionListener{
                     case 2:
                         buttonHandler.nextPhase();
                         break;
-
                 }
-
                 break;
-
             //fortify
             case 6:
                 switch (id[1]) {
-
                     case 0:
                         buttonHandler.fortify();
                         break;
@@ -157,54 +135,34 @@ public class ActionButton extends JButton implements ActionListener{
                     case 2:
                         buttonHandler.nextPhase();
                         break;
-
-
-                 }
-
-                 break;
-
+                }
+                break;
             case 7:
-              switch (id[1]) {
-
-                case 0:
-                    buttonHandler.addArmyCard();
-                    break;
-                case 1:
-                    buttonHandler.useArmyCards();
-                    break;
-                case 2:
-                  //  buttonHandler.nextPhase();
-                   buttonHandler.endTurn();
-
-                    break;
-
-
-                 }
-
-             break;
-
+                switch (id[1]) {
+                    case 0:
+                        buttonHandler.addArmyCard();
+                        break;
+                    case 1:
+                        buttonHandler.useArmyCards();
+                        break;
+                    case 2:
+                        buttonHandler.endTurn();
+                        break;
+                }
+                break;
             case 8:
                 switch (id[1]) {
-
                 case 0:
                     buttonHandler.addTerritoryCard();
                     break;
-
                 case 1:
                     buttonHandler.useTerritoryCards();
                     break;
                 case 2:
-                  //   buttonHandler.nextPhase();
-                   buttonHandler.endTurn();
-
+                    buttonHandler.endTurn();
                     break;
-
-
             }
-
             break;
-
-
 
         }
 

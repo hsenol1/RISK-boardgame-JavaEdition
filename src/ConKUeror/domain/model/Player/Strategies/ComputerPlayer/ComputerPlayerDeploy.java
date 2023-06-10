@@ -18,10 +18,11 @@ import ConKUeror.domain.model.Player.PlayerExpert;
 import ConKUeror.domain.model.Player.Strategies.IDeployBehaviour;
 
 public class ComputerPlayerDeploy implements IDeployBehaviour,Serializable{
-
+    Player player;
+    int player_index;
 
     public void waitAndExecute(Runnable action) {
-        int delay = 1000; // delay for 1 second.
+        int delay = 2000; // delay for 1 second.
         Timer timer = new Timer(delay, null);
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -37,30 +38,40 @@ public class ComputerPlayerDeploy implements IDeployBehaviour,Serializable{
 
     @Override
     public void deploy(Territory t, int army) {
-        // TODO Auto-generated method stub
-
-
-        if (t == null) {
-            return; }
-
-        t.addInfantries(army);
-        Player player = PlayerExpert.getPlayerInTurn();
-        int player_index =PlayerExpert.getPlayersList().indexOf(player);
-
-        player.getInventory().removeInfantries(army);
-
-        PlayerExpert.updatePlayerCount(player_index);
-
-        MapHandler mapHandler =  HandlerFactory.getInstance().giveMapHandler();
-
-        int buttonId = t.getId();
-        int result = t.getTotalUnit();
-
         waitAndExecute(() -> {
-            mapHandler.updateTerritory(buttonId,result);
-        });
+            player = PlayerExpert.getPlayerInTurn();
+            System.out.println("PLAYER " + player.getName());
+            player_index = PlayerExpert.getPlayersList().indexOf(player);
 
+            PlayerExpert.updatePlayerCount(player_index);
+
+            // After the above task is done and we waited for 1 second, continue with the following tasks
+            SwingUtilities.invokeLater(() -> {
+                System.out.println("COMPUTER DEPLOY YAPIYOR");
+                System.out.println("DEPLOYLANICAK TERRITORY" + t.getId());
+                System.out.println("DEPLOYLANICAK ARMY" + army);
+
+                if (t == null) {
+                    return;
+                }
+
+                t.addInfantries(army);
+                player.getInventory().removeInfantries(army);
+                System.out.println("PLAYER INDEXIM" + player_index);
+                PlayerExpert.updatePlayerCount(player_index);
+
+                MapHandler mapHandler = HandlerFactory.getInstance().giveMapHandler();
+                int buttonId = t.getId();
+                int result = t.getTotalUnit();
+
+                // After the above tasks are done, we wait again for 1 second and then do the following
+                waitAndExecute(() -> {
+                    mapHandler.updateTerritory(buttonId, result);
+                });
+            });
+        });
     }
+
 
 
 }

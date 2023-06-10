@@ -63,7 +63,7 @@ public class PauseScreen extends JDialog {
                     HandlerFactory controller = HandlerFactory.getInstance();
                     GameLogic game =  controller.getGameLogic();
 
-                    gameState = new GameState(playerDataList,territoryDataList,Board.getContinents(),         game.getGameMode()         ,   game.getGamePhaseAsIndex()
+                    gameState = new GameState(playerDataList,territoryDataList,Board.getContinents(), game.getGameMode()         ,   game.getGamePhaseAsIndex()
                     );
                     saveLoadHandler.saveGame(fileName,gameState);
                     JOptionPane.showMessageDialog(this, "Game saved successfully.");

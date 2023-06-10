@@ -156,7 +156,11 @@ public class LoginFrame extends JFrame {
 
             Territory territory = territoryData.getTerritory();
             territoryList.add(territory);
-            territory.setColor(territoryData.getColor());
+
+            if(territoryData.isColored()) {
+                territory.setColor(new Color(territoryData.getColorRValue(),territoryData.getColorGValue(),territoryData.getColorBValue()));
+
+            }
 
             territory.setIsDeleted(territoryData.getIsDeleted());
             territory.setId(territoryData.getId());
@@ -214,7 +218,6 @@ public class LoginFrame extends JFrame {
             List<Territory> owned = p2.getInventory().getOwnedTerritories();
 
             p2.setColor(playerData.getPlayerColor());
-            //p2.setColor( new Color(playerData.getPlayerColor()) );
 
 
             for(Territory t : owned){
@@ -225,14 +228,13 @@ public class LoginFrame extends JFrame {
 
                // controller.getGameLogic().setTerritoryInfo(botCount, botCount, color, botCount);
                 //controller.giveMapHandler().updateTerritory(botCount, botCount);
-              // mapHandler.updateTerritory(buttonId,result);
+               // mapHandler.updateTerritory(buttonId,result);
 
-               //controller.getGameLogic().setTerritoryInfo(t.getId(), t.getTotalUnit(), p2.getColor(), t.getTotalUnit());
+              // controller.getGameLogic().setTerritoryInfo(t.getId(), t.getTotalUnit(), t.getColor(), t.getTotalUnit());
 
+               //controller.giveMapHandler().updateTerritory(t.getId(),t.getTotalUnit());
 
-               controller.giveMapHandler().updateTerritory(t.getId(),t.getTotalUnit());
-
-              // mapHandler.updateTerritory(buttonId,result,player.getColor());
+                  controller.giveMapHandler().updateTerritory(t.getId(),t.getTotalUnit());
 
 
 
