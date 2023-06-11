@@ -161,7 +161,12 @@ public class LoginFrame extends JFrame {
         for (TerritoryData territoryData : loadedTerritoryDataList) {
             Territory territory = territoryData.getTerritory();
             territoryList.add(territory);
-            territory.setColor(territoryData.getColor());
+
+            if(territoryData.isColored()) {
+                territory.setColor(new Color(territoryData.getColorRValue(),territoryData.getColorGValue(),territoryData.getColorBValue()));
+
+            }
+
             territory.setIsDeleted(territoryData.getIsDeleted());
             territory.setId(territoryData.getId());
             System.out.println("Territory and deletion boolean" + territory.getId() + territory.isDeleted());
@@ -170,6 +175,9 @@ public class LoginFrame extends JFrame {
 
         Board.setTerritories(territories);
         Board.setContinents(gameState.getContinents());
+        Board.initUnoccupiedTerritories();
+        controller.getGameLogic().unoccupiedTerritories = Board.getUnoccupiedTerritories();
+
         controller.getGameLogic().setPlayerInTurn(gameState.getPlayerInTurn());
 
         for (PlayerData playerData : loadedPlayerDataList) {
@@ -202,7 +210,7 @@ public class LoginFrame extends JFrame {
                 Player p2 = playerData.getPlayer();
                 List<Territory> owned = p2.getInventory().getOwnedTerritories();
 
-                p2.setColor(playerData.getPlayerColor());
+            p2.setColor(playerData.getPlayerColor());
 
                 for (Territory t : owned) {
                     t.getArmy().addArtilleries(p2.getInventory().getArtilleryCount());
@@ -210,10 +218,16 @@ public class LoginFrame extends JFrame {
                     t.getArmy().addInfantries(p2.getInventory().getInfantryCount());
                     t.setOwner(p2);
 
-                    controller.giveMapHandler().updateTerritory(t.getId(), t.getTotalUnit());
+
+
+                controller.giveMapHandler().updateTerritory(t.getId(),t.getTotalUnit());
+
                 }
             }
-        } catch (IOException e1) {
+
+
+            }
+         catch (IOException e1) {
             e1.printStackTrace();
         }
     }

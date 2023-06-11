@@ -6,6 +6,7 @@ import java.util.List;
 import ConKUeror.domain.controller.CardController;
 import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.model.Player.Player;
+import ConKUeror.domain.model.Player.PlayerExpert;
 
 public class StartMode {
     private int playerCount;
@@ -105,6 +106,8 @@ public class StartMode {
 
         orderedPlayerList = orderList;
         GameLogic.setGameOrderList(orderedPlayerList);
+        PlayerExpert.setPlayersList(orderedPlayerList);
+        PlayerExpert.setPlayerInTurn(orderedPlayerList.get(0));
     }
 
     public static void setOrderedList(List<Player> playerList) {

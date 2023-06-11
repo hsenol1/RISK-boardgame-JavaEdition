@@ -61,7 +61,7 @@ public class ButtonHandler{
           Territory t = Board.getTerritoryWithIndex(id);
           //System.out.println(t.getId());
           System.out.println(gMode.getGameMode());
-          System.out.println(t.getId());
+          gMode.setPlayerInTurn(PlayerExpert.getPlayerInTurn());
           gMode.prepareGame(t,gMode.getGameMode());
 
     }

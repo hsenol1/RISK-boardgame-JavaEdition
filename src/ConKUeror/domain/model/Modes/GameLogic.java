@@ -51,7 +51,7 @@ public class GameLogic {
   private List<NextButtonListener> nButtonListener = new ArrayList<>();
   private static List<Player> orderedPlayerList;
   private Set<Integer> accessibleTerritoryIds = new HashSet<>();
-  private static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
+  public static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
   private Random rand ;
   private int territoryOrArmyCard;
 
@@ -150,9 +150,10 @@ public class GameLogic {
 
 
      public void setForMapInitalization() throws InterruptedException {
-
-       String playerType= playerInTurn.getType();
-
+      System.out.println("set For Map Initalization");
+       String playerType= this.playerInTurn.getType();
+       System.out.println("player Type" +playerType);
+       playerInTurn = PlayerExpert.getPlayerInTurn();
        if (playerType.equals("Computer")) {
         computerChoosesTerritory();
        }
@@ -192,7 +193,7 @@ public class GameLogic {
 
               while(t == null || t.isDeleted()) {
 
-                randomTerritoryId = rand.nextInt(              unoccupiedTerritories.size()
+                randomTerritoryId = rand.nextInt(unoccupiedTerritories.size()
                 );
                 t = unoccupiedTerritories.get(randomTerritoryId);
               }
@@ -245,10 +246,13 @@ public class GameLogic {
 
 
     public void passToNextPlayer(Player p1) throws InterruptedException {
+      orderedPlayerList = PlayerExpert.getPlayersList();
       int currentIndex = orderedPlayerList.indexOf(p1);
       PlayerExpert.updatePlayerCount(currentIndex);
       int newIndex = (currentIndex+1 ) %orderedPlayerList.size();
       playerInTurn= orderedPlayerList.get(newIndex);
+      PlayerExpert.setPlayerInTurn(playerInTurn);
+
       int oldIndex = currentIndex;
       PlayerExpert.publishPlayerInfoEvent(oldIndex, newIndex, playerInTurn.getColor());
       if(playerInTurn.getType().equals("Computer")) {
@@ -295,7 +299,6 @@ public static int getRandomTerritoryId2( List<Territory> ownedTerritories) {
 
 
     public void setFirstPlayer() {
-     // System.out.println(orderedPlayerList.get(0).getName() );
       this.playerInTurn = orderedPlayerList.get(0);
     }
 
@@ -478,6 +481,7 @@ public static int getRandomTerritoryId2( List<Territory> ownedTerritories) {
        for (NextButtonListener l : nButtonListener ) {
         l.nextPhaseEvent(phaseIndex);
     }
+      orderedPlayerList = PlayerExpert.getPlayersList();
       int currentIndex = orderedPlayerList.indexOf(playerInTurn);
       PlayerExpert.updatePlayerCount(currentIndex);
       int newIndex = (currentIndex+1 ) %orderedPlayerList.size();
@@ -564,7 +568,6 @@ public void setGamePhaseIndex(int n){
 
     public void prepareGame(Territory t,GameMode gameMode) throws InterruptedException {
 
-      PlayerExpert.setPlayerInTurn(playerInTurn);
       if (playerInTurn == null || playerInTurn.getType().equals("Real")) {
 
       switch(gameMode) {

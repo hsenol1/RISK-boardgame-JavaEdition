@@ -3,6 +3,7 @@ package ConKUeror.domain.model.Board;
 import java.util.List;
 import java.util.Map;
 
+import ConKUeror.domain.model.Modes.GameLogic;
 import ConKUeror.domain.model.Player.Player;
 
 import java.io.Serializable;
@@ -39,8 +40,9 @@ static Map<Integer, Territory> unoccupiedTerritories = new LinkedHashMap<>();
     public static void initUnoccupiedTerritories() {
         for (Map.Entry<Integer, Territory> entry : territories.entrySet()) {
             Territory territory = entry.getValue();
-            if (!territory.isDeleted()) {
+            if (!territory.isDeleted() && territory.getOwner()==null) {
                 unoccupiedTerritories.put(entry.getKey(), territory);
+
             }
         }
     }

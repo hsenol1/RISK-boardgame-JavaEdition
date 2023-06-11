@@ -212,7 +212,7 @@ public void getButtonList(List<Integer> neigborIdsList) {
 public void setTerritoryButtonInfo(int buttonID, int armyUnit, Color color,int territoryArmy) {
     // TODO Auto-generated method stub
 
-    getActionButtonWithIndex(7).setText(Integer.toString(armyUnit));
+    //getActionButtonWithIndex(7).setText(Integer.toString(armyUnit));
 
 }
 
@@ -237,7 +237,6 @@ public void updateAfterAttack(boolean attackResult, Player playerInTurn, Territo
 }
 
 }
-
 
 
 

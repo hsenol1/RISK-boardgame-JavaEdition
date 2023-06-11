@@ -49,6 +49,9 @@ public class TerritoryButton extends JButton {
     public void setColor(Color color) {
 
         setBackground(color);
+        this.setVisible(true);
+        repaint();
+        revalidate();
     }
 
     public void resetColor() {
@@ -81,45 +84,5 @@ public class TerritoryButton extends JButton {
 
 
 
-    /* *
 
-    public MyButton(String text) {
-        super(text);
-        setOpaque(false); // make button transparent
-        setContentAreaFilled(false); // remove default fill
-        setBorderPainted(false); // remove default border
-        setFocusPainted(false); // remove focus indication
-
-        // Set preferred size to create a circular shape
-        Dimension size = getPreferredSize();
-        size.width = Math.max(size.width, size.height);
-        size.height = size.width;
-        setPreferredSize(size);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        if (getModel().isArmed()) {
-            g.setColor(Color.gray); // color when button is pressed
-        } else {
-            g.setColor(getBackground());
-        }
-        g.fillOval(0, 0, getSize().width - 1, getSize().height - 1); // draw circle
-        super.paintComponent(g);
-    }
-
-    @Override
-    protected void paintBorder(Graphics g) {
-        g.setColor(getForeground());
-        g.drawOval(0, 0, getSize().width - 1, getSize().height - 1); // draw border
-    }
-
-    @Override
-    public boolean contains(int x, int y) {
-        // Check if the click is within the circular shape
-        Shape shape = new Ellipse2D.Float(0, 0, getWidth(), getHeight());
-        return shape.contains(x, y);
-    }
-
-    */
 }
