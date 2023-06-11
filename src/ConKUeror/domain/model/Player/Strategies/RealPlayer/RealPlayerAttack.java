@@ -24,14 +24,12 @@ public class RealPlayerAttack implements IAttackBehaviour,Serializable {
         defendingArmy))
         {
             System.out.println("Attack is successful");
-            return DiceRoller.getDiceRollerInstance().rollForAttack(attackingInfantries, attackingCavalries, attackingArtilleries,
-            defendingArmy);
+            return true;
         }
         else
         {
             System.out.println("Attack failed");
-            return DiceRoller.getDiceRollerInstance().rollForAttack(attackingInfantries, attackingCavalries, attackingArtilleries,
-            defendingArmy);
+            return false;
         }
 
     }
