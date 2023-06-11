@@ -124,10 +124,11 @@ public class DiceRoller implements Serializable{
         //loop until a list's size becomes 0
         if (attackingSoldiers.size() != 0 && defendingSoldiers.size() != 0)
         {
+            // int attackerIndex = 0;
+            // int defenderIndex = 0;
+
             while (attackingSoldiers.size() > 0 && defendingSoldiers.size() > 0)
             {
-                int attackerIndex = 0;
-                int defenderIndex = 0;
 
                 int firstRoll = rollDice();
                 int secondRoll = rollDice();
@@ -136,20 +137,20 @@ public class DiceRoller implements Serializable{
 
                 if (firstRoll > secondRoll)
                 {
-                    defendingSoldiers.get(defenderIndex).takeHit();
-                    if (defendingSoldiers.get(defenderIndex).getHealth() == 0)
+                    defendingSoldiers.get(0).takeHit();
+                    if (defendingSoldiers.get(0).getHealth() == 0)
                     {
-                        defendingSoldiers.remove(defenderIndex);
-                        defenderIndex++;
+                        defendingSoldiers.remove(0);
+                        // defenderIndex++;
                     }
                 }
                 else
                 {
-                    attackingSoldiers.get(attackerIndex).takeHit();
-                    if (attackingSoldiers.get(attackerIndex).getHealth() == 0)
+                    attackingSoldiers.get(0).takeHit();
+                    if (attackingSoldiers.get(0).getHealth() == 0)
                     {
-                        attackingSoldiers.remove(attackerIndex);
-                        attackerIndex++;
+                        attackingSoldiers.remove(0);
+                        // attackerIndex++;
                     }
                 }
                 
