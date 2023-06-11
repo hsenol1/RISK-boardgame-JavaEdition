@@ -158,6 +158,16 @@ public class Territory implements Serializable {
         return this.army;
     }
 
+    public void removeAllArmy() {
+        int infantry = this.army.getInfantries();
+        int artillery = this.army.getArtilleries();
+        int cavalry = this.army.getCavalries();
+
+        this.army.removeArtilleries(artillery);
+        this.army.removeCavalries(cavalry);
+        this.army.removeInfantries(infantry);
+    }
+
 
 
 }

@@ -53,18 +53,14 @@ public class CardController {
             armyDeck.add(new ArmyCard("Artillery Card", ArmyCard.ArmyType.ARTILLERY));
         }
 
-        chanceDeck.add(new ChanceCard("Coup", ChanceCard.ChanceType.COUP));
-        
+        chanceDeck.add(new ChanceCard("COUP", ChanceCard.ChanceType.COUP));
+        chanceDeck.add(new ChanceCard("REVOLT", ChanceCard.ChanceType.REVOLT));
+        chanceDeck.add(new ChanceCard("SABOTAGE", ChanceCard.ChanceType.SABOTAGE));
+        chanceDeck.add(new ChanceCard("SECRET-WEAPON", ChanceCard.ChanceType.SECRETWEAPON));
+        chanceDeck.add(new ChanceCard("DRAFT", ChanceCard.ChanceType.DRAFT));
 
-        // Add chance cards
-       /*  for (ChanceCard.ChanceType chanceType : ChanceCard.ChanceType.values()) {
-            String name = chanceType.name() + " Card";
-            chanceDeck.add(new ChanceCard(      chanceType.name() + " Card";
-            , chanceType));
-        }
-*/
-        // Shuffle the deck
-        //Collections.shuffle(chanceDeck);
+
+   
         Collections.shuffle(armyDeck);
         Collections.shuffle(terittoryDeck);
 

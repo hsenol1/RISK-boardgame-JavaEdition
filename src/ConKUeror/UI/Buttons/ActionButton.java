@@ -86,9 +86,11 @@ public class ActionButton extends JButton implements ActionListener{
             case 3:
                 switch (id[1]) {
                     case 0:
+                        buttonHandler.showChanceCardInfo();
                         break;
                     case 1:
                         // Code to execute if the first element is 2 and the second is 1
+                        buttonHandler.useChanceCard();
                         break;
                     case 2:
                         buttonHandler.nextPhase();

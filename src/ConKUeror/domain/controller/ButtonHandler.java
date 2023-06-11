@@ -14,6 +14,7 @@ import ConKUeror.UI.Frames.MapView;
 import ConKUeror.UI.Panels.ArmyCardWindow;
 import ConKUeror.UI.Panels.ArmySelectionPanel;
 import ConKUeror.UI.Panels.AttackingArmyPanel;
+import ConKUeror.UI.Panels.ChanceCardWindow;
 import ConKUeror.UI.Panels.PlayerInteractionPanel;
 import ConKUeror.domain.enums.GameMode;
 import ConKUeror.domain.model.Army.Artillery;
@@ -285,6 +286,8 @@ if(FortifyMode.canFortify()) {
         gMode.prepareForOtherPlayer();
     }
 
+    
+
 
 
 
@@ -308,6 +311,21 @@ if(FortifyMode.canFortify()) {
    public void registerAsTerritoryListener(TerritoryButtonListener territoryListener) {
         gMode.addTerritoryButtonListener(territoryListener);
        // loginFrame.add
+    }
+
+    public void registerAsTerritoryListenerPINV(TerritoryButtonListener territoryListener) {
+        for (Player p : PlayerExpert.getPlayersList()) {
+            p.getInventory().addTerritoryButtonListener(territoryListener);
+        }
+    }
+
+     public void showChanceCardInfo() {
+        ChanceCardWindow window = new ChanceCardWindow("This is a coup card, select a territory and pick use!");
+        window.createChanceWindow();
+    }
+
+    public void useChanceCard() {
+        gMode.useChanceCard();
     }
 
 
