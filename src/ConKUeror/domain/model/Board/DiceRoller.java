@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import ConKUeror.domain.controller.AnimationMapListener;
+import ConKUeror.domain.controller.MapListener;
+import ConKUeror.domain.controller.TerritoryButtonListener;
 import ConKUeror.domain.model.Army.Army;
 import ConKUeror.domain.model.Army.Artillery;
 import ConKUeror.domain.model.Army.Cavalry;
@@ -13,9 +16,11 @@ import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 
 public class DiceRoller implements Serializable{
-
+    private List<AnimationMapListener> aMapListeners  = new ArrayList<>();
     private static DiceRoller diceRollerInstance = null;
     private static int lossInteger = 0;
+    private static int firstRollValue = 9;
+    private static int secondRollValue = 9;
     Die die;
     PlayerExpert playerExpert;
 
@@ -57,6 +62,21 @@ public class DiceRoller implements Serializable{
     public static int getDefenderArmyLoss() {
         return lossInteger;
     }
+
+    public static int[] getRollValues() {
+        int[] returnArray = {firstRollValue,secondRollValue};
+       return returnArray; 
+    }
+
+    public void addAniMapListener(AnimationMapListener animationMapListener) {
+        aMapListeners.add(animationMapListener);
+    }
+
+      public void displayAnimation(int number1, int number2) {
+            for(AnimationMapListener aMapL : aMapListeners) {
+                    aMapL.showAnimation(number1,number2);
+            }
+        }
 
 
 
@@ -131,12 +151,17 @@ public class DiceRoller implements Serializable{
         {
             // int attackerIndex = 0;
             // int defenderIndex = 0;
-
+            int firstRoll = 0;
+            int secondRoll = 0; 
             while (attackingSoldiers.size() > 0 && defendingSoldiers.size() > 0)
             {
 
-                int firstRoll = rollDice();
-                int secondRoll = rollDice();
+                firstRoll = rollDice();
+                
+                 secondRoll = rollDice();
+
+                
+                
 
                 System.out.println(firstRoll + " " + secondRoll);
 
@@ -160,6 +185,8 @@ public class DiceRoller implements Serializable{
                 }
                 
             }
+
+            displayAnimation(firstRoll, secondRoll);
 
         }
 

@@ -44,6 +44,8 @@ public class AnimationHandler {
         timer.schedule(task, 2000);
     }
 
+    
+
     private JLabel createAnimationLabel(String text, int x, int y) {
         JLabel label = new JLabel(text);
         label.setForeground(Color.GREEN);
@@ -70,4 +72,8 @@ public class AnimationHandler {
         mapView.getMapPanel().revalidate();
         mapView.getMapPanel().repaint();
     }
+
+
+
+    
 }
