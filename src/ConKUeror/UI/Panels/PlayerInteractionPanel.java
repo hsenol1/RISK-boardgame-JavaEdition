@@ -23,7 +23,9 @@ import ConKUeror.domain.controller.ButtonHandler;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.NextButtonListener;
 import ConKUeror.domain.controller.TerritoryButtonListener;
+import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Modes.GameLogic;
+import ConKUeror.domain.model.Player.Player;
 
 public class PlayerInteractionPanel extends JPanel implements NextButtonListener,TerritoryButtonListener{
 
@@ -226,6 +228,12 @@ public void updateTerritory(int buttonID, int deployArmy) {
     // TODO Auto-generated method stub
 
 //will be removed
+}
+
+@Override
+public void updateAfterAttack(boolean attackResult, Player playerInTurn, Territory territory, Territory territory2)
+{
+
 }
 
 }

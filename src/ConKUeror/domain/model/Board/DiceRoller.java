@@ -18,6 +18,18 @@ public class DiceRoller implements Serializable{
     Die die;
     PlayerExpert playerExpert;
 
+    List<Soldier> attackingSoldiers;
+    List<Soldier> defendingSoldiers;
+
+    static List<Infantry> remainingInfantryList;
+    static List<Cavalry> remainingCavalryList;
+    static List<Artillery> remainingArtilleryList;
+
+    static int attackingArmyUnitAtBeginning;
+    static int attackingArmyUnitAtEnd;
+
+
+
     private DiceRoller() {
         this.die = Die.getDieInstance();
         playerExpert = PlayerExpert.getPlayerExpert();
@@ -48,8 +60,12 @@ public class DiceRoller implements Serializable{
     {
         boolean attackSuccess = false;
 
-        List<Soldier> attackingSoldiers = new ArrayList<Soldier>();
-        List<Soldier> defendingSoldiers = new ArrayList<Soldier>();
+        attackingArmyUnitAtBeginning = attackingInfantries.size() + attackingCavalries.size() * 5 + attackingArtilleries.size() * 10;
+
+        attackingSoldiers = new ArrayList<Soldier>();
+        defendingSoldiers = new ArrayList<Soldier>();
+
+        
 
         //add all attacking soldiers to a list
         if (attackingInfantries.size() > 0)
@@ -110,26 +126,33 @@ public class DiceRoller implements Serializable{
         {
             while (attackingSoldiers.size() > 0 && defendingSoldiers.size() > 0)
             {
-                int firstRoll = die.getFaceValue();;
-                int secondRoll = die.getFaceValue();;
+                int attackerIndex = 0;
+                int defenderIndex = 0;
+
+                int firstRoll = rollDice();
+                int secondRoll = rollDice();
+
                 System.out.println(firstRoll + " " + secondRoll);
 
                 if (firstRoll > secondRoll)
                 {
-                    defendingSoldiers.get(0).takeHit();
-                }
-                if (defendingSoldiers.get(0).getHealth() == 0)
-                {
-                    defendingSoldiers.remove(0);
+                    defendingSoldiers.get(defenderIndex).takeHit();
+                    if (defendingSoldiers.get(defenderIndex).getHealth() == 0)
+                    {
+                        defendingSoldiers.remove(defenderIndex);
+                        defenderIndex++;
+                    }
                 }
                 else
                 {
-                    attackingSoldiers.get(0).takeHit();
+                    attackingSoldiers.get(attackerIndex).takeHit();
+                    if (attackingSoldiers.get(attackerIndex).getHealth() == 0)
+                    {
+                        attackingSoldiers.remove(attackerIndex);
+                        attackerIndex++;
+                    }
                 }
-                if (attackingSoldiers.get(0).getHealth() == 0)
-                {
-                    attackingSoldiers.remove(0);
-                }
+                
             }
 
         }
@@ -137,9 +160,15 @@ public class DiceRoller implements Serializable{
         if (attackingSoldiers.size() != 0)
         {
             attackSuccess = true;
+            addAllRemainingSoldiersToTheirRespectiveLists();
+        }
+        else
+        {
+            addAllRemainingSoldiersToTheirRespectiveLists();
         }
 
         return attackSuccess;
+
 
         // while (attackerArmy > 0 && defenderArmy > 0) {
 
@@ -179,6 +208,29 @@ public class DiceRoller implements Serializable{
 
     }
 
+    public void addAllRemainingSoldiersToTheirRespectiveLists()
+    {
+        remainingInfantryList = new ArrayList<Infantry>();
+        remainingCavalryList = new ArrayList<Cavalry>();
+        remainingArtilleryList = new ArrayList<Artillery>();
+
+        for (Soldier soldier: attackingSoldiers)
+        {
+            if (soldier instanceof Infantry)
+            {
+                remainingInfantryList.add((Infantry) soldier);
+            }
+            else if (soldier instanceof Cavalry)
+            {
+                remainingCavalryList.add((Cavalry) soldier);
+            }
+            else
+            {
+                remainingArtilleryList.add((Artillery) soldier);
+            }
+        }
+    }
+
     public Player getFirstPlayer() {
 
 
@@ -189,8 +241,22 @@ public class DiceRoller implements Serializable{
 
     }
 
+    public static List<Infantry> getRemainingInfantryList() {
+        return remainingInfantryList;
+    }
 
+    public static List<Cavalry> getRemainingCavalryList() {
+        return remainingCavalryList;
+    }
 
+    public static List<Artillery> getRemainingArtilleryList() {
+        return remainingArtilleryList;
+    }
+
+    public static int getAttackingArmyUnit()
+    {
+        return attackingArmyUnitAtEnd;
+    }
 
 
 }
