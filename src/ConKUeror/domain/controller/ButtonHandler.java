@@ -319,6 +319,10 @@ if(FortifyMode.canFortify()) {
         }
     }
 
+    public void registerAnimationListener(AnimationMapListener aMapListener) {
+        DiceRoller.getDiceRollerInstance().addAniMapListener(aMapListener);
+    }
+
      public void showChanceCardInfo() {
         ChanceCardWindow window = new ChanceCardWindow("This is a coup card, select a territory and pick use!");
         window.createChanceWindow();

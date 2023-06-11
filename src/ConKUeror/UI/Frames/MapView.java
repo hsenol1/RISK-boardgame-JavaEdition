@@ -33,6 +33,7 @@ import ConKUeror.UI.Panels.InfoPanel;
 import ConKUeror.UI.Panels.PlayerInteractionPanel;
 import ConKUeror.UI.Panels.PlayerPanel;
 import ConKUeror.UI.PauseScreen.PauseScreen;
+import ConKUeror.domain.controller.AnimationMapListener;
 import ConKUeror.domain.controller.ButtonHandler;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.HandlerFactory;
@@ -44,6 +45,7 @@ import ConKUeror.domain.controller.StartHandler;
 import ConKUeror.domain.controller.TerritoryButtonListener;
 import ConKUeror.domain.model.Board.AnimationHandler;
 import ConKUeror.domain.model.Board.Board;
+import ConKUeror.domain.model.Board.DiceAnimation;
 import ConKUeror.domain.model.Board.DiceRoller;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Data.GameState;
@@ -56,8 +58,9 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener{
+public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener, AnimationMapListener{
     private AnimationHandler animationHandler;
+    private DiceAnimation diceAnimation;
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
     StartHandler startHandler;
@@ -102,6 +105,7 @@ public MapView() throws IOException {
     frame = this;
     
     animationHandler = new AnimationHandler(this);
+    diceAnimation = new DiceAnimation(this);
 
 
     initGUI();
@@ -146,11 +150,13 @@ public JPanel getMapPanel() {
 public void addMapFrameAsListener() {
     mapHandler.registerAsListener(this);
 
+
 }
 
 public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
     buttonHandler.registerAsTerritoryListener(this);
     buttonHandler.registerAsTerritoryListenerPINV(this);
+    buttonHandler.registerAnimationListener(this);
 
 }
 
@@ -202,6 +208,7 @@ public void initGUI() throws IOException {
 
         image = ImageIO.read(getClass().getResourceAsStream("/images/Map.png"));
         setSize((int) (1.20 * image.getWidth()), image.getHeight());
+        System.out.println("GETWIDTH AND GETHEIGHT IS !!!!!! " + image.getWidth()+  " HEYE" +image.getHeight());
         mapPanel = new JPanel() {
             BufferedImage backgroundImage = image;
 
@@ -309,6 +316,7 @@ public void createTerritoryButtons() {
                     buttonHandler.addToMemory(button.getID());
 
                    // animationHandler.startPlusThreeAnimation(button, 31);
+                   //  diceAnimation.DiceRollAnimation(4,2);
 
                     Territory[] memoryTerritory = buttonHandler.getMemoryList();
                     for (Territory t : memoryTerritory) {
@@ -583,6 +591,12 @@ public void updateAfterAttack(boolean attackResult, Player playerInTurn, Territo
         TerritoryButton attackerButton = territoryButtonsList.get(attacker.getId());
         attackerButton.setArmyValue(attacker.getArmy().getTotalArmyUnit() - DiceRoller.getAttackingArmyUnit());
     }
+}
+
+@Override
+public void showAnimation(int number1, int number2) {
+    // TODO Auto-generated method stub
+    diceAnimation.DiceRollAnimation(number1, number2);
 }
 
 
