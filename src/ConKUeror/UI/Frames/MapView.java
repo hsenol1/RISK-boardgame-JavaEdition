@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.Array;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -22,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import ConKUeror.UI.Buttons.TerritoryButton;
 import ConKUeror.UI.HelpScreen.HelpScreen;
@@ -39,6 +42,7 @@ import ConKUeror.domain.controller.MapListener;
 import ConKUeror.domain.controller.RollDieListener;
 import ConKUeror.domain.controller.StartHandler;
 import ConKUeror.domain.controller.TerritoryButtonListener;
+import ConKUeror.domain.model.Board.AnimationHandler;
 import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Board.DiceRoller;
 import ConKUeror.domain.model.Board.Territory;
@@ -53,7 +57,7 @@ import java.util.List;
 
 
 public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener{
-
+    private AnimationHandler animationHandler;
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
     StartHandler startHandler;
@@ -61,6 +65,7 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
     PlayerPanel playerPanel;
     JPanel jPanel = new JPanel();
     JPanel jPanel2 =  new JPanel();
+    private JPanel mapPanel;
 
     JButton pauseAndResumeButton;
     JButton helpButton;
@@ -72,13 +77,14 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
     JButton nextButton;
     TerritoryButton selectedButton;
     private static Map<Integer, TerritoryButton> territoryButtonsList= new HashMap<>();
+    private Map<Integer, JLabel> animationLabels = new HashMap<>();
 
     Boolean selected = false;
     List<TerritoryButton> buttonHistory = new ArrayList<TerritoryButton>();
 
 //hllo
     public BufferedImage image;
-    JPanel mapPanel;
+
     String armyNum =String.valueOf(0);
     Boolean disable = false;
     int disable_Num = 0;
@@ -94,6 +100,8 @@ public MapView() throws IOException {
     this.buttonHandler = controller.giveButtonHandler();
     this.gameHandler = controller.giveGameHandler();
     frame = this;
+    
+    animationHandler = new AnimationHandler(this);
 
 
     initGUI();
@@ -111,6 +119,27 @@ public MapView() throws IOException {
 
 
 }
+
+public JPanel getMapPanel() {
+    return mapPanel;
+}
+
+
+    public void startPlusThreeAnimation(TerritoryButton button, int animVal) {
+        animationHandler.startPlusThreeAnimation(button, animVal);
+       //  refreshAnimations();
+    }
+
+    public void refreshAnimations() {
+        // animationHandler.refreshAnimations();
+    }
+
+
+
+
+
+
+
 
 
 
@@ -279,6 +308,8 @@ public void createTerritoryButtons() {
 
                     buttonHandler.addToMemory(button.getID());
 
+                   // animationHandler.startPlusThreeAnimation(button, 31);
+
                     Territory[] memoryTerritory = buttonHandler.getMemoryList();
                     for (Territory t : memoryTerritory) {
                         System.out.println("Hello World");
@@ -329,6 +360,8 @@ public void createTerritoryButtons() {
             }
 
         });
+
+     
         mapPanel.setLayout(null); // switch to null layout manager
         mapPanel.add(button);
 
@@ -447,7 +480,8 @@ private class HelpButtonHandler implements ActionListener {
             // TODO: Add code here to refresh the UI.
             // This might include repainting certain components, revalidating panels, updating labels, etc.
             // Without specifics of what components are in your UI and how they need to be refreshed, this is just a placeholder method.
-
+     
+            refreshAnimations();
             // Revalidate and repaint panels and frame, this will reflect the changes in the UI
             mapPanel.revalidate();
             mapPanel.repaint();
@@ -530,8 +564,19 @@ public void updateAfterAttack(boolean attackResult, Player playerInTurn, Territo
         int totalPlacedArmy = chosenInfantryUnit + chosenCavalryUnit * 5 + chosenArtilleryUnit * 10;
 
         defenderButton.setArmyValue(totalPlacedArmy);
+
+
         TerritoryButton attackerButton = territoryButtonsList.get(attacker.getId());
         attackerButton.setArmyValue(attacker.getArmy().getTotalArmyUnit() - DiceRoller.getAttackingArmyUnit() - totalPlacedArmy);
+
+        TerritoryButton t1 = attackerButton;
+        TerritoryButton t2 = defenderButton;
+        int t1Loss = DiceRoller.getAttackingArmyUnit() - totalPlacedArmy;
+        int t2Loss = DiceRoller.getDefenderArmyLoss();
+
+
+        animationHandler.startPlusThreeAnimation(attackerButton, t2Loss);
+        animationHandler.startPlusThreeAnimation(defenderButton, t2Loss);
     }
     else
     {

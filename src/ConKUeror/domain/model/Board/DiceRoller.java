@@ -15,6 +15,7 @@ import ConKUeror.domain.model.Player.PlayerExpert;
 public class DiceRoller implements Serializable{
 
     private static DiceRoller diceRollerInstance = null;
+    private static int lossInteger = 0;
     Die die;
     PlayerExpert playerExpert;
 
@@ -53,13 +54,17 @@ public class DiceRoller implements Serializable{
             return die.getFaceValue();
     }
 
+    public static int getDefenderArmyLoss() {
+        return lossInteger;
+    }
+
 
 
     public boolean rollForAttack(List<Infantry> attackingInfantries, List<Cavalry> attackingCavalries,
     List<Artillery> attackingArtilleries, Army defendingArmy)
     {
         boolean attackSuccess = false;
-
+        lossInteger = defendingArmy.getTotalArmyUnit();
         attackingArmyUnitAtBeginning = attackingInfantries.size() + attackingCavalries.size() * 5 + attackingArtilleries.size() * 10;
 
         attackingSoldiers = new ArrayList<Soldier>();
