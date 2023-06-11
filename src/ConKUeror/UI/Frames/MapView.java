@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 
 import ConKUeror.UI.Buttons.TerritoryButton;
 import ConKUeror.UI.HelpScreen.HelpScreen;
+import ConKUeror.UI.Panels.AttackResultPanel;
 import ConKUeror.UI.Panels.InfoPanel;
 import ConKUeror.UI.Panels.PlayerInteractionPanel;
 import ConKUeror.UI.Panels.PlayerPanel;
@@ -39,6 +40,7 @@ import ConKUeror.domain.controller.RollDieListener;
 import ConKUeror.domain.controller.StartHandler;
 import ConKUeror.domain.controller.TerritoryButtonListener;
 import ConKUeror.domain.model.Board.Board;
+import ConKUeror.domain.model.Board.DiceRoller;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Data.GameState;
 import ConKUeror.domain.model.Modes.GameLogic;
@@ -510,6 +512,42 @@ public void updateTerritory(int buttonID, int deployedArmy) {
         refreshUI();
 
     }
+
+public void updateAfterAttack(boolean attackResult, Player playerInTurn, Territory attacker, Territory defender)
+{
+    if (attackResult)
+    {
+        TerritoryButton defenderButton = territoryButtonsList.get(defender.getId());
+        defenderButton.setColor(playerInTurn.getColor());
+        AttackResultPanel attackResultPanel = new AttackResultPanel("You win!");
+
+        attackResultPanel.setMaxInfantryValue(DiceRoller.getRemainingInfantryList().size());
+        attackResultPanel.setMaxCavalryValue(DiceRoller.getRemainingCavalryList().size());
+        attackResultPanel.setMaxArtilleryValue(DiceRoller.getRemainingArtilleryList().size());
+
+        attackResultPanel.createSlider();
+
+        Object[] options = {"OK", "Cancel"};
+        JOptionPane.showOptionDialog(null, attackResultPanel, "Choose Army Units to Place on Occupied Territory", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+        null, options, options[0]);
+
+
+        int chosenInfantryUnit = attackResultPanel.getInfantryValue();
+        int chosenCavalryUnit = attackResultPanel.getCavalryValue();
+        int chosenArtilleryUnit = attackResultPanel.getArtilleryValue();
+
+        int totalPlacedArmy = chosenInfantryUnit + chosenCavalryUnit * 5 + chosenArtilleryUnit * 10;
+
+        defenderButton.setArmyValue(totalPlacedArmy);
+        TerritoryButton attackerButton = territoryButtonsList.get(attacker.getId());
+        attackerButton.setArmyValue(attacker.getArmy().getTotalArmyUnit() - DiceRoller.getAttackingArmyUnit() - totalPlacedArmy);
+    }
+    else
+    {
+        TerritoryButton attackerButton = territoryButtonsList.get(attacker.getId());
+        attackerButton.setArmyValue(attacker.getArmy().getTotalArmyUnit() - DiceRoller.getAttackingArmyUnit());
+    }
+}
 
 
 

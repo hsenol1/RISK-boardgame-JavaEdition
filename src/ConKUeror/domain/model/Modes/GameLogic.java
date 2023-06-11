@@ -744,22 +744,31 @@ public void setGamePhaseIndex(int n){
       this.attackingArmyUnit = attackingArmyUnit;
     }
 
-    public void setForAttack(List<Infantry> attackingInfantries, List<Cavalry> attackingCavalries, List<Artillery> attackingArtilleries)
+    public boolean setForAttack(List<Infantry> attackingInfantries, List<Cavalry> attackingCavalries, List<Artillery> attackingArtilleries)
     {
 
+      boolean attackResult = false;
       //int attackingArmyUnits = attackingArmyUnit;
       try
       {
         Army defendingArmy = memory[1].getArmy();
-
-        playerInTurn.attack(attackingInfantries, attackingCavalries, attackingArtilleries, defendingArmy);
+        
+        attackResult = playerInTurn.attack(attackingInfantries, attackingCavalries, attackingArtilleries, defendingArmy);
       }
       catch (NullPointerException e)
       {
           System.out.println("Please choose an attack target");
       }
-
+      return attackResult;
     }
+
+    
+      public void publishAttackResultEvent(boolean attackResult)
+      {
+        for(TerritoryButtonListener l: territoryButtonListeners) {
+          l.updateAfterAttack(attackResult, playerInTurn, memory[0], memory[1]);
+        }
+      }
 
 
 
