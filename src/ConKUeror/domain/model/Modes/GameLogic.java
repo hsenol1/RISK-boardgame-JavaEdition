@@ -452,6 +452,10 @@ public static int getRandomTerritoryId2( List<Territory> ownedTerritories) {
 
 }
 
+
+public void useChanceCard() {
+    playerInTurn.inv.useChanceCard();
+  }
     public void increasePhaseIndex() {
       if(phaseIndex == 6) {
          territoryOrArmyCard = rand.nextInt(2);
@@ -627,8 +631,10 @@ public void setGamePhaseIndex(int n){
 
         case CHANCECARD:
           System.out.println("Card");
-          this.phaseIndex=3;
 
+          this.phaseIndex=3;
+          this.inputTerritory = t;
+          prepareTerritory(t);
           break;
 
         case DEPLOY:

@@ -121,6 +121,7 @@ public void addMapFrameAsListener() {
 
 public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
     buttonHandler.registerAsTerritoryListener(this);
+    buttonHandler.registerAsTerritoryListenerPINV(this);
 
 }
 
