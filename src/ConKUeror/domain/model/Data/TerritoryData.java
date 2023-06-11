@@ -125,13 +125,16 @@ public class TerritoryData implements Serializable {
         this.artillery = territory.getArmy().getArtilleries();
         this.cavalry = territory.getArmy().getCavalries();
         this.infantry = territory.getArmy().getInfantries();
+
         if(territory.getColor() != null) {
             this.colorRValue =  territory.getColor().getRed();
             this.colorGValue =  territory.getColor().getGreen();
             this.colorBValue =  territory.getColor().getBlue();
             this.colored = true;
+        } else {
+            this.colored = false;
+
         }
-        this.colored = false;
 
         this.owner = territory.getOwner();
         this.isDeleted =territory.isDeleted();
