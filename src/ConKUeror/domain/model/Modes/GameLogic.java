@@ -481,6 +481,7 @@ public static int getRandomTerritoryId2( List<Territory> ownedTerritories) {
        for (NextButtonListener l : nButtonListener ) {
         l.nextPhaseEvent(phaseIndex);
     }
+      orderedPlayerList = PlayerExpert.getPlayersList();
       int currentIndex = orderedPlayerList.indexOf(playerInTurn);
       PlayerExpert.updatePlayerCount(currentIndex);
       int newIndex = (currentIndex+1 ) %orderedPlayerList.size();
