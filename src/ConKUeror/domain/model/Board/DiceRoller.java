@@ -126,25 +126,30 @@ public class DiceRoller implements Serializable{
         {
             while (attackingSoldiers.size() > 0 && defendingSoldiers.size() > 0)
             {
-                
+                int attackerIndex = 0;
+                int defenderIndex = 0;
+
                 int firstRoll = rollDice();
                 int secondRoll = rollDice();
+
                 System.out.println(firstRoll + " " + secondRoll);
 
                 if (firstRoll > secondRoll)
                 {
-                    defendingSoldiers.get(0).takeHit();
-                    if (defendingSoldiers.get(0).getHealth() == 0)
+                    defendingSoldiers.get(defenderIndex).takeHit();
+                    if (defendingSoldiers.get(defenderIndex).getHealth() == 0)
                     {
-                        defendingSoldiers.remove(0);
+                        defendingSoldiers.remove(defenderIndex);
+                        defenderIndex++;
                     }
                 }
                 else
                 {
-                    attackingSoldiers.get(0).takeHit();
-                    if (attackingSoldiers.get(0).getHealth() == 0)
+                    attackingSoldiers.get(attackerIndex).takeHit();
+                    if (attackingSoldiers.get(attackerIndex).getHealth() == 0)
                     {
-                        attackingSoldiers.remove(0);
+                        attackingSoldiers.remove(attackerIndex);
+                        attackerIndex++;
                     }
                 }
                 

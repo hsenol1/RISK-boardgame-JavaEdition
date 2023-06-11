@@ -164,17 +164,11 @@ if(FortifyMode.canFortify()) {
 
         AttackingArmyPanel attackingArmyPanel = new AttackingArmyPanel("Choose Army Units");
 
-        //these values are random and they need to be changed
         //i had to put these because otherwise territories without any cavalry or artillery create a problem
         attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size() - 1);
         attackingArmyPanel.setMaxCavalryValue(gMode.memory[0].getArmy().getCavalryList().size());
         attackingArmyPanel.setMaxArtilleryValue(gMode.memory[0].getArmy().getArtilleryList().size());
 
-
-        //ideally this is how the values should be set
-        // attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size());
-        // attackingArmyPanel.setMaxCavalryValue(gMode.memory[0].getArmy().getCavalryList().size());
-        // attackingArmyPanel.setMaxArtilleryValue(gMode.memory[0].getArmy().getArtilleryList().size());
 
         attackingArmyPanel.createSlider();
 

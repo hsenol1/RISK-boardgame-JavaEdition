@@ -517,7 +517,7 @@ public void updateAfterAttack(boolean attackResult, Player playerInTurn, Territo
         attackResultPanel.createSlider();
 
         Object[] options = {"OK", "Cancel"};
-        JOptionPane.showOptionDialog(null, attackResultPanel, "Choose Army Units to Place on Occupied Territory", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+        JOptionPane.showOptionDialog(null, attackResultPanel, "Place on Occupied Territory", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
         null, options, options[0]);
 
 
