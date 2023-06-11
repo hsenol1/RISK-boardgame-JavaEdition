@@ -509,6 +509,7 @@ public void updateAfterAttack(boolean attackResult, Player playerInTurn, Territo
     {
         TerritoryButton defenderButton = territoryButtonsList.get(defender.getId());
         defenderButton.setColor(playerInTurn.getColor());
+        defender.setOwner(playerInTurn);
         AttackResultPanel attackResultPanel = new AttackResultPanel("You win!");
 
         attackResultPanel.setMaxInfantryValue(DiceRoller.getRemainingInfantryList().size());

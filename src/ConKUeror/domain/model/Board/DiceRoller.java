@@ -256,7 +256,7 @@ public class DiceRoller implements Serializable{
 
     public static int getAttackingArmyUnit()
     {
-        return attackingArmyUnitAtEnd;
+        return attackingArmyUnitAtBeginning;
     }
 
 

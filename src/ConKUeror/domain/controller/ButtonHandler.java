@@ -203,7 +203,7 @@ if(FortifyMode.canFortify()) {
 
         i = 0;
         // System.out.print("increase army count methodundayım");
-        gMode.publishArmyIncreasedEvent(0);
+        gMode.publishArmyIncreasedEvent(attackingInfantries.size() + attackingCavalries.size() * 5 + attackingArtilleries.size() * 10);
     }
 
     public void attack()
