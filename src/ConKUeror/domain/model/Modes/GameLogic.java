@@ -501,13 +501,14 @@ public class GameLogic {
 
   public void setRequestToDefault() {
       //  playerInTurn.getInventory().setDrawCardRequest(1);
-        playerInTurn.getInventory().setTerrCardRequest(1);
+        
         playerInTurn.getInventory().setChanceCardRequest(1);
         playerInTurn.getInventory().removeChanceCards();
     }
 
     public void setArmyReqToDefault() {
          playerInTurn.getInventory().setDrawCardRequest(1);
+         playerInTurn.getInventory().setTerrCardRequest(1);
     }
 
   public void moveToOtherPhase() {
