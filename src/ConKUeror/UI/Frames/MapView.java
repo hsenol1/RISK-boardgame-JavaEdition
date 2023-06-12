@@ -546,14 +546,4 @@ public class MapView extends JFrame
         endGameScreen.setVisible(true);
     }
 
-    public void addAsEndScreenListener() {
-        buttonHandler.registerAsEndScreenListener(this);
-    }
-
-    @Override
-    public void resolveGame(Player player) throws IOException {
-        endGameScreen = new EndGameScreen(player);
-        endGameScreen.setVisible(true);
-    }
-
 }
