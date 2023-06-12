@@ -32,9 +32,12 @@ private List<Continent> ownedContinents = new ArrayList<>();
 private int armies;
 private List<TerritoryCard> territoryCards;
 private List<ChanceCard> chanceCards;
+
 private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
 private static int MAX_ARMY_CARD_PER_TURN = 1;
 private static int CLICKED_ARMY_BUTTON = 0;
+private static int MAX_TERR_CARD = 1;
+private static int MAX_CHANCE_CARD = 1;
 
 private static final List<String> NORTH_AMERICA = Arrays.asList("Territory Card 0", "Territory Card 1", "Territory Card 2", "Territory Card 5", "Territory Card 3", "Territory Card 4", "Territory Card 6", "Territory Card 7", "Territory Card 8");
 private static final List<String> SOUTH_AMERICA = Arrays.asList("Territory Card 9", "Territory Card 10", "Territory Card 11", "Territory Card 12");
@@ -58,6 +61,7 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
         this.armyCards = new ArrayList<>();
         this.ownedTerritories = new ArrayList<>();
         this.territoryCards = new ArrayList<>();
+        this.chanceCards = new ArrayList<>();
         this.armies = 0;
 
     }
@@ -71,6 +75,22 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
 
     public void setDrawCardRequest(int i) {
         MAX_ARMY_CARD_PER_TURN = i;
+    }
+
+    public int getTerrCardRequest() {
+        return MAX_TERR_CARD;
+    }
+
+    public void setTerrCardRequest(int i) {
+        MAX_TERR_CARD = i;
+    }
+
+    public void setChanceCardRequest(int i) {
+        MAX_CHANCE_CARD  = i;
+    }
+
+    public int getChanceCardRequest() {
+        return MAX_CHANCE_CARD;
     }
 
     public Army getArmy() {
@@ -151,6 +171,10 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
         if (ownedTerritories.contains(t1)) {
             ownedTerritories.remove(t1);
         }
+    }
+
+    public void addChanceCard(ChanceCard card) {
+        chanceCards.add(card);
     }
 
     public List<Territory> getOwnedTerritories() {
@@ -266,6 +290,13 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
                 }
             }
         }
+    }
+
+    public void removeChanceCards() {
+       if (!chanceCards.isEmpty()) {
+        chanceCards.remove(0);
+       }
+
     }
 
 
@@ -523,7 +554,12 @@ public void addTerritoryButtonListener(TerritoryButtonListener lis) {
 
 public void useChanceCard() {
     // ChanceCard chanceCardTurn = new ChanceCard("COUP", ChanceCard.ChanceType.COUP);
-    ChanceCard chanceCardTurn = new ChanceCard("DRAFT", ChanceCard.ChanceType.COUP);
+    ChanceCard chanceCardTurn = this.chanceCards.get(0);
+
+    if (chanceCardTurn == null) {
+        System.out.println("NO CARDS FOR NOW !");
+        return;
+    }
     Player cardUser = PlayerExpert.getPlayerInTurn();
     switch(chanceCardTurn.getType()) {
         case COUP:
@@ -536,8 +572,19 @@ public void useChanceCard() {
             // setTerritoryInfo(t.getId(), cardUser.getInventory().getTotalArmy(),cardUser.getColor(), t.getTotalUnit());
         case DRAFT:
             useDraft(cardUser);
+            break;
 
         case SABOTAGE:
+            useSabotage(cardUser);
+            break;
+        
+        case SECRETWEAPON:
+            useSecretWeapon(cardUser);
+            break;
+
+        case REVOLT:
+            useRevolt(cardUser);
+            break;
 
 
         default:
@@ -550,6 +597,8 @@ public void useCoup(Player p) {
     Territory t = Board.getCurrentTerritory();
     t.setOwner(p);
     setTerritoryInfo(t.getId(), p.getInventory().getTotalArmy(),p.getColor(), t.getTotalUnit());
+    p.getInventory().setChanceCardRequest(0);
+    chanceCards.remove(0);
 }
 
 public void useSecretWeapon(Player p) {
@@ -559,6 +608,7 @@ public void useSecretWeapon(Player p) {
         int x = random.nextInt(2);
 
         if (x == 0) { // army card.
+            if (reveal.getInventory().getArmyCards().size() > 0) {
             int index = random.nextInt(reveal.getInventory().getArmyCards().size());
             ArmyCard toRevealArmyCard = reveal.getInventory().getArmyCards().get(index);
             String description = reveal.getName() + "  has ArmyCard: " + toRevealArmyCard.getName();
@@ -567,29 +617,50 @@ public void useSecretWeapon(Player p) {
             
             ChanceCardWindow window = new ChanceCardWindow(description);
             window.createChanceWindow();
+            }
+
+            else {
+                ChanceCardWindow window = new ChanceCardWindow("Sorry, rival has no army cards : D");
+                window.createChanceWindow();
+            }
+            
 
         } 
 
         else { // territory;
+            if (reveal.getInventory().getTerritoryCards().size() > 0) {
             int index = random.nextInt(reveal.getInventory().getTerritoryCards().size());
             TerritoryCard toRevealTerritoryCard = reveal.getInventory().getTerritoryCards().get(index);
             String description = reveal.getName() + "  has TerritoryCard: " + toRevealTerritoryCard.getName();
             ChanceCardWindow window = new ChanceCardWindow(description);
             window.createChanceWindow();
+            }
+
+            else {
+                ChanceCardWindow window = new ChanceCardWindow("Sorry, rival has no territory cards : D");
+                window.createChanceWindow();
+            }
+           
         }
 
+
+        p.getInventory().setChanceCardRequest(0);
+chanceCards.remove(0);
     }
 
 
-public void useSabotage() {
+public void useSabotage(Player p) {
     Territory t = Board.getCurrentTerritory();
-    Player p = t.getOwner();
+    p = t.getOwner();
+     p.getInventory().setChanceCardRequest(0);
+     chanceCards.remove(0);
 
 }
 
 public void useDraft(Player p) {
     p.getInventory().setDrawCardRequest(3);
-
+     p.getInventory().setChanceCardRequest(0);
+chanceCards.remove(0);
 }
 
 
@@ -628,6 +699,10 @@ public void useRevolt(Player p) {
             ChanceCardWindow window = new ChanceCardWindow("You must select two continents, both must be yours.");
             window.createChanceWindow();
         }
+
+
+         p.getInventory().setChanceCardRequest(0);
+         chanceCards.remove(0);
     }
 
 

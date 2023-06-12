@@ -289,7 +289,9 @@ if(FortifyMode.canFortify()) {
     
 
 
-
+    public void setRequestToDefault() {
+        gMode.setRequestToDefault();
+    }
 
     public int getPhaseIndex() {
         return gMode.getGamePhaseAsIndex();
@@ -324,8 +326,9 @@ if(FortifyMode.canFortify()) {
     }
 
      public void showChanceCardInfo() {
-        ChanceCardWindow window = new ChanceCardWindow("This is a coup card, select a territory and pick use!");
-        window.createChanceWindow();
+        gMode.addChanceCard();
+
+
     }
 
     public void useChanceCard() {
