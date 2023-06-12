@@ -95,6 +95,8 @@ public class ActionButton extends JButton implements ActionListener{
                         break;
                     case 2:
                         buttonHandler.nextPhase();
+                        buttonHandler.setRequestToDefault();
+
                         break;
                 }
                 break;
