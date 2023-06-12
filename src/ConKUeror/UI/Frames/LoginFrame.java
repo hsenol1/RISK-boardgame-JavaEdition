@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ import ConKUeror.UI.Buttons.TerritoryButton;
 import ConKUeror.domain.controller.BuildHandler;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.HandlerFactory;
-import ConKUeror.domain.controller.SaveLoadHandler;
+import ConKUeror.domain.controller.SaveLoadController;
 import ConKUeror.domain.controller.StartHandler;
 import ConKUeror.domain.controller.TerritoryButtonListener;
 import ConKUeror.domain.model.Board.Board;
@@ -30,12 +31,12 @@ import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 import ConKUeror.domain.model.Player.PlayerFactory;
 
-public class LoginFrame extends JFrame {
+public class LoginFrame extends JFrame implements Serializable{
     private JButton newGameButton;
-    private JButton loadGameButton;
+    private JButton loadGameButtonTxt;
+    private JButton loadGameButtonMongo;
     private GameState gameState;
     private StartMode startMode;
-    private SaveLoadHandler saveLoadHandler = new SaveLoadHandler();
     private List<Player> playerList;
     private List<Territory> territoryList;
     private static Map<Integer, Territory> territories = new HashMap<>();
@@ -69,7 +70,10 @@ public class LoginFrame extends JFrame {
         this.add(headerPanel, BorderLayout.NORTH);
 
         this.newGameButton = createButton("New Game");
-        this.loadGameButton = createButton("Load Game");
+        this.loadGameButtonTxt = createButton("Load Game txt");
+        this.loadGameButtonMongo = createButton("Load Game Mongo");
+
+        
 
         newGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -96,25 +100,32 @@ public class LoginFrame extends JFrame {
 
         this.add(contentPanel);
 
-        loadGameButton.addActionListener(new ActionListener() {
+        loadGameButtonTxt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    gameState = loadGameState();
-                    System.out.println("Loaddan sonra territories");
-                    System.out.println("player name" + gameState.getPlayerData().get(0).getPlayerName());
-                    System.out.println("owned territories" + gameState.getPlayerData().get(0).getTerritories());
-                } catch (ClassNotFoundException | IOException e1) {
-                    e1.printStackTrace();
-                }
+                SaveLoadController saveLoadController = SaveLoadController.getInstance();
+				 saveLoadController.handleLoad(0);
+				 gameState = saveLoadController.getLoadedGameState();
+				 System.out.println("Loaddan sonra territories");
+				 System.out.println("player name" + gameState.getPlayerData().get(0).getPlayerName());
+				 System.out.println("owned territories" + gameState.getPlayerData().get(0).getTerritories());
 
                 startLoadedGame(gameState.getPlayerData(), gameState.getTerritoryData());
             }
         });
+        
+        loadGameButtonMongo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+
+            }
+        });
+
 
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
         panel.add(newGameButton);
         panel.add(Box.createHorizontalStrut(10));
-        panel.add(loadGameButton);
+        panel.add(loadGameButtonTxt);
+        panel.add(loadGameButtonMongo);
 
         panel.setBorder(new EmptyBorder(new Insets(50, 80, 50, 80)));
         this.setSize(new Dimension(800, 600));
@@ -236,7 +247,5 @@ public class LoginFrame extends JFrame {
         SwingUtilities.invokeLater(LoginFrame::new);
     }
 
-    public GameState loadGameState() throws ClassNotFoundException, IOException {
-        return saveLoadHandler.loadGame("data.txt");
-    }
+    
 }

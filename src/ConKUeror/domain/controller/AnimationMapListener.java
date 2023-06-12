@@ -6,7 +6,4 @@ public interface AnimationMapListener {
 
     void showAnimation(int number1, int number2);
 
-
-
-    
 }

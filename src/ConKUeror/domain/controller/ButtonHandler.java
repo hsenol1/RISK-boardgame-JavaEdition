@@ -1,7 +1,6 @@
 package ConKUeror.domain.controller;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,7 @@ import ConKUeror.UI.Panels.AttackingArmyPanel;
 import ConKUeror.UI.Panels.ChanceCardWindow;
 import ConKUeror.UI.Panels.PlayerInteractionPanel;
 import ConKUeror.domain.enums.GameMode;
+import java.io.IOException;
 import ConKUeror.domain.model.Army.Artillery;
 import ConKUeror.domain.model.Army.Cavalry;
 import ConKUeror.domain.model.Army.Infantry;
@@ -32,39 +32,36 @@ import ConKUeror.domain.model.Player.PlayerExpert;
 import ConKUeror.domain.model.Board.Die;
 import ConKUeror.domain.model.Board.DiceRoller;
 
-public class ButtonHandler{
+public class ButtonHandler {
     private static ButtonHandler instance;
     private BuildMode bMode;
     private GameLogic gMode;
     private Territory[] memory;
     private TerritoryButton selectedButton;
 
-
     private ArrayList<Infantry> attackingInfantries;
     private ArrayList<Cavalry> attackingCavalries;
     private ArrayList<Artillery> attackingArtilleries;
 
     private ButtonHandler(BuildMode bMode, GameLogic gMode) {
-            this.bMode = bMode;
-            this.gMode = gMode;
+        this.bMode = bMode;
+        this.gMode = gMode;
 
     }
+
     public static ButtonHandler getInstance(BuildMode bMode, GameLogic gMode) {
         if (instance == null) {
-            instance = new ButtonHandler(bMode,gMode);
+            instance = new ButtonHandler(bMode, gMode);
         }
         return instance;
     }
 
-
-
-
     public void matchButtonWithTerritory(int id) throws InterruptedException {
-          Territory t = Board.getTerritoryWithIndex(id);
-          //System.out.println(t.getId());
-          System.out.println(gMode.getGameMode());
-          gMode.setPlayerInTurn(PlayerExpert.getPlayerInTurn());
-          gMode.prepareGame(t,gMode.getGameMode());
+        Territory t = Board.getTerritoryWithIndex(id);
+        // System.out.println(t.getId());
+        System.out.println(gMode.getGameMode());
+        gMode.setPlayerInTurn(PlayerExpert.getPlayerInTurn());
+        gMode.prepareGame(t, gMode.getGameMode());
 
     }
 
@@ -79,7 +76,7 @@ public class ButtonHandler{
 
     public void selectButton(TerritoryButton button) {
 
-        selectedButton= button;
+        selectedButton = button;
 
     }
 
@@ -89,159 +86,145 @@ public class ButtonHandler{
         armySelectionPanel.setMaxValue(DeployMode.getMaxValue());
         armySelectionPanel.createSlider();
 
-        Object[] options = {"OK", "Cancel"};
+        Object[] options = { "OK", "Cancel" };
         int result = JOptionPane.showOptionDialog(null, armySelectionPanel, "Deploy",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[0]);
 
-       int deployedArmy= armySelectionPanel.getValue();
-       DeployMode.setDeployedArmy(deployedArmy);
+        int deployedArmy = armySelectionPanel.getValue();
+        DeployMode.setDeployedArmy(deployedArmy);
 
     }
 
     public void chooseFortifyArmy() {
 
-if(FortifyMode.canFortify()) {
+        if (FortifyMode.canFortify()) {
 
+            memory = gMode.getMemory();
+            ArmySelectionPanel armySelectionPanel = new ArmySelectionPanel("Choose Army");
+            armySelectionPanel.setMaxValue(FortifyMode.getMaxValue(memory[0]));
+            armySelectionPanel.createSlider();
 
+            Object[] options = { "OK", "Cancel" };
+            int result = JOptionPane.showOptionDialog(null, armySelectionPanel, "Fortify",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
 
+            int fortifiedArmy = armySelectionPanel.getValue();
+            FortifyMode.setFortifiedArmy(fortifiedArmy);
+        } else {
+            memory = gMode.getMemory();
+            System.out.println("Memory slot 0" + memory[0]);
+            System.out.println("Memory slot 1" + memory[1]);
 
-        memory = gMode.getMemory();
-        ArmySelectionPanel armySelectionPanel = new ArmySelectionPanel("Choose Army");
-        armySelectionPanel.setMaxValue(FortifyMode.getMaxValue(memory[0]));
-        armySelectionPanel.createSlider();
-
-        Object[] options = {"OK", "Cancel"};
-        int result = JOptionPane.showOptionDialog(null, armySelectionPanel, "Fortify",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                null, options, options[0]);
-
-       int fortifiedArmy= armySelectionPanel.getValue();
-       FortifyMode.setFortifiedArmy(fortifiedArmy);
-    } else {
-        memory=gMode.getMemory();
-        System.out.println("Memory slot 0" +memory[0]);
-        System.out.println("Memory slot 1" +memory[1]);
-
-        System.out.println("Sorry, cant fortify");
-    }
+            System.out.println("Sorry, cant fortify");
+        }
 
     }
 
     public void addConnection() {
 
-       // System.out.prinzt("add connection methodundayım");
+        // System.out.prinzt("add connection methodundayım");
 
-        Territory[] territories=gMode.getMemory();
+        Territory[] territories = gMode.getMemory();
         territories[0].addConnectionDual(territories[1]);
 
-        Map<Integer, Territory> tests= territories[0].getAdjacencyList();
-       // System.out.println("komsularim basladi");
+        Map<Integer, Territory> tests = territories[0].getAdjacencyList();
+        // System.out.println("komsularim basladi");
 
         for (Map.Entry<Integer, Territory> set : tests.entrySet()) {
-            int territoryId =set.getKey();
+            int territoryId = set.getKey();
             System.out.println(territoryId);
-            }
-           // System.out.println("komsularim bitti");
-
+        }
+        // System.out.println("komsularim bitti");
 
     }
 
-    public int getArmyUnitFromInputTerritory()
-    {
+    public int getArmyUnitFromInputTerritory() {
         int i = 0;
         try {
             i = gMode.getMemory()[0].getTotalUnit();
-        }
-        catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
 
         }
         return i;
     }
 
-    public void increaseArmyCount()
-    {
-        
+    public void increaseArmyCount() {
 
         AttackingArmyPanel attackingArmyPanel = new AttackingArmyPanel("Choose Army Units");
 
-        //i had to put these because otherwise territories without any cavalry or artillery create a problem
+        // i had to put these because otherwise territories without any cavalry or
+        // artillery create a problem
         attackingArmyPanel.setMaxInfantryValue(gMode.memory[0].getArmy().getInfantryList().size() - 1);
         attackingArmyPanel.setMaxCavalryValue(gMode.memory[0].getArmy().getCavalryList().size());
         attackingArmyPanel.setMaxArtilleryValue(gMode.memory[0].getArmy().getArtilleryList().size());
 
-
         attackingArmyPanel.createSlider();
 
-        Object[] options = {"OK", "Cancel"};
-        JOptionPane.showOptionDialog(null, attackingArmyPanel, "Choose Army Units", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-        null, options, options[0]);
+        Object[] options = { "OK", "Cancel" };
+        JOptionPane.showOptionDialog(null, attackingArmyPanel, "Choose Army Units", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null, options, options[0]);
 
         int i = 0;
         this.attackingInfantries = new ArrayList<Infantry>();
-        while (attackingInfantries.size() < attackingArmyPanel.getInfantryValue())
-        {
+        while (attackingInfantries.size() < attackingArmyPanel.getInfantryValue()) {
             attackingInfantries.add(gMode.memory[0].getArmy().getInfantryList().get(i));
             i++;
         }
 
         i = 0;
         this.attackingCavalries = new ArrayList<Cavalry>();
-        while(attackingCavalries.size() < attackingArmyPanel.getCavalryValue())
-        {
+        while (attackingCavalries.size() < attackingArmyPanel.getCavalryValue()) {
             attackingCavalries.add(gMode.memory[0].getArmy().getCavalryList().get(i));
             i++;
         }
 
         i = 0;
         this.attackingArtilleries = new ArrayList<Artillery>();
-        while(attackingArtilleries.size() < attackingArmyPanel.getArtilleryValue())
-        {
+        while (attackingArtilleries.size() < attackingArmyPanel.getArtilleryValue()) {
             attackingArtilleries.add(gMode.memory[0].getArmy().getArtilleryList().get(i));
             i++;
         }
 
         i = 0;
         // System.out.print("increase army count methodundayım");
-        gMode.publishArmyIncreasedEvent(attackingInfantries.size() + attackingCavalries.size() * 5 + attackingArtilleries.size() * 10);
+        int ai = attackingInfantries.size();
+        int ac = attackingCavalries.size() * 5;
+        int aa = attackingArtilleries.size() * 10;
+        int totalp = ai + ac + aa;
+        gMode.publishArmyIncreasedEvent(totalp);
     }
 
-    public void attack() throws IOException
-    {
+    public void attack() throws IOException {
         boolean attackResult = gMode.setForAttack(attackingInfantries, attackingCavalries, attackingArtilleries);
         gMode.publishAttackResultEvent(attackResult);
         System.out.println(attackResult);
     }
 
-    public void deploy(){
+    public void deploy() {
 
         Player playerInTurn = PlayerExpert.getPlayerInTurn();
         Territory t = Board.getCurrentTerritory();
         int army = DeployMode.getDeployedArmy();
-        playerInTurn.deploy(t,army);
-
-
+        playerInTurn.deploy(t, army);
 
     }
+
     public void fortify() {
         Player playerInTurn = PlayerExpert.getPlayerInTurn();
-         memory = getMemoryList();
+        memory = getMemoryList();
 
-        Territory fortifyFrom =memory[0];
-        Territory fortifyTo =memory[1];
+        Territory fortifyFrom = memory[0];
+        Territory fortifyTo = memory[1];
 
         if (FortifyMode.isValidForFortify(fortifyFrom)) {
             int army = FortifyMode.getFortifiedArmy();
-            playerInTurn.fortify(fortifyFrom,fortifyTo,army);
+            playerInTurn.fortify(fortifyFrom, fortifyTo, army);
         }
 
-
-
-
-       // int army = FortifyMode.getFortifiedArmy();
-
-
+        // int army = FortifyMode.getFortifiedArmy();
 
     }
 
@@ -253,11 +236,12 @@ if(FortifyMode.canFortify()) {
 
         return PlayerExpert.getPlayerInTurn().getColor();
 
-               }
+    }
 
     public void removeButton() {
         getBoard().removeTerritory();
-        gMode.publishRemoveEvent(selectedButton);;
+        gMode.publishRemoveEvent(selectedButton);
+        ;
 
     }
 
@@ -269,13 +253,13 @@ if(FortifyMode.canFortify()) {
 
     }
 
-	public Board getBoard() {
-        return  gMode.getBoard();
-	}
+    public Board getBoard() {
+        return gMode.getBoard();
+    }
 
-	public BuildMode getBuildMode() {
-		return bMode;
-	}
+    public BuildMode getBuildMode() {
+        return bMode;
+    }
 
     public void nextPhase() {
         gMode.increasePhaseIndex();
@@ -283,22 +267,17 @@ if(FortifyMode.canFortify()) {
 
     }
 
-    public void endTurn() {
-        gMode.prepareForOtherPlayer();
-    }
-
-    
-
-
     public void setRequestToDefault() {
         gMode.setRequestToDefault();
+    }
+
+    public void endTurn() {
+        gMode.prepareForOtherPlayer();
     }
 
     public int getPhaseIndex() {
         return gMode.getGamePhaseAsIndex();
     }
-
-
 
     public int getXFromList(int i) {
 
@@ -311,9 +290,9 @@ if(FortifyMode.canFortify()) {
 
     }
 
-   public void registerAsTerritoryListener(TerritoryButtonListener territoryListener) {
+    public void registerAsTerritoryListener(TerritoryButtonListener territoryListener) {
         gMode.addTerritoryButtonListener(territoryListener);
-       // loginFrame.add
+        // loginFrame.add
     }
 
     public void registerAsTerritoryListenerPINV(TerritoryButtonListener territoryListener) {
@@ -326,9 +305,11 @@ if(FortifyMode.canFortify()) {
         DiceRoller.getDiceRollerInstance().addAniMapListener(aMapListener);
     }
 
-     public void showChanceCardInfo() {
+    public void showChanceCardInfo() {
+        // ChanceCardWindow window = new ChanceCardWindow("This is a coup card, select a
+        // territory and pick use!");
+        // window.createChanceWindow();
         gMode.addChanceCard();
-
 
     }
 
@@ -336,8 +317,7 @@ if(FortifyMode.canFortify()) {
         gMode.useChanceCard();
     }
 
-
-     public void registerAsRollListener( RollDieListener rollDieListener) {
+    public void registerAsRollListener(RollDieListener rollDieListener) {
         gMode.addRollDieListener(rollDieListener);
 
     }
@@ -345,7 +325,6 @@ if(FortifyMode.canFortify()) {
     public void registerNextAsListener(PlayerInteractionPanel pPanel) {
         gMode.addNButtonListener(pPanel);
     }
-
 
     public void addTerritoryCard() {
         gMode.addTerritoryCard();
@@ -374,26 +353,14 @@ if(FortifyMode.canFortify()) {
         });
         window.createWindow();
 
-
     }
-    public void setAttackingArmyCount(int armyCount)
-    {
+
+    public void setAttackingArmyCount(int armyCount) {
         gMode.setAttackingArmyUnit(armyCount);
     }
 
-    public void registerAsEndScreenListener(EndOfTheGameListener endScreenListener)
-    {
+    public void registerAsEndScreenListener(EndOfTheGameListener endScreenListener) {
         gMode.setEndOfTheGameListener(endScreenListener);
     }
-
-
-
-
-
-
-
-
-
-
 
 }

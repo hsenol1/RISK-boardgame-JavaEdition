@@ -11,30 +11,28 @@ import javax.swing.JButton;
 import ConKUeror.domain.controller.ButtonHandler;
 import ConKUeror.domain.controller.HandlerFactory;
 
-public class ActionButton extends JButton implements ActionListener{
+public class ActionButton extends JButton implements ActionListener {
 
     private String _name;
     private int[] id;
     ButtonHandler buttonHandler;
 
-    public ActionButton(String buttonName, Font labelFont, int[] id,Color color) {
+    public ActionButton(String buttonName, Font labelFont, int[] id, Color color) {
         super(buttonName);
-        this.id= id;
+        this.id = id;
         setFont(labelFont);
         this._name = buttonName;
         this.setName(_name);
         HandlerFactory controller = HandlerFactory.getInstance();
-        buttonHandler =controller.giveButtonHandler();
-
+        buttonHandler = controller.giveButtonHandler();
 
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
 
-//This phase is for build mode
+        // This phase is for build mode
         switch (id[0]) {
             case 0:
                 switch (id[1]) {
@@ -49,14 +47,14 @@ public class ActionButton extends JButton implements ActionListener{
                         break;
                 }
                 break;
-  //this phase is just for test to see connections
+            // this phase is just for test to see connections
             case 1:
                 switch (id[1]) {
                     case 0:
-                    //do nothing
+                        // do nothing
                         break;
                     case 1:
-                    //do nothing
+                        // do nothing
                         break;
                     case 2:
                         buttonHandler.nextPhase();
@@ -64,7 +62,7 @@ public class ActionButton extends JButton implements ActionListener{
 
                 }
                 break;
-    // this phase is for start game
+            // this phase is for start game
             case 2:
                 switch (id[1]) {
                     case 0:
@@ -83,7 +81,7 @@ public class ActionButton extends JButton implements ActionListener{
                         break;
                 }
                 break;
-     //This phase is for pick chance card
+            // This phase is for pick chance card
             case 3:
                 switch (id[1]) {
                     case 0:
@@ -100,30 +98,27 @@ public class ActionButton extends JButton implements ActionListener{
                         break;
                 }
                 break;
-    //This phase is for deploy phase
+            // This phase is for deploy phase
             case 4:
                 switch (id[1]) {
                     case 0:
-                    buttonHandler.deploy();
+                        buttonHandler.deploy();
                         break;
                     case 1:
-                    buttonHandler.chooseDeployArmy();
+                        buttonHandler.chooseDeployArmy();
                         break;
                     case 2:
                         buttonHandler.nextPhase();
                         break;
                 }
                 break;
-             //attack
+            // attack
             case 5:
                 switch (id[1]) {
                     case 0:
-                        try
-                        {
+                        try {
                             buttonHandler.attack();
-                        }
-                        catch (IOException e1)
-                        {
+                        } catch (IOException e1) {
 
                         }
                         break;
@@ -135,7 +130,7 @@ public class ActionButton extends JButton implements ActionListener{
                         break;
                 }
                 break;
-            //fortify
+            // fortify
             case 6:
                 switch (id[1]) {
                     case 0:
@@ -164,28 +159,20 @@ public class ActionButton extends JButton implements ActionListener{
                 break;
             case 8:
                 switch (id[1]) {
-                case 0:
-                    buttonHandler.addTerritoryCard();
-                    break;
-                case 1:
-                    buttonHandler.useTerritoryCards();
-                    break;
-                case 2:
-                    buttonHandler.endTurn();
-                    break;
-            }
-            break;
+                    case 0:
+                        buttonHandler.addTerritoryCard();
+                        break;
+                    case 1:
+                        buttonHandler.useTerritoryCards();
+                        break;
+                    case 2:
+                        buttonHandler.endTurn();
+                        break;
+                }
+                break;
 
         }
 
-
-
-
-
     }
 
-
-    }
-
-
-
+}
