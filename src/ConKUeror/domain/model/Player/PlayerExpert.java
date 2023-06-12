@@ -1,4 +1,5 @@
 package ConKUeror.domain.model.Player;
+
 import ConKUeror.domain.controller.PlayerExpertListener;
 import ConKUeror.domain.model.Army.Army;
 import ConKUeror.domain.model.Modes.DeployMode;
@@ -11,19 +12,18 @@ import java.util.ArrayList;
 
 public class PlayerExpert implements Serializable {
 
-
     private static PlayerExpert playerExpertInstance = null;
     private static List<Player> players = new ArrayList<Player>();
     private static List<PlayerExpertListener> listeners = new ArrayList<>();
     private static Player playerInTurn;
-    private PlayerExpert( ) {
+
+    private PlayerExpert() {
 
     }
 
     public static void setPlayerInTurn(Player p1) {
         PlayerExpert.playerInTurn = p1;
     }
-
 
     public static void addPlayerPanelAsListener(PlayerExpertListener l) {
         listeners.add(l);
@@ -37,30 +37,32 @@ public class PlayerExpert implements Serializable {
         int totalUnit = army.getTotalArmyUnit();
         System.out.println(totalUnit);
 
-
         publishArmyCount(index, totalUnit);
 
     }
 
-
     public static void publishArmyCount(int index, int armyUnit) {
-    for(PlayerExpertListener l: listeners){
-        l.updatePanelCounts(index ,armyUnit);
+        for (PlayerExpertListener l : listeners) {
+            l.updatePanelCounts(index, armyUnit);
         }
     }
 
-
-
-
-
-    public static void publishPlayerInfoEvent(int oldIndex,int nexIndex, Color color) {
-    for(PlayerExpertListener l: listeners){
-        l.changePlayerPanelColor(oldIndex,nexIndex,color);
-
+    public static boolean checkIfAnyTerritoryLeft(Player player) {
+        if (player.getInventory().getOwnedTerritories().size() == 0) {
+            players.remove(player);
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    }
+    public static void publishPlayerInfoEvent(int oldIndex, int nexIndex, Color color) {
+        for (PlayerExpertListener l : listeners) {
+            l.changePlayerPanelColor(oldIndex, nexIndex, color);
 
+        }
+
+    }
 
     public static PlayerExpert getPlayerExpert() {
         if (playerExpertInstance == null) {
@@ -76,7 +78,7 @@ public class PlayerExpert implements Serializable {
 
     public static void addPlayersList(Player player) {
         players.add(player);
-        //System.out.println(player.getName() +  " was " + "HERE");
+        // System.out.println(player.getName() + " was " + "HERE");
     }
 
     public static List<Player> getPlayersList() {
@@ -91,21 +93,5 @@ public class PlayerExpert implements Serializable {
     public static int getPlayersListSize() {
         return players.size();
     }
-
-    public static boolean checkIfAnyTerritoryLeft(Player player)
-    {
-        if (player.getInventory().getOwnedTerritories().size() == 0)
-        {
-            players.remove(player);
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-
-
 
 }

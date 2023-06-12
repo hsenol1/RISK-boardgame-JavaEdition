@@ -15,8 +15,8 @@ import ConKUeror.domain.model.Army.Soldier;
 import ConKUeror.domain.model.Player.Player;
 import ConKUeror.domain.model.Player.PlayerExpert;
 
-public class DiceRoller implements Serializable{
-    private List<AnimationMapListener> aMapListeners  = new ArrayList<>();
+public class DiceRoller implements Serializable {
+    private List<AnimationMapListener> aMapListeners = new ArrayList<>();
     private static DiceRoller diceRollerInstance = null;
     private static int lossInteger = 0;
     private static int firstRollValue = 9;
@@ -34,17 +34,13 @@ public class DiceRoller implements Serializable{
     static int attackingArmyUnitAtBeginning;
     static int attackingArmyUnitAtEnd;
 
-
-
     private DiceRoller() {
         this.die = Die.getDieInstance();
         playerExpert = PlayerExpert.getPlayerExpert();
     }
 
-    public static DiceRoller getDiceRollerInstance()
-    {
-        if (diceRollerInstance == null)
-        {
+    public static DiceRoller getDiceRollerInstance() {
+        if (diceRollerInstance == null) {
             diceRollerInstance = new DiceRoller();
         }
         return diceRollerInstance;
@@ -53,10 +49,9 @@ public class DiceRoller implements Serializable{
     int attackerArmy;
     int defenderArmy;
 
-
     public int rollDice() {
         die.rollDie();
-            return die.getFaceValue();
+        return die.getFaceValue();
     }
 
     public static int getDefenderArmyLoss() {
@@ -64,165 +59,133 @@ public class DiceRoller implements Serializable{
     }
 
     public static int[] getRollValues() {
-        int[] returnArray = {firstRollValue,secondRollValue};
-       return returnArray; 
+        int[] returnArray = { firstRollValue, secondRollValue };
+        return returnArray;
     }
 
     public void addAniMapListener(AnimationMapListener animationMapListener) {
         aMapListeners.add(animationMapListener);
     }
 
-      public void displayAnimation(int number1, int number2) {
-            for(AnimationMapListener aMapL : aMapListeners) {
-                    aMapL.showAnimation(number1,number2);
-            }
+    public void displayAnimation(int number1, int number2) {
+        for (AnimationMapListener aMapL : aMapListeners) {
+            aMapL.showAnimation(number1, number2);
         }
-
-
+    }
 
     public boolean rollForAttack(List<Infantry> attackingInfantries, List<Cavalry> attackingCavalries,
-    List<Artillery> attackingArtilleries, Army defendingArmy)
-    {
+            List<Artillery> attackingArtilleries, Army defendingArmy) {
         boolean attackSuccess = false;
         lossInteger = defendingArmy.getTotalArmyUnit();
-        attackingArmyUnitAtBeginning = attackingInfantries.size() + attackingCavalries.size() * 5 + attackingArtilleries.size() * 10;
+        attackingArmyUnitAtBeginning = attackingInfantries.size() + attackingCavalries.size() * 5
+                + attackingArtilleries.size() * 10;
 
         attackingSoldiers = new ArrayList<Soldier>();
         defendingSoldiers = new ArrayList<Soldier>();
 
-        
-
-        //add all attacking soldiers to a list
-        if (attackingInfantries.size() > 0)
-        {
-            for (Infantry infantry: attackingInfantries)
-            {
+        // add all attacking soldiers to a list
+        if (attackingInfantries.size() > 0) {
+            for (Infantry infantry : attackingInfantries) {
                 attackingSoldiers.add(infantry);
             }
         }
 
-        if (attackingCavalries.size() > 0)
-        {
-            for (Cavalry cavalry: attackingCavalries)
-            {
+        if (attackingCavalries.size() > 0) {
+            for (Cavalry cavalry : attackingCavalries) {
                 attackingSoldiers.add(cavalry);
             }
         }
 
-        if (attackingArtilleries.size() > 0)
-        {
-            for (Artillery artillery: attackingArtilleries)
-            {
+        if (attackingArtilleries.size() > 0) {
+            for (Artillery artillery : attackingArtilleries) {
                 attackingSoldiers.add(artillery);
             }
         }
 
-        //add all defending soldiers to a list
+        // add all defending soldiers to a list
         List<Infantry> defendingInfantries = defendingArmy.getInfantryList();
         List<Cavalry> defendingCavalries = defendingArmy.getCavalryList();
         List<Artillery> defendingArtilleries = defendingArmy.getArtilleryList();
 
-        if (defendingInfantries.size() > 0)
-        {
-            for(Infantry infantry: defendingInfantries)
-            {
+        if (defendingInfantries.size() > 0) {
+            for (Infantry infantry : defendingInfantries) {
                 defendingSoldiers.add(infantry);
             }
         }
 
-        if (defendingCavalries.size() > 0)
-        {
-            for (Cavalry cavalry: defendingCavalries)
-            {
+        if (defendingCavalries.size() > 0) {
+            for (Cavalry cavalry : defendingCavalries) {
                 defendingSoldiers.add(cavalry);
             }
         }
 
-        if (defendingArtilleries.size() > 0)
-        {
-            for (Artillery artillery: defendingArtilleries)
-            {
+        if (defendingArtilleries.size() > 0) {
+            for (Artillery artillery : defendingArtilleries) {
                 defendingSoldiers.add(artillery);
             }
         }
 
-        //loop until a list's size becomes 0
-        if (attackingSoldiers.size() != 0 && defendingSoldiers.size() != 0)
-        {
+        // loop until a list's size becomes 0
+        if (attackingSoldiers.size() != 0 && defendingSoldiers.size() != 0) {
             // int attackerIndex = 0;
             // int defenderIndex = 0;
             int firstRoll = 0;
-            int secondRoll = 0; 
-            while (attackingSoldiers.size() > 0 && defendingSoldiers.size() > 0)
-            {
+            int secondRoll = 0;
+            while (attackingSoldiers.size() > 0 && defendingSoldiers.size() > 0) {
 
                 firstRoll = rollDice();
-                
-                 secondRoll = rollDice();
 
-                
-                
+                secondRoll = rollDice();
 
                 System.out.println(firstRoll + " " + secondRoll);
 
-                if (firstRoll > secondRoll)
-                {
+                if (firstRoll > secondRoll) {
                     defendingSoldiers.get(0).takeHit();
-                    if (defendingSoldiers.get(0).getHealth() == 0)
-                    {
+                    if (defendingSoldiers.get(0).getHealth() == 0) {
                         defendingSoldiers.remove(0);
                         // defenderIndex++;
                     }
-                }
-                else
-                {
+                } else {
                     attackingSoldiers.get(0).takeHit();
-                    if (attackingSoldiers.get(0).getHealth() == 0)
-                    {
+                    if (attackingSoldiers.get(0).getHealth() == 0) {
                         attackingSoldiers.remove(0);
                         // attackerIndex++;
                     }
                 }
-                
+
             }
 
             displayAnimation(firstRoll, secondRoll);
 
         }
 
-        if (attackingSoldiers.size() != 0)
-        {
+        if (attackingSoldiers.size() != 0) {
             attackSuccess = true;
             addAllRemainingSoldiersToTheirRespectiveLists();
-        }
-        else
-        {
+        } else {
             addAllRemainingSoldiersToTheirRespectiveLists();
         }
 
         return attackSuccess;
 
-
         // while (attackerArmy > 0 && defenderArmy > 0) {
 
-        //     die.rollDie();
-        //     int roll1 =die.getFaceValue();
-        //     //System.out.println(roll1);
-        //     die.rollDie();
-        //     int roll2 =die.getFaceValue();
-        //     //System.out.println(roll2);
+        // die.rollDie();
+        // int roll1 =die.getFaceValue();
+        // //System.out.println(roll1);
+        // die.rollDie();
+        // int roll2 =die.getFaceValue();
+        // //System.out.println(roll2);
 
+        // if (roll1 > roll2) {
+        // defenderArmy--;
+        // System.out.println("ATTACKER HITS");
 
-        //     if (roll1 > roll2) {
-        //         defenderArmy--;
-        //         System.out.println("ATTACKER HITS");
+        // } else {
+        // attackerArmy--;
+        // System.out.println("DEFENDER HITS");
 
-        //     } else {
-        //         attackerArmy--;
-        //         System.out.println("DEFENDER HITS");
-
-
-        //     }
+        // }
         // }
         // this.attackerArmy = attackerArmy;
         // this.defenderArmy = defenderArmy;
@@ -241,24 +204,17 @@ public class DiceRoller implements Serializable{
 
     }
 
-    public void addAllRemainingSoldiersToTheirRespectiveLists()
-    {
+    public void addAllRemainingSoldiersToTheirRespectiveLists() {
         remainingInfantryList = new ArrayList<Infantry>();
         remainingCavalryList = new ArrayList<Cavalry>();
         remainingArtilleryList = new ArrayList<Artillery>();
 
-        for (Soldier soldier: attackingSoldiers)
-        {
-            if (soldier instanceof Infantry)
-            {
+        for (Soldier soldier : attackingSoldiers) {
+            if (soldier instanceof Infantry) {
                 remainingInfantryList.add((Infantry) soldier);
-            }
-            else if (soldier instanceof Cavalry)
-            {
+            } else if (soldier instanceof Cavalry) {
                 remainingCavalryList.add((Cavalry) soldier);
-            }
-            else
-            {
+            } else {
                 remainingArtilleryList.add((Artillery) soldier);
             }
         }
@@ -266,11 +222,7 @@ public class DiceRoller implements Serializable{
 
     public Player getFirstPlayer() {
 
-
-
         return PlayerExpert.getPlayersList().get(die.getCustomValue(PlayerExpert.getPlayersListSize() - 1));
-
-
 
     }
 
@@ -286,10 +238,8 @@ public class DiceRoller implements Serializable{
         return remainingArtilleryList;
     }
 
-    public static int getAttackingArmyUnit()
-    {
-        return attackingArmyUnitAtBeginning;
+    public static int getAttackingArmyUnit() {
+        return attackingArmyUnitAtEnd;
     }
-
 
 }

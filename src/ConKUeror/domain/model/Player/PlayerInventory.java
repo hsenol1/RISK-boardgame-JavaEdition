@@ -17,54 +17,72 @@ import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.controller.TerritoryButtonListener;
 import ConKUeror.domain.model.Army.Army;
 import ConKUeror.domain.model.Board.*;;;;
+
 public class PlayerInventory implements Serializable {
 
-private Player p;
+    private Player p;
 
-private int infantryCount; // card
-private int cavalryCount; // card
-private int artilleryCount; // card
-private Army army;
-private List<ArmyCard> armyCards = new ArrayList<>();
+    private int infantryCount; // card
+    private int cavalryCount; // card
+    private int artilleryCount; // card
+    private Army army;
+    private List<ArmyCard> armyCards = new ArrayList<>();
 
-private List<Territory> ownedTerritories;
-private List<Continent> ownedContinents = new ArrayList<>();
-private int armies;
-private List<TerritoryCard> territoryCards;
-private List<ChanceCard> chanceCards;
+    private List<Territory> ownedTerritories;
+    private List<Continent> ownedContinents = new ArrayList<>();
+    private int armies;
+    private List<TerritoryCard> territoryCards;
+    private List<ChanceCard> chanceCards;
+    private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
+    private static int MAX_ARMY_CARD_PER_TURN = 1;
+    private static int CLICKED_ARMY_BUTTON = 0;
 
-private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
-private static int MAX_ARMY_CARD_PER_TURN = 1;
-private static int CLICKED_ARMY_BUTTON = 0;
-private static int MAX_TERR_CARD = 1;
-private static int MAX_CHANCE_CARD = 1;
+    private static final List<String> NORTH_AMERICA = Arrays.asList("Territory Card 0", "Territory Card 1",
+            "Territory Card 2", "Territory Card 5", "Territory Card 3", "Territory Card 4", "Territory Card 6",
+            "Territory Card 7", "Territory Card 8");
+    private static final List<String> SOUTH_AMERICA = Arrays.asList("Territory Card 9", "Territory Card 10",
+            "Territory Card 11", "Territory Card 12");
+    private static final List<String> EUROPE = Arrays.asList("Territory Card 21", "Territory Card 22",
+            "Territory Card 23", "Territory Card 20", "Territory Card 25", "Territory Card 24", "Territory Card 26");
+    private static final List<String> AFRICA = Arrays.asList("Territory Card 13", "Territory Card 14",
+            "Territory Card 15", "Territory Card 16", "Territory Card 17", "Territory Card 18");
+    private static final List<String> ASIA = Arrays.asList("Territory Card 19", "Territory Card 29",
+            "Territory Card 37", "Territory Card 28", "Territory Card 30", "Territory Card 31", "Territory Card 32",
+            "Territory Card 33", "Territory Card 27", "Territory Card 34", "Territory Card 36", "Territory Card 35",
+            "Territory Card 37");
+    private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38", "Territory Card 39",
+            "Territory Card 40", "Territory Card 41");
+    private static final Map<String, List<String>> CONTINENTS = new HashMap<String, List<String>>() {
+        {
+            put("North America",
+                    Arrays.asList("Territory Card 0", "Territory Card 1", "Territory Card 2", "Territory Card 5",
+                            "Territory Card 3", "Territory Card 4", "Territory Card 6", "Territory Card 7",
+                            "Territory Card 8"));
+            put("South America",
+                    Arrays.asList("Territory Card 9", "Territory Card 10", "Territory Card 11", "Territory Card 12"));
+            put("Europe", Arrays.asList("Territory Card 21", "Territory Card 22", "Territory Card 23",
+                    "Territory Card 20", "Territory Card 25", "Territory Card 24", "Territory Card 26"));
+            put("Africa", Arrays.asList("Territory Card 13", "Territory Card 14", "Territory Card 15",
+                    "Territory Card 16", "Territory Card 17", "Territory Card 18"));
+            put("Asia",
+                    Arrays.asList("Territory Card 19", "Territory Card 29", "Territory Card 37", "Territory Card 28",
+                            "Territory Card 30", "Territory Card 31", "Territory Card 32", "Territory Card 33",
+                            "Territory Card 27", "Territory Card 34", "Territory Card 36", "Territory Card 35",
+                            "Territory Card 37"));
+            put("Australia",
+                    Arrays.asList("Territory Card 38", "Territory Card 39", "Territory Card 40", "Territory Card 41"));
+        }
+    };
 
-private static final List<String> NORTH_AMERICA = Arrays.asList("Territory Card 0", "Territory Card 1", "Territory Card 2", "Territory Card 5", "Territory Card 3", "Territory Card 4", "Territory Card 6", "Territory Card 7", "Territory Card 8");
-private static final List<String> SOUTH_AMERICA = Arrays.asList("Territory Card 9", "Territory Card 10", "Territory Card 11", "Territory Card 12");
-private static final List<String> EUROPE = Arrays.asList("Territory Card 21", "Territory Card 22", "Territory Card 23", "Territory Card 20", "Territory Card 25", "Territory Card 24", "Territory Card 26");
-private static final List<String> AFRICA = Arrays.asList("Territory Card 13", "Territory Card 14", "Territory Card 15", "Territory Card 16", "Territory Card 17", "Territory Card 18");
-private static final List<String> ASIA = Arrays.asList("Territory Card 19", "Territory Card 29", "Territory Card 37", "Territory Card 28", "Territory Card 30", "Territory Card 31", "Territory Card 32", "Territory Card 33", "Territory Card 27", "Territory Card 34", "Territory Card 36", "Territory Card 35", "Territory Card 37");
-private static final List<String> AUSTRALIA = Arrays.asList("Territory Card 38", "Territory Card 39", "Territory Card 40", "Territory Card 41");
-private static final Map<String, List<String>> CONTINENTS = new HashMap<String, List<String>>() {{
-    put("North America", Arrays.asList("Territory Card 0", "Territory Card 1", "Territory Card 2", "Territory Card 5", "Territory Card 3", "Territory Card 4", "Territory Card 6", "Territory Card 7", "Territory Card 8"));
-    put("South America", Arrays.asList("Territory Card 9", "Territory Card 10", "Territory Card 11", "Territory Card 12"));
-    put("Europe", Arrays.asList("Territory Card 21", "Territory Card 22", "Territory Card 23", "Territory Card 20", "Territory Card 25", "Territory Card 24", "Territory Card 26"));
-    put("Africa", Arrays.asList("Territory Card 13", "Territory Card 14", "Territory Card 15", "Territory Card 16", "Territory Card 17", "Territory Card 18"));
-    put("Asia", Arrays.asList("Territory Card 19", "Territory Card 29", "Territory Card 37", "Territory Card 28", "Territory Card 30", "Territory Card 31", "Territory Card 32", "Territory Card 33", "Territory Card 27", "Territory Card 34", "Territory Card 36", "Territory Card 35", "Territory Card 37"));
-    put("Australia", Arrays.asList("Territory Card 38", "Territory Card 39", "Territory Card 40", "Territory Card 41"));
-}};
-
-
-
-   public PlayerInventory() {
+    public PlayerInventory() {
         this.army = new Army();
         this.armyCards = new ArrayList<>();
         this.ownedTerritories = new ArrayList<>();
         this.territoryCards = new ArrayList<>();
-        this.chanceCards = new ArrayList<>();
         this.armies = 0;
 
     }
+
     public List<TerritoryCard> getTerritoryCards() {
         return territoryCards;
     }
@@ -77,26 +95,11 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
         MAX_ARMY_CARD_PER_TURN = i;
     }
 
-    public int getTerrCardRequest() {
-        return MAX_TERR_CARD;
-    }
-
-    public void setTerrCardRequest(int i) {
-        MAX_TERR_CARD = i;
-    }
-
-    public void setChanceCardRequest(int i) {
-        MAX_CHANCE_CARD  = i;
-    }
-
-    public int getChanceCardRequest() {
-        return MAX_CHANCE_CARD;
-    }
-
     public Army getArmy() {
 
         return this.army;
     }
+
     public int getArtilleryCount() {
         return artilleryCount;
     }
@@ -108,6 +111,7 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
     public int getInfantryCount() {
         return infantryCount;
     }
+
     public void setOwnedTerritories(List<Territory> territories) {
         ownedTerritories = new ArrayList<>(territories);
     }
@@ -123,12 +127,15 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
     public void setCavalryCount(int cavalryCount) {
         this.cavalryCount = cavalryCount;
     }
-    public List<ChanceCard> getChanceCards(){
+
+    public List<ChanceCard> getChanceCards() {
         return chanceCards;
     }
-    public void setChanceCards(List<ChanceCard> cd){
+
+    public void setChanceCards(List<ChanceCard> cd) {
         this.chanceCards = cd;
     }
+
     public List<ArmyCard> getArmyCards() {
         return armyCards;
     }
@@ -140,10 +147,10 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
     public String getArmyCardstoString() {
         return armyCards.toString();
     }
+
     public void countByTypes() {
         // Check if the player has a valid set of 3 cards to trade
         // This is just a simple example, you might need to implement more complex rules
-
 
         for (ArmyCard card : armyCards) {
             switch (card.getType()) {
@@ -160,8 +167,9 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
         }
 
         // return (infantryCount >= 3 || cavalryCount >= 3 || artilleryCount >= 3 ||
-        //         (infantryCount >= 1 && cavalryCount >= 1 && artilleryCount >= 1));
+        // (infantryCount >= 1 && cavalryCount >= 1 && artilleryCount >= 1));
     }
+
     public void addTerritory(Territory territory) {
         ownedTerritories.add(territory);
 
@@ -171,10 +179,6 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
         if (ownedTerritories.contains(t1)) {
             ownedTerritories.remove(t1);
         }
-    }
-
-    public void addChanceCard(ChanceCard card) {
-        chanceCards.add(card);
     }
 
     public List<Territory> getOwnedTerritories() {
@@ -196,70 +200,59 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
         }
     }
 
-
-
     public void addTerritoryCard(TerritoryCard territoryCard) {
         territoryCards.add(territoryCard);
 
-
     }
 
-
     public void useTerritoryCards() {
-            List<Integer> cardNumbers = new ArrayList<>();
+        List<Integer> cardNumbers = new ArrayList<>();
 
-            for (Map.Entry<String, List<String>> entry : CONTINENTS.entrySet()) {
-                String continentName = entry.getKey();
-                List<String> continent = entry.getValue();
-                boolean continentCanBeCreated = true;
+        for (Map.Entry<String, List<String>> entry : CONTINENTS.entrySet()) {
+            String continentName = entry.getKey();
+            List<String> continent = entry.getValue();
+            boolean continentCanBeCreated = true;
 
+            for (String cardName : continent) {
+                if (!territoryCards.stream().anyMatch(card -> card.getName().endsWith(cardName))) {
+                    continentCanBeCreated = false;
+                    break;
+                }
+            }
+            if (continentCanBeCreated) {
                 for (String cardName : continent) {
-                    if (!territoryCards.stream().anyMatch(card -> card.getName().endsWith(cardName))) {
-                        continentCanBeCreated = false;
-                        break;
-                    }
-                }
-                if (continentCanBeCreated) {
-                    for (String cardName : continent) {
-                        territoryCards.removeIf(card -> {
-                            if (card.getName().endsWith(cardName)) {
-                                // Extract the number and add it to cardNumbers
-                                String[] parts = card.getName().split(" ");
-                                if (parts.length > 2) {
-                                    try {
-                                        int cardNumber = Integer.parseInt(parts[2]);
-                                        cardNumbers.add(cardNumber);
-                                    } catch (NumberFormatException e) {
-                                        e.printStackTrace();
-                                    }
+                    territoryCards.removeIf(card -> {
+                        if (card.getName().endsWith(cardName)) {
+                            // Extract the number and add it to cardNumbers
+                            String[] parts = card.getName().split(" ");
+                            if (parts.length > 2) {
+                                try {
+                                    int cardNumber = Integer.parseInt(parts[2]);
+                                    cardNumbers.add(cardNumber);
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
                                 }
-                                return true;
-                            } else {
-                                return false;
                             }
-                        });
-                    }
-                    // Use continentName here
-                    System.out.println(continentName + " has been created.");
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                }
+                // Use continentName here
+                System.out.println(continentName + " has been created.");
+            }
+        }
+
+        for (int x : cardNumbers) {
+            for (Territory t : Board.getTerritories().values()) {
+                if (t.getId() == x) {
+                    t.setOwner(p);
+                    setTerritoryInfo(t.getId(), p.getInventory().getTotalArmy(), p.getColor(), t.getTotalUnit());
                 }
             }
 
-
-            for (int x : cardNumbers) {
-                for (Territory t : Board.getTerritories().values()) {
-                    if (t.getId() == x) {
-                        t.setOwner(p);
-                         setTerritoryInfo(t.getId(), p.getInventory().getTotalArmy(),p.getColor(), t.getTotalUnit());
-                    }
-                }
-                
-                
-            }
-
-
-
-
-
+        }
 
     }
 
@@ -271,9 +264,6 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
         }
         return true;
     }
-
-
-
 
     public void removeInfantryCard(int n) {
         if (infantryCount != 0) {
@@ -291,14 +281,6 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
             }
         }
     }
-
-    public void removeChanceCards() {
-       if (!chanceCards.isEmpty()) {
-        chanceCards.remove(0);
-       }
-
-    }
-
 
     public void removeArtilleryCard(int n) {
         if (artilleryCount != 0) {
@@ -338,32 +320,24 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
         return CLICKED_ARMY_BUTTON;
     }
 
-
-
-
-
     /*
      * Requires:
-     * Modifies: this.ArmyCards, Army.cavalryList, Army.infantryList, Army.artilleryList
+     * Modifies: this.ArmyCards, Army.cavalryList, Army.infantryList,
+     * Army.artilleryList
      * Effects: No return value, Terminal String output is provided.
      *
      *
      *
      */
 
-
     public void useArmyCards(int type) {
         CLICKED_ARMY_BUTTON++;
-
 
         boolean validation = isValid(type);
         if (!validation) {
             System.out.println("Not valid type!");
             return;
         }
-
-
-
 
         if (type == 1) {
             System.out.println("Test Case 1 occured, transition happening.");
@@ -372,25 +346,23 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
             removeInfantryCard(3);
             return;
 
-
-        }
-        else if (type == 2) {
+        } else if (type == 2) {
             System.out.println("Test Case 2 occured, transition happening.");
 
             addCavalries(2);
             removeInfantryCard(2);
             removeCavalryCard(1);
 
-           return;
+            return;
 
         }
 
         else if (type == 3) {
             System.out.println("Test Case 3 occured, transition happening.");
             addArtilleries(2);
-          // removeInfantries(2);
+            // removeInfantries(2);
             removeInfantryCard(2);
-            //removeArtilleries(1);
+            // removeArtilleries(1);
             removeArtilleryCard(1);
             return;
         }
@@ -405,8 +377,7 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
 
         }
 
-
-        else if (type == 5){
+        else if (type == 5) {
             System.out.println("Test Case 5 occured, transition happening.");
             addArtilleries(3);
             removeArtilleryCard(1);
@@ -415,11 +386,7 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
 
         }
 
-
-
     }
-
-
 
     public int getNumberOfArmies() {
         int totalArmies = 0;
@@ -433,7 +400,6 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
         return totalArmies;
     }
 
-
     public void addArmies(int additionalArmies) {
 
         armies += additionalArmies;
@@ -442,6 +408,7 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
     public void addInfantries(int n) {
         army.addInfantries(n);
     }
+
     public void addArtilleries(int n) {
         army.addArtilleries(n);
     }
@@ -451,7 +418,7 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
     }
 
     public int getTotalArmy() {
-       return  army.getTotalArmyUnit();
+        return army.getTotalArmyUnit();
     }
 
     public void removeInfantries(int n) {
@@ -470,12 +437,11 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
     }
 
     public boolean isValid(int type) {
-        switch(type) {
+        switch (type) {
             case 1:
                 if (infantryCount >= 3) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
 
@@ -491,180 +457,118 @@ private static final Map<String, List<String>> CONTINENTS = new HashMap<String, 
             case 3:
                 if (infantryCount >= 2 && artilleryCount >= 1) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
 
             case 4:
-                if (infantryCount >= 1 && cavalryCount>= 2) {
+                if (infantryCount >= 1 && cavalryCount >= 2) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
-
 
             case 5:
                 if (artilleryCount >= 1 && cavalryCount >= 2) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
-
-
-
-
 
         }
         return false;
 
+    }
 
+    public void deleteCards(Card c[]) {
 
+        for (Card c1 : c) {
 
+            p.getCards().remove(c1);
+
+        }
+    }
+
+    public void addTerritoryButtonListener(TerritoryButtonListener lis) {
+        territoryButtonListeners.add(lis);
+    }
+
+    public void setTerritoryInfo(int ID, int armyUnit, Color color, int territoryArmy) {
+        for (TerritoryButtonListener l : territoryButtonListeners) {
+            l.setTerritoryButtonInfo(ID, armyUnit, color, territoryArmy);
+        }
+    }
+
+    public void useChanceCard() {
+        // ChanceCard chanceCardTurn = new ChanceCard("COUP",
+        // ChanceCard.ChanceType.COUP);
+        ChanceCard chanceCardTurn = new ChanceCard("DRAFT", ChanceCard.ChanceType.COUP);
+        Player cardUser = PlayerExpert.getPlayerInTurn();
+        switch (chanceCardTurn.getType()) {
+            case COUP:
+
+                useCoup(cardUser);
+                // Territory t = Board.getCurrenTerritory();
+                // t.setOwner(cardUser);
+
+                // setTerritoryInfo(t.getId(),
+                // cardUser.getInventory().getTotalArmy(),cardUser.getColor(),
+                // t.getTotalUnit());
+            case DRAFT:
+                useDraft(cardUser);
+
+            case SABOTAGE:
+
+            default:
+                return;
+        }
 
     }
 
-
-
-
-
-
-
-public void deleteCards(Card c[]) {
-
-    for(Card c1: c) {
-
-        p.getCards().remove(c1);
-
-    }
-}
-
-public void addTerritoryButtonListener(TerritoryButtonListener lis) {
-    territoryButtonListeners.add(lis);
-  }
-
-
-  public void setTerritoryInfo(int ID, int armyUnit, Color color,int territoryArmy) {
-    for(TerritoryButtonListener l: territoryButtonListeners) {
-      l.setTerritoryButtonInfo(ID, armyUnit, color,territoryArmy);
-    }
-  }
-
-public void useChanceCard() {
-    // ChanceCard chanceCardTurn = new ChanceCard("COUP", ChanceCard.ChanceType.COUP);
-    ChanceCard chanceCardTurn = this.chanceCards.get(0);
-
-    if (chanceCardTurn == null) {
-        System.out.println("NO CARDS FOR NOW !");
-        return;
-    }
-    Player cardUser = PlayerExpert.getPlayerInTurn();
-    switch(chanceCardTurn.getType()) {
-        case COUP:
-
-            useCoup(cardUser);
-            // Territory t = Board.getCurrenTerritory();
-            // t.setOwner(cardUser);
-
-
-            // setTerritoryInfo(t.getId(), cardUser.getInventory().getTotalArmy(),cardUser.getColor(), t.getTotalUnit());
-        case DRAFT:
-            useDraft(cardUser);
-            break;
-
-        case SABOTAGE:
-            useSabotage(cardUser);
-            break;
-        
-        case SECRETWEAPON:
-            useSecretWeapon(cardUser);
-            break;
-
-        case REVOLT:
-            useRevolt(cardUser);
-            break;
-
-
-        default:
-            return;
+    public void useCoup(Player p) {
+        Territory t = Board.getCurrentTerritory();
+        t.setOwner(p);
+        setTerritoryInfo(t.getId(), p.getInventory().getTotalArmy(), p.getColor(), t.getTotalUnit());
     }
 
-}
-
-public void useCoup(Player p) {
-    Territory t = Board.getCurrentTerritory();
-    t.setOwner(p);
-    setTerritoryInfo(t.getId(), p.getInventory().getTotalArmy(),p.getColor(), t.getTotalUnit());
-    p.getInventory().setChanceCardRequest(0);
-    chanceCards.remove(0);
-}
-
-public void useSecretWeapon(Player p) {
+    public void useSecretWeapon(Player p) {
         Territory t = Board.getCurrentTerritory();
         Player reveal = t.getOwner();
         Random random = new Random();
         int x = random.nextInt(2);
 
         if (x == 0) { // army card.
-            if (reveal.getInventory().getArmyCards().size() > 0) {
             int index = random.nextInt(reveal.getInventory().getArmyCards().size());
             ArmyCard toRevealArmyCard = reveal.getInventory().getArmyCards().get(index);
             String description = reveal.getName() + "  has ArmyCard: " + toRevealArmyCard.getName();
-    
 
-            
             ChanceCardWindow window = new ChanceCardWindow(description);
             window.createChanceWindow();
-            }
 
-            else {
-                ChanceCardWindow window = new ChanceCardWindow("Sorry, rival has no army cards : D");
-                window.createChanceWindow();
-            }
-            
-
-        } 
+        }
 
         else { // territory;
-            if (reveal.getInventory().getTerritoryCards().size() > 0) {
             int index = random.nextInt(reveal.getInventory().getTerritoryCards().size());
             TerritoryCard toRevealTerritoryCard = reveal.getInventory().getTerritoryCards().get(index);
             String description = reveal.getName() + "  has TerritoryCard: " + toRevealTerritoryCard.getName();
             ChanceCardWindow window = new ChanceCardWindow(description);
             window.createChanceWindow();
-            }
-
-            else {
-                ChanceCardWindow window = new ChanceCardWindow("Sorry, rival has no territory cards : D");
-                window.createChanceWindow();
-            }
-           
         }
 
-
-        p.getInventory().setChanceCardRequest(0);
-chanceCards.remove(0);
     }
 
+    public void useSabotage() {
+        Territory t = Board.getCurrentTerritory();
+        Player p = t.getOwner();
 
-public void useSabotage(Player p) {
-    Territory t = Board.getCurrentTerritory();
-    p = t.getOwner();
-     p.getInventory().setChanceCardRequest(0);
-     chanceCards.remove(0);
+    }
 
-}
+    public void useDraft(Player p) {
+        p.getInventory().setDrawCardRequest(3);
 
-public void useDraft(Player p) {
-    p.getInventory().setDrawCardRequest(3);
-     p.getInventory().setChanceCardRequest(0);
-chanceCards.remove(0);
-}
+    }
 
-
-public void useRevolt(Player p) {
+    public void useRevolt(Player p) {
         Territory[] memory = HandlerFactory.getInstance().getGameLogic().getMemory();
 
         if (memory[0].getOwner().equals(p) && memory[0].getOwner().equals(p)) {
@@ -687,25 +591,17 @@ public void useRevolt(Player p) {
             t2.getArmy().addCavalries(cavalryNumber);
             p.getInventory().removeTerritoryFromList(t1);
 
-            setTerritoryInfo(t1.getId(), t1.getTotalUnit(),null, t1.getTotalUnit());
+            setTerritoryInfo(t1.getId(), t1.getTotalUnit(), null, t1.getTotalUnit());
 
-            setTerritoryInfo(t2.getId(), p.getInventory().getTotalArmy(),p.getColor(), t1.getTotalUnit());
+            setTerritoryInfo(t2.getId(), p.getInventory().getTotalArmy(), p.getColor(), t1.getTotalUnit());
             System.out.println("Revolt is done!");
-            
-            
+
         }
 
         else {
             ChanceCardWindow window = new ChanceCardWindow("You must select two continents, both must be yours.");
             window.createChanceWindow();
         }
-
-
-         p.getInventory().setChanceCardRequest(0);
-         chanceCards.remove(0);
     }
-
-
-
 
 }

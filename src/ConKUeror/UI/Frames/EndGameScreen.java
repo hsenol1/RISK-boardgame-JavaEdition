@@ -27,16 +27,13 @@ public class EndGameScreen extends JFrame {
     private JButton closeApplicationButton;
     private ButtonHandler buttonHandler;
 
-    public EndGameScreen(Player player) throws IOException
-    {
-        HandlerFactory controller =HandlerFactory.getInstance();
+    public EndGameScreen(Player player) throws IOException {
+        HandlerFactory controller = HandlerFactory.getInstance();
         this.buttonHandler = controller.giveButtonHandler();
         initializeGUI(player);
     }
 
-
-    public void initializeGUI(Player player) throws IOException
-    {
+    public void initializeGUI(Player player) throws IOException {
         winnerImage = ImageIO.read(getClass().getResourceAsStream("/images/winner_image.jpeg"));
         winnerName = new JLabel(player.getName() + " wins!");
         closeApplicationButton = new JButton("Close Game");
@@ -59,19 +56,15 @@ public class EndGameScreen extends JFrame {
         JPanel winnerPanel = new JPanel();
         winnerPanel.add(winnerName);
         winnerPanel.add(closeApplicationButton);
-        //winnerPanel.setLayout(new BoxLayout(winnerPanel, BoxLayout.Y_AXIS));
-        //this.add(winnerPanel);
+        // winnerPanel.setLayout(new BoxLayout(winnerPanel, BoxLayout.Y_AXIS));
+        // this.add(winnerPanel);
     }
 
-    
 }
 
-
-class CloseApplicationButtonListener implements ActionListener
-{
+class CloseApplicationButtonListener implements ActionListener {
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
         System.exit(0);
     }
 }

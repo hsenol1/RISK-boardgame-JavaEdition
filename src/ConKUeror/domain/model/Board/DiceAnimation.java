@@ -1,26 +1,25 @@
 package ConKUeror.domain.model.Board;
-import java.awt.Color;
+
 import java.awt.Font;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.Color;
 
 import ConKUeror.UI.Frames.MapView;
-
 
 public class DiceAnimation {
     private MapView mapView;
     private JLabel label1, label2;
     private Timer timer;
     private Random random = new Random();
-    private int countdown = 40;  
+    private int countdown = 40;
 
     public DiceAnimation(MapView mapView) {
         this.mapView = mapView;
     }
-
 
     public void DiceRollAnimation(int leftNumber, int rightNumber) {
         label1 = new JLabel();
@@ -30,9 +29,8 @@ public class DiceAnimation {
         mapView.getMapPanel().add(label1);
         mapView.getMapPanel().add(label2);
 
-
-        label1.setBounds(1126/2 - 50, 770/2, 100, 100);
-        label2.setBounds(1126/2 + 10, 770/2, 100, 100);
+        label1.setBounds(1126 / 2 - 50, 770 / 2, 100, 100);
+        label2.setBounds(1126 / 2 + 10, 770 / 2, 100, 100);
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -46,9 +44,7 @@ public class DiceAnimation {
 
                     countdown--;
                 } else if (countdown > -20) {
-                    
                     label1.setText(Integer.toString(leftNumber));
-                    
                     label2.setText(Integer.toString(rightNumber));
 
                     countdown--;
@@ -62,16 +58,6 @@ public class DiceAnimation {
                 mapView.getMapPanel().repaint();
             }
         }, 0, 50);
-
-
-
-
-
-
-
-
-
-
 
     }
 }
