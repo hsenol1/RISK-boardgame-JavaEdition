@@ -1,14 +1,17 @@
 package ConKUeror.UI.Frames;
 
 import java.io.IOException;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,23 +24,19 @@ import ConKUeror.domain.model.Player.Player;
 
 public class EndGameScreen extends JFrame {
 
-    private JPanel panel;
-    private JLabel winnerName;
+    private JPanel endGamePanel;
+    //private JLabel winnerName;
     private BufferedImage winnerImage;
     private JButton closeApplicationButton;
     private ButtonHandler buttonHandler;
 
     public EndGameScreen(Player player) throws IOException {
+        super(player.getName() + " wins!");
+        
         HandlerFactory controller = HandlerFactory.getInstance();
         this.buttonHandler = controller.giveButtonHandler();
-        initializeGUI(player);
-    }
-
-    public void initializeGUI(Player player) throws IOException {
         winnerImage = ImageIO.read(getClass().getResourceAsStream("/images/winner_image.jpeg"));
-        winnerName = new JLabel(player.getName() + " wins!");
-        closeApplicationButton = new JButton("Close Game");
-        panel = new JPanel() {
+        endGamePanel = new JPanel() {
             BufferedImage backgroundImage = winnerImage;
 
             @Override
@@ -46,19 +45,16 @@ public class EndGameScreen extends JFrame {
                 g.drawImage(backgroundImage, 0, 0, null); // draw the image
             }
         };
-        panel.setOpaque(true);
-
-        panel.setPreferredSize(new Dimension(winnerImage.getWidth(), winnerImage.getHeight()));
-        panel.setLayout(null);
-
+        endGamePanel.setLayout(new BorderLayout());
+        setSize(winnerImage.getWidth(), winnerImage.getHeight());
+        JLabel winnerImageLabel = new JLabel(new ImageIcon(winnerImage));
+        endGamePanel.add(winnerImageLabel);
+        closeApplicationButton = new JButton("Close Game");
         closeApplicationButton.addActionListener(new CloseApplicationButtonListener());
-
-        JPanel winnerPanel = new JPanel();
-        winnerPanel.add(winnerName);
-        winnerPanel.add(closeApplicationButton);
-        // winnerPanel.setLayout(new BoxLayout(winnerPanel, BoxLayout.Y_AXIS));
-        // this.add(winnerPanel);
+        endGamePanel.add(closeApplicationButton);
+        this.add(endGamePanel);
     }
+
 
 }
 
