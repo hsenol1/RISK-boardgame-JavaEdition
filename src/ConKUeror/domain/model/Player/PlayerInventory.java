@@ -13,6 +13,7 @@ import java.util.Random;
 import ConKUeror.domain.model.Board.ArmyCard.ArmyType;
 import ConKUeror.domain.model.Board.ChanceCard.ChanceType;
 import ConKUeror.UI.Panels.ChanceCardWindow;
+import ConKUeror.domain.controller.ChanceObserverListener;
 import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.controller.TerritoryButtonListener;
 import ConKUeror.domain.model.Army.Army;
@@ -34,8 +35,11 @@ public class PlayerInventory implements Serializable {
     private List<TerritoryCard> territoryCards;
     private List<ChanceCard> chanceCards;
     private List<TerritoryButtonListener> territoryButtonListeners = new ArrayList<>();
+    private List<ChanceObserverListener> coListeners = new ArrayList<>();
     private static int MAX_ARMY_CARD_PER_TURN = 1;
     private static int CLICKED_ARMY_BUTTON = 0;
+    private static int MAX_TERR_CARD = 1;
+private static int MAX_CHANCE_CARD = 1;
 
     private static final List<String> NORTH_AMERICA = Arrays.asList("Territory Card 0", "Territory Card 1",
             "Territory Card 2", "Territory Card 5", "Territory Card 3", "Territory Card 4", "Territory Card 6",
@@ -80,7 +84,7 @@ public class PlayerInventory implements Serializable {
         this.ownedTerritories = new ArrayList<>();
         this.territoryCards = new ArrayList<>();
         this.armies = 0;
-
+        this.chanceCards = new ArrayList<>();
     }
 
     public List<TerritoryCard> getTerritoryCards() {
@@ -93,6 +97,22 @@ public class PlayerInventory implements Serializable {
 
     public void setDrawCardRequest(int i) {
         MAX_ARMY_CARD_PER_TURN = i;
+    }
+
+    public int getTerrCardRequest() {
+        return MAX_TERR_CARD;
+    }
+
+    public void setTerrCardRequest(int i) {
+        MAX_TERR_CARD = i;
+    }
+
+    public void setChanceCardRequest(int i) {
+        MAX_CHANCE_CARD  = i;
+    }
+
+    public int getChanceCardRequest() {
+        return MAX_CHANCE_CARD;
     }
 
     public Army getArmy() {
@@ -135,6 +155,18 @@ public class PlayerInventory implements Serializable {
     public void setChanceCards(List<ChanceCard> cd) {
         this.chanceCards = cd;
     }
+
+    public void addChanceCard(ChanceCard card) {
+        chanceCards.add(card);
+    }
+
+    public void removeChanceCards() {
+       if (!chanceCards.isEmpty()) {
+        chanceCards.remove(0);
+       }
+
+    }
+
 
     public List<ArmyCard> getArmyCards() {
         return armyCards;
@@ -493,6 +525,19 @@ public class PlayerInventory implements Serializable {
         territoryButtonListeners.add(lis);
     }
 
+
+    public void addCOListener(ChanceObserverListener coListener) {
+        coListeners.add(coListener);
+    }
+
+    public void setTerritoryUIforObserver(int ID, int armyUnit, Color color, int territoryArmy) {
+
+        for (ChanceObserverListener cL : coListeners) {
+            cL.setTerritoryUI(ID, armyUnit, color, territoryArmy);
+        }
+    }
+
+
     public void setTerritoryInfo(int ID, int armyUnit, Color color, int territoryArmy) {
         for (TerritoryButtonListener l : territoryButtonListeners) {
             l.setTerritoryButtonInfo(ID, armyUnit, color, territoryArmy);
@@ -500,35 +545,51 @@ public class PlayerInventory implements Serializable {
     }
 
     public void useChanceCard() {
-        // ChanceCard chanceCardTurn = new ChanceCard("COUP",
-        // ChanceCard.ChanceType.COUP);
-        ChanceCard chanceCardTurn = new ChanceCard("DRAFT", ChanceCard.ChanceType.COUP);
+        //ChanceCard chanceCardTurn = new ChanceCard("COUP",ChanceCard.ChanceType.COUP);
+       
+         ChanceCard chanceCardTurn = this.chanceCards.get(0);
+
+        if (chanceCardTurn == null) {
+            System.out.println("NO CARDS FOR NOW !");
+            return;
+        }   
         Player cardUser = PlayerExpert.getPlayerInTurn();
-        switch (chanceCardTurn.getType()) {
+
+        ChanceType typeOfCard = chanceCardTurn.getType();
+
+        switch (typeOfCard) {
             case COUP:
 
                 useCoup(cardUser);
-                // Territory t = Board.getCurrenTerritory();
-                // t.setOwner(cardUser);
-
-                // setTerritoryInfo(t.getId(),
-                // cardUser.getInventory().getTotalArmy(),cardUser.getColor(),
-                // t.getTotalUnit());
+                break;
+  
             case DRAFT:
                 useDraft(cardUser);
+                break;
 
-            case SABOTAGE:
+            case REBELLION:
+                useRebellion(cardUser);
+            break;
+
+            case SECRETWEAPON:
+                useSecretWeapon(cardUser);
+                break;
+
+            case REVOLT:
+                useRevolt(cardUser);
+                break;
 
             default:
                 return;
         }
 
-    }
+    }   
 
     public void useCoup(Player p) {
+        System.out.println("COUP RUNNED?");
         Territory t = Board.getCurrentTerritory();
         t.setOwner(p);
-        setTerritoryInfo(t.getId(), p.getInventory().getTotalArmy(), p.getColor(), t.getTotalUnit());
+        setTerritoryUIforObserver(t.getId(), p.getInventory().getTotalArmy(), p.getColor(), t.getTotalUnit());
     }
 
     public void useSecretWeapon(Player p) {
@@ -538,33 +599,70 @@ public class PlayerInventory implements Serializable {
         int x = random.nextInt(2);
 
         if (x == 0) { // army card.
-            int index = random.nextInt(reveal.getInventory().getArmyCards().size());
-            ArmyCard toRevealArmyCard = reveal.getInventory().getArmyCards().get(index);
-            String description = reveal.getName() + "  has ArmyCard: " + toRevealArmyCard.getName();
+            if (reveal.getInventory().getArmyCards().size() > 0) {
+                int index = random.nextInt(reveal.getInventory().getArmyCards().size());
+                ArmyCard toRevealArmyCard = reveal.getInventory().getArmyCards().get(index);
+                String description = reveal.getName() + "  has ArmyCard: " + toRevealArmyCard.getName();
 
-            ChanceCardWindow window = new ChanceCardWindow(description);
-            window.createChanceWindow();
+                ChanceCardWindow window = new ChanceCardWindow(description);
+                window.createChanceWindow();
+            }
+
+            else {
+                ChanceCardWindow window = new ChanceCardWindow("Sorry, rival has no army cards : D");
+                window.createChanceWindow();
+            }
+           
+
+            
 
         }
 
         else { // territory;
-            int index = random.nextInt(reveal.getInventory().getTerritoryCards().size());
-            TerritoryCard toRevealTerritoryCard = reveal.getInventory().getTerritoryCards().get(index);
-            String description = reveal.getName() + "  has TerritoryCard: " + toRevealTerritoryCard.getName();
-            ChanceCardWindow window = new ChanceCardWindow(description);
-            window.createChanceWindow();
+            if (reveal.getInventory().getTerritoryCards().size() > 0)  {
+                int index = random.nextInt(reveal.getInventory().getTerritoryCards().size());
+                TerritoryCard toRevealTerritoryCard = reveal.getInventory().getTerritoryCards().get(index);
+                String description = reveal.getName() + "  has TerritoryCard: " + toRevealTerritoryCard.getName();
+                ChanceCardWindow window = new ChanceCardWindow(description);
+                window.createChanceWindow();
+            }
+
+            else {
+                ChanceCardWindow window = new ChanceCardWindow("Sorry, rival has no territory cards : D");
+                window.createChanceWindow();
+            }
+           
+        
         }
+
+        p.getInventory().setChanceCardRequest(0);
+        chanceCards.remove(0);
 
     }
 
-    public void useSabotage() {
+    public void useRebellion(Player p) {
         Territory t = Board.getCurrentTerritory();
-        Player p = t.getOwner();
+        if (t.getArmy().getTotalArmyUnit() == 1) {
+            t.getArmy().setTotalArmyUnit(0);
+            t.setOwner(null);
+        }
+
+        else {
+            int half = t.getArmy().getTotalArmyUnit() / 2;
+            t.getArmy().setTotalArmyUnit(t.getArmy().getTotalArmyUnit() - half);
+
+        }
+         setTerritoryUIforObserver(t.getId(), p.getInventory().getTotalArmy(), p.getColor(), t.getTotalUnit());
+        p.getInventory().setChanceCardRequest(0);
+        chanceCards.remove(0);
+        
 
     }
 
     public void useDraft(Player p) {
         p.getInventory().setDrawCardRequest(3);
+        p.getInventory().setChanceCardRequest(0);
+        chanceCards.remove(0);
 
     }
 
@@ -591,10 +689,13 @@ public class PlayerInventory implements Serializable {
             t2.getArmy().addCavalries(cavalryNumber);
             p.getInventory().removeTerritoryFromList(t1);
 
-            setTerritoryInfo(t1.getId(), t1.getTotalUnit(), null, t1.getTotalUnit());
-
-            setTerritoryInfo(t2.getId(), p.getInventory().getTotalArmy(), p.getColor(), t1.getTotalUnit());
+          
+             setTerritoryUIforObserver(t1.getId(), p.getInventory().getTotalArmy(), p.getColor(), t1.getTotalUnit());
+              setTerritoryUIforObserver(t2.getId(), p.getInventory().getTotalArmy(), p.getColor(), t2.getTotalUnit());
             System.out.println("Revolt is done!");
+            
+            p.getInventory().setChanceCardRequest(0);
+            chanceCards.remove(0);
 
         }
 

@@ -34,6 +34,7 @@ import ConKUeror.UI.Panels.PlayerInteractionPanel;
 import ConKUeror.UI.Panels.PlayerPanel;
 import ConKUeror.UI.PauseScreen.PauseScreen;
 import ConKUeror.domain.controller.ButtonHandler;
+import ConKUeror.domain.controller.ChanceObserverListener;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.AnimationMapListener;
 import ConKUeror.domain.controller.HandlerFactory;
@@ -59,7 +60,7 @@ import java.util.List;
 
 public class MapView extends JFrame
         implements MapListener, TerritoryButtonListener, RollDieListener, IUIRefreshListener, AnimationMapListener,
-        EndOfTheGameListener {
+        EndOfTheGameListener, ChanceObserverListener {
     private AnimationHandler animationHandler;
     private DiceAnimation diceAnimation;
 
@@ -114,6 +115,7 @@ public class MapView extends JFrame
         addMapFrameAsListener();
         addMapFrameAsListenertoListenTerrittoryButtonInteraction();
         addMapFrameAsListenerForRollEvent();
+        addMapFrameToChanceCards();
 
         addAsEndScreenListener();
 
@@ -128,7 +130,7 @@ public class MapView extends JFrame
 
     public void startPlusThreeAnimation(TerritoryButton button, int animVal) {
         animationHandler.startPlusThreeAnimation(button, animVal);
-        // refreshAnimations();
+   
     }
 
     public void refreshAnimations() {
@@ -138,6 +140,10 @@ public class MapView extends JFrame
     public void addMapFrameAsListener() {
         mapHandler.registerAsListener(this);
 
+    }
+
+    public void addMapFrameToChanceCards() {
+        mapHandler.registerAsChanceObserver(this);
     }
 
     public void addMapFrameAsListenertoListenTerrittoryButtonInteraction() {
@@ -546,14 +552,22 @@ public class MapView extends JFrame
         endGameScreen.setVisible(true);
     }
 
-    public void addAsEndScreenListener() {
-        buttonHandler.registerAsEndScreenListener(this);
-    }
+
+ 
 
     @Override
-    public void resolveGame(Player player) throws IOException {
-        endGameScreen = new EndGameScreen(player);
-        endGameScreen.setVisible(true);
+    public void setTerritoryUI(int buttonID, int armyUnit, Color color, int territoryArmy) {
+        // TODO Auto-generated method stub
+        TerritoryButton button = territoryButtonsList.get(buttonID);
+        button.setColor(color);
+        Font labelFont = new Font("Arial", Font.PLAIN, 11);
+        button.setFont(labelFont);
+        button.setArmyValue(territoryArmy);
+        System.out.print(territoryArmy);
+
+        System.out.println(armyUnit);
+        revalidate();
+        repaint();
     }
 
 }
