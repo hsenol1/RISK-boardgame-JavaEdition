@@ -588,8 +588,11 @@ private static int MAX_CHANCE_CARD = 1;
     public void useCoup(Player p) {
         System.out.println("COUP RUNNED?");
         Territory t = Board.getCurrentTerritory();
-        t.setOwner(p);
+        if (t != null) {
+            t.setOwner(p);
         setTerritoryUIforObserver(t.getId(), p.getInventory().getTotalArmy(), p.getColor(), t.getTotalUnit());
+        }
+        
     }
 
     public void useSecretWeapon(Player p) {
@@ -645,14 +648,16 @@ private static int MAX_CHANCE_CARD = 1;
         if (t.getArmy().getTotalArmyUnit() == 1) {
             t.getArmy().setTotalArmyUnit(0);
             t.setOwner(null);
+            setTerritoryUIforObserver(t.getId(), p.getInventory().getTotalArmy(), Color.WHITE, t.getTotalUnit());
         }
 
         else {
             int half = t.getArmy().getTotalArmyUnit() / 2;
             t.getArmy().setTotalArmyUnit(t.getArmy().getTotalArmyUnit() - half);
+           setTerritoryUIforObserver(t.getId(), p.getInventory().getTotalArmy(), p.getColor(), t.getTotalUnit());
 
         }
-         setTerritoryUIforObserver(t.getId(), p.getInventory().getTotalArmy(), p.getColor(), t.getTotalUnit());
+      
         p.getInventory().setChanceCardRequest(0);
         chanceCards.remove(0);
         
