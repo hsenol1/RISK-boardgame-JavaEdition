@@ -527,12 +527,14 @@ public class MapView extends JFrame
             int t1Loss = DiceRoller.getAttackingArmyUnit() - totalPlacedArmy;
             int t2Loss = DiceRoller.getDefenderArmyLoss();
 
-            animationHandler.startPlusThreeAnimation(attackerButton, t2Loss);
+            animationHandler.startPlusThreeAnimation(attackerButton, 100);
             animationHandler.startPlusThreeAnimation(defenderButton, t2Loss);
 
         } else {
             TerritoryButton attackerButton = territoryButtonsList.get(attacker.getId());
             attackerButton.setArmyValue(attacker.getArmy().getTotalArmyUnit() - DiceRoller.getAttackingArmyUnit());
+            animationHandler.startPlusThreeAnimation(attackerButton, DiceRoller.getAttackingArmyUnit());
+
         }
     }
 

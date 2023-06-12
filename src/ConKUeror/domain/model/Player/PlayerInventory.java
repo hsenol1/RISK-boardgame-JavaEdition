@@ -648,7 +648,7 @@ private static int MAX_CHANCE_CARD = 1;
         if (t.getArmy().getTotalArmyUnit() == 1) {
             t.getArmy().setTotalArmyUnit(0);
             t.setOwner(null);
-            setTerritoryUIforObserver(t.getId(), p.getInventory().getTotalArmy(), Color.WHITE, t.getTotalUnit());
+            setTerritoryUIforObserver(t.getId(), 0, Color.WHITE, 0);
         }
 
         else {
