@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 import ConKUeror.UI.Buttons.TerritoryButton;
+import ConKUeror.UI.Panels.ChanceCardWindow;
 import ConKUeror.domain.controller.CardController;
 import ConKUeror.domain.controller.MapListener;
 import ConKUeror.domain.controller.NextButtonListener;
@@ -30,6 +31,8 @@ import ConKUeror.domain.model.Army.Infantry;
 import ConKUeror.domain.model.Board.ArmyCard;
 import ConKUeror.domain.model.Board.Board;
 import ConKUeror.domain.model.Board.Card;
+import ConKUeror.domain.model.Board.ChanceCard;
+import ConKUeror.domain.model.Board.ChanceCard;
 import ConKUeror.domain.model.Board.DiceRoller;
 import ConKUeror.domain.model.Board.Territory;
 import ConKUeror.domain.model.Board.TerritoryCard;
@@ -403,13 +406,21 @@ public static int getRandomTerritoryId2( List<Territory> ownedTerritories) {
 
   public void addTerritoryCard() {
       //  cardPlayer = playerInTurn;
+
+       
+
+
         CardController cc  = CardController.getInstance();
         TerritoryCard tCard = cc.drawTerritoryCard(playerInTurn);
-        if (tCard != null) {
+        int numberOfDraw = playerInTurn.getInventory().getTerrCardRequest();
+        for (int i = 0; i < numberOfDraw; i++) {
+             if (tCard != null) {
             System.out.println(tCard.getName());
 
             playerInTurn.inv.addTerritoryCard(tCard);
         }
+        }
+       playerInTurn.getInventory().setTerrCardRequest(0);
   }
 
   public void useTerritoryCard() {
@@ -418,17 +429,44 @@ public static int getRandomTerritoryId2( List<Territory> ownedTerritories) {
 
   }
 
+  public void addChanceCard() {
+    CardController cc= CardController.getInstance();
+    ChanceCard cCard = cc.drawChanceCard(playerInTurn);
+
+    int numberOfDraw = playerInTurn.getInventory().getChanceCardRequest();
+    if (numberOfDraw != 0){
+        playerInTurn.inv.addChanceCard(cCard);
+        ChanceCardWindow window = new ChanceCardWindow(cCard.getName());
+        window.createChanceWindow();
+    }
+
+    playerInTurn.getInventory().setChanceCardRequest(0);
+  }
+
+  public void setRequestToDefault() {
+    playerInTurn.getInventory().setDrawCardRequest(1);
+    playerInTurn.getInventory().setTerrCardRequest(1);
+    playerInTurn.getInventory().setChanceCardRequest(1);
+    playerInTurn.getInventory().removeChanceCards();
+  }
+
 
 
   public void addArmyCard() {
-        CardController cc = CardController.getInstance();
-        ArmyCard aCard = cc.drawArmyCard(playerInTurn);
-        if (aCard != null) {
-            playerInTurn.inv.addArmyCard(aCard);
-            System.out.println(aCard.getName());
+                CardController cc = CardController.getInstance();
+          int numberOfDraw = playerInTurn.getInventory().getDrawCardRequest();
+          for (int i = 0; i < numberOfDraw; i++) {
+              ArmyCard aCard = cc.drawArmyCard(playerInTurn);
+
+              if (aCard != null) {
+                  playerInTurn.inv.addArmyCard(aCard);
+                  System.out.println(aCard.getName());
 
 
-        }
+              }
+          }
+
+          playerInTurn.getInventory().setDrawCardRequest(0);
 
   }
 

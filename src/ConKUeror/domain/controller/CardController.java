@@ -1,5 +1,8 @@
 package ConKUeror.domain.controller;
 import java.util.List;
+import java.util.Random;
+
+import javax.swing.event.ChangeEvent;
 
 import java.util.ArrayList;
 import ConKUeror.domain.model.Board.*;
@@ -63,13 +66,18 @@ public class CardController {
    
         Collections.shuffle(armyDeck);
         Collections.shuffle(terittoryDeck);
+        Collections.shuffle(chanceDeck);
 
     }
 
     public ChanceCard drawChanceCard(Player player) {
 
           if (!chanceDeck.isEmpty()) {
-            activeChanceCard = chanceDeck.remove(0);
+            Random random = new Random();
+            int nextInt = random.nextInt(chanceDeck.size());
+            
+            activeChanceCard = chanceDeck.get(nextInt);
+            
 
             //player.addCardToHand(activeCard); //will implement this method
 

@@ -1,4 +1,5 @@
 package ConKUeror.domain.model.Board;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.Random;
 import java.util.Timer;
@@ -45,7 +46,9 @@ public class DiceAnimation {
 
                     countdown--;
                 } else if (countdown > -20) {
+                    
                     label1.setText(Integer.toString(leftNumber));
+                    
                     label2.setText(Integer.toString(rightNumber));
 
                     countdown--;
