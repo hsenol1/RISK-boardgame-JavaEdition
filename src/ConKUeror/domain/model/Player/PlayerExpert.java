@@ -92,6 +92,19 @@ public class PlayerExpert implements Serializable {
         return players.size();
     }
 
+    public static boolean checkIfAnyTerritoryLeft(Player player)
+    {
+        if (player.getInventory().getOwnedTerritories().size() == 0)
+        {
+            players.remove(player);
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
 
 
 

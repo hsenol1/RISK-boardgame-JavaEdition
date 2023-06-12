@@ -34,6 +34,7 @@ import ConKUeror.UI.Panels.PlayerInteractionPanel;
 import ConKUeror.UI.Panels.PlayerPanel;
 import ConKUeror.UI.PauseScreen.PauseScreen;
 import ConKUeror.domain.controller.ButtonHandler;
+import ConKUeror.domain.controller.EndOfTheGameListener;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.controller.IUIRefreshListener;
@@ -56,7 +57,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener{
+public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener, EndOfTheGameListener{
     private AnimationHandler animationHandler;
     MapHandler mapHandler;
     ButtonHandler buttonHandler;
@@ -91,6 +92,8 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
 
     JFrame frame;
 
+    private EndGameScreen endGameScreen;
+
 
 
 public MapView() throws IOException {
@@ -112,7 +115,7 @@ public MapView() throws IOException {
     addMapFrameAsListener();
     addMapFrameAsListenertoListenTerrittoryButtonInteraction();
     addMapFrameAsListenerForRollEvent();
-
+    addAsEndScreenListener();
 
     pauseAndResumeButton.addActionListener(new PauseButtonHandler(this));
     helpButton.addActionListener(new HelpButtonHandler());
@@ -588,6 +591,18 @@ public void updateAfterAttack(boolean attackResult, Player playerInTurn, Territo
 
 
 
+    public void addAsEndScreenListener()
+    {
+        buttonHandler.registerAsEndScreenListener(this);
+    }
+
+
+    @Override
+    public void resolveGame(Player player) throws IOException
+    {
+        endGameScreen = new EndGameScreen(player);
+        endGameScreen.setVisible(true);
+    }
 
 
 

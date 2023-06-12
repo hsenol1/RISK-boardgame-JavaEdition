@@ -11,6 +11,7 @@ import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import java.util.LinkedHashMap;
 
 import ConKUeror.UI.Buttons.TerritoryButton;
 import ConKUeror.domain.controller.CardController;
+import ConKUeror.domain.controller.EndOfTheGameListener;
 import ConKUeror.domain.controller.MapListener;
 import ConKUeror.domain.controller.NextButtonListener;
 import ConKUeror.domain.controller.RollDieListener;
@@ -55,6 +57,7 @@ public class GameLogic {
   private Random rand ;
   private int territoryOrArmyCard;
 
+  private EndOfTheGameListener endScreenListener;
 
 
 
@@ -753,21 +756,39 @@ public void setGamePhaseIndex(int n){
       this.attackingArmyUnit = attackingArmyUnit;
     }
 
-    public boolean setForAttack(List<Infantry> attackingInfantries, List<Cavalry> attackingCavalries, List<Artillery> attackingArtilleries)
+    public boolean setForAttack(List<Infantry> attackingInfantries, List<Cavalry> attackingCavalries, List<Artillery> attackingArtilleries) throws IOException
     {
 
       boolean attackResult = false;
       //int attackingArmyUnits = attackingArmyUnit;
-      try
+      if (!memory[0].getOwner().equals(memory[1].getOwner()))
       {
-        Army defendingArmy = memory[1].getArmy();
-        
-        attackResult = playerInTurn.attack(attackingInfantries, attackingCavalries, attackingArtilleries, defendingArmy);
-      }
-      catch (NullPointerException e)
-      {
+        try
+        {
+          Army defendingArmy = memory[1].getArmy();
+          attackResult = playerInTurn.attack(attackingInfantries, attackingCavalries, attackingArtilleries, defendingArmy);
+        }
+        catch (NullPointerException e)
+        {
           System.out.println("Please choose an attack target");
+        }
+        if (attackResult)
+        {
+            memory[1].getOwner().removeTerritory(memory[1]);
+            if (!PlayerExpert.checkIfAnyTerritoryLeft(memory[1].getOwner()));
+            {
+              if (PlayerExpert.getPlayersList().size() == 1)
+              {
+                Player winner = PlayerExpert.getPlayersList().get(0);
+                publishEndOfTheGameEvent(winner);
+              }
+            }
+            
+        }
+
       }
+
+      
       return attackResult;
     }
 
@@ -777,6 +798,16 @@ public void setGamePhaseIndex(int n){
         for(TerritoryButtonListener l: territoryButtonListeners) {
           l.updateAfterAttack(attackResult, playerInTurn, memory[0], memory[1]);
         }
+      }
+
+      public void setEndOfTheGameListener(EndOfTheGameListener endScreenListener)
+      {
+        this.endScreenListener = endScreenListener;
+      }
+
+      public void publishEndOfTheGameEvent(Player player) throws IOException
+      {
+        endScreenListener.resolveGame(player);
       }
 
 

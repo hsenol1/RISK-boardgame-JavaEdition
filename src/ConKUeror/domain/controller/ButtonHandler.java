@@ -1,6 +1,7 @@
 package ConKUeror.domain.controller;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -206,7 +207,7 @@ if(FortifyMode.canFortify()) {
         gMode.publishArmyIncreasedEvent(attackingInfantries.size() + attackingCavalries.size() * 5 + attackingArtilleries.size() * 10);
     }
 
-    public void attack()
+    public void attack() throws IOException
     {
         boolean attackResult = gMode.setForAttack(attackingInfantries, attackingCavalries, attackingArtilleries);
         gMode.publishAttackResultEvent(attackResult);
@@ -373,6 +374,10 @@ if(FortifyMode.canFortify()) {
         gMode.setAttackingArmyUnit(armyCount);
     }
 
+    public void registerAsEndScreenListener(EndOfTheGameListener endScreenListener)
+    {
+        gMode.setEndOfTheGameListener(endScreenListener);
+    }
 
 
 
