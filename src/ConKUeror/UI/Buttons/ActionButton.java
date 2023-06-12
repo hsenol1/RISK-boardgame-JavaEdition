@@ -154,6 +154,7 @@ public class ActionButton extends JButton implements ActionListener {
                         break;
                     case 2:
                         buttonHandler.endTurn();
+                        buttonHandler.setArmyToDefault();
                         break;
                 }
                 break;
@@ -167,6 +168,7 @@ public class ActionButton extends JButton implements ActionListener {
                         break;
                     case 2:
                         buttonHandler.endTurn();
+                        buttonHandler.setArmyToDefault();
                         break;
                 }
                 break;

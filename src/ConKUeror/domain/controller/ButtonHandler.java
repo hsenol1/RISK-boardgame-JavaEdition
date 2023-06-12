@@ -140,6 +140,8 @@ public class ButtonHandler {
 
     }
 
+    
+
     public int getArmyUnitFromInputTerritory() {
         int i = 0;
         try {
@@ -269,6 +271,10 @@ public class ButtonHandler {
 
     public void setRequestToDefault() {
         gMode.setRequestToDefault();
+    }
+
+    public void setArmyToDefault() {
+        gMode.setArmyReqToDefault();
     }
 
     public void endTurn() {

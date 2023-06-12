@@ -56,7 +56,7 @@ public class CardController {
 
         chanceDeck.add(new ChanceCard("COUP", ChanceCard.ChanceType.COUP));
         chanceDeck.add(new ChanceCard("REVOLT", ChanceCard.ChanceType.REVOLT));
-        chanceDeck.add(new ChanceCard("SABOTAGE", ChanceCard.ChanceType.SABOTAGE));
+        chanceDeck.add(new ChanceCard("REBELLION", ChanceCard.ChanceType.REBELLION));
         chanceDeck.add(new ChanceCard("SECRET-WEAPON", ChanceCard.ChanceType.SECRETWEAPON));
         chanceDeck.add(new ChanceCard("DRAFT", ChanceCard.ChanceType.DRAFT));
 

@@ -29,6 +29,11 @@ public class MapHandler implements Serializable {
 
     }
 
+    public void registerAsChanceObserver(ChanceObserverListener coListener) {
+        game.addCOListener(coListener);
+    }
+
+
 
     public void updateTerritory(int buttonID , int army) {
         game.updateTerritory(buttonID,army);
