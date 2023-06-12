@@ -118,6 +118,11 @@ public class Player implements Serializable {
         public void setName(String playerName) {
         }
 
+        public void removeTerritory(Territory territory)
+        {
+            this.inv.removeTerritoryFromList(territory);
+        }
+
 
     }
 

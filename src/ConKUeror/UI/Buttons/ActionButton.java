@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 
@@ -117,7 +118,14 @@ public class ActionButton extends JButton implements ActionListener{
             case 5:
                 switch (id[1]) {
                     case 0:
-                        buttonHandler.attack();
+                        try
+                        {
+                            buttonHandler.attack();
+                        }
+                        catch (IOException e1)
+                        {
+
+                        }
                         break;
                     case 1:
                         buttonHandler.increaseArmyCount();

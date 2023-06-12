@@ -35,6 +35,7 @@ import ConKUeror.UI.Panels.PlayerPanel;
 import ConKUeror.UI.PauseScreen.PauseScreen;
 import ConKUeror.domain.controller.AnimationMapListener;
 import ConKUeror.domain.controller.ButtonHandler;
+import ConKUeror.domain.controller.EndOfTheGameListener;
 import ConKUeror.domain.controller.GameHandler;
 import ConKUeror.domain.controller.HandlerFactory;
 import ConKUeror.domain.controller.IUIRefreshListener;
@@ -58,7 +59,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener, AnimationMapListener{
+public class MapView extends JFrame implements MapListener ,TerritoryButtonListener,RollDieListener,IUIRefreshListener, EndOfTheGameListener{
     private AnimationHandler animationHandler;
     private DiceAnimation diceAnimation;
     MapHandler mapHandler;
@@ -94,6 +95,8 @@ public class MapView extends JFrame implements MapListener ,TerritoryButtonListe
 
     JFrame frame;
 
+    private EndGameScreen endGameScreen;
+
 
 
 public MapView() throws IOException {
@@ -116,7 +119,7 @@ public MapView() throws IOException {
     addMapFrameAsListener();
     addMapFrameAsListenertoListenTerrittoryButtonInteraction();
     addMapFrameAsListenerForRollEvent();
-
+    addAsEndScreenListener();
 
     pauseAndResumeButton.addActionListener(new PauseButtonHandler(this));
     helpButton.addActionListener(new HelpButtonHandler());
@@ -601,7 +604,31 @@ public void showAnimation(int number1, int number2) {
 
 
 
+    public void addAsEndScreenListener()
+    {
+        buttonHandler.registerAsEndScreenListener(this);
+    }
 
+
+    @Override
+    public void resolveGame(Player player) throws IOException
+    {
+        endGameScreen = new EndGameScreen(player);
+        endGameScreen.setVisible(true);
+    }
+
+    public void addAsEndScreenListener()
+    {
+        buttonHandler.registerAsEndScreenListener(this);
+    }
+
+
+    @Override
+    public void resolveGame(Player player) throws IOException
+    {
+        endGameScreen = new EndGameScreen(player);
+        endGameScreen.setVisible(true);
+    }
 
 
 
